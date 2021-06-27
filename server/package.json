@@ -1,0 +1,35 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "EsseDon backend API server package",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/warferton/EsseDonWeb.git#master"
+  },
+  "keywords": [
+    "server",
+    "EsseDon"
+  ],
+  "author": "Alex Kirillov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/warferton/EsseDonWeb/issues"
+  },
+  "homepage": "https://github.com/warferton/EsseDonWeb/tree/master#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.3.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
