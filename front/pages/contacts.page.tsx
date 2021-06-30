@@ -14,7 +14,7 @@ export default function EventPage() {
         @TODO
            Future Structure
 
-                *Contact*
+                **Contacts**
 
             <Footer/>
         */}
