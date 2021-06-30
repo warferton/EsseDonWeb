@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { LogoHeader } from '../components/header/header.compenent'
+import { Footer } from '../components/footer/footer.component'
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
       </Head>
 
       <LogoHeader/>
-
+      <Footer/>
       {/**
         @TODO
            Future Structure
