@@ -6,7 +6,7 @@ export function Footer() {
             <p className = { styles.infoText }>
                 Ростов-на-Дону
                 <br />Красноармейская 166
-                ‎<br />+7 863-310-41-10
+                ‎<br /><a href="tel: +78633104110"> +7 863 310 41 10 </a>
             </p>
             <h1 className = { styles.motoText}>
                 Jazz lives here<span className = { styles.motoDot}>.</span>
