@@ -20,7 +20,7 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 340,
+    maxWidth: 350,
     backgroundColor: 'black',
     borderRadius: '15px',
     margin:'2rem',
@@ -38,7 +38,7 @@ const useStyles = makeStyles({
       fontsize: '14px'
   },
   dateText: {
-      fontWeight: 200,
+      fontWeight: 100,
       fontsize: '8px'
   },
   aboutText: {
@@ -70,7 +70,7 @@ export function EventCard() {
                 <CardMedia
                 component="img"
                 alt="Some Musician"
-                height="140"
+                height="240"
                 image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.zastavki.com%2Fpictures%2Foriginals%2F2013%2FMusic_B.B._King_musician_047287_.jpg&f=1&nofb=1"
                 title="Some Musician"
                 />
@@ -79,7 +79,7 @@ export function EventCard() {
                         The B-Man
                     </Typography>
                     <Typography gutterBottom component="h2" className = { classes.text + ' ' + classes.dateText }>
-                        May 4, 13:35, Wd
+                        May 4 13:35 Wd
                     </Typography>
                     <Chip 
                     label='от 1400р'
