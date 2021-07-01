@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { LogoHeader } from '../components/header/header.compenent'
+import { Footer } from '../components/footer/footer.component'
 
 export default function EventPage() {
   return (
@@ -40,6 +41,7 @@ export default function EventPage() {
         */}
 
       <LogoHeader/>
+      <Footer />
     </>
   )
 }
