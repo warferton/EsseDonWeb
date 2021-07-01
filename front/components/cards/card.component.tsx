@@ -35,14 +35,14 @@ const useStyles = makeStyles({
   },
   titleText: {
       fontWeight: 500,
-      fontsize: '14px'
+      fontsize: '20px'
   },
   dateText: {
       fontWeight: 100,
-      fontsize: '8px'
+      fontsize: '16px'
   },
   aboutText: {
-      marginTop: '15px'
+      marginTop: '14px'
   },
   chip: {
       backgroundColor: '#FF3333',
@@ -54,7 +54,8 @@ const useStyles = makeStyles({
     backgroundColor: '#222222'
   },
   button:{
-      borderRadius: '15px'
+      borderRadius: '15px',
+      marginBottom: '1em'
   }
 
 });
