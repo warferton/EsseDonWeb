@@ -26,8 +26,6 @@ const useStyles = makeStyles({
     margin:'2rem',
   },
   contentContainer: {
-      borderTopLeftRadius: '30px',
-      borderTopRightRadius: '30px',
       backgroundColor: '#222222'
   },
   text: {
