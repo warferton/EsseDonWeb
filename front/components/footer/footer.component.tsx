@@ -1,16 +1,35 @@
+import { Container, Typography, Link } from '@material-ui/core';
+import CallIcon from '@material-ui/icons/Call';
 import styles from '../../styles/Footer.module.css';
 
 export function Footer() {
     return(
-        <div className = { styles.footerBackground }>
-            <p className = { styles.infoText }>
+        <Container disableGutters maxWidth={ false } className = { styles.footerBackground }>
+            <Typography align='center' className = { styles.infoText }>
                 Ростов-на-Дону
-                <br />Красноармейская 166
-                ‎<br /><a href="tel: +78633104110"> +7 863 310 41 10 </a>
-            </p>
-            <h1 className = { styles.motoText}>
-                Jazz lives here<span className = { styles.motoDot}>.</span>
-            </h1>
-        </div>
+            </Typography>
+            <Typography align='center' className = { styles.infoText }>
+                Красноармейская 166
+            </Typography> 
+            <Typography align='center' className = { styles.infoText }>
+                <Link 
+                align='center' 
+                color="inherit" 
+                href="tel: +78633104110"
+                style={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center'
+                }}> 
+                    <CallIcon fontSize='small' viewBox='0 0 25 25'/>
+                    { '+7 863 310 41 10' }
+                </Link>
+            </Typography>
+            <Typography align='center' variant='h1' className = { styles.motoText }>
+                Jazz lives here
+                <span className = { styles.motoDot}>.</span>
+            </Typography>
+        </Container>
     );
 }

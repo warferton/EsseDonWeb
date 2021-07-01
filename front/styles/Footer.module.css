@@ -1,33 +1,28 @@
 .footerBackground {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: 'flex-end';
-    padding: 10px;
-    background-color: #121212;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+  padding: 10px;
+  background-color: #121212;
+  position: fixed;
+  bottom: 0;
 }
 
 .infoText {
-    font-size: 20px;
-    font-family: 'Helvetica Neue';
-    font-weight: lighter;
-    line-height: 30px;
-    color: white;
+  font-size: 20px !important;
+  font-family: "Helvetica Neue" !important;
+  font-weight: lighter !important;
+  line-height: 30px !important;
+  color: white !important;
+  align-items: center;
 }
 
 .motoText {
-    font-size: 44px;
-    font-family: 'Proxima Nova';
-    color: white;
-    margin: 10px;
+  font-size: 44px !important;
+  font-family: "Proxima Nova" !important;
+  color: white;
+  margin: 10px;
 }
 
 .motoDot {
-    font-size: 44px;
-    font-family: 'Proxima Nova';
-    color: yellow;
+  font-size: 44px;
+  font-family: "Proxima Nova";
+  color: yellow;
 }
