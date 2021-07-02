@@ -2,8 +2,6 @@ import Head from 'next/head'
 import { LogoHeader } from '../components/header/header.compenent'
 import { EventCard } from '../components/cards/card.component'
 import { Footer } from '../components/footer/footer.component'
-import { SmallEventCard } from '../components/cards/smallCard.component'
-import { CarouselSmall } from '../components/carousels/smallCarousel.component'
 
 export default function Home() {
   return (
@@ -15,9 +13,6 @@ export default function Home() {
       </Head>
 
       <LogoHeader/>
-
-
-        <SmallEventCard />
 
       <EventCard/>
       <EventCard/>
