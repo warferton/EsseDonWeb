@@ -1,34 +1,41 @@
-
 .root {
-    max-width: 220px;
-    background-color: white;
-    border-radius: 15px;
-    margin: 2rem;
+  max-width: 280px;
+  max-height: 200px;
+  background-color: rgb(243, 243, 243) !important;
+  border-radius: 30px !important;
+  margin: 2rem;
 }
 
 .picture {
-    max-width: 220px;
-    background-color: white;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+  width: 220px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
-.text{
-    font-family: "Helvetica Neue" !important;
-    color: black !important;
-    align-items: left;
-    margin-top: 10px;
-
+.text {
+  font-family: "Helvetica Neue" !important;
+  color: black !important;
+  align-items: left;
+  margin-top: 10px;
 }
 
 .titleText {
-    font-size: 16px !important;
-    font-weight: 500 !important;
-    line-height: 20px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  line-height: 18px !important;
 }
 
 .dateText {
-    font-size: 14px !important;
-    font-weight: lighter !important;
-    line-height: 24px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 24px !important;
+}
+
+.cardContent {
+  max-width: 280px;
+  background-color: transparent !important;
+}
+
+.action {
+  border-radius: inherit !important;
 }
