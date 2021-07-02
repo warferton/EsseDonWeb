@@ -1,0 +1,106 @@
+import { 
+    Card, 
+    CardMedia, 
+    CardContent, 
+    CardActions, 
+    CardActionArea, 
+    Chip,
+    Typography, 
+    Button, 
+    makeStyles 
+} from '@material-ui/core';
+
+/*
+  TODO
+  Transfer styles to a separete css file.
+
+  Configure Using props
+*/
+
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 350,
+    backgroundColor: 'black',
+    borderRadius: '15px',
+    margin:'2rem',
+  },
+  contentContainer: {
+      backgroundColor: '#222222'
+  },
+  text: {
+      color: 'white'
+  },
+  titleText: {
+      fontWeight: 500,
+      fontsize: '20px'
+  },
+  dateText: {
+      fontWeight: 100,
+      fontsize: '16px'
+  },
+  aboutText: {
+      marginTop: '14px'
+  },
+  chip: {
+      backgroundColor: '#FF3333',
+      color: 'white',
+      marginBottom: '3 rem'
+  },
+  actions: {
+    justifyContent: 'center',
+    backgroundColor: '#222222'
+  },
+  button:{
+      borderRadius: '15px',
+      marginBottom: '1em',
+      background: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
+  }
+
+});
+
+
+export function EventCard() {
+
+    const classes = useStyles();
+
+    return (
+        <Card raised className={ classes.root } >
+            <CardActionArea>
+                <CardMedia
+                component="img"
+                alt="Some Musician"
+                height="240"
+                image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.zastavki.com%2Fpictures%2Foriginals%2F2013%2FMusic_B.B._King_musician_047287_.jpg&f=1&nofb=1"
+                title="Some Musician"
+                />
+                <CardContent className = { classes.contentContainer }>
+                    <Typography variant="h5" component="h2" className = { classes.text + ' ' + classes.titleText }>
+                        The B-Man
+                    </Typography>
+                    <Typography gutterBottom component="h2" className = { classes.text + ' ' + classes.dateText }>
+                        May 4 13:35 Wd
+                    </Typography>
+                    <Chip 
+                    label='от 1400р'
+                    className = { classes.chip}
+                    />
+                    <Typography variant="body2" color="textSecondary" className = { classes.text + ' ' + classes.aboutText } component="p">
+                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                        across all continents except Antarctica
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+            <CardActions className = { classes.actions }>
+                <Button 
+                variant='contained'
+                size="large" 
+                color="secondary"
+                className = { classes.button }
+                >
+                    Забронировать
+                </Button>
+            </CardActions>
+        </Card>
+    )
+}
