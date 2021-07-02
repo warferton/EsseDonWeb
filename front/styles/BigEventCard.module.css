@@ -1,0 +1,45 @@
+.root {
+  max-width: 100vw;
+  border-bottom-left-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  margin: 2rem;
+}
+
+.text {
+  font-family: "Helvetica Neue" !important;
+  color: black !important;
+  align-items: left;
+  margin-top: 10px;
+}
+
+.titleText {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  line-height: 18px !important;
+}
+
+.dateText {
+  font-size: 18px !important;
+  font-weight: 300 !important;
+}
+
+.cardContent {
+  background-image: conic-gradient(
+    from 45grad at 5% -3%,
+    #ff0000,
+    50grad,
+    #7b64ff
+  ) !important;
+  padding: 0 !important;
+}
+
+.action {
+  border-radius: inherit !important;
+}
+
+.box {
+  color: white;
+  padding: 1rem !important;
+  max-width: 70%;
+  background: transparent !important;
+}

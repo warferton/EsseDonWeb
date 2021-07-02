@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import { LogoHeader } from '../components/header/header.compenent'
-import { EventCard } from '../components/cards/card.component'
 import { Footer } from '../components/footer/footer.component'
+import { BigEventCard } from '../components/cards/bigCard.component'
+import { EventCard } from '../components/cards/card.component'
 import { SmallEventCard } from '../components/cards/smallCard.component'
 
 export default function Home() {
@@ -15,9 +16,11 @@ export default function Home() {
 
       <LogoHeader/>
 
-      <SmallEventCard/>
+      <BigEventCard/>
 
-      <EventCard/>
+      {/* <SmallEventCard/>
+
+      <EventCard/> */}
 
       <Footer/>
 
