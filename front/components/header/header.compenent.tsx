@@ -1,15 +1,16 @@
+import { Container, Typography } from '@material-ui/core';
 import styles from '../../styles/Header.module.css';
 
 export function LogoHeader(){
     
     return(
-        <div className={ styles.Logo }>
-            <h2 className={ styles.BigText }>
+        <Container disableGutters maxWidth={ false } className={ styles.Logo }>
+            <Typography variant='h2' className={ styles.BigText }>
                 ЭССЄ
-            </h2>
-            <p className={ styles.SmallText}>
+            </Typography>
+            <Typography className={ styles.SmallText}>
                 Джаз Клуб
-            </p>
-        </div>
+            </Typography>
+        </Container>
     )
 }

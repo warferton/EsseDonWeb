@@ -1,4 +1,22 @@
 .footerBackground {
+  padding: 10px;
+  background-color: #121212;
+  position: fixed;
+  bottom: 0;
+}
+
+.infoText {
+  font-size: 20px !important;
+  font-family: "Helvetica Neue" !important;
+  font-weight: lighter !important;
+  line-height: 30px !important;
+  color: white !important;
+  align-items: center;
+}
+
+.motoText {
+  font-size: 44px !important;
+  font-family: "Proxima Nova" !important;
   display: flex;
   flex-direction: column;
   text-align: center;
