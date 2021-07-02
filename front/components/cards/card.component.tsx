@@ -53,7 +53,8 @@ const useStyles = makeStyles({
   },
   button:{
       borderRadius: '15px',
-      marginBottom: '1em'
+      marginBottom: '1em',
+      background: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
   }
 
 });
