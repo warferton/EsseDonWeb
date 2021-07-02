@@ -2,23 +2,11 @@ import {
     Card, 
     CardMedia, 
     CardContent, 
-    CardActions, 
     CardActionArea, 
     Typography, 
-    Button, 
-    makeStyles 
 } from '@material-ui/core';
-import styles from '../../styles/SmallEventCard.css';
+import styles from '../../styles/SmallEventCard.module.css';
 
-/**
- * 
- * 
- * style has to be changed according to adobe XD
- * 
- * 
- * 
- * 
-**/
 
 export function SmallEventCard(){
 
