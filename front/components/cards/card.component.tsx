@@ -20,14 +20,12 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 340,
+    maxWidth: 350,
     backgroundColor: 'black',
     borderRadius: '15px',
     margin:'2rem',
   },
   contentContainer: {
-      borderTopLeftRadius: '30px',
-      borderTopRightRadius: '30px',
       backgroundColor: '#222222'
   },
   text: {
@@ -35,14 +33,14 @@ const useStyles = makeStyles({
   },
   titleText: {
       fontWeight: 500,
-      fontsize: '14px'
+      fontsize: '20px'
   },
   dateText: {
-      fontWeight: 200,
-      fontsize: '8px'
+      fontWeight: 100,
+      fontsize: '16px'
   },
   aboutText: {
-      marginTop: '15px'
+      marginTop: '14px'
   },
   chip: {
       backgroundColor: '#FF3333',
@@ -54,7 +52,9 @@ const useStyles = makeStyles({
     backgroundColor: '#222222'
   },
   button:{
-      borderRadius: '15px'
+      borderRadius: '15px',
+      marginBottom: '1em',
+      background: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
   }
 
 });
@@ -70,7 +70,7 @@ export function EventCard() {
                 <CardMedia
                 component="img"
                 alt="Some Musician"
-                height="140"
+                height="240"
                 image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.zastavki.com%2Fpictures%2Foriginals%2F2013%2FMusic_B.B._King_musician_047287_.jpg&f=1&nofb=1"
                 title="Some Musician"
                 />
@@ -79,7 +79,7 @@ export function EventCard() {
                         The B-Man
                     </Typography>
                     <Typography gutterBottom component="h2" className = { classes.text + ' ' + classes.dateText }>
-                        May 4, 13:35, Wd
+                        May 4 13:35 Wd
                     </Typography>
                     <Chip 
                     label='от 1400р'
