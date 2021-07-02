@@ -26,7 +26,8 @@ const useStyles = makeStyles({
     margin:'2rem',
   },
   contentContainer: {
-      backgroundColor: '#222222'
+      backgroundColor: '#222222',
+      borderTop: '2px solid #101010'
   },
   text: {
       color: 'white'
@@ -37,7 +38,7 @@ const useStyles = makeStyles({
   },
   dateText: {
       fontWeight: 100,
-      fontsize: '16px'
+      fontSize: '14px'
   },
   aboutText: {
       marginTop: '14px'
@@ -49,11 +50,12 @@ const useStyles = makeStyles({
   },
   actions: {
     justifyContent: 'center',
-    backgroundColor: '#222222'
+    backgroundColor: '#222222',
+    paddingTop: 0
   },
   button:{
       borderRadius: '15px',
-      marginBottom: '1em',
+      marginBottom: '0.45em',
       background: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
   }
 
@@ -65,7 +67,7 @@ export function EventCard() {
     const classes = useStyles();
 
     return (
-        <Card raised className={ classes.root } >
+        <Card raised className={ classes.root }>
             <CardActionArea>
                 <CardMedia
                 component="img"
