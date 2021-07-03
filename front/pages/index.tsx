@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import { LogoHeader } from '../components/header/header.compenent'
-import { AdminHeader } from '../components/adminHeader/adminHeader.component'
 import { Footer } from '../components/footer/footer.component'
 import { BigEventCard } from '../components/cards/bigCard.component'
 import { EventCard } from '../components/cards/card.component'
 import { SmallEventCard } from '../components/cards/smallCard.component'
 import { FreeEventForm } from '../components/event-page-components/form/freeBookingForm.component'
+import { TopCard } from '../components/event-page-components/top-card/event-page-top-card.component'
 
 export default function Home() {
   return (
@@ -16,14 +16,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AdminHeader/>
+      <LogoHeader/>
+      
 
-      {/* <SmallEventCard/>
+      {/* <SmallEventCard/> */}
 
-      <EventCard/> */}
-
+      {/* <EventCard/> */}
 
       {/* <FreeEventForm/> */}
+
+      <TopCard/>
 
 
       <Footer/>
