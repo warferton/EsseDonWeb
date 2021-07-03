@@ -38,7 +38,7 @@ export function EventLineup() {
                 
                     { 
                         ['Gaol Males', 'Test Pest', 'Ewrq Apege'].map( person => 
-                            <Typography paragraph className={ classes.lineupText }>
+                            <Typography key={ person } paragraph className={ classes.lineupText }>
                                 { person }
                             </Typography>
                             )
