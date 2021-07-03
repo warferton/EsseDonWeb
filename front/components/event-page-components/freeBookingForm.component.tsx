@@ -2,7 +2,7 @@ import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui'
 import { Container, Box, Typography, Button, LinearProgress } from '@material-ui/core'
 
-import styles from '../../../styles/BookingForm.module.css'
+import styles from '../../styles/BookingForm.module.css'
 
 
 interface Values {

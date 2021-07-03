@@ -12,7 +12,6 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    // maxWidth: '90%',
     backgroundColor: 'black',
     borderRadius: '0px',
     margin: 'auto'
