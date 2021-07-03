@@ -4,7 +4,6 @@ import { Footer } from '../components/footer/footer.component'
 import { BigEventCard } from '../components/cards/bigCard.component'
 import { EventCard } from '../components/cards/card.component'
 import { SmallEventCard } from '../components/cards/smallCard.component'
-import { FreeEventForm } from '../components/event-page-components/freeBookingForm.component'
 
 export default function Home() {
   return (
@@ -16,13 +15,9 @@ export default function Home() {
       </Head>
 
       <LogoHeader/>
+     
 
-      {/* <SmallEventCard/>
-
-      <EventCard/> */}
-
-
-      <FreeEventForm/>
+      <BigEventCard/>
 
 
       <Footer/>

@@ -1,14 +1,16 @@
+import { Container, Typography } from '@material-ui/core';
+
 import styles from '../../styles/Header.module.css';
 
 export function AdminHeader () {
     return(
-        <div className={ styles.Logo }>
-            <h2 className={ styles.BigText }>
-                ЭССЄ
-            </h2>
-            <p className={ styles.SmallText}>
-                ADMIN
-            </p>
-    </div>
+    <Container disableGutters maxWidth={ false } className={ styles.Logo }>
+        <Typography variant='h2' className={ styles.BigText }>
+            ЭССЄ
+        </Typography>
+        <Typography className={ styles.SmallText}>
+            ADMIN
+        </Typography>
+    </Container>
     );
 }
