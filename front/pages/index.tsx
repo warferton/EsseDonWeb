@@ -15,13 +15,10 @@ export default function Home() {
       </Head>
 
       <LogoHeader/>
-      
-
-      <SmallEventCard/>
-
-      <EventCard/>
+     
 
       <BigEventCard/>
+
 
       <Footer/>
 
