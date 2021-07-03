@@ -19,6 +19,9 @@ export default function Home() {
 
       <BigEventCard/>
 
+      <SmallEventCard/>
+
+      <EventCard/>
 
       <Footer/>
 

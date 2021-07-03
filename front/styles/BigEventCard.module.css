@@ -1,6 +1,5 @@
 .root {
-  width: 40%;
-  max-width: 100vw;
+  max-width: 450px;
   border-bottom-left-radius: 20px !important;
   border-bottom-right-radius: 20px !important;
   margin: 2rem;
