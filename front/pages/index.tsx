@@ -17,7 +17,13 @@ export default function Home() {
       <LogoHeader/>
      
 
-      <BigEventCard/>
+      {/* V Needs Carousel V */}
+            <BigEventCard/>
+            <BigEventCard/>
+            <BigEventCard/>
+            <BigEventCard/>
+            <BigEventCard/>
+      {/*                     */}
 
       <SmallEventCard/>
 
