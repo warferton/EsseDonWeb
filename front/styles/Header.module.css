@@ -17,7 +17,7 @@
 .BigText {
   font-size: 60px;
   font-weight: 50 !important;
-  font-family: "Jazz", "Helvеtica neue", roboto !important;
+  font-family: unset !important;
   margin: 0px;
   padding: 0px;
   color: white;
