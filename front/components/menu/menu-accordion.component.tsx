@@ -1,3 +1,4 @@
+import { OverridableComponent } from '@material-ui/core/OverridableComponent';
 import { makeStyles } from '@material-ui/core/styles';
 import { ExpandMoreTwoTone } from '@material-ui/icons';
 import {
@@ -8,7 +9,6 @@ import {
       SvgIconTypeMap,     
       Typography,         
 } from '@material-ui/core';
-import { OverridableComponent } from '@material-ui/core/OverridableComponent';
 
 
 interface IProps{
@@ -20,20 +20,15 @@ interface IProps{
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: '2rem',
-    marginBottom: '2rem',
-    width: '95%',
-  },
   heading: {
     margin: 'auto'
   },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
   icon: {
-    fontSize: '50px'
+    fontSize: '40px'
+  },
+  root: {
+    display: 'block',
+    padding: 0
   }
 }));
 
@@ -46,21 +41,24 @@ export function MenuAccordion(props : IProps) {
 
     return(
             
-        <Accordion expanded={ expanded } onChange={ onChange }>
+        <Accordion expanded={ expanded } onChange={ onChange } TransitionProps={{ unmountOnExit: true }}>
             <AccordionSummary
                 expandIcon={ <ExpandMoreTwoTone fontSize='large'/> }
                 aria-controls="drinks-content"
                 id="drinks-header"
             >
                 <Icon className={ classes.icon }/>
-                <Typography variant='h3' className={ classes.heading }>
-                { title }
+                <Typography variant='h4' className={ classes.heading }>
+                    
+                    { title }
+
                 </Typography>
             </AccordionSummary>
-            <AccordionDetails>
-                
+            <AccordionDetails classes={ classes }>
+
                 { children }
 
             </AccordionDetails>
         </Accordion>
+
     )}
