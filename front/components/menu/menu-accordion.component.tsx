@@ -1,14 +1,23 @@
-import { SetStateAction, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { ExpandMoreTwoTone, LocalBar, RestaurantSharp } from '@material-ui/icons';
+import { ExpandMoreTwoTone } from '@material-ui/icons';
 import {
-      Container,
       Accordion,       
       AccordionDetails, 
+      AccordionProps, 
       AccordionSummary,     
+      SvgIconTypeMap,     
       Typography,         
 } from '@material-ui/core';
+import { OverridableComponent } from '@material-ui/core/OverridableComponent';
 
+
+interface IProps{
+    title: string;
+    expanded?: boolean;
+    children?: any;
+    icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
+    onChange?: AccordionProps["onChange"];
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,56 +38,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export function MenuAccordion() {
+export function MenuAccordion(props : IProps) {
 
-  const classes = useStyles();
-  const [expanded, setExpanded] = useState(null);
-
-  const handleChange = (panel : SetStateAction<string>) => (event: any, isExpanded : boolean) => {
-    setExpanded(isExpanded ? panel : null);
-  };
-
+    const { title, expanded, icon: Icon, children, onChange } = props
+    
+    const classes = useStyles();
 
     return(
-    <Container className={ classes.root }>
-          
-        <Accordion expanded={ expanded === 'drinks' } onChange={ handleChange('drinks') }>
-          <AccordionSummary
-            expandIcon={ <ExpandMoreTwoTone fontSize='large'/> }
-            aria-controls="drinks-content"
-            id="drinks-header"
-          >
-            <LocalBar className={ classes.icon }/>
-            <Typography variant='h3' className={ classes.heading }>
-              Бар
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-              maximus est, id dignissim quam.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+            
+        <Accordion expanded={ expanded } onChange={ onChange }>
+            <AccordionSummary
+                expandIcon={ <ExpandMoreTwoTone fontSize='large'/> }
+                aria-controls="drinks-content"
+                id="drinks-header"
+            >
+                <Icon className={ classes.icon }/>
+                <Typography variant='h3' className={ classes.heading }>
+                { title }
+                </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                
+                { children }
 
-        <Accordion expanded={ expanded === 'food' } onChange={ handleChange('food') }>
-          <AccordionSummary
-            expandIcon={ <ExpandMoreTwoTone fontSize='large'/> }
-            aria-controls="food-content"
-            id="food-header"
-          >
-            <RestaurantSharp className={ classes.icon }/>
-            <Typography variant='h3' className={ classes.heading }>
-              Кухня
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
-              diam eros in elit. Pellentesque convallis laoreet laoreet.
-            </Typography>
-          </AccordionDetails>
+            </AccordionDetails>
         </Accordion>
-    </Container>
-    )
-}
+    )}

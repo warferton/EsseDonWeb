@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { LogoHeader } from '../components/headers/header.compenent';
-import { MenuAccordion } from '../components/menu/menu-accordion.component';
+import { Menu } from '../components/menu/menu.component';
 import { Footer } from '../components/footer/footer.component';
 
 export default function EventPage() {
@@ -17,7 +17,7 @@ export default function EventPage() {
 
       <LogoHeader/>
 
-      <MenuAccordion/>
+      <Menu/>
 
       <Footer/>
       
