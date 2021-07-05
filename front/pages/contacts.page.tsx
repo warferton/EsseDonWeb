@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { LogoHeader } from '../components/header/header.compenent'
+import { LogoHeader } from '../components/headers/header.compenent'
 
 export default function EventPage() {
   return (
