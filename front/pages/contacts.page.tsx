@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { LogoHeader } from '../components/header/header.compenent'
-//import MapYand from '../components/contact-page-components/map.component.tsx'
+import { MapBox } from '../components/contact-page-components/map.component'
 import { AboutContact } from '../components/contact-page-components/about.component'
 import { ArtistForm } from '../components/contact-page-components/artist-form.component'
 
@@ -26,6 +26,8 @@ export default function Contacts(props: boolean) {
         */}
 
       <LogoHeader/>
+
+      <MapBox/>
 
       <AboutContact />
 
