@@ -20,9 +20,6 @@ export default function Home() {
       {/* V Needs Carousel V */}
             <BigEventCard/>
             <BigEventCard/>
-            <BigEventCard/>
-            <BigEventCard/>
-            <BigEventCard/>
       {/*                     */}
 
       <SmallEventCard/>

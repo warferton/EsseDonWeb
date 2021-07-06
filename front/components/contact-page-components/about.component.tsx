@@ -1,5 +1,5 @@
 import { Link, Box, Typography, makeStyles } from '@material-ui/core';
-import CallIcon from '@material-ui/icons/Call';
+import { Call, MailOutline }from '@material-ui/icons';
 
 const useStyles = makeStyles({
     root:{
@@ -52,7 +52,7 @@ export function AboutContact() {
                     alignItems: 'center',
                     flexWrap: 'wrap',
                 }}> 
-                    <CallIcon fontSize='default' viewBox='0 0 25 25'/>
+                    <Call fontSize='default' viewBox='0 0 25 25'/>
                     { '+7 863 310 41 10' }
                 </Link>
             </Typography>
@@ -62,11 +62,11 @@ export function AboutContact() {
                 E-mail:
             </Typography>
 
-            <Typography paragraph className = { classes.text }>
+            <Typography className = { classes.text }>
                 По вопросам сотрудничества
             </Typography>
 
-            <Typography>
+            <Typography paragraph>
                 <Link href="emailto: pr@jazzesse.ru"
                 style={{
                     fontSize: '18px',
@@ -77,11 +77,11 @@ export function AboutContact() {
             </Typography>
 
 
-            <Typography paragraph className = { classes.text }>
+            <Typography className = { classes.text }>
                 По вопросам организации концертов
             </Typography>
 
-            <Typography>
+            <Typography paragraph>
                 <Link href="emailto: art@jazzesse.ru"
                 style={{
                     fontSize: '18px',
