@@ -1,5 +1,6 @@
 import { Link, Box, Typography, makeStyles } from '@material-ui/core';
-import { Call, MailOutline }from '@material-ui/icons';
+import { Room, PhoneEnabled, MailRounded }from '@material-ui/icons';
+import React from 'react';
 
 const useStyles = makeStyles({
     root:{
@@ -27,8 +28,15 @@ export function AboutContact() {
 
     return(
         <Box className={ classes.root }>
-            <Typography paragraph className = {classes.heading }>
-                Адрес:
+            <Typography paragraph className = {classes.heading }style={
+                { 
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                }}
+            >
+                Адрес
+                <Room fontSize='large' viewBox='0 0 28 28'/>
             </Typography>
 
             <Typography paragraph className = { classes.text }>
@@ -40,26 +48,33 @@ export function AboutContact() {
             </Typography>
 
 
-            <Typography paragraph className = {classes.heading }>
-                Телефон:
-            </Typography>
-
-            <Typography className = { classes.text }>
-                <Link 
-                href="tel: +78633104110"
-                style={{ 
+            <Typography paragraph className = {classes.heading } style={
+                { 
                     display: 'flex',
                     alignItems: 'center',
                     flexWrap: 'wrap',
-                }}> 
-                    <Call fontSize='default' viewBox='0 0 25 25'/>
+                }}
+            >
+                Телефон
+                <PhoneEnabled fontSize='large' viewBox='0 0 28 28'/>
+            </Typography>
+
+            <Typography className = { classes.text }>
+                <Link> 
                     { '+7 863 310 41 10' }
                 </Link>
             </Typography>
 
 
-            <Typography paragraph className = {classes.heading }>
-                E-mail:
+            <Typography paragraph className = {classes.heading } style={ 
+                 { 
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                }}
+                >
+                    E-mail
+                    <MailRounded fontSize='large' viewBox='0 0 28 28' />
             </Typography>
 
             <Typography className = { classes.text }>

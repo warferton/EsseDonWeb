@@ -1,15 +1,25 @@
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui'
 import { Container, Box, Typography, Button, LinearProgress, makeStyles } from '@material-ui/core'
+import { InfoOutlined } from '@material-ui/icons';
+import { PhoneRegex, EmailRegex } from '../../regex/regex';
 
 import styles from '../../styles/BookingForm.module.css'
+import { Alert } from '../alerts/alert.component';
 
 const useStyles = makeStyles({
     text: {
-        padding: '1rem',
-        fontSize: '18px',
+        padding: '0.5rem',
+        fontSize: '17px',
         lineHeight: '25px',
         fontWeight: 300,
+    },
+    alertBox: {
+        border: '2px solid black',
+        padding: '0.1rem',
+        margin: '0.5rem',
+        borderRadius: '10px',
+        backgroundColor: '#DDDDDD'
     }
 });
 
@@ -24,9 +34,8 @@ interface Values {
 
 export function ArtistForm() {
 
-    const textClasses = useStyles();
-    const email_regex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
-    const telephone_regex =  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/; 
+    const classes = useStyles();
+
 
     return(
         <Container className={ styles.container }>
@@ -36,9 +45,9 @@ export function ArtistForm() {
                 </Typography>
             </Box>
             <Box>
-            <Typography className={ textClasses.text}>
-                Мы открыты для сотрудничества и коллаборации. Расскажите о себе или поделитесь своей идеей и мы с вами свяжемся.                
-            </Typography>
+                <Alert severity="secondary" size='large'>
+                    Мы открыты для сотрудничества и коллаборации. Расскажите о себе или поделитесь своей идеей и мы с вами свяжемся. 
+                </Alert>
                 <Formik
                 initialValues={{
                     name: '',
@@ -54,7 +63,7 @@ export function ArtistForm() {
                     if(!values.tel){
                         errors.tel = 'Обязательное поле';
                     }
-                    else if(!telephone_regex.test(values.tel)){
+                    else if(!PhoneRegex.test(values.tel)){
                         errors.tel = 'Неправильный номер';
                     }
                     if (!values.comment){
@@ -63,7 +72,7 @@ export function ArtistForm() {
                     if (!values.email) {
                         errors.email = 'Обязательное поле';
                     } 
-                    else if (!email_regex.test(values.email)){
+                    else if (!EmailRegex.test(values.email)){
                         errors.email = 'Неправильный адрес';
                     }
 

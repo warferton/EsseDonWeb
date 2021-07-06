@@ -1,6 +1,7 @@
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui'
 import { Container, Box, Typography, Button, LinearProgress } from '@material-ui/core'
+import { PhoneRegex, EmailRegex } from '../../regex/regex';
 
 import styles from '../../styles/BookingForm.module.css'
 
@@ -14,9 +15,6 @@ interface Values {
 }
 
 export function FreeEventForm() {
-
-    const email_regex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
-    const telephone_regex =  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/; 
 
     return(
         <Container className={ styles.container }>
@@ -41,7 +39,7 @@ export function FreeEventForm() {
                     if(!values.tel){
                         errors.tel = 'Required';
                     }
-                    else if(!telephone_regex.test(values.tel)){
+                    else if(!PhoneRegex.test(values.tel)){
                         errors.tel = 'Invalid phone number';
                     }
                     if (!Number.isInteger(values.people_number)) {
@@ -50,7 +48,7 @@ export function FreeEventForm() {
                     if (!values.email) {
                         errors.email = 'Required';
                     } 
-                    else if (!email_regex.test(values.email)){
+                    else if (!EmailRegex.test(values.email)){
                         errors.email = 'Invalid email address';
                     }
 
