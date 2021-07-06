@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { LogoHeader } from '../components/header/header.compenent'
+import { LogoHeader } from '../components/headers/header.compenent'
 import { Footer } from '../components/footer/footer.component'
 import { TopCard } from '../components/event-page-components/event-page-top-card.component'
 import { FreeEventForm } from '../components/event-page-components/freeBookingForm.component'
