@@ -1,7 +1,11 @@
-import Head from 'next/head'
-import { LogoHeader } from '../components/header/header.compenent'
+import Head from 'next/head';
+import { LogoHeader } from '../components/headers/header.compenent';
+import { Menu } from '../components/menu/menu.component';
+import { Footer } from '../components/footer/footer.component';
 
 export default function EventPage() {
+
+
   return (
     <>
       <Head>
@@ -10,15 +14,13 @@ export default function EventPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-        {/**
-        @TODO
-           Future Structure
-
-           * Concept in process *
-           
-        */}
 
       <LogoHeader/>
+
+      <Menu/>
+
+      <Footer/>
+      
     </>
   )
 }

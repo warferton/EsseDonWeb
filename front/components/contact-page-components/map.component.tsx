@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Container, makeStyles} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core';
 import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = 'pk.eyJ1IjoiaXZhbmlzc2ltb28iLCJhIjoiY2tidmJmNjkyMDBrMDJzcWUybmdndGs1dCJ9.LXSDnZPAPYD7ktCnzMB1nQ'; 
 

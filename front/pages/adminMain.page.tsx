@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { AdminHeader } from '../components/adminHeader/adminHeader.component';
+import { AdminHeader } from '../components/headers/adminHeader.component';
 
 export default function AdminMain () {
     return (

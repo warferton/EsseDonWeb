@@ -20,10 +20,9 @@ export default function Contacts(props: boolean) {
         @TODO
            Future Structure
 
-                **Contacts**
+      <AboutContact />
 
-            <Footer/>
-        */}
+      {artist && <ArtistForm />}
 
       <LogoHeader/>
 

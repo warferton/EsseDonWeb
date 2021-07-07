@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { LogoHeader } from '../components/header/header.compenent'
+import { LogoHeader } from '../components/headers/header.compenent'
 import { Footer } from '../components/footer/footer.component'
 import { BigEventCard } from '../components/cards/bigCard.component'
 import { EventCard } from '../components/cards/card.component'
@@ -18,9 +18,6 @@ export default function Home() {
      
 
       {/* V Needs Carousel V */}
-            <BigEventCard/>
-            <BigEventCard/>
-            <BigEventCard/>
             <BigEventCard/>
             <BigEventCard/>
       {/*                     */}
