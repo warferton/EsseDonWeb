@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 });
 
 
-export function EventController() {
+export function EventControlList() {
 
     const classes = useStyles();
     const [checked, setChecked] = useState([1]);
@@ -51,7 +51,7 @@ export function EventController() {
     return(
         <>
             <List dense className={classes.root}>
-                {[0, 1, 2, 3].map((value) => {
+                {[0, 1, 2, 3, 4, 5, 6].map((value) => {
                     const labelId = `checkbox-list-secondary-label-${value}`;
                     return (
                     <ListItem key={value} button>

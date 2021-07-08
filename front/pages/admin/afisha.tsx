@@ -2,8 +2,9 @@ import Head from 'next/head'
 import { SetStateAction, useState, ChangeEvent } from 'react';
 import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
-import { EventController } from '../../components/admin-components/afisha-page/event-controler.component';
-import { Container, Typography, makeStyles } from '@material-ui/core';
+import { EventControlList } from '../../components/admin-components/afisha-page/event-control-list.component';
+import { Container, Button, Typography, makeStyles } from '@material-ui/core';
+import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,6 +15,14 @@ const useStyles = makeStyles((theme) => ({
   },
   accordion: {
       marginTop: '2rem',
+  },
+  buttonContainer:{
+      marginTop: '4rem',
+      padding: '1rem',
+  },
+  backButton: {
+    color: 'white',
+    backgroundColor: '#222222'
   }
 }));
 
@@ -52,7 +61,7 @@ export default function Afisha () {
                 className={ classes.accordion }
                 >
                 
-                    <EventController/>
+                    <EventControlList/>
 
                 </MenuAccordion>
 
@@ -62,7 +71,7 @@ export default function Afisha () {
                 onChange={ handleChange('weekBest') } 
                 >
 
-                    <EventController/>
+                    <EventControlList/>
                 
                 </MenuAccordion>
 
@@ -72,12 +81,25 @@ export default function Afisha () {
                 onChange={ handleChange('all') } 
                 >
 
-                    <EventController/>
+                    <EventControlList/>
                 
                 </MenuAccordion>
 
+            </Container>
 
-
+            <Container className={ classes.buttonContainer }>
+                <Button 
+                variant='contained' 
+                color='primary' 
+                href="./" 
+                fullWidth 
+                startIcon={ <ArrowBack/> }
+                className={ classes.backButton }
+                >
+                    <Typography variant='h6'>
+                        Назад
+                    </Typography>
+                </Button>
             </Container>
 
             
