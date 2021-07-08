@@ -1,27 +1,11 @@
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui'
-import { Container, Box, Typography, Button, LinearProgress, makeStyles } from '@material-ui/core'
-import { InfoOutlined } from '@material-ui/icons';
+import { Container, Box, Typography, Button, LinearProgress } from '@material-ui/core'
 import { PhoneRegex, EmailRegex } from '../../regex/regex';
 
 import styles from '../../styles/BookingForm.module.css'
 import { Alert } from '../alerts/alert.component';
 
-const useStyles = makeStyles({
-    text: {
-        padding: '0.5rem',
-        fontSize: '17px',
-        lineHeight: '25px',
-        fontWeight: 300,
-    },
-    alertBox: {
-        border: '2px solid black',
-        padding: '0.1rem',
-        margin: '0.5rem',
-        borderRadius: '10px',
-        backgroundColor: '#DDDDDD'
-    }
-});
 
 interface Values {
     name: string;
@@ -33,8 +17,6 @@ interface Values {
 }
 
 export function ArtistForm() {
-
-    const classes = useStyles();
 
 
     return(
