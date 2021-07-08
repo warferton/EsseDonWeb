@@ -1,9 +1,10 @@
 .root {
-  max-width: 280px;
-  max-height: 200px;
+  width: 180px;
+  height: 200px;
   background-color: rgb(243, 243, 243) !important;
   border-radius: 30px !important;
   margin: 2rem;
+  display: inline-block !important;
 }
 
 .picture {
@@ -29,6 +30,8 @@
   font-size: 14px !important;
   font-weight: 500 !important;
   line-height: 24px !important;
+  display: flex;
+  float: 0;
 }
 
 .cardContent {
