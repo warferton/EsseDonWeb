@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import Carousel from 'react-material-ui-carousel'
+import { CardSlider } from '../components/cards/slider/card-slider.component'
 import { LogoHeader } from '../components/headers/header.compenent'
 import { Footer } from '../components/footer/footer.component'
 import { BigEventCard } from '../components/cards/bigCard.component'
@@ -16,16 +18,21 @@ export default function Home() {
 
       <LogoHeader/>
      
+      <Carousel autoPlay animation='slide' indicators={ false } interval={ 10000 } timeout={ 1000 }>
+        <BigEventCard/>
+        <BigEventCard/>
+        <BigEventCard/>
+        <BigEventCard/>
+        <BigEventCard/>
+      </Carousel>
 
-      {/* V Needs Carousel V */}
-            <BigEventCard/>
-            <BigEventCard/>
-            <BigEventCard/>
-            <BigEventCard/>
-            <BigEventCard/>
-      {/*                     */}
 
-      <SmallEventCard/>
+      <CardSlider>
+        <SmallEventCard/>
+        <SmallEventCard/>
+        <SmallEventCard/>
+        <SmallEventCard/>
+      </CardSlider>
 
       <EventCard/>
 
