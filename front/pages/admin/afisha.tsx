@@ -2,12 +2,13 @@ import Head from 'next/head'
 import { SetStateAction, useState, ChangeEvent } from 'react';
 import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
+import { EventController } from '../../components/admin-components/afisha-page/event-controler.component';
 import { Container, Typography, makeStyles } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: '2rem',
+    marginTop: '5rem',
     marginBottom: '2rem',
     width: '95%',
   },
@@ -51,6 +52,7 @@ export default function Afisha () {
                 className={ classes.accordion }
                 >
                 
+                    <EventController/>
 
                 </MenuAccordion>
 
@@ -59,6 +61,8 @@ export default function Afisha () {
                 expanded={ expanded === 'weekBest' } 
                 onChange={ handleChange('weekBest') } 
                 >
+
+                    <EventController/>
                 
                 </MenuAccordion>
 
@@ -67,6 +71,8 @@ export default function Afisha () {
                 expanded={ expanded === 'all' } 
                 onChange={ handleChange('all') } 
                 >
+
+                    <EventController/>
                 
                 </MenuAccordion>
 
