@@ -1,7 +1,10 @@
 import Head from 'next/head'
-import { AdminHeader } from '../components/headers/adminHeader.component';
+import { AdminHeader } from '../../components/headers/adminHeader.component';
+import { AdminMenu } from '../../components/admin-components/main-page/admin-menu.component';
+
 
 export default function AdminMain () {
+
     return (
         <>
             <Head>
@@ -11,12 +14,9 @@ export default function AdminMain () {
             </Head>
 
             <AdminHeader />
-            <div className="afisha">
-                <h1>Афиша</h1>
-            </div>            
-            <div className="events">
-                <h1>Мероприятия</h1>
-            </div>
+
+            <AdminMenu/>
+            
         </>
     );
 }

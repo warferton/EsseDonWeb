@@ -4,7 +4,7 @@ import { LocalBar, RestaurantSharp } from '@material-ui/icons';
 import { Container } from '@material-ui/core';
 import { MenuAccordion } from './menu-accordion.component';
 import { MenuSection } from './menu-section.component';
-import { MenuItem } from './menu-item.component';
+import { MenuItem } from './menu-food-item.component';
 
 const useStyles = makeStyles((theme) => ({
   root: {
