@@ -21,6 +21,7 @@ export function MapBox(){
 
 
     useEffect(() => {
+
         if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
         container: mapContainer.current,
@@ -29,32 +30,10 @@ export function MapBox(){
         zoom: zoom, 
         });
     });
-/*
-
-
-        var marker1 = new mapboxgl.Marker()
-.setLngLat([12.554729, 55.70651])
-.addTo(map);
-
-
-    useEffect(() => {
-        if (!map.current) return; // wait for map to initialize
-        map.current.on('move', () => { 
-        var marker = new mapboxgl.Marker()
-        .setLngLat([39.711977, 47.227510])
-        .addTo(map);
-        });
-    });*/
 
     return(
 
-    <div ref={mapContainer} className={classes.mapContainer} />
-    /*
-        <Container disableGutters maxWidth={ false } className={ styles }>
-            <iframe 
-                src="https://yandex.ru/map-widget/v1/?um=constructor%3A34de29e68b2c89ace6a340ed28617ba997e31ca635137b363c0112d736355be9&amp;source=constructor">
-            </iframe>
-        </Container> 
-    */
-    );
-}
+        <div ref={mapContainer} className={classes.mapContainer} />
+
+    ); 
+} 
