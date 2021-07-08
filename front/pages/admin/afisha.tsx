@@ -4,8 +4,7 @@ import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
 import { EventListItemChecbox as ListItem} from '../../components/admin-components/list-components/list-item.component';
-import { Container, Button, Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
-import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
+import { Container, Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { motion } from 'framer-motion';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -28,14 +27,14 @@ const useStyles = makeStyles((theme: Theme) =>
     }
 }));
 
-
-export default function Afisha () {
+export default function Afisha() {
 
     const classes = useStyles();
 
     const [expanded, setExpanded] = useState(null);
 
     const [activeList, setActiveList] = useState(false);
+
 
     const handleChange = (panel : SetStateAction<string>) => (event: ChangeEvent<{}>, isExpanded : boolean) => {
         setExpanded(isExpanded ? panel : null);
@@ -105,34 +104,6 @@ export default function Afisha () {
 
                 </Container>
             </motion.div>
-
-        <motion.div
-            initial={{ 
-                y: '200vw',
-                opacity: 0
-            }}
-            animate={{ 
-                y: 0,
-                opacity: 100
-             }}
-            transition={{delay: 0.5, stiffness: 90}}
-        >
-            <Container className={ classes.buttonContainer }>
-                <Button 
-                variant='contained' 
-                color='primary' 
-                href="./" 
-                fullWidth 
-                startIcon={ <ArrowBack/> }
-                className={ classes.backButton }
-                >
-                    <Typography variant='h6'>
-                        Назад
-                    </Typography>
-                </Button>
-            </Container>
-        </motion.div>
-            
         </>
     );
 }

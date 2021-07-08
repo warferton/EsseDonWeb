@@ -1,10 +1,27 @@
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui'
-import { Container, Box, Typography, Button, LinearProgress } from '@material-ui/core'
+import { Container, Box, Typography, Button, LinearProgress, makeStyles } from '@material-ui/core'
+import { InfoOutlined } from '@material-ui/icons';
 import { PhoneRegex, EmailRegex } from '../../regex/regex';
 
 import styles from '../../styles/BookingForm.module.css'
+import { Alert } from '../alerts/alert.component';
 
+const useStyles = makeStyles({
+    text: {
+        padding: '0.5rem',
+        fontSize: '17px',
+        lineHeight: '25px',
+        fontWeight: 300,
+    },
+    alertBox: {
+        border: '2px solid black',
+        padding: '0.1rem',
+        margin: '0.5rem',
+        borderRadius: '10px',
+        backgroundColor: '#DDDDDD'
+    }
+});
 
 interface Values {
     name: string;
@@ -12,44 +29,51 @@ interface Values {
     tel: string;
     people_number: string;
     comment: string;
+    videoLink: string;
 }
 
-export function FreeEventForm() {
+export function ArtistForm() {
+
+    const classes = useStyles();
+
 
     return(
         <Container className={ styles.container }>
             <Box>
                 <Typography variant='h6' className={ styles.header }>
-                    Забронировать
+                    Заявка на выступление в Эссе
                 </Typography>
             </Box>
             <Box>
+                <Alert severity="secondary" size='large'>
+                    Мы открыты для сотрудничества и коллаборации. Расскажите о себе или поделитесь своей идеей и мы с вами свяжемся. 
+                </Alert>
                 <Formik
                 initialValues={{
                     name: '',
                     tel:'',
                     email: '',
-                    people_number: 1,
+                    comment: '',
                 }}
                 validate={values => {
                     const errors: Partial<Values> = {};
                     if(!values.name){
-                        errors.name = 'Required';
+                        errors.name = 'Обязательное поле';
                     }
                     if(!values.tel){
-                        errors.tel = 'Required';
+                        errors.tel = 'Обязательное поле';
                     }
                     else if(!PhoneRegex.test(values.tel)){
-                        errors.tel = 'Invalid phone number';
+                        errors.tel = 'Неправильный номер';
                     }
-                    if (!Number.isInteger(values.people_number)) {
-                        errors.people_number = 'Invalid number';
+                    if (!values.comment){
+                        errors.comment = 'Обязательное поле';
                     }
                     if (!values.email) {
-                        errors.email = 'Required';
+                        errors.email = 'Обязательное поле';
                     } 
                     else if (!EmailRegex.test(values.email)){
-                        errors.email = 'Invalid email address';
+                        errors.email = 'Неправильный адрес';
                     }
 
                     return errors;
@@ -93,21 +117,21 @@ export function FreeEventForm() {
 
                          <Field
                             component={ TextField }
-                            name="people_number"
-                            type="number"
-                            label="Количество Персон"
-                            variant="outlined"
-                            className={ styles.formField }
-                        />
-
-                         <Field
-                            component={ TextField }
                             name="comment"
                             type="text"
-                            label="Комметарий"
+                            label="Напишите о себе или о вашей группе"
                             variant="outlined"
                             multiline
                             rows={ 3 }
+                            className={ styles.formField }
+                        />
+
+                        <Field
+                            component={ TextField }
+                            name="videoLink"
+                            type="text"
+                            label="Ссылка на видео"
+                            variant="outlined"
                             className={ styles.formField }
                         />
 
@@ -120,7 +144,7 @@ export function FreeEventForm() {
                             onClick={ submitForm }
                             className={ styles.formButton }
                         >
-                            Забронировать
+                            Отправить
                         </Button>
 
                     </Form>
