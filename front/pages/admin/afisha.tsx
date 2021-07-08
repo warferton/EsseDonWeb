@@ -2,39 +2,47 @@ import Head from 'next/head'
 import { SetStateAction, useState, ChangeEvent } from 'react';
 import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
-import { EventControlList } from '../../components/admin-components/afisha-page/event-control-list.component';
-import { Container, Button, Typography, makeStyles } from '@material-ui/core';
-import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
+import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
+import { EventListItemChecbox as ListItem} from '../../components/admin-components/list-components/list-item.component';
+import { Container, Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { motion } from 'framer-motion';
 
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: '5rem',
-    marginBottom: '2rem',
-    width: '95%',
-  },
-  accordion: {
-      marginTop: '2rem',
-  },
-  buttonContainer:{
-      marginTop: '4rem',
-      padding: '1rem',
-  },
-  backButton: {
-    color: 'white',
-    backgroundColor: '#222222'
-  }
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+        marginTop: '5rem',
+        marginBottom: '2rem',
+        width: '95%',
+    },
+    accordion: {
+        marginTop: '2rem',
+    },
+    buttonContainer:{
+        marginTop: '4rem',
+        padding: '1rem',
+    },
+    backButton: {
+        color: 'white',
+        backgroundColor: '#222222'
+    }
 }));
 
-
-export default function Afisha () {
+export default function Afisha() {
 
     const classes = useStyles();
+
     const [expanded, setExpanded] = useState(null);
+
+    const [activeList, setActiveList] = useState(false);
+
 
     const handleChange = (panel : SetStateAction<string>) => (event: ChangeEvent<{}>, isExpanded : boolean) => {
         setExpanded(isExpanded ? panel : null);
     };
+
+    setTimeout(() => {
+        setActiveList(true)
+    }, 1500);
 
     return (
         <>
@@ -46,63 +54,56 @@ export default function Afisha () {
 
             <AdminHeader />
 
+            <motion.div
+            initial={{ 
+                x: '200vw',
+                opacity: 0
+            }}
+            animate={{ 
+                x: 0,
+                opacity: 100
+             }}
+            >
+                <Container className={ classes.root }>
+                    <Container>
+                        <Typography variant='h3' align='center'>
+                            Афиша
+                        </Typography>
+                    </Container>
+                
+                <MenuAccordion 
+                    title="Главный блок мероприятий"
+                    expanded={ expanded === 'mainBlock' } 
+                    onChange={ handleChange('mainBlock') } 
+                    className={ classes.accordion }
+                    >
+                    
+                        <EventControlList active={ activeList } childWrapper={ ListItem }/>
 
-            <Container className={ classes.root }>
-                <Container>
-                    <Typography variant='h3' align='center'>
-                        Афиша
-                    </Typography>
+                    </MenuAccordion>
+
+                    <MenuAccordion 
+                    title="Лучшее на этой неделе"
+                    expanded={ expanded === 'weekBest' } 
+                    onChange={ handleChange('weekBest') } 
+                    >
+
+                        <EventControlList active={ activeList } childWrapper={ ListItem }/>
+                    
+                    </MenuAccordion>
+
+                    <MenuAccordion 
+                    title="Все мероприятия"
+                    expanded={ expanded === 'all' } 
+                    onChange={ handleChange('all') } 
+                    >
+
+                        <EventControlList active={ activeList } childWrapper={ ListItem }/>
+                    
+                    </MenuAccordion>
+
                 </Container>
-            
-               <MenuAccordion 
-                title="Главный блок мероприятий"
-                expanded={ expanded === 'mainBlock' } 
-                onChange={ handleChange('mainBlock') } 
-                className={ classes.accordion }
-                >
-                
-                    <EventControlList/>
-
-                </MenuAccordion>
-
-                <MenuAccordion 
-                title="Лучшее на этой неделе"
-                expanded={ expanded === 'weekBest' } 
-                onChange={ handleChange('weekBest') } 
-                >
-
-                    <EventControlList/>
-                
-                </MenuAccordion>
-
-                <MenuAccordion 
-                title="Все мероприятия"
-                expanded={ expanded === 'all' } 
-                onChange={ handleChange('all') } 
-                >
-
-                    <EventControlList/>
-                
-                </MenuAccordion>
-
-            </Container>
-
-            <Container className={ classes.buttonContainer }>
-                <Button 
-                variant='contained' 
-                color='primary' 
-                href="./" 
-                fullWidth 
-                startIcon={ <ArrowBack/> }
-                className={ classes.backButton }
-                >
-                    <Typography variant='h6'>
-                        Назад
-                    </Typography>
-                </Button>
-            </Container>
-
-            
+            </motion.div>
         </>
     );
 }

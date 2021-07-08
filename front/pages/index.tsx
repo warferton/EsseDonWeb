@@ -42,7 +42,6 @@ export default function Home() {
         <BigEventCard/>
       </Carousel>
 
-
       <CardSlider>
         <SmallEventCard/>
         <SmallEventCard/>
