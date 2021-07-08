@@ -4,7 +4,8 @@ import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
 import { EventListItemChecbox as ListItem} from '../../components/admin-components/list-components/list-item.component';
-import { Container, Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { Container, Typography, Button, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -104,6 +105,32 @@ export default function Afisha() {
 
                 </Container>
             </motion.div>
+
+             <motion.div
+            initial={{ 
+                y: '200vw',
+                opacity: 0
+            }}
+            animate={{ 
+                y: 0,
+                opacity: 100
+             }}
+            transition={{delay: 0.5, stiffness: 90}}
+        >
+            <Container className={ classes.buttonContainer }>
+                <Button 
+                variant='contained'
+                href='./'
+                fullWidth
+                className={ classes.backButton }
+                startIcon={ <ArrowBack/> }
+                >
+                    <Typography>
+                        Назад
+                    </Typography>
+                </Button>
+            </Container>
+        </motion.div>
         </>
     );
 }

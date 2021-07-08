@@ -18,14 +18,6 @@ export default function Home() {
       </Head>
 
       <LogoHeader/>
-     
-      <Carousel autoPlay animation='slide' indicators={ false } interval={ 10000 } timeout={ 1000 }>
-        <BigEventCard/>
-        <BigEventCard/>
-        <BigEventCard/>
-        <BigEventCard/>
-        <BigEventCard/>
-      </Carousel>
 
       <Carousel
       animation='slide' 
@@ -53,32 +45,6 @@ export default function Home() {
 
       <Footer/>
 
-
-
-      {/**
-        @TODO
-           Future Structure
-
-            <Carousel>
-               <BigCard/>
-            </Carousel>
-
-            <>
-              Лучшее на неделе
-              <Carousel>
-                  <SmallCard/>
-              </Carousel>
-            </>
-            
-            <ul>
-              <Card/>
-                ....
-                ....
-              <Card/>
-            </ul>
-
-            <Footer/>
-        */}
     </>
   )
 }
