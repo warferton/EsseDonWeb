@@ -15,11 +15,13 @@ import { SaveOutlined as SaveIcon } from '@material-ui/icons';
 const useStyles = makeStyles({
     root: {
       width: '100%',
-      maxWidth: 360,
-      backgroundColor: 'white'
+      maxHeight: 270,
+      backgroundColor: 'white',
+      overflow: 'scroll',
+      scrollbarColor: 'white',
     },
     buttonBox: {
-        padding: '10px'
+        padding: '10px',
     },
     saveButton: {
         backgroundImage: 'conic-gradient(from 45grad at 5% -3%,#ff0000,50grad,#7b64ff)',
@@ -51,7 +53,7 @@ export function EventControlList() {
     return(
         <>
             <List dense className={classes.root}>
-                {[0, 1, 2, 3, 4, 5, 6].map((value) => {
+                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => {
                     const labelId = `checkbox-list-secondary-label-${value}`;
                     return (
                     <ListItem key={value} button>
