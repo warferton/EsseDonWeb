@@ -7,16 +7,20 @@ import {
       AccordionProps, 
       AccordionSummary,     
       SvgIconTypeMap,     
-      Typography,         
+      Typography,
+      TypographyProps,         
 } from '@material-ui/core';
 
 
 interface IProps{
     title: string;
+    titleVariant?: TypographyProps['variant'];
+    titleStyle?: Object;
     expanded?: boolean;
     children?: any;
     icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
     onChange?: AccordionProps["onChange"];
+    className?: string;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -35,20 +39,33 @@ const useStyles = makeStyles((theme) => ({
 
 export function MenuAccordion(props : IProps) {
 
-    const { title, expanded, icon: Icon, children, onChange } = props
+    const { 
+      className, 
+      titleVariant, 
+      titleStyle, 
+      title, 
+      expanded, 
+      icon: Icon, 
+      children, 
+      onChange, 
+    } = props
     
     const classes = useStyles();
 
     return(
             
-        <Accordion expanded={ expanded } onChange={ onChange } TransitionProps={{ unmountOnExit: true }}>
+        <Accordion 
+        expanded={ expanded } 
+        onChange={ onChange } 
+        TransitionProps={{ unmountOnExit: true }} 
+        className={ className }>
             <AccordionSummary
                 expandIcon={ <ExpandMoreTwoTone fontSize='large'/> }
                 aria-controls="drinks-content"
                 id="drinks-header"
             >
-                <Icon className={ classes.icon }/>
-                <Typography variant='h4' className={ classes.heading }>
+                {Icon && <Icon className={ classes.icon }/>}
+                <Typography variant={ titleVariant } className={ classes.heading } style={ titleStyle }>
                     
                     { title }
 
@@ -56,7 +73,7 @@ export function MenuAccordion(props : IProps) {
             </AccordionSummary>
             <AccordionDetails classes={ classes }>
 
-                { children }
+                { children || null }
 
             </AccordionDetails>
         </Accordion>

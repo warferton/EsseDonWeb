@@ -6,6 +6,7 @@ import { Footer } from '../components/footer/footer.component'
 import { BigEventCard } from '../components/cards/bigCard.component'
 import { EventCard } from '../components/cards/card.component'
 import { SmallEventCard } from '../components/cards/smallCard.component'
+import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from '@material-ui/icons'
 
 export default function Home() {
   return (
@@ -19,6 +20,21 @@ export default function Home() {
       <LogoHeader/>
      
       <Carousel autoPlay animation='slide' indicators={ false } interval={ 10000 } timeout={ 1000 }>
+        <BigEventCard/>
+        <BigEventCard/>
+        <BigEventCard/>
+        <BigEventCard/>
+        <BigEventCard/>
+      </Carousel>
+
+      <Carousel
+      animation='slide' 
+      indicators={ false } 
+      interval={ 10000 } 
+      timeout={ 100 }
+      PrevIcon={ <ArrowBackIosOutlined fontSize='large'/> }
+      NextIcon={ <ArrowForwardIosOutlined fontSize='large'/> }
+      >
         <BigEventCard/>
         <BigEventCard/>
         <BigEventCard/>
