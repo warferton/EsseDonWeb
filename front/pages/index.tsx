@@ -18,7 +18,6 @@ export default function Home() {
 
       <LogoHeader/>
      
-
       <Carousel autoPlay animation='slide' indicators={ false } interval={ 10000 } timeout={ 1000 }>
         <BigEventCard/>
         <BigEventCard/>
@@ -26,6 +25,7 @@ export default function Home() {
         <BigEventCard/>
         <BigEventCard/>
       </Carousel>
+
 
       <CardSlider>
         <SmallEventCard/>
