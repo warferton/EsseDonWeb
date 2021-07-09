@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { LogoHeader } from '../components/headers/header.compenent'
 import { MapBox } from '../components/contact-page-components/map.component'
 import { AboutContact } from '../components/contact-page-components/about.component'
 import { ArtistForm } from '../components/contact-page-components/artist-form.component'
@@ -16,7 +15,6 @@ export default function Contacts(props: boolean) {
         <link rel="icon" href="/favicon.ico" />
       </Head>        
 
-      <LogoHeader/>
 
       <MapBox/>
 
