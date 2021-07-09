@@ -6,6 +6,7 @@ import { PhoneRegex, EmailRegex } from '../../regex/regex';
 import styles from '../../styles/BookingForm.module.css'
 import { Alert } from '../alerts/alert.component';
 
+
 interface Values {
     name: string;
     email: string;
@@ -16,6 +17,7 @@ interface Values {
 }
 
 export function ArtistForm() {
+
 
     return(
         <Container className={ styles.container }>
