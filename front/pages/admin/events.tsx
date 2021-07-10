@@ -65,7 +65,9 @@ export default function EventControlPage () {
     
     const handleOpen = (event : any) => {
         setSelectedEvent(event);
+        console.log(selectedEvent);
         setDialogOpen(true);
+        
     }
     
     //=======MOCK OBJ==========
