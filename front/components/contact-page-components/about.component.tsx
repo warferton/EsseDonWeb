@@ -56,7 +56,7 @@ export function AboutContact() {
                 }}
             >
                 Телефон
-                <PhoneEnabled fontSize='large' viewBox='0 0 28 28'/>
+                <PhoneEnabled fontSize='large' viewBox='-5 0 28 28'/>
             </Typography>
 
             <Typography className = { classes.text }>
@@ -74,7 +74,7 @@ export function AboutContact() {
                 }}
                 >
                     E-mail
-                    <MailRounded fontSize='large' viewBox='0 0 28 28' />
+                    <MailRounded fontSize='large' viewBox='-5 0 28 28' />
             </Typography>
 
             <Typography className = { classes.text }>

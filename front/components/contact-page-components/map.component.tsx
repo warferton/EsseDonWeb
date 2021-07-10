@@ -1,13 +1,41 @@
-import { Container} from '@material-ui/core';
-import styles from '../../styles/Map.module.css';
+import { useEffect, useRef, useState } from 'react';
+import {makeStyles} from '@material-ui/core';
+import mapboxgl from 'mapbox-gl';
 
-export function MapYand(){
-    
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiaXZhbmlzc2ltb28iLCJhIjoiY2tidmJmNjkyMDBrMDJzcWUybmdndGs1dCJ9.LXSDnZPAPYD7ktCnzMB1nQ'; 
+
+const useStyles = makeStyles({
+    mapContainer:{
+        width: '100%',
+        height: '400px',
+    }
+});
+
+export function MapBox(){
+
+    const classes = useStyles();
+    const mapContainer = useRef(null);
+    const map = useRef(null);
+    const [lng, setLng] = useState(39.711977);
+    const [lat, setLat] = useState(47.227510);
+    const [zoom, setZoom] = useState(13);
+
+
+    useEffect(() => {
+
+        if (map.current) return; // initialize map only once
+        map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: 'mapbox://styles/ivanissimoo/ckqrc4cqu01oj17od1b380ofl',
+        center: [lng, lat],
+        zoom: zoom, 
+        });
+    });
+
     return(
-        <Container disableGutters maxWidth={ false } className={ styles }>
-            <iframe 
-                src="https://yandex.ru/map-widget/v1/?um=constructor%3A34de29e68b2c89ace6a340ed28617ba997e31ca635137b363c0112d736355be9&amp;source=constructor">
-            </iframe>
-        </Container>
-    )
-}
+
+        <div ref={mapContainer} className={classes.mapContainer} />
+
+    ); 
+} 
