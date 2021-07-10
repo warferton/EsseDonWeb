@@ -53,7 +53,7 @@ export default function Afisha() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <AdminHeader />
+            <AdminHeader/>
 
             <motion.div
             initial={{ 
@@ -79,7 +79,9 @@ export default function Afisha() {
                     className={ classes.accordion }
                     >
                     
-                        <EventControlList active={ activeList } childWrapper={ ListItem }/>
+                        <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
+                           {[1,2,3,4,5,6].map( v => v)}
+                        </EventControlList>
 
                     </MenuAccordion>
 
@@ -89,7 +91,9 @@ export default function Afisha() {
                     onChange={ handleChange('weekBest') } 
                     >
 
-                        <EventControlList active={ activeList } childWrapper={ ListItem }/>
+                         <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
+                           {[1,2,3,4,5,6].map( v => v)}
+                        </EventControlList>
                     
                     </MenuAccordion>
 
@@ -99,8 +103,10 @@ export default function Afisha() {
                     onChange={ handleChange('all') } 
                     >
 
-                        <EventControlList active={ activeList } childWrapper={ ListItem }/>
-                    
+                       <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
+                           {[1,2,3,4,5,6].map( v => v)}
+                        </EventControlList>
+
                     </MenuAccordion>
 
                 </Container>

@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { Dispatch, useState } from 'react';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import ButtonGroup from '@material-ui/core/ButtonGroup'
-import Folder from '@material-ui/icons/FolderRounded';
-import Language from '@material-ui/icons/Language';
+import ArchiveIcon from '@material-ui/icons/Archive';
 import Settings from '@material-ui/icons/Settings';
 import Backup from '@material-ui/icons/Backup';
+import { IEvent } from '../../../types/event/event.type';
 
 interface ICheckboxProps {
     value: string | number;
@@ -43,30 +43,35 @@ export function EventListItemChecbox(props : ICheckboxProps) {
     )
 }
 
-
+//================================================================
+//================================================================
 
 interface IButtonsProps {
-    value: string | number;
+    event: IEvent;
     id: string;
     checked?: boolean;
     published: boolean;
-
+    handleOpen: Dispatch<any>;
 }
 
 export function EventListItemButtons(props : IButtonsProps) {
 
-    const { value, id, published } = props; 
+    const { event, id, published, handleOpen } = props; 
+
+    const handleClickOpen = () => {
+        handleOpen( event );
+    }
 
     return(
-         <ListItem key={value} button>
-            <ListItemText id={ id } primary={`Line item ${value}`} />
+         <ListItem key={ event?.id } button>
+            <ListItemText id={ id } primary={ event?.title } />
             <ListItemSecondaryAction>
             <ButtonGroup>
-                <IconButton>
-                    {published ?  <Settings/> : <Folder/>}
+                <IconButton onClick={ handleClickOpen }>
+                    <Settings/>
                 </IconButton>
                 <IconButton>
-                    {published ?   <Backup/> : <Language/> }
+                    {published ? <ArchiveIcon/> : <Backup/>}
                 </IconButton>
             </ButtonGroup>
             </ListItemSecondaryAction>
