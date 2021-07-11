@@ -10,6 +10,11 @@ import styles from '../../styles/BookingForm.module.css';
 
 
 
+interface IProps{
+    event: IEvent;
+}
+
+
 const useStyles = makeStyles({
     glowText: {
         color: '#971391',
@@ -18,11 +23,11 @@ const useStyles = makeStyles({
     },
 })
 
-export function CreateEventForm(props: any) {
+export function CreateEventForm(props: IProps) {
 
-    const { title, lineup, description, free, price, image, videoLink } = props;
+    const { title, lineup, description, free, price, image, videoLink } = props.event;
 
-    const [ isFreeEvent, setIsFreeEvent] = useState(free || true);
+    const [ isFreeEvent, setIsFreeEvent] = useState(free);
 
     const classes = useStyles();
 
@@ -202,7 +207,11 @@ export function CreateEventForm(props: any) {
                         onClick={ submitForm }
                         className={ styles.formButton }
                         >
-                            Создать
+                        { props.event ? 
+                            'Сохранить'
+                            :
+                            'Создать'
+                        }
                         </Button>
 
                     </Form>
