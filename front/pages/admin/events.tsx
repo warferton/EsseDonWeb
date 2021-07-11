@@ -4,7 +4,8 @@ import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
 import { EventListItemButtons as ListItem } from '../../components/admin-components/list-components/list-item.component';
-import { Container, Button, Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { EventFormDialog } from '../../components/dialog-components/event-form-dialog.component';
+import { Container, Box, Button, Typography, CircularProgress, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
 
@@ -35,6 +36,11 @@ const useStyles = makeStyles((theme: Theme) =>
         "&:hover":{
             backgroundColor: '#000000',
         }
+    },
+    loaderBox: {
+        padding: '7px',
+        display:'flex',
+        justifyContent: 'center'
     }
   })
 );
@@ -48,32 +54,49 @@ export default function EventControlPage () {
 
     const [activeList, setActiveList] = useState(false);
 
+    const [dialogOpen, setDialogOpen] = useState(false);
+
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    
+
     const handleChange = (panel : SetStateAction<string>) => (event: ChangeEvent<{}>, isExpanded : boolean) => {
         setExpanded(isExpanded ? panel : null);
     };
-
+    
+    const handleOpen = (event : any) => {
+        setSelectedEvent(event);
+        console.log(selectedEvent);
+        setDialogOpen(true);
+        
+    }
+    
+    //=======MOCK OBJ==========
+    
+    const publishedEvent = {
+        id: '010001001',
+        title: 'Test Published Event',
+        lineup: ['Mama', 'Echo', 'Alpha', 'Yankee', 'Omega', 'Utah'],
+        description: "None",
+        free: true,
+        image: 'imgur',
+        videoLink: 'yahootube',
+    }
+    
+    const unPublishedEvent = {
+        id: '111110000',
+        title: 'Test Archived Event',
+        lineup: ['Mama', 'Echo', 'Alpha', 'Yankee', 'Omega', 'Utah'],
+        description: "None",
+        free: false,
+        image: 'imgur',
+        videoLink: 'yahootube',
+    }
+    
+    //=======MOCK OBJ===========
+    
     setTimeout(() => {
         setActiveList(true)
-    }, 1500);
-
-    //=======MOCK==========
-
-    const publishedEvent = {
-        value: '',
-        published: true,
-        id: '00000'
-    }
-
-    const unPublishedEvent = {
-        value: '',
-        published: false,
-        id: '00000'
-    }
-
-    //=======MOCK==========
-
-
-
+    }, 3000);
     return (
         <>
             <Head>
@@ -96,7 +119,7 @@ export default function EventControlPage () {
             >
                 <Container className={ classes.root }>
                     <Container>
-                        <Typography variant='h3' align='center'>
+                        <Typography variant='h4' align='center'>
                             Мероприятия
                         </Typography>
                     </Container>
@@ -104,53 +127,59 @@ export default function EventControlPage () {
                 
                     <MenuAccordion 
                         title="Опубликованные"
-                        expanded={ expanded === 'mainBlock' } 
-                        onChange={ handleChange('mainBlock') } 
+                        expanded={ expanded === 'published' } 
+                        onChange={ handleChange('published') } 
                         className={ classes.accordion }
                         >
-
-                            <EventControlList active={ activeList } childWrapper={ ListItem }>
+                            { !activeList ? 
+                            <Box className={ classes.loaderBox }>
+                                <CircularProgress/>
+                            </Box>
+                            :
+                            <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
                                 {
                                     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value : number) =>{
-                                       return {
-                                            value: value,
-                                            published: false,
-                                            id: '00000'
-                                        }
+                                       return publishedEvent;
                                     })
                                 
                                 }
                             </EventControlList>
+                            }
 
                         </MenuAccordion>
 
                         <MenuAccordion 
                         title="Архив"
-                        expanded={ expanded === 'weekBest' } 
-                        onChange={ handleChange('weekBest') } 
-                        >
-
-                           <EventControlList active={ activeList } childWrapper={ ListItem }>
+                        expanded={ expanded === 'archive' } 
+                        onChange={ handleChange('archive') } 
+                        > 
+                        { !activeList ? 
+                            <Box className={ classes.loaderBox }>
+                                <CircularProgress/>
+                            </Box>
+                            :
+                           <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
                                 {
                                     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value : number) =>{
-                                       return {
-                                            value: value,
-                                            published: false,
-                                            id: '00000'
-                                        }
+                                       return unPublishedEvent;
                                     })
                                 
                                 }
                             </EventControlList>
-                        
+                        }
                         </MenuAccordion>
-                        <Button fullWidth variant='contained' className={ `${classes.button} ${classes.createButton}`}>
+                        <Button 
+                        component='button'
+                        fullWidth 
+                        variant='contained' 
+                        className={ `${classes.button} ${classes.createButton}`}
+                        onClick={ handleOpen }
+                        >
                             <Typography align='center'>
                                 Создать новое мероприятие
                             </Typography>
                         </Button>
                 </Container>
-                
             </motion.div>
 
         <motion.div
@@ -179,6 +208,7 @@ export default function EventControlPage () {
             </Container>
         </motion.div>
             
+        <EventFormDialog open={ dialogOpen } setOpen={ setDialogOpen } event={ selectedEvent }/>
         </>
     );
 }

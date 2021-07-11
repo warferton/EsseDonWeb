@@ -6,6 +6,7 @@ import {
     makeStyles
 } from '@material-ui/core'
 import { SaveOutlined as SaveIcon } from '@material-ui/icons';
+import { Dispatch } from 'react';
  
 
 
@@ -13,6 +14,7 @@ interface IProps{
     active?: boolean;
     childWrapper: any;
     children?: any;
+    controlFunction: Dispatch<any>;
 }
 
 const useStyles = makeStyles({
@@ -35,7 +37,7 @@ const useStyles = makeStyles({
 
 export function EventControlList(props : IProps) {
 
-    const { active, childWrapper: Wrapper, children } = props
+    const { active, childWrapper: Wrapper, children, controlFunction } = props
 
     const classes = useStyles();
 
@@ -47,8 +49,15 @@ export function EventControlList(props : IProps) {
             <List dense className={classes.root}>
                 { children.map( (child: any) => {
                     const labelId = `checkbox-list-secondary-label-${child.value}`;
+                    console.info(`childe:  ${child}`);
+                    
                     return (
-                        <Wrapper value={ child.value } id={ labelId } published={ child.published }/>
+                        <Wrapper 
+                        event={ child }
+                        id={ labelId } 
+                        published={ child.published } 
+                        handleOpen={ controlFunction } 
+                        />
                     );
                 })}
             </List>
