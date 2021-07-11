@@ -1,12 +1,12 @@
-import Head from 'next/head'
-import Carousel from 'react-material-ui-carousel'
-import { CardSlider } from '../components/cards/slider/card-slider.component'
-import { LogoHeader } from '../components/headers/header.compenent'
-import { Footer } from '../components/footer/footer.component'
-import { BigEventCard } from '../components/cards/bigCard.component'
-import { EventCard } from '../components/cards/card.component'
-import { SmallEventCard } from '../components/cards/smallCard.component'
-import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from '@material-ui/icons'
+import Head from 'next/head';
+import { CardSlider } from '../components/cards/slider/card-slider.component';
+import { LogoHeader } from '../components/headers/header.compenent';
+import { Footer } from '../components/footer/footer.component';
+import { BigEventCard } from '../components/cards/bigCard.component';
+import { EventCard } from '../components/cards/card.component';
+import { SmallEventCard } from '../components/cards/smallCard.component';
+
+import{ SwipeableStepper } from '../components/cards/carousel/carousel.component';
 
 export default function Home() {
   return (
@@ -19,20 +19,13 @@ export default function Home() {
 
       <LogoHeader/>
 
-      <Carousel
-      animation='slide' 
-      indicators={ false } 
-      interval={ 10000 } 
-      timeout={ 100 }
-      PrevIcon={ <ArrowBackIosOutlined fontSize='large'/> }
-      NextIcon={ <ArrowForwardIosOutlined fontSize='large'/> }
-      >
+      <SwipeableStepper>
         <BigEventCard/>
         <BigEventCard/>
         <BigEventCard/>
         <BigEventCard/>
         <BigEventCard/>
-      </Carousel>
+      </SwipeableStepper>
 
       <CardSlider>
         <SmallEventCard/>

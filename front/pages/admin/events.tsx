@@ -73,23 +73,29 @@ export default function EventControlPage () {
     //=======MOCK OBJ==========
     
     const publishedEvent = {
-        id: '010001001',
-        title: 'Test Published Event',
-        lineup: ['Mama', 'Echo', 'Alpha', 'Yankee', 'Omega', 'Utah'],
-        description: "None",
-        free: true,
-        image: 'imgur',
-        videoLink: 'yahootube',
+        event:{
+            id: '010001001',
+            title: 'Test Published Event',
+            lineup: ['Mama', 'Echo', 'Alpha', 'Yankee', 'Omega', 'Utah'],
+            description: "None",
+            free: true,
+            image: 'imgur',
+            videoLink: 'yahootube',
+        },
+        published: true,
     }
     
     const unPublishedEvent = {
-        id: '111110000',
-        title: 'Test Archived Event',
-        lineup: ['Mama', 'Echo', 'Alpha', 'Yankee', 'Omega', 'Utah'],
-        description: "None",
-        free: false,
-        image: 'imgur',
-        videoLink: 'yahootube',
+       event:{
+            id: '111110000',
+            title: 'Test Archived Event',
+            lineup: ['Mama', 'Echo', 'Alpha', 'Yankee', 'Omega', 'Utah'],
+            description: "None",
+            free: false,
+            image: 'imgur',
+            videoLink: 'yahootube',
+       },
+       published: false,
     }
     
     //=======MOCK OBJ===========

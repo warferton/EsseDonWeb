@@ -59,11 +59,13 @@ export function EventFormDialog(props : IProps) {
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={ classes.title }>
-              { event.id !== undefined ? 
+
+              { event?.id !== undefined ? 
                             'Изменить Мероприятие'
                             :
                             'Новое Мероприятие'
                         }
+            
             </Typography>
           </Toolbar>
         </AppBar>
