@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import {makeStyles} from '@material-ui/core';
 import mapboxgl from 'mapbox-gl';
 
@@ -15,23 +15,23 @@ const useStyles = makeStyles({
 export function MapBox(){
 
     const classes = useStyles();
+
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [lng, setLng] = useState(39.711977);
-    const [lat, setLat] = useState(47.227510);
-    const [zoom, setZoom] = useState(13);
+
+    const lng = 39.711977;
+    const lat = 47.227510;
+    const zoom = 13;
 
 
     useEffect(() => {
-
-        if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
         container: mapContainer.current,
         style: 'mapbox://styles/ivanissimoo/ckqrc4cqu01oj17od1b380ofl',
         center: [lng, lat],
         zoom: zoom, 
         });
-    });
+    }, []);
 
     return(
 
