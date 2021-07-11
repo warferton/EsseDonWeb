@@ -48,14 +48,14 @@ export function EventControlList(props : IProps) {
             <>
             <List dense className={classes.root}>
                 { children.map( (child: any) => {
-                    const labelId = `checkbox-list-secondary-label-${child.value}`;
-                    console.info(`childe:  ${child}`);
+                    const labelId = `checkbox-list-secondary-label-${child?.value}`;
+                    console.info(`childe:  ${ child }`);
                     
                     return (
                         <Wrapper 
-                        event={ child }
+                        event={ child?.event }
                         id={ labelId } 
-                        published={ child.published } 
+                        published={ child?.published } 
                         handleOpen={ controlFunction } 
                         />
                     );
