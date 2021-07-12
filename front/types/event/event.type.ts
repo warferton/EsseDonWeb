@@ -5,12 +5,14 @@
 export interface IEvent{
     id: string;
     title: string;
-    date: Date;
+    date: Date | string;
     time: string;
     lineup?: string[];
+    shortDescription?: string;
     description: string;
     free: boolean;
-    image?: string;
+    image: string;
     videoLink?: string;
     price?: number | string;
+    tcLink?: string; 
 }
