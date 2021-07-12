@@ -71,7 +71,7 @@ const useStyles = makeStyles({
 export function EventCard(props : IProps) {
 
     const { event } = props;
-    const { title, price, description, free, image, date, time } = event  
+    const { title, price, shortDescription, free, image, date, time } = event  
 
     const classes = useStyles();
 
@@ -98,7 +98,7 @@ export function EventCard(props : IProps) {
                     className = { classes.chip}
                     />
                     <Typography variant="body2" color="textSecondary" className={ classes.text + ' ' + classes.aboutText } component="p">
-                       { description }
+                       { shortDescription }
                     </Typography>
                 </CardContent>
             </CardActionArea>
