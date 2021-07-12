@@ -25,7 +25,17 @@ const useStyles = makeStyles({
 
 export function CreateEventForm(props: IProps) {
 
-    const { title, lineup, description, free, price, image, videoLink } = props.event;
+    const { 
+        title, 
+        lineup, 
+        description, 
+        date, 
+        time, 
+        free, 
+        price, 
+        image, 
+        videoLink 
+    } = props.event;
 
     const [ isFreeEvent, setIsFreeEvent] = useState(free);
 
@@ -43,6 +53,8 @@ export function CreateEventForm(props: IProps) {
                     title: title || '',
                     lineup: lineup || [],
                     description: description || '',
+                    date: date || '',
+                    time: time || '',
                     free: isFreeEvent,
                     price: price || '',
                     image: image || '',
@@ -59,7 +71,12 @@ export function CreateEventForm(props: IProps) {
                     if(!isFreeEvent && !values.price){
                         errors.price = 'Обязательное поле | Неверный формат';
                     }
-
+                    if(!values.date){
+                        errors.description = 'Required';
+                    }
+                    if(!values.time){
+                        errors.description = 'Required';
+                    }
 
                     return errors;
                 }}
@@ -172,6 +189,26 @@ export function CreateEventForm(props: IProps) {
                                 />
                             </motion.div>
                         }
+
+                        <Field
+                        component={ TextField }
+                        name="date"
+                        type="date"
+                        label="Дата"
+                        variant="outlined"
+                        className={ styles.formField }
+                        InputLabelProps={{ shrink: true }}
+                        />
+
+                        <Field
+                        component={ TextField }
+                        name="time"
+                        type="time"
+                        label="Вермя"
+                        variant='outlined'
+                        className={ styles.formField }
+                        InputLabelProps={{ shrink: true }}
+                        />
 
                         <Field
                         component={ TextField }

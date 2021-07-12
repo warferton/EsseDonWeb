@@ -60,7 +60,7 @@ export function AboutContact() {
             </Typography>
 
             <Typography className = { classes.text }>
-                <Link> 
+                <Link href='tel: +78633104110'> 
                     { '+7 863 310 41 10' }
                 </Link>
             </Typography>
@@ -82,7 +82,7 @@ export function AboutContact() {
             </Typography>
 
             <Typography paragraph>
-                <Link href="emailto: pr@jazzesse.ru"
+                <Link
                 style={{
                     fontSize: '18px',
                     lineHeight: '1px',
@@ -97,7 +97,7 @@ export function AboutContact() {
             </Typography>
 
             <Typography paragraph>
-                <Link href="emailto: art@jazzesse.ru"
+                <Link
                 style={{
                     fontSize: '18px',
                     lineHeight: '10px',
