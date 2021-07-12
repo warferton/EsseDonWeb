@@ -4,7 +4,7 @@ import styles from '../../styles/Footer.module.css';
 
 export function Footer() {
     return(
-        <Container disableGutters maxWidth={ false } className = { styles.footerBackground }>
+        <Container disableGutters maxWidth={ false } className = { styles.footerContainer }>
             <Typography align='center' className = { styles.infoText }>
                 Ростов-на-Дону
             </Typography>
@@ -28,7 +28,7 @@ export function Footer() {
             </Typography>
             <Typography align='center' variant='h1' className = { styles.motoText }>
                 Jazz lives here
-                <span className = { styles.motoDot}>.</span>
+                <span className = { styles.motoDot }>.</span>
             </Typography>
         </Container>
     );

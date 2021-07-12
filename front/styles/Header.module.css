@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Jazz;
+  src: url("../fonts/Font_Jazz_esse_club.ttf");
+}
+
 .Logo {
   display: flex;
   flex-direction: column;
@@ -25,5 +30,5 @@
   color: white;
   font-size: 16px;
   font-weight: 50 !important;
-  font-family: "Helvetica neue", roboto;
+  font-family: "Jazz", "Helvetica neue", roboto !important;
 }
