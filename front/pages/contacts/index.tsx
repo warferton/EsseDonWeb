@@ -4,9 +4,7 @@ import { AboutContact } from '../../components/contact-page-components/about.com
 import { ArtistForm } from '../../components/contact-page-components/artist-form.component';
 import { MapBox } from '../../components/contact-page-components/map.component'
 
-export default function EventPage(props : boolean) {
-
-  const artist = props || false;
+export default function EventPage() {
 
   return (
     <>
@@ -23,7 +21,7 @@ export default function EventPage(props : boolean) {
 
       <AboutContact/>
 
-      {artist && <ArtistForm/>}
+      <ArtistForm/>
 
     </>
   )

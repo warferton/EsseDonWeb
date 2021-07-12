@@ -3,7 +3,7 @@
   border-radius: 0px !important;
   border-bottom-left-radius: 20px !important;
   border-bottom-right-radius: 20px !important;
-  margin: auto;
+  margin: auto !important;
   justify-self: center;
 }
 

@@ -9,17 +9,17 @@ import {
     Button, 
     makeStyles 
 } from '@material-ui/core';
+import { IEvent } from '../../types/event/event.type';
 
-/*
-  TODO
-  Configure Using props
-*/
 
+interface IProps{
+    event: IEvent;
+}
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 350,
-    maxHeight: 450,
+    maxWidth: '350px',
+    maxHeight: '470px',
     backgroundColor: 'black',
     borderRadius: '15px',
     margin:'2rem',
@@ -33,7 +33,8 @@ const useStyles = makeStyles({
   },
   titleText: {
       fontWeight: 500,
-      fontSize: '24px'
+      fontSize: '24px',
+      lineClamp: 2,
   },
   dateText: {
       fontWeight: 100,
@@ -53,46 +54,51 @@ const useStyles = makeStyles({
   },
   actions: {
     justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    textAlign: 'center',
     backgroundColor: '#222222',
-    paddingTop: 0
+    paddingTop: 0,
   },
   button:{
       borderRadius: '15px',
-      marginBottom: '0.45em',
       background: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
-  }
+  },
 
 });
 
 
-export function EventCard() {
+export function EventCard(props : IProps) {
+
+    const { event } = props;
+    const { title, price, description, free, image, date, time } = event  
 
     const classes = useStyles();
 
-    return (
+    return (   
         <Card raised className={ classes.root }>
             <CardActionArea>
                 <CardMedia
                 component="img"
-                alt="Some Musician"
+                alt="JAZZ_IMG"
                 height="200"
-                image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.zastavki.com%2Fpictures%2Foriginals%2F2013%2FMusic_B.B._King_musician_047287_.jpg&f=1&nofb=1"
+                image={ image }
+                //https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.zastavki.com%2Fpictures%2Foriginals%2F2013%2FMusic_B.B._King_musician_047287_.jpg&f=1&nofb=1
                 title="Some Musician"
                 />
                 <CardContent className = { classes.contentContainer }>
                     <Typography variant='h5' component="h2" className={ classes.text + ' ' + classes.titleText }>
-                        The B-Man
+                        { title }
                     </Typography>
                     <Typography gutterBottom component="h2" className={ classes.text + ' ' + classes.dateText }>
-                        May 4 13:35 Wd
+                        { `${ date.getDate() } ${ time }` }
                     </Typography>
                     <Chip 
-                    label='от 1400р'
+                    label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}
                     className = { classes.chip}
                     />
                     <Typography variant="body2" color="textSecondary" className={ classes.text + ' ' + classes.aboutText } component="p">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                        across all continents except Antarctica
+                       { description }
                     </Typography>
                 </CardContent>
             </CardActionArea>

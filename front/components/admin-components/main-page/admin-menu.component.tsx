@@ -29,7 +29,7 @@ export function AdminMenu(){
     return(
         <Container maxWidth='md' className={ classes.root }>
             <ButtonGroup orientation="vertical" fullWidth className={ classes.buttonGroup } variant="text">
-                <Button href="admin/kitchen-bar">
+                <Button href="admin/kitchen-bar" disabled>
                     <Typography variant='h4' className={ classes.text }>
                         Меню
                     </Typography>
