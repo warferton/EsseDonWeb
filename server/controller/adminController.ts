@@ -5,7 +5,7 @@ export default class EventsController{
     static async getArchivedEvents(req: any, res : any){
         try{
 
-            const filters = req.query.filter;
+            const filters = req.query;
             const EventResponse = await EventDao.getArchivedEvents(filters);
 
             res.status(200).send(EventResponse);

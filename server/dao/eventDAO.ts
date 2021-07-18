@@ -2,6 +2,18 @@ import { MongoClient, ObjectId, Collection } from "mongodb";
 import { IEvent } from '../types/event.type';
 import { v4 as uuid } from 'uuid';
 
+interface IQuery extends Object{
+    price?: number;
+    title?: string;
+    description?: string;
+    free?: boolean;
+    id?: string;
+    lineup?: string[];
+    date?: string;
+    time?: string;
+
+}
+
 let ActiveEvents : Collection;
 let ArchivedEvents : Collection;
 
@@ -24,21 +36,23 @@ export default class EventDbClient{
         }
     }
 
-    static async getActiveEvents({
-        filters = {},
-        eventPerLoad = 20
-    } = {}) {
-        let query  = {};
+    static async getActiveEvents( filters: IQuery, eventPerLoad?: number ) {
+        const loadLimit = eventPerLoad || 20;
+        let query : IQuery  = {};
         if( filters ){
-            query = Object.assign(filters);
+            query = Object.assign(query, filters);
+            if(query.free){
+                query.free = `${query.free}` === 'true' ? true : false;
+            }
+            if(query.price){
+                query.price = new Number(query.price).valueOf();
+            }
         }
-
-        console.log(query);
-
+        
         let cursor;
 
         try {
-            cursor = await ActiveEvents.find(filters);
+            cursor = await ActiveEvents.find(query);
         }catch( err ){
             console.error(
                 `Unable to issue "find" command: ${ err.message }`
@@ -46,7 +60,7 @@ export default class EventDbClient{
             return {events: [], totalRetrieved: 0};
         }
 
-        const displayCursor = cursor.limit(eventPerLoad);
+        const displayCursor = cursor.limit(loadLimit);
 
         try{
 
@@ -59,25 +73,27 @@ export default class EventDbClient{
             console.error(
                 `Unable to convert cursor to an array: ${err.message}`
             );
-            return {events: [], totalRetrieved: 0};
+            return {events: [], totalRetrieved: 0, limit: loadLimit};
         }
     }
 
-    static async getArchivedEvents({
-        filters = {},
-        eventPerLoad = 20
-    } = {}) {
-        let query  = {};
+    static async getArchivedEvents( filters: IQuery, eventPerLoad?: number ) {
+        const loadLimit = eventPerLoad || 20;
+        let query : IQuery  = {};
         if( filters ){
-            query = Object.assign(filters);
+            query = Object.assign(query, filters);
+            if(query.free){
+                query.free = `${query.free}` === 'true' ? true : false;
+            }
+            if(query.price){
+                query.price = new Number(query.price).valueOf();
+            }
         }
-
-        console.log(query);
-
+        
         let cursor;
 
         try {
-            cursor = await ArchivedEvents.find(filters);
+            cursor = await ArchivedEvents.find(query);
         }catch( err ){
             console.error(
                 `Unable to issue "find" command: ${ err.message }`
@@ -85,20 +101,20 @@ export default class EventDbClient{
             return {events: [], totalRetrieved: 0};
         }
 
-        const displayCursor = cursor.limit(eventPerLoad);
+        const displayCursor = cursor.limit(loadLimit);
 
         try{
 
             const events = await displayCursor.toArray();
 
-            const totalArchivedEvents = await ArchivedEvents.countDocuments(query);
+            const totalActiveEvents = await ArchivedEvents.countDocuments(query);
 
-            return {events, totalArchivedEvents};
+            return {events, totalActiveEvents};
         }catch( err ){
             console.error(
                 `Unable to convert cursor to an array: ${err.message}`
             );
-            return {events: [], totalRetrieved: 0};
+            return {events: [], totalRetrieved: 0, limit: loadLimit};
         }
     }
 
