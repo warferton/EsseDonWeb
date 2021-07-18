@@ -21,7 +21,7 @@
     "noUnusedLocals": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": [
-      "types/**"
+      "../types/**"
     ],
     "moduleResolution": "node",
     "resolveJsonModule": true,
