@@ -8,5 +8,6 @@ export interface IMenuItem {
     title: string;
     description: string;
     price: number;
-    category: 'bar' | 'kitchen';
+    category: 'bar' | 'kitchen'| 'vegan' | 'special';
+    group?: string;
 }
