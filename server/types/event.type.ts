@@ -8,6 +8,7 @@ export interface IEvent{
     date: Date;
     time: string;
     lineup?: string[];
+    shortdescription: string;
     description: string;
     free: boolean;
     image?: string;
