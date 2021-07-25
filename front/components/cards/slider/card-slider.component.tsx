@@ -10,7 +10,7 @@ const useStyles = makeStyles({
         flexDirection: 'row',
         overflow: 'scroll',
         scrollbarColor: 'transparent',
-        height: '280px',
+        height: 'fit-content'
     }
 })
 
