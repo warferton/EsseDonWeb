@@ -9,6 +9,7 @@ export interface IEvent{
     time: string;
     lineup?: string[];
     description: string;
+    shortdescription: string;
     free: boolean;
     image?: string;
     videoLink?: string;

@@ -6,6 +6,7 @@
             "Member 2",
             "Member 3"
         ],
+        "shortdescription": "Short Description",
         "description": "Sample Description",
         "date": "2021-02-01",
         "free": true,
@@ -21,6 +22,7 @@
             "Member 2",
             "Member 3"
         ],
+        "shortdescription": "Short Description",
         "description": "Sample Description",
         "date": "2021-02-02",
         "free": false,
