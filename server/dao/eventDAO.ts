@@ -5,14 +5,13 @@ import { v4 as uuid } from 'uuid';
 interface IQuery extends Object{
     price?: number;
     title?: string;
-    shortdescription?: string;
     description?: string;
+    shortdescription?: string;
     free?: boolean;
     id?: string;
     lineup?: string[];
     date?: string;
     time?: string;
-
 }
 
 let ActiveEvents : Collection;

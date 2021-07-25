@@ -8,8 +8,8 @@ export interface IEvent{
     date: Date;
     time: string;
     lineup?: string[];
-    shortdescription: string;
     description: string;
+    shortdescription: string;
     free: boolean;
     image?: string;
     videoLink?: string;
