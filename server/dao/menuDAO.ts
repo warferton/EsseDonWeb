@@ -24,7 +24,7 @@ export default class MenuDbClient{
     }
 
     /**
-     * @status TESTING
+     * @status READY
      * @returns 
      */
     static async getAllMenuItems() {

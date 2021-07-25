@@ -5,7 +5,7 @@ export default class EventsController{
     static async getArchivedEvents(req: any, res : any){
         try{
 
-            const filters = req.query.filter;
+            const filters = req.query;
             const EventResponse = await EventDao.getArchivedEvents(filters);
 
             res.status(200).send(EventResponse);
@@ -17,7 +17,6 @@ export default class EventsController{
 
 
     /**
-     * @status TESTING
      * @param req 
      * @param res 
      */    
@@ -35,7 +34,6 @@ export default class EventsController{
     }
 
      /**
-     * @status TESTING
      * @param req 
      * @param res 
      */ 
@@ -53,7 +51,6 @@ export default class EventsController{
     }
 
      /**
-     * @status TESTING
      * @param req 
      * @param res 
      */ 
@@ -71,7 +68,6 @@ export default class EventsController{
     }
 
      /**
-     * @status TESTING
      * @param req 
      * @param res 
      */ 
@@ -89,20 +85,35 @@ export default class EventsController{
     }
 
      /**
-     * @status TESTING
      * @param req 
      * @param res 
      */ 
-    static async deleteEvent(req: any, res : any){
+    static async deleteActiveEvent(req: any, res : any){
         try{
 
             const body = req.body;
-            const EventResponse = await EventDao.deleteEvent( body );
+            const EventResponse = await EventDao.deleteActiveEvent( body );
+
+            res.status(200).send(EventResponse);
+        }catch(err){
+            res.status(500).send(err.message);
+        } 
+    }
+
+
+     /**
+     * @param req 
+     * @param res 
+     */ 
+    static async deleteArchvedEvent(req: any, res : any){
+        try{
+
+            const body = req.body;
+            const EventResponse = await EventDao.deleteArchvedEvent( body );
 
             res.status(200).send(EventResponse);
         }catch(err){
             res.status(500).send(err.message);
         }
-        
     }
 }
