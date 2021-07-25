@@ -8,7 +8,9 @@ import { SmallEventCard } from '../components/cards/smallCard.component';
 import{ SwipeableStepper } from '../components/cards/carousel/carousel.component';
 import { NavigationFab } from '../components/navigation/navigation-fab.component'
 import { IEvent } from '../types/event/event.type';
+import { Typography } from '@material-ui/core';
 
+import styles from '/styles/textAfisha.module.css';
 
 //==========  MOCK OBJ =============
 
@@ -67,6 +69,11 @@ export default function Home() {
           }
         </SwipeableStepper>
 
+
+        <Typography className = { styles.heading }>
+          Лучшее на этой неделе
+        </Typography>
+        
         <CardSlider>
           { [1,2,3,4,5].map(v => 
          
