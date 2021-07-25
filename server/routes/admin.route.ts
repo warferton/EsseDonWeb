@@ -10,10 +10,10 @@ router.route('/events/get/archived').get(AdminController.getArchivedEvents);
 
 
 // Create Archived Event
-router.route('/events/create').post(AdminController.createArchivedEvent);
+router.route('/events/create/archived').post(AdminController.createArchivedEvent);
 
 // Create Active Event
-router.route('/events/update/active').post(AdminController.createActiveEvent);
+router.route('/events/create/active').post(AdminController.createActiveEvent);
 
 
 // Update Archived Event
@@ -23,9 +23,11 @@ router.route('/events/update/archived').put(AdminController.updateArchivedEvent)
 router.route('/events/update/active').put(AdminController.updateActiveEvent);
 
 
-// Delete Event
-router.route('/events').delete(AdminController.deleteEvent);
+// Delete Archived Event
+router.route('/events/delete/archived').delete(AdminController.deleteArchvedEvent);
 
+// Delete Active Event
+router.route('/events/delete/active').delete(AdminController.deleteActiveEvent);
 
 
 
