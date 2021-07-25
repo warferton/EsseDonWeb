@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId, Collection } from "mongodb";
 import { IEvent } from '../types/event.type';
-import { v4 as uuid } from 'uuid';
+
 
 interface IQuery extends Object{
     price?: number;
@@ -119,12 +119,11 @@ export default class EventDbClient{
     }
 
     /**
-     * @status TESTING
+     * @status READY
      * @param param0 
      */
     static async createArchivedEvent(event: IEvent){
-        const id = uuid();
-        const newEventDoc = Object.assign( event, { _id: new ObjectId( id ) } );
+        const newEventDoc = Object.assign( event );
         try{
             return await ArchivedEvents.insertOne( newEventDoc );
         }catch( err ){
@@ -136,12 +135,11 @@ export default class EventDbClient{
     };
     
     /**
-     * @status TESTING
+     * @status READY
      * @param param0 
      */
     static async createActiveEvent(event: IEvent){
-        const id = uuid();
-        const newEventDoc = Object.assign( event, { _id: new ObjectId( id ) } );
+        const newEventDoc = Object.assign( event );
         try{
             return await ActiveEvents.insertOne( newEventDoc );
         }catch( err ){
@@ -153,13 +151,16 @@ export default class EventDbClient{
     };
 
     /**
-     * @status TESTING
+     * @status READY
      * @param param0 
      */
     static async updateArchivedEvent(event : IEvent){
-        const filter = { _id : event?.id };
+        const {id, ...updateBody} =  event;
          try{
-            return await ArchivedEvents.updateOne( filter, event );
+            return await ArchivedEvents.updateOne( 
+                { _id : new ObjectId(id) },
+                { $set :  updateBody } 
+            );
         }catch( err ){
             console.error(
                 `Unable to update a document: ${err.message}`
@@ -169,13 +170,16 @@ export default class EventDbClient{
     };  
 
     /**
-     * @status TESTING
+     * @status READY
      * @param param0 
      */
     static async updateActiveEvent(event : IEvent){
-        const filter = { _id : event?.id };
-        try{
-            return await ActiveEvents.updateOne( filter, event );
+       const {id, ...updateBody} =  event;
+         try{
+            return await ActiveEvents.updateOne( 
+                { _id : new ObjectId(id) },
+                { $set :  updateBody } 
+            );
         }catch( err ){
             console.error(
                 `Unable to update a document: ${err.message}`
@@ -184,20 +188,38 @@ export default class EventDbClient{
         }
     };
 
+    
     /** 
-     * @status TESTING
+     * @status READY
      * @param param0 
      */
-    static async deleteEvent({ id = '' } = {}){
-        const filter = { _id : id };
+    static async deleteArchvedEvent({ id = '' } = {}){
+        const filter = { _id : new ObjectId(id) };
         try{
-            return await ActiveEvents.deleteOne( filter );
+            return await ArchivedEvents.deleteOne( filter );
         }catch( err ){
             console.error(
                 `Unable to delete a document: ${err.message}`
-            );
-            return { error: err };
-        }
-    };
+                );
+                return { error: err };
+            }
+        };
 
-}
+        
+        /** 
+         * @status READY
+         * @param param0 
+         */
+        static async deleteActiveEvent({ id = '' } = {}){
+            const filter = { _id : new ObjectId(id) };
+            try{
+                return await ActiveEvents.deleteOne( filter );
+            }catch( err ){
+                console.error(
+                    `Unable to delete a document: ${err.message}`
+                );
+                return { error: err };
+            }
+        };
+
+    }
