@@ -19,7 +19,7 @@ interface IProps{
 export function EventCard(props : IProps) {
 
     const { event } = props;
-    const { title, price, description, free, image, date, time } = event  
+    const { title, price, shortDescription, free, image, date, time } = event  
 
     return (   
         <Card raised className={ styles.root }>
@@ -43,8 +43,8 @@ export function EventCard(props : IProps) {
                     label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}
                     className = { styles.chip}
                     />
-                    <Typography variant="body2" color="textSecondary" className={ styles.text + ' ' + styles.aboutText } component="p">
-                       { description }
+                    <Typography variant="body2" color="textSecondary" className={ classes.text + ' ' + classes.aboutText } component="p">
+                       { shortDescription }
                     </Typography>
                 </CardContent>
             </CardActionArea>
