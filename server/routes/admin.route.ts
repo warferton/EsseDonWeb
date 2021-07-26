@@ -43,7 +43,7 @@ router.route('/menu/delete').delete(AdminController.deleteMenuItem);
 
 
 //special 
-router.route('/menu/kitchen/many').delete(AdminController.createMany);
+router.route('/menu/kitchen/many').post(AdminController.createMany);
 
 
 export default router;
