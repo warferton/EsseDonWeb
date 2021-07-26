@@ -6,7 +6,7 @@ export function AdminHeader () {
     return(
     <Container disableGutters maxWidth={ false } className={ styles.Logo }>
         <Typography variant='h2' className={ styles.BigText }>
-            ЭССЄ
+            ЭССЕ
         </Typography>
         <Typography className={ styles.SmallText}>
             ADMIN

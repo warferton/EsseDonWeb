@@ -28,13 +28,15 @@ export function CreateEventForm(props: IProps) {
     const { 
         title, 
         lineup, 
+        shortDescription,
         description, 
         date, 
         time, 
         free, 
         price, 
         image, 
-        videoLink 
+        videoLink,
+        tcLink 
     } = props.event;
 
     const [ isFreeEvent, setIsFreeEvent] = useState(free);
@@ -53,12 +55,14 @@ export function CreateEventForm(props: IProps) {
                     title: title || '',
                     lineup: lineup || [],
                     description: description || '',
+                    shortDescription: shortDescription || '',
                     date: date || '',
                     time: time || '',
                     free: isFreeEvent,
                     price: price || '',
                     image: image || '',
                     videoLink: videoLink || '',
+                    tcLink: tcLink || '',
                 }}
                 validate={values => {
                     const errors: Partial<IEvent> = {};
@@ -72,10 +76,16 @@ export function CreateEventForm(props: IProps) {
                         errors.price = 'Обязательное поле | Неверный формат';
                     }
                     if(!values.date){
-                        errors.description = 'Required';
+                        errors.date = 'Required';
                     }
                     if(!values.time){
-                        errors.description = 'Required';
+                        errors.time = 'Required';
+                    }
+                    if(!isFreeEvent && !values.tcLink){
+                        errors.tcLink = 'Required';
+                    }
+                    if(!values.image){
+                        errors.image = 'Required';
                     }
 
                     return errors;
@@ -102,6 +112,15 @@ export function CreateEventForm(props: IProps) {
 
                         <Field
                         component={ TextField }
+                        name="shortDecription"
+                        type="text"
+                        label="Краткое Описание"
+                        variant="outlined"
+                        className={ styles.formField }
+                        />
+
+                        <Field
+                        component={ TextField }
                         name="description"
                         type="text"
                         label="Описание"
@@ -116,6 +135,44 @@ export function CreateEventForm(props: IProps) {
                         name="lineup"
                         type="text"
                         label="Состав"
+                        variant="outlined"
+                        className={ styles.formField }
+                        />
+
+                        <Field
+                        component={ TextField }
+                        name="date"
+                        type="date"
+                        label="Дата"
+                        variant="outlined"
+                        className={ styles.formField }
+                        InputLabelProps={{ shrink: true }}
+                        />
+
+                        <Field
+                        component={ TextField }
+                        name="time"
+                        type="time"
+                        label="Вермя"
+                        variant='outlined'
+                        className={ styles.formField }
+                        InputLabelProps={{ shrink: true }}
+                        />
+
+                        <Field
+                        component={ TextField }
+                        name="image"
+                        type="text"
+                        label="Фото"
+                        variant="outlined"
+                        className={ styles.formField }
+                        />
+
+                        <Field
+                        component={ TextField }
+                        name="videoLink"
+                        type="text"
+                        label="Ссылка на видео"
                         variant="outlined"
                         className={ styles.formField }
                         />
@@ -187,46 +244,19 @@ export function CreateEventForm(props: IProps) {
                                 style={{ width: 'calc(100% - 22px)'}}
                                 className={ styles.formField }
                                 />
+
+                                <Field
+                                component={ TextField }
+                                name="ticketCloudLink"
+                                type="text"
+                                label="Ссылка на TicketCloud"
+                                variant="outlined"
+                                style={{ width: 'calc(100% - 22px)'}}
+                                className={ styles.formField }
+                                />
+
                             </motion.div>
                         }
-
-                        <Field
-                        component={ TextField }
-                        name="date"
-                        type="date"
-                        label="Дата"
-                        variant="outlined"
-                        className={ styles.formField }
-                        InputLabelProps={{ shrink: true }}
-                        />
-
-                        <Field
-                        component={ TextField }
-                        name="time"
-                        type="time"
-                        label="Вермя"
-                        variant='outlined'
-                        className={ styles.formField }
-                        InputLabelProps={{ shrink: true }}
-                        />
-
-                        <Field
-                        component={ TextField }
-                        name="image"
-                        type="text"
-                        label="Фото"
-                        variant="outlined"
-                        className={ styles.formField }
-                        />
-
-                        <Field
-                        component={ TextField }
-                        name="videoLink"
-                        type="text"
-                        label="Ссылка на видео"
-                        variant="outlined"
-                        className={ styles.formField }
-                        />
 
 
                         {isSubmitting && 
