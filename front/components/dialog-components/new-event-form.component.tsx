@@ -94,7 +94,7 @@ export function CreateEventForm(props: IProps) {
                 onSubmit={(values, { setSubmitting }) => {
                     values.free = isFreeEvent;
                     setSubmitting(true);
-                    axios.post('lhttp://localhost:3030/api/v1/spe1Ce/control/admin/events/create/'.concat(), values)
+                    axios.post('http://localhost:3030/api/v1/spe1Ce/control/admin/events/create/'.concat(), values)
                         .then(res => {
                             /**@todo*/
                             // if (res.status === 201)

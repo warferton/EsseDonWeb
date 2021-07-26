@@ -1,8 +1,11 @@
-import { MongoClient, Collection } from "mongodb";
+import { MongoClient, Collection, ObjectId } from "mongodb";
+import { IMenuItem } from "types/menu-item.type";
 
 
 let BarItems : Collection;
 let KitchenItems : Collection;
+let SpecialItems : Collection;
+let VeganItems : Collection;
 
 export default class MenuDbClient{
     
@@ -15,6 +18,10 @@ export default class MenuDbClient{
                 BarItems = await connection.db(process.env['MENU_NS']).collection('bar_items');
             if( !KitchenItems )
                 KitchenItems = await connection.db(process.env['MENU_NS']).collection('kitchen_items');
+            if( !SpecialItems )
+                SpecialItems = await connection.db(process.env['MENU_NS']).collection('special_items');
+            if( !VeganItems )
+                VeganItems = await connection.db(process.env['MENU_NS']).collection('vegan_items');
 
         }catch(err){
             console.error(
@@ -24,8 +31,7 @@ export default class MenuDbClient{
     }
 
     /**
-     * @status READY
-     * @returns 
+     * @status READY 
      */
     static async getAllMenuItems() {
         let barCursor;
@@ -65,8 +71,66 @@ export default class MenuDbClient{
             );
             return {barItems: [], totalBarItems: 0, kitchenItems: [], totalKitchenItems: 0};
         }
+    }
+
+     /**
+     * @status READY
+     */
+    static async createMenuItem(menuItem: IMenuItem){
+        const collection = this.getCollectionFromCategory(menuItem.category);
+        try{
+            return await collection.insertOne( menuItem );
+        }catch( err ){
+            console.error(
+                `Unable to insert a new document: ${err.message}`
+            );
+            return { error: err };
+        }
+    };
+
+    /**
+     * @status READY
+     */
+    static async updateMenuItem(menuItem: IMenuItem){
+        const collection = this.getCollectionFromCategory(menuItem.category);
+        const {id, ...updateBody} =  menuItem;
+        try{
+            return await collection.updateOne( 
+                { _id : new ObjectId(id) },
+                { $set: updateBody } 
+            );
+        }catch( err ){
+            console.error(
+                `Unable to update an existing document: ${err.message}`
+            );
+            return { error: err };
+        }
+    };
+
+    /**
+     * @status READY
+     */
+    static async deleteMenuItem(menuItem: IMenuItem){
+        const collection = this.getCollectionFromCategory(menuItem.category);
+        const { id } =  menuItem;
+        try{
+            return await collection.deleteOne( { _id : new ObjectId(id) } );
+        }catch( err ){
+            console.error(
+                `Unable to delete an existing document: ${err.message}`
+            );
+            return { error: err };
+        }
+    };
 
 
-
+    static getCollectionFromCategory( category : string ){
+        switch( category ){
+            case 'bar': return BarItems;
+            case 'kitchen': return KitchenItems;
+            case 'special': return SpecialItems;
+            case 'vegan': return VeganItems;
+            default: return KitchenItems;
+        }
     }
 }
