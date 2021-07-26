@@ -26,7 +26,7 @@ export default class EventsController{
             const body = req.body;
             const EventResponse = await EventDao.createArchivedEvent( body );
 
-            res.status(200).send(EventResponse);
+            res.status(201).send(EventResponse);
         }catch(err){
             res.status(500).send(err.message);
         }
@@ -43,7 +43,7 @@ export default class EventsController{
             const body = req.body;
             const EventResponse = await EventDao.createActiveEvent( body );
 
-            res.status(200).send(EventResponse);
+            res.status(201).send(EventResponse);
         }catch(err){
             res.status(500).send(err.message);
         }

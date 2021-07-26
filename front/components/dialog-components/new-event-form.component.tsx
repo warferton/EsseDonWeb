@@ -3,6 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Grid, Typography, Switch, Container, Box, Button, CircularProgress, makeStyles } from '@material-ui/core';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 
 import { IEvent } from '../../types/event/event.type';
 
@@ -92,10 +93,19 @@ export function CreateEventForm(props: IProps) {
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     values.free = isFreeEvent;
-                    setTimeout(() => {
+                    setSubmitting(true);
+                    axios.post('lhttp://localhost:3030/api/v1/spe1Ce/control/admin/events/create/'.concat(), values)
+                        .then(res => {
+                            /**@todo*/
+                            // if (res.status === 201)
+                            // Pokazat snakbar
+                        }).catch( err => {
+                            /**@todo*/
+                            //pokazat snakbar s oshibkoy( krasny )
+                            console.error(err) });
+                        
                     setSubmitting(false);
-                    alert(JSON.stringify(values, null, 2));
-                    }, 4000);
+                    
                 }}
                 >
                 {({ submitForm, isSubmitting }) => (
