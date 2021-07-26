@@ -42,4 +42,8 @@ router.route('/menu/update').put(AdminController.updateMenuItem);
 router.route('/menu/delete').delete(AdminController.deleteMenuItem);
 
 
+//special 
+router.route('/menu/kitchen/many').delete(AdminController.createMany);
+
+
 export default router;

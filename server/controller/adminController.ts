@@ -109,6 +109,18 @@ export default class EventsController{
         }
     }
 
+    /**@todo */
+    static async createMany( req: any, res: any ) {
+        try{
+            const body = req.body;
+            const EventResponse = await MenuDao.createKitchenItem( body );
+
+            res.status(200).send(EventResponse);
+        } catch(err){
+            res.status(500).send(err.message);
+        }
+    }
+
     static async updateMenuItem( req: any, res: any ) {
         try{
             const body = req.body;

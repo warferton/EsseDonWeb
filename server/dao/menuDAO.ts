@@ -91,6 +91,20 @@ export default class MenuDbClient{
     /**
      * @status READY
      */
+    static async createKitchenItem(menuItem: IMenuItem){
+        try{
+            return await KitchenItems.insert( menuItem );
+        }catch( err ){
+            console.error(
+                `Unable to insert a new document: ${err.message}`
+            );
+            return { error: err };
+        }
+    };
+
+    /**
+     * @status READY
+     */
     static async updateMenuItem(menuItem: IMenuItem){
         const collection = this.getCollectionFromCategory(menuItem.category);
         const {id, ...updateBody} =  menuItem;
