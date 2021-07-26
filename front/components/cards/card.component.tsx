@@ -43,7 +43,7 @@ export function EventCard(props : IProps) {
                     label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}
                     className = { styles.chip}
                     />
-                    <Typography variant="body2" color="textSecondary" className={ classes.text + ' ' + classes.aboutText } component="p">
+                    <Typography variant="body2" color="textSecondary" className={ styles.text + ' ' + styles.aboutText } component="p">
                        { shortDescription }
                     </Typography>
                 </CardContent>

@@ -32,7 +32,8 @@
     display: -webkit-box !important;
     overflow: hidden !important;
     box-orient: vertical !important;
-    height: 4.5em;
+    max-height: 4rem;
+
 }
 
 .chip {
