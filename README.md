@@ -1,6 +1,7 @@
 # EsseDonWeb
 
 ## Front Links:
+
 - `/contacts`
 - `/menu`
 - `/event`
@@ -9,6 +10,7 @@
 - `/admin/events`
 
 # API URLS:
+
 - get archived events : `http://localhost:3030/api/v1/events/archived`
 - get active events : `http://localhost:3030/api/v1/events/active`
 - get all menu items : `http://localhost:3030/api/v1/menu/all`
@@ -17,3 +19,6 @@
 - - create archived/active event: `events/create/(active/archived)`
 - - update archived/active event: `events/update/(active/archived)`
 - - delete archived/active event: `events/delete/(active/archived)`
+- - create menu item: `menu/create`
+- - update menu item: `menu/update`
+- - delete menu item: `menu/delete`
