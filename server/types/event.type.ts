@@ -14,4 +14,5 @@ export interface IEvent{
     image?: string;
     videoLink?: string;
     price?: number | string;
+    deposit?: number | string;
 }
