@@ -33,6 +33,7 @@ export function CreateEventForm(props: IProps) {
         date, 
         time, 
         free, 
+        deposit,
         price, 
         image, 
         videoLink,
@@ -59,6 +60,7 @@ export function CreateEventForm(props: IProps) {
                     date: date || '',
                     time: time || '',
                     free: isFreeEvent,
+                    deposit: deposit || '',
                     price: price || '',
                     image: image || '',
                     videoLink: videoLink || '',
@@ -257,6 +259,38 @@ export function CreateEventForm(props: IProps) {
 
                             </motion.div>
                         }
+                        {
+                            isFreeEvent &&
+                            <motion.div
+                            initial={{
+                                opacity: 0,
+                                x: -200
+                            }}
+                            animate={{
+                                opacity: 1,
+                                x: 0
+                            }}
+                            transition={{
+                                stiffness: 200,
+                                damping: 17,
+                                type: 'spring',
+                                duration: 1
+                            }}
+                            
+                        >
+                            <Field
+                            component={ TextField }
+                            name="deposit"
+                            type="number"
+                            label="Депозит"
+                            variant="outlined"
+                            style={{ width: 'calc(100% - 22px)'}}
+                            className={ styles.formField }
+                            />
+
+                        </motion.div>
+                        }
+                        
 
 
                         {isSubmitting && 
