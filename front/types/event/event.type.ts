@@ -11,6 +11,7 @@ export interface IEvent{
     shortDescription?: string;
     description: string;
     free: boolean;
+    deposit?: number | string;
     image: string;
     videoLink?: string;
     price?: number | string;
