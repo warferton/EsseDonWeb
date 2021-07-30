@@ -19,8 +19,8 @@ interface IProps{
 export function EventCard(props : IProps) {
 
     const { event } = props;
-    const { title, price, shortDescription, free, image, date, time } = event  
-    const deposit = 1000;
+    const { title, price, shortDescription, free, image, deposit, date, time } = event  
+    
     return (   
         <Card raised className={ styles.root }>
             <CardActionArea>
