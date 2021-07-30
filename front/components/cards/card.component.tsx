@@ -20,7 +20,7 @@ export function EventCard(props : IProps) {
 
     const { event } = props;
     const { title, price, shortDescription, free, image, date, time } = event  
-
+    const deposit = 1000;
     return (   
         <Card raised className={ styles.root }>
             <CardActionArea>
@@ -38,11 +38,17 @@ export function EventCard(props : IProps) {
                     </Typography>
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.dateText }>
                         { `${ date.getDate() } ${ time }` }
-                    </Typography>
+                    </Typography> 
                     <Chip 
                     label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}
                     className = { styles.chip}
                     />
+                    { deposit && (
+                    <Chip 
+                    label={ `Депозит ${ deposit }₽` }
+                    className = { styles.chip}
+                    />)
+                    }
                     <Typography variant="body2" color="textSecondary" className={ styles.text + ' ' + styles.aboutText } component="p">
                        { shortDescription }
                     </Typography>
