@@ -8,6 +8,7 @@ interface IQuery extends Object{
     description?: string;
     shortdescription?: string;
     free?: boolean;
+    deposit?: number;
     id?: string;
     lineup?: string[];
     date?: string;
