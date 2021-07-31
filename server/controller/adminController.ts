@@ -15,8 +15,58 @@ export default class EventsController{
         
     }
 
+    /**
+     * @param req 
+     * @param res 
+     */
+    static async createEvent(req: any, res : any){
+        try{
+
+            const body = req.body;
+            const EventResponse = await EventDao.createEvent( body );
+
+            res.status(200).send(EventResponse);
+        }catch(err){
+            res.status(500).send(err.message);
+        }
+        
+    }
 
     /**
+     * @param req 
+     * @param res 
+     */
+    static async updateEvent(req: any, res : any){
+        try{
+
+            const body = req.body;
+            const EventResponse = await EventDao.updateEvent( body );
+
+            res.status(200).send(EventResponse);
+        }catch(err){
+            res.status(500).send(err.message);
+        }
+        
+    }
+
+    /**
+     * @param req 
+     * @param res 
+     */
+    static async deleteEvent(req: any, res : any){
+        try{
+
+            const body = req.body;
+            const EventResponse = await EventDao.deleteEvent( body );
+
+            res.status(200).send(EventResponse);
+        }catch(err){
+            res.status(500).send(err.message);
+        } 
+    }
+
+    /**
+     * @deprecated
      * @param req 
      * @param res 
      */    
@@ -33,7 +83,8 @@ export default class EventsController{
         
     }
 
-     /**
+    /**
+     * @deprecated
      * @param req 
      * @param res 
      */ 
@@ -51,9 +102,10 @@ export default class EventsController{
     }
 
      /**
-     * @param req 
-     * @param res 
-     */ 
+      * @deprecated
+      * @param req 
+      * @param res 
+      */ 
     static async updateArchivedEvent(req: any, res : any){
         try{
 
@@ -68,9 +120,10 @@ export default class EventsController{
     }
 
      /**
-     * @param req 
-     * @param res 
-     */ 
+      * @deprecated
+      * @param req 
+      * @param res 
+      */ 
     static async updateActiveEvent(req: any, res : any){
         try{
 
@@ -85,9 +138,10 @@ export default class EventsController{
     }
 
      /**
-     * @param req 
-     * @param res 
-     */ 
+      * @deprecated
+      * @param req 
+      * @param res 
+      */ 
     static async deleteActiveEvent(req: any, res : any){
         try{
 
@@ -102,6 +156,7 @@ export default class EventsController{
 
 
      /**
+     * @deprecated
      * @param req 
      * @param res 
      */ 

@@ -12,6 +12,7 @@ interface IQuery extends Object{
     lineup?: string[];
     date?: string;
     time?: string;
+    active?: boolean;
 }
 
 let ActiveEvents : Collection;
@@ -119,6 +120,30 @@ export default class EventDbClient{
     }
 
     /**
+     * @status DEV
+     */
+    static async createEvent(event: IEvent){
+        const { active } = event;
+        return active ? this.createActiveEvent(event) : this.createArchivedEvent(event);
+    }
+
+    /**
+     * @status DEV
+     */
+    static async updateEvent(event: IEvent){
+        const { active } = event;
+        return active ? this.updateActiveEvent(event) : this.updateArchivedEvent(event);
+    }
+
+    /**
+     * @status DEV
+     */
+    static async deleteEvent(event: IEvent){
+        const { active } = event;
+        return active ? this.deleteActiveEvent(event) : this.updateArchivedEvent(event);
+    }
+
+    /**
      * @status READY
      * @param param0 
      */
@@ -206,20 +231,20 @@ export default class EventDbClient{
         };
 
         
-        /** 
-         * @status READY
-         * @param param0 
-         */
-        static async deleteActiveEvent({ id = '' } = {}){
-            const filter = { _id : new ObjectId(id) };
-            try{
-                return await ActiveEvents.deleteOne( filter );
-            }catch( err ){
-                console.error(
-                    `Unable to delete a document: ${err.message}`
-                );
-                return { error: err };
-            }
-        };
+    /** 
+     * @status READY
+     * @param param0 
+     */
+    static async deleteActiveEvent({ id = '' } = {}){
+        const filter = { _id : new ObjectId(id) };
+        try{
+            return await ActiveEvents.deleteOne( filter );
+        }catch( err ){
+            console.error(
+                `Unable to delete a document: ${err.message}`
+            );
+            return { error: err };
+        }
+    };
 
-    }
+}
