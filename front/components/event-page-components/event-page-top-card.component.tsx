@@ -27,6 +27,11 @@ const useStyles = makeStyles({
       fontWeight: 500,
       fontSize: '26px'
   },
+  shortDecriptionText: {
+      marginTop: '10px',
+      fontWeight: 100,
+      fontSize: '18px'
+  },
   dateText: {
       fontWeight: 100,
       fontSize: '16px'
@@ -82,6 +87,9 @@ export function TopCard() {
                     label='Вход свободный'
                     className = { styles.chip}
                     />
+                    <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.shortDecriptionText }>
+                        Классические произведения и композиции в сочетании с каверами на рок-хиты.
+                    </Typography>
                 </CardContent>
             <CardActions className={ styles.actions }>
                 <Button

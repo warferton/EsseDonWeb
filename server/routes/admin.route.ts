@@ -15,12 +15,12 @@ router.route('/events/get/archived').get(AdminController.getArchivedEvents);
 router.route('/events/create').post(AdminController.createEvent);
 
 /**
- * Update Archived Event
+ * Update Event
  */
 router.route('/events/update').put(AdminController.updateEvent);
 
 /**
- * Delete Active Event
+ * Delete Event
  */
 router.route('/events/delete').delete(AdminController.deleteEvent);
 
@@ -49,7 +49,6 @@ router.route('/events/update/archived').put(AdminController.updateArchivedEvent)
  * Update Active Event
  */
 router.route('/events/update/active').put(AdminController.updateActiveEvent);
-
 
 /**
  * @deprecated

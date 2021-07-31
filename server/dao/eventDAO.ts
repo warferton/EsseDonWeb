@@ -240,7 +240,7 @@ export default class EventDbClient{
             }
         };
 
-        
+  
     /** 
      * @status READY
      * @param param0 
@@ -248,13 +248,12 @@ export default class EventDbClient{
     static async deleteActiveEvent({ id = '' } = {}){
         const filter = { _id : new ObjectId(id) };
         try{
-            return await ActiveEvents.deleteOne( filter );
+            return await ArchivedEvents.deleteOne( filter );
         }catch( err ){
             console.error(
                 `Unable to delete a document: ${err.message}`
-            );
-            return { error: err };
-        }
-    };
-
+                );
+                return { error: err };
+            }
+        };
 }
