@@ -12,6 +12,7 @@ interface IQuery extends Object{
     lineup?: string[];
     date?: string;
     time?: string;
+    active?: boolean;
 }
 
 let ActiveEvents : Collection;
@@ -121,6 +122,40 @@ export default class EventDbClient{
 
     /**
      * @status READY
+     */
+    static async createEvent(event: IEvent){
+        const { active } = event;
+        return active ? this.createActiveEvent(event) : this.createArchivedEvent(event);
+    }
+
+    /**
+     * @status READY
+     */
+    static async updateEvent(event: IEvent){
+        const { active } = event;
+        const collectionToDeleteFrom = active ? ArchivedEvents : ActiveEvents;
+        const id = new ObjectId(event.id);
+
+        const documentFound = await collectionToDeleteFrom.findOne( { _id: id } );
+
+        if( documentFound ){
+            collectionToDeleteFrom.deleteOne( { _id: id } );
+            return active ? this.createActiveEvent(event) : this.createArchivedEvent(event);
+        }
+
+        return active ? this.updateActiveEvent(event) : this.updateArchivedEvent(event);
+    }
+
+    /**
+     * @status READY
+     */
+    static async deleteEvent(event: IEvent){
+        const { active } = event;
+        return active ? this.deleteActiveEvent(event) : this.updateArchivedEvent(event);
+    }
+
+    /**
+     * @status READY
      * @param param0 
      */
     static async createArchivedEvent(event: IEvent){
@@ -207,21 +242,20 @@ export default class EventDbClient{
             }
         };
 
-        
-        /** 
-         * @status READY
-         * @param param0 
-         */
-        static async deleteActiveEvent({ id = '' } = {}){
-            const filter = { _id : new ObjectId(id) };
-            try{
-                return await ActiveEvents.deleteOne( filter );
-            }catch( err ){
-                console.error(
-                    `Unable to delete a document: ${err.message}`
+  
+    /** 
+     * @status READY
+     * @param param0 
+     */
+    static async deleteActiveEvent({ id = '' } = {}){
+        const filter = { _id : new ObjectId(id) };
+        try{
+            return await ArchivedEvents.deleteOne( filter );
+        }catch( err ){
+            console.error(
+                `Unable to delete a document: ${err.message}`
                 );
                 return { error: err };
             }
         };
-
-    }
+}
