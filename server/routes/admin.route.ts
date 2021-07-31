@@ -9,24 +9,57 @@ const router = express.Router();
 router.route('/events/get/archived').get(AdminController.getArchivedEvents);
 
 
-// Create Archived Event
+/**
+ * Create Event
+ */
+router.route('/events/create').post(AdminController.createEvent);
+
+/**
+ * Update Event
+ */
+router.route('/events/update').put(AdminController.updateEvent);
+
+/**
+ * Delete Event
+ */
+router.route('/events/delete').delete(AdminController.deleteEvent);
+
+
+/**
+ * @deprecated
+ * Create Archived Event
+ */
 router.route('/events/create/archived').post(AdminController.createArchivedEvent);
 
-// Create Active Event
+/**
+ * @deprecated
+ * Create Active Event*
+ */
 router.route('/events/create/active').post(AdminController.createActiveEvent);
 
 
-// Update Archived Event
+/**
+ * @deprecated
+ * Update Archived Event
+ */
 router.route('/events/update/archived').put(AdminController.updateArchivedEvent);
 
-// Update Active Event
+/**
+ * @deprecated
+ * Update Active Event
+ */
 router.route('/events/update/active').put(AdminController.updateActiveEvent);
 
-
-// Delete Archived Event
+/**
+ * @deprecated
+ * Delete Archived Event
+ */ 
 router.route('/events/delete/archived').delete(AdminController.deleteArchvedEvent);
 
-// Delete Active Event
+/**
+ * @deprecated
+ * Delete Active Event
+ */
 router.route('/events/delete/active').delete(AdminController.deleteActiveEvent);
 
 
