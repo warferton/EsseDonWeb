@@ -120,7 +120,7 @@ export default class EventDbClient{
     }
 
     /**
-     * @status DEV
+     * @status READY
      */
     static async createEvent(event: IEvent){
         const { active } = event;
@@ -128,15 +128,25 @@ export default class EventDbClient{
     }
 
     /**
-     * @status DEV
+     * @status READY
      */
     static async updateEvent(event: IEvent){
         const { active } = event;
+        const collectionToDeleteFrom = active ? ArchivedEvents : ActiveEvents;
+        const id = new ObjectId(event.id);
+
+        const documentFound = await collectionToDeleteFrom.findOne( { _id: id } );
+
+        if( documentFound ){
+            collectionToDeleteFrom.deleteOne( { _id: id } );
+            return active ? this.createActiveEvent(event) : this.createArchivedEvent(event);
+        }
+
         return active ? this.updateActiveEvent(event) : this.updateArchivedEvent(event);
     }
 
     /**
-     * @status DEV
+     * @status READY
      */
     static async deleteEvent(event: IEvent){
         const { active } = event;
