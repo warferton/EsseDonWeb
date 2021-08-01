@@ -37,6 +37,7 @@ export default class EventDbClient{
         }
     }
 
+
     static async getActiveEvents( filters: IQuery, eventPerLoad?: number ) {
         const loadLimit = eventPerLoad || 20;
         let query : IQuery  = {};
@@ -107,7 +108,6 @@ export default class EventDbClient{
         try{
 
             const events = await displayCursor.toArray();
-
             const totalActiveEvents = await ArchivedEvents.countDocuments(query);
 
             return {events, totalActiveEvents};
@@ -115,6 +115,7 @@ export default class EventDbClient{
             console.error(
                 `Unable to convert cursor to an array: ${err.message}`
             );
+
             return {events: [], totalRetrieved: 0, limit: loadLimit};
         }
     }
@@ -158,9 +159,8 @@ export default class EventDbClient{
      * @param param0 
      */
     static async createArchivedEvent(event: IEvent){
-        const newEventDoc = Object.assign( event );
         try{
-            return await ArchivedEvents.insertOne( newEventDoc );
+            return await ArchivedEvents.insertOne( event );
         }catch( err ){
             console.error(
                 `Unable to insert a new document: ${err.message}`
@@ -169,14 +169,14 @@ export default class EventDbClient{
         }
     };
     
+    
     /**
      * @status READY
      * @param param0 
      */
     static async createActiveEvent(event: IEvent){
-        const newEventDoc = Object.assign( event );
         try{
-            return await ActiveEvents.insertOne( newEventDoc );
+            return await ActiveEvents.insertOne( event );
         }catch( err ){
             console.error(
                 `Unable to insert a new document: ${err.message}`

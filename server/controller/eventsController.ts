@@ -18,6 +18,7 @@ export default class EventsController{
         
     }
 
+
     /**
      * @todo To be removed after testing
      * @param req 

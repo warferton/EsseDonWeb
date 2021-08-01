@@ -4,6 +4,7 @@ import AdminController from '../controller/adminController';
 
 const router = express.Router();
 
+ /* ==============  EVENTS ============== */
 
 // Get All Archived Events
 router.route('/events/get/archived').get(AdminController.getArchivedEvents);
@@ -62,7 +63,20 @@ router.route('/events/delete/archived').delete(AdminController.deleteArchvedEven
  */
 router.route('/events/delete/active').delete(AdminController.deleteActiveEvent);
 
+/* ==============  MENU ============== */
 
+// Create Menu Item
+router.route('/menu/create').post(AdminController.createMenuItem);
+
+// Update Menu Item
+router.route('/menu/update').put(AdminController.updateMenuItem);
+
+// Delete Menu Item
+router.route('/menu/delete').delete(AdminController.deleteMenuItem);
+
+
+//special 
+router.route('/menu/kitchen/many').post(AdminController.createMany);
 
 
 export default router;
