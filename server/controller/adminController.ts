@@ -19,8 +19,6 @@ export default class EventsController{
         
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @param req 
      * @param res 
@@ -76,7 +74,6 @@ export default class EventsController{
      * @param req 
      * @param res 
      */    
->>>>>>> a668395be7cb1d68253f34063f589921785be97b
     static async createArchivedEvent(req: any, res : any){
         try{
 
@@ -90,14 +87,11 @@ export default class EventsController{
         
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @deprecated
      * @param req 
      * @param res 
      */ 
->>>>>>> a668395be7cb1d68253f34063f589921785be97b
     static async createActiveEvent(req: any, res : any){
         try{
 
@@ -111,14 +105,11 @@ export default class EventsController{
         
     }
 
-<<<<<<< HEAD
-=======
      /**
       * @deprecated
       * @param req 
       * @param res 
       */ 
->>>>>>> a668395be7cb1d68253f34063f589921785be97b
     static async updateArchivedEvent(req: any, res : any){
         try{
 
@@ -132,14 +123,11 @@ export default class EventsController{
         
     }
 
-<<<<<<< HEAD
-=======
      /**
       * @deprecated
       * @param req 
       * @param res 
       */ 
->>>>>>> a668395be7cb1d68253f34063f589921785be97b
     static async updateActiveEvent(req: any, res : any){
         try{
 
@@ -152,16 +140,12 @@ export default class EventsController{
         }
         
     }
-<<<<<<< HEAD
- 
-=======
 
      /**
       * @deprecated
       * @param req 
       * @param res 
       */ 
->>>>>>> a668395be7cb1d68253f34063f589921785be97b
     static async deleteActiveEvent(req: any, res : any){
         try{
 
@@ -174,15 +158,12 @@ export default class EventsController{
         } 
     }
 
-<<<<<<< HEAD
-=======
 
      /**
      * @deprecated
      * @param req 
      * @param res 
      */ 
->>>>>>> a668395be7cb1d68253f34063f589921785be97b
     static async deleteArchvedEvent(req: any, res : any){
         try{
 
