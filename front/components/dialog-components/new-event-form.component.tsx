@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Grid, Typography, Switch, Container, Box, Button, CircularProgress, makeStyles } from '@material-ui/core';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
+import { SnackbarAlert } from '../alerts/snackbar.component';
 import { IEvent } from '../../types/event/event.type';
 
 import styles from '../../styles/BookingForm.module.css';
@@ -47,6 +48,11 @@ export function CreateEventForm(props: IProps) {
     const handleChecked = () =>{
         setIsFreeEvent(!isFreeEvent);
     }
+
+    const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
+    const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
+
+    const [successMessage, setSuccessMessage] = useState('');
 
     return(
         <Container className={ styles.container }>
@@ -94,15 +100,18 @@ export function CreateEventForm(props: IProps) {
                 onSubmit={(values, { setSubmitting }) => {
                     values.free = isFreeEvent;
                     setSubmitting(true);
-                    axios.post('http://localhost:3030/api/v1/spe1Ce/control/admin/events/create/'.concat(), values)
+                    axios.post('http://localhost:3030/api/v1/events/testPut', values)
                         .then(res => {
-                            /**@todo*/
-                            // if (res.status === 201)
-                            // Pokazat snakbar
+                            if(res.status === 200) 
+                                setSuccessMessage( 'Событие успешно обновлено' ); 
+                            else if (res.status === 201)
+                                setSuccessMessage( 'Событие успешно создано' );
+
+                            setOpenSuccessSnackbar( true );
                         }).catch( err => {
-                            /**@todo*/
-                            //pokazat snakbar s oshibkoy( krasny )
-                            console.error(err) });
+                            console.error(err); 
+                            setOpenErrorSnackbar( true );
+                        });
                         
                     setSubmitting(false);
                     
@@ -295,6 +304,13 @@ export function CreateEventForm(props: IProps) {
                     )}
                 </Formik>
             </Box>
+            <SnackbarAlert open={ openSuccessSnackbar } onClose={() => setOpenSuccessSnackbar(false)} severity="success">
+                        { successMessage }
+            </SnackbarAlert>       
+            <SnackbarAlert open={ openErrorSnackbar } onClose={() => setOpenErrorSnackbar(false)} severity="error">
+                        { `Произошла ошибка` }
+            </SnackbarAlert>
+
         </Container>
     )
 }
