@@ -19,6 +19,64 @@ export default class EventsController{
         
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @param req 
+     * @param res 
+     */
+    static async createEvent(req: any, res : any){
+        try{
+
+            const body = req.body;
+            const EventResponse = await EventDao.createEvent( body );
+
+            res.status(200).send(EventResponse);
+        }catch(err){
+            res.status(500).send(err.message);
+        }
+        
+    }
+
+    /**
+     * @param req 
+     * @param res 
+     */
+    static async updateEvent(req: any, res : any){
+        try{
+
+            const body = req.body;
+            const EventResponse = await EventDao.updateEvent( body );
+
+            res.status(200).send(EventResponse);
+        }catch(err){
+            res.status(500).send(err.message);
+        }
+        
+    }
+
+    /**
+     * @param req 
+     * @param res 
+     */
+    static async deleteEvent(req: any, res : any){
+        try{
+
+            const body = req.body;
+            const EventResponse = await EventDao.deleteEvent( body );
+
+            res.status(200).send(EventResponse);
+        }catch(err){
+            res.status(500).send(err.message);
+        } 
+    }
+
+    /**
+     * @deprecated
+     * @param req 
+     * @param res 
+     */    
+>>>>>>> a668395be7cb1d68253f34063f589921785be97b
     static async createArchivedEvent(req: any, res : any){
         try{
 
@@ -32,6 +90,14 @@ export default class EventsController{
         
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @deprecated
+     * @param req 
+     * @param res 
+     */ 
+>>>>>>> a668395be7cb1d68253f34063f589921785be97b
     static async createActiveEvent(req: any, res : any){
         try{
 
@@ -45,6 +111,14 @@ export default class EventsController{
         
     }
 
+<<<<<<< HEAD
+=======
+     /**
+      * @deprecated
+      * @param req 
+      * @param res 
+      */ 
+>>>>>>> a668395be7cb1d68253f34063f589921785be97b
     static async updateArchivedEvent(req: any, res : any){
         try{
 
@@ -58,6 +132,14 @@ export default class EventsController{
         
     }
 
+<<<<<<< HEAD
+=======
+     /**
+      * @deprecated
+      * @param req 
+      * @param res 
+      */ 
+>>>>>>> a668395be7cb1d68253f34063f589921785be97b
     static async updateActiveEvent(req: any, res : any){
         try{
 
@@ -70,7 +152,16 @@ export default class EventsController{
         }
         
     }
+<<<<<<< HEAD
  
+=======
+
+     /**
+      * @deprecated
+      * @param req 
+      * @param res 
+      */ 
+>>>>>>> a668395be7cb1d68253f34063f589921785be97b
     static async deleteActiveEvent(req: any, res : any){
         try{
 
@@ -83,6 +174,15 @@ export default class EventsController{
         } 
     }
 
+<<<<<<< HEAD
+=======
+
+     /**
+     * @deprecated
+     * @param req 
+     * @param res 
+     */ 
+>>>>>>> a668395be7cb1d68253f34063f589921785be97b
     static async deleteArchvedEvent(req: any, res : any){
         try{
 

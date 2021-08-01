@@ -46,7 +46,7 @@ export default class MenuDbClient{
             return {barItems: [], totalNumBar: 0};
         }
         try {
-            kitchenCursor = await BarItems.find();
+            kitchenCursor = await KitchenItems.find();
         }catch( err ){
             console.error(
                 `Unable to issue "find" command: ${ err.message }`
