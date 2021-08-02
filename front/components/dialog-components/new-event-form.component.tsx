@@ -243,8 +243,7 @@ export function CreateEventForm(props: IProps) {
                                 type="number"
                                 label="Цена"
                                 variant="outlined"
-                                style={{ width: 'calc(100% - 22px)'}}
-                                className={ styles.formField }
+                                className={ styles.motionFormField }
                                 />
 
                                 <Field
@@ -253,8 +252,7 @@ export function CreateEventForm(props: IProps) {
                                 type="text"
                                 label="Ссылка на TicketCloud"
                                 variant="outlined"
-                                style={{ width: 'calc(100% - 22px)'}}
-                                className={ styles.formField }
+                                className={ styles.motionFormField }
                                 />
 
                             </motion.div>
@@ -284,8 +282,7 @@ export function CreateEventForm(props: IProps) {
                             type="number"
                             label="Депозит"
                             variant="outlined"
-                            style={{ width: 'calc(100% - 22px)'}}
-                            className={ styles.formField }
+                            className={ styles.motionFormField }
                             />
 
                         </motion.div>
