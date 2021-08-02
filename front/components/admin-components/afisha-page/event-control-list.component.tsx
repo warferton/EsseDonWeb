@@ -27,7 +27,7 @@ const useStyles = makeStyles({
         backgroundImage: 'conic-gradient(from 45grad at 5% -3%,#ff0000,50grad,#7b64ff)',
         color: 'white',
     }
-});
+}, { index: 1 });
 
 
 export function EventControlList() {
