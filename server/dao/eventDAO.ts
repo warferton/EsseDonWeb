@@ -159,9 +159,8 @@ export default class EventDbClient{
      * @param param0 
      */
     static async createArchivedEvent(event: IEvent){
-        const newEventDoc = Object.assign( event );
         try{
-            return await ArchivedEvents.insertOne( newEventDoc );
+            return await ArchivedEvents.insertOne( event );
         }catch( err ){
             console.error(
                 `Unable to insert a new document: ${err.message}`
@@ -176,9 +175,8 @@ export default class EventDbClient{
      * @param param0 
      */
     static async createActiveEvent(event: IEvent){
-        const newEventDoc = Object.assign( event );
         try{
-            return await ActiveEvents.insertOne( newEventDoc );
+            return await ActiveEvents.insertOne( event );
         }catch( err ){
             console.error(
                 `Unable to insert a new document: ${err.message}`
