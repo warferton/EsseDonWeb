@@ -15,4 +15,5 @@ export interface IEvent{
     videoLink?: string;
     price?: number | string;
     deposit?: number | string;
+    active: boolean;
 }
