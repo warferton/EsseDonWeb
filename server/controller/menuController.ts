@@ -10,6 +10,4 @@ export default class EventsController{
             res.status(500).send(err.message);
         }
     }
-
-    // POST PUT DELETE -> Later
 }

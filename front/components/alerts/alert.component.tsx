@@ -13,20 +13,19 @@ export function Alert(props : IProps){
     const { children, severity, size } = props;
 
     let colour;
+    let textColor = "white";
     switch(severity){
-        case('error') : colour = 'red'; break;
+        case('error') : colour = '#cc2525e0'; break;
         case('warning') : colour = 'yellow'; break;
-        case('info') : colour = 'blue'; break;
-        case('success') : colour = 'green'; break;
-        case('default') : colour = 'white'; break;
-        case('secondary') : colour = '#DDDDDD'; break;
-        default : colour = 'white';
+        case('info') : colour = '#2a7fb1'; break;
+        case('success') : colour = '#42a11de0'; break;
+        case('secondary') : colour = '#DDDDDD'; textColor = 'black'; break;
+        default : colour = 'white'; textColor = 'black';
     }
 
     let dimentions;
     switch (size) {
         case('small'): dimentions = ['12px','20px']; break;
-        case('default'): dimentions = ['14px','25px']; break;
         case('large'): dimentions = ['18px','26px']; break;
         case('inherit'): dimentions = ['inherit', 'inherit']; break;
         default: dimentions = ['14px','25px'];
@@ -35,13 +34,14 @@ export function Alert(props : IProps){
 
     const useStyles = makeStyles({
         text: {
-            padding: '0.5rem',
+            padding: '0.3rem',
             fontSize: dimentions[0],
             lineHeight: dimentions[1],
             fontWeight: 300,
+            color: textColor
         },
         alertBox: {
-            border: '2px solid black',
+            border: `2px solid ${ textColor }`,
             padding: '0.1rem',
             margin: '0.5rem',
             borderRadius: '10px',
@@ -53,7 +53,7 @@ export function Alert(props : IProps){
 
     return(
         <Box className={ classes.alertBox }>
-            <InfoOutlined fontSize={ size }/>
+            <InfoOutlined fontSize={ size } style={{color: textColor }}/>
             <Typography className={ classes.text}>
                 { children }             
             </Typography>

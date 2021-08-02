@@ -8,8 +8,7 @@ import { Container, Typography, Button, makeStyles, createStyles, Theme } from '
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles({
     root: {
         marginTop: '5rem',
         marginBottom: '2rem',
@@ -26,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
         color: 'white',
         backgroundColor: '#222222'
     }
-}));
+}, { index: 1 });
 
 export default function Afisha() {
 

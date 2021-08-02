@@ -5,12 +5,11 @@ import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
 import { EventListItemButtons as ListItem } from '../../components/admin-components/list-components/list-item.component';
 import { EventFormDialog } from '../../components/dialog-components/event-form-dialog.component';
-import { Container, Box, Button, Typography, CircularProgress, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { Container, Box, Button, Typography, CircularProgress, makeStyles, Theme } from '@material-ui/core';
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles({
     root: {
         marginTop: '5rem',
         marginBottom: '2rem',
@@ -42,8 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
         display:'flex',
         justifyContent: 'center'
     }
-  })
-);
+  }, { index: 1 });
 
 
 export default function EventControlPage () {
