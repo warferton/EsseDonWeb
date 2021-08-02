@@ -19,7 +19,7 @@ const useStyles = makeStyles({
         marginTop: '2rem',
         marginBottom: '2rem',
     }
-})
+}, { index: 1 })
 
 
 export function AdminMenu(){
