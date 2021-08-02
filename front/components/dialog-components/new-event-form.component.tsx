@@ -223,7 +223,7 @@ export function CreateEventForm(props: IProps) {
                             <motion.div
                                 initial={{
                                     opacity: 0,
-                                    x: -200
+                                    x: 200
                                 }}
                                 animate={{
                                     opacity: 1,
