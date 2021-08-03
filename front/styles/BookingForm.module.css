@@ -20,6 +20,11 @@
   margin: 0.7rem !important;
 }
 
+.motionFormField {
+  margin: 0.7rem !important;
+  width: calc(100% - 22px);
+}
+
 .formButton {
   background-image: conic-gradient(
     from 45grad at 5% -3%,
