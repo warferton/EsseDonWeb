@@ -16,7 +16,7 @@ interface IProps{
 
 const useStyles = makeStyles({
   root: {
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     borderRadius: '0px',
     margin: 'auto'
   },
@@ -62,8 +62,10 @@ const useStyles = makeStyles({
       borderRadius: '15px',
       marginBottom: '0.45em',
       background: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
+  },
+  illustrationContainer:{
+      backgroundColor: 'white',
   }
-
 });
 
 
@@ -114,6 +116,13 @@ export function TopCard(props: IProps) {
                     Забронировать
                 </Button>
             </CardActions>
+            <CardMedia className={ styles.illustrationContainer }
+                component="img"
+                alt="illustration element with piano and guitar"
+                height="50"
+                image="https://sun9-8.userapi.com/impg/NJZYQIzICYoK8JqBV3U2ABz6MN8G1VOdnOqdzA/jIiww4cokZg.jpg?size=2560x342&quality=96&sign=29e604a13659806b2ddc5acab86832db&type=album"
+                title="illustration"
+            />
         </Card>
     )
 }
