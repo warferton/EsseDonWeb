@@ -1,6 +1,10 @@
 import EventDao from '../dao/eventDAO';
+import MenuDao from '../dao/menuDAO';
 
 export default class EventsController{
+
+
+    /* ==============  EVENTS ============== */
 
     static async getArchivedEvents(req: any, res : any){
         try{
@@ -76,7 +80,7 @@ export default class EventsController{
             const body = req.body;
             const EventResponse = await EventDao.createArchivedEvent( body );
 
-            res.status(200).send(EventResponse);
+            res.status(201).send(EventResponse);
         }catch(err){
             res.status(500).send(err.message);
         }
@@ -94,7 +98,7 @@ export default class EventsController{
             const body = req.body;
             const EventResponse = await EventDao.createActiveEvent( body );
 
-            res.status(200).send(EventResponse);
+            res.status(201).send(EventResponse);
         }catch(err){
             res.status(500).send(err.message);
         }
@@ -171,4 +175,53 @@ export default class EventsController{
             res.status(500).send(err.message);
         }
     }
+
+
+    /* ==============  MENU ============== */
+
+    static async createMenuItem( req: any, res: any ) {
+        try{
+            const body = req.body;
+            const EventResponse = await MenuDao.createMenuItem( body );
+
+            res.status(200).send(EventResponse);
+        } catch(err){
+            res.status(500).send(err.message);
+        }
+    }
+
+    /**@todo */
+    static async createMany( req: any, res: any ) {
+        try{
+            const body = req.body;
+            const EventResponse = await MenuDao.createKitchenItem( body );
+
+            res.status(200).send(EventResponse);
+        } catch(err){
+            res.status(500).send(err.message);
+        }
+    }
+
+    static async updateMenuItem( req: any, res: any ) {
+        try{
+            const body = req.body;
+            const EventResponse = await MenuDao.updateMenuItem( body );
+
+            res.status(200).send(EventResponse);
+        } catch(err){
+            res.status(500).send(err.message);
+        }
+    }
+
+    static async deleteMenuItem( req: any, res: any ) {
+        try{
+            const body = req.body;
+            const EventResponse = await MenuDao.deleteMenuItem( body );
+
+            res.status(200).send(EventResponse);
+        } catch(err){
+            res.status(500).send(err.message);
+        }
+    }
+
 }

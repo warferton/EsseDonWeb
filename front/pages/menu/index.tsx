@@ -2,9 +2,11 @@ import Head from 'next/head';
 import { LogoHeader } from '../../components/headers/header.compenent';
 import { Menu } from '../../components/menu/menu.component';
 import { Footer } from '../../components/footer/footer.component';
+import { fetchBarItems, fetchKitchenItems } from '../../utils/api-utils';
+import { parseMenuItems } from '../../utils/parsing-utils';
 
-export default function EventPage() {
 
+export default function EventPage(props : any) {
 
   return (
     <>
@@ -14,13 +16,28 @@ export default function EventPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-
       <LogoHeader/>
 
-      <Menu/>
+      <Menu items={ props }/>
 
       <Footer/>
       
     </>
   )
+}
+
+export const getStaticProps = async () => {
+  const rawBarData = await fetchBarItems();
+  const rawKitchenData = await fetchKitchenItems();
+
+  const parsedBarData = parseMenuItems(rawBarData);
+  const parsedKitchenData = parseMenuItems(rawKitchenData);
+
+  return {
+    props:{
+      barItems: parsedBarData,
+      kitchenItems: parsedKitchenData,
+    }
+  }
+
 }

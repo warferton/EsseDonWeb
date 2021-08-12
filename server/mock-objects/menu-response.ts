@@ -10,6 +10,7 @@ export const MockMenuItem_1 : IMenuItem = {
     description: 'Premium Champagne',
     price: 1800,
     category: 'bar',
+    group: 'champagne'
 }
 
 export const MockMenuItem_2 : IMenuItem = {
@@ -18,6 +19,7 @@ export const MockMenuItem_2 : IMenuItem = {
     description: 'Low-end cup of black goo',
     price: 200,
     category: 'bar',
+    group: 'coffee'
 }
 
 export const MockMenuItem_3 : IMenuItem = {
@@ -26,6 +28,7 @@ export const MockMenuItem_3 : IMenuItem = {
     description: 'Premium ribeye cut',
     price: 2400,
     category: 'kitchen',
+    group: 'premium meal'
 }
 
 export const MockMenuItem_4 : IMenuItem = {
@@ -34,4 +37,5 @@ export const MockMenuItem_4 : IMenuItem = {
     description: 'Gobble up !',
     price: 600,
     category: 'kitchen',
+    group: 'meal'
 }
