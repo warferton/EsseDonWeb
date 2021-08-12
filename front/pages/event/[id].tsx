@@ -8,10 +8,12 @@ import { EventLineup } from '../../components/event-page-components/event-linup.
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+
 import { IEvent } from '../../types/event/event.type';
+import { GetStaticProps } from 'next'
 
 
-export default function EventPage({event}) {
+export default function EventPage({event} : IEvent) {
   
   const [isLoading, setisLoading] = useState(true);
   
@@ -39,7 +41,7 @@ export default function EventPage({event}) {
   )
 }
 
-export async function getStaticProps(context : any) {
+export const getStaticProps: GetStaticProps = async (context : any) => {
   
   const { params } = context;
   
