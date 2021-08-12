@@ -1,4 +1,4 @@
-import { SetStateAction, useState, useEffect, ChangeEvent } from 'react';
+import { SetStateAction, useState, ChangeEvent } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { LocalBar, RestaurantSharp } from '@material-ui/icons';
 import { Container } from '@material-ui/core';
@@ -17,11 +17,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export function Menu( props : any ) {
+interface IProps{
+  items: {
+    barItems : IMenuItemGroup[];
+    kitchenItems : IMenuItemGroup[];
+  }
+}
+
+export function Menu({ items } : IProps ) {
   
   const classes = useStyles();
 
-  const { barItems, kitchenItems } = props;
+  const { barItems, kitchenItems } = items;
+
+  console.log(`inisde Menu:  ${ items }`);
+  
 
   const [expanded, setExpanded] = useState(null);
 

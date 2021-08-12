@@ -6,7 +6,6 @@ export function toCamelCase(value: string): string {
 }
 
 export function parseMenuItems(items: IMenuItem[]) {
-    console.log("inside parseMenuItems: " + items);
     const result : IMenuItemGroup[] = [];
     const loaded : string[] = [];
     for(let item of items) {

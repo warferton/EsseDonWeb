@@ -10,7 +10,6 @@ export default class MenuController{
             res.status(500).send(err.message);
         }
     }
-<<<<<<< HEAD
 
     static async getAllBarItems(req: any, res : any){
         try{
@@ -31,6 +30,4 @@ export default class MenuController{
             res.status(500).send(err.message);
         }
     }
-=======
->>>>>>> 60fe833e081b48d6877fc43a47cac16bdc0aecb1
 }
