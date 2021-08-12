@@ -2,8 +2,17 @@ import { IMenuItem } from "../types/menu/menuItem.type";
 import axios from 'axios';
 
 
+const EVENT_API_URL='http://localhost:3030/api/v1/events/';
 const KITCHEN_API_URL='http://localhost:3030/api/v1/menu/kitchen';
 const BAR_API_URL='http://localhost:3030/api/v1/menu/bar';
+
+
+export async function getEventById( id : string) {
+  return axios.get(EVENT_API_URL.concat( id ))
+    .then(res => res.data.event)
+    .catch(err => console.error(`Failed fetching event data. ERROR: ${err}`));
+
+}
 
 export async function fetchBarItems() {
     const barItems : IMenuItem[] = [];

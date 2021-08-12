@@ -73,6 +73,7 @@ export default class MenuDbClient{
         }
     }
 
+<<<<<<< HEAD
      static async getAllBarItems() {
         let barCursor;
 
@@ -84,8 +85,73 @@ export default class MenuDbClient{
             );
             return {barItems: [], totalNumBar: 0};
         }
+=======
+     /**
+     * @status READY
+     */
+    static async createMenuItem(menuItem: IMenuItem){
+        const collection = this.getCollectionFromCategory(menuItem.category);
+        try{
+            return await collection.insertOne( menuItem );
+        }catch( err ){
+            console.error(
+                `Unable to insert a new document: ${err.message}`
+            );
+            return { error: err };
+        }
+    };
 
+    /**
+     * @status READY
+     */
+    static async createKitchenItem(menuItem: IMenuItem){
+        try{
+            return await KitchenItems.insert( menuItem );
+        }catch( err ){
+            console.error(
+                `Unable to insert a new document: ${err.message}`
+            );
+            return { error: err };
+        }
+    };
 
+    /**
+     * @status READY
+     */
+    static async updateMenuItem(menuItem: IMenuItem){
+        const collection = this.getCollectionFromCategory(menuItem.category);
+        const {id, ...updateBody} =  menuItem;
+        try{
+            return await collection.updateOne( 
+                { _id : new ObjectId(id) },
+                { $set: updateBody } 
+            );
+        }catch( err ){
+            console.error(
+                `Unable to update an existing document: ${err.message}`
+            );
+            return { error: err };
+        }
+    };
+>>>>>>> 60fe833e081b48d6877fc43a47cac16bdc0aecb1
+
+    /**
+     * @status READY
+     */
+    static async deleteMenuItem(menuItem: IMenuItem){
+        const collection = this.getCollectionFromCategory(menuItem.category);
+        const { id } =  menuItem;
+        try{
+            return await collection.deleteOne( { _id : new ObjectId(id) } );
+        }catch( err ){
+            console.error(
+                `Unable to delete an existing document: ${err.message}`
+            );
+            return { error: err };
+        }
+    };
+
+<<<<<<< HEAD
         try{
             const barItems = await barCursor.toArray();
 
@@ -194,6 +260,8 @@ export default class MenuDbClient{
         }
     };
 
+=======
+>>>>>>> 60fe833e081b48d6877fc43a47cac16bdc0aecb1
 
     static getCollectionFromCategory( category : string ){
         switch( category ){

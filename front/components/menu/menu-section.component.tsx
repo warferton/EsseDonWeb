@@ -30,7 +30,10 @@ const useStyles = makeStyles((theme) => ({
   },
   highlighted: {
       backgroundImage: 'conic-gradient(from 45grad at 5% -3%,#ff0000,50grad,#7b64ff) !important'
-  }
+  },
+  contentBody: {
+      flexDirection: 'column';
+  },
 }));
 
 
