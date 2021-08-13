@@ -9,6 +9,8 @@ import { Container, Box, Button, Typography, CircularProgress, makeStyles, Theme
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
 
+import { fetchAllActiveEvents, fetchAllArchivedEvents } from '../../utils/api-utils';
+
 const useStyles = makeStyles({
     root: {
         marginTop: '5rem',
@@ -44,7 +46,12 @@ const useStyles = makeStyles({
   }, { index: 1 });
 
 
-export default function EventControlPage () {
+interface IProps{
+    activeEvents: IEvent[];
+    archivedEvents: IEvent[];
+}
+
+export default function EventControlPage ({ activeEvents, archivedEvents } : IProps) {
 
     const classes = useStyles();
 
@@ -67,36 +74,6 @@ export default function EventControlPage () {
         setDialogOpen(true);
         
     }
-    
-    //=======MOCK OBJ==========
-    
-    const publishedEvent = {
-        event:{
-            id: '010001001',
-            title: 'Test Published Event',
-            lineup: ['Mama', 'Echo', 'Alpha', 'Yankee', 'Omega', 'Utah'],
-            description: "None",
-            free: true,
-            image: 'imgur',
-            videoLink: 'yahootube',
-        },
-        published: true,
-    }
-    
-    const unPublishedEvent = {
-       event:{
-            id: '111110000',
-            title: 'Test Archived Event',
-            lineup: ['Mama', 'Echo', 'Alpha', 'Yankee', 'Omega', 'Utah'],
-            description: "None",
-            free: false,
-            image: 'imgur',
-            videoLink: 'yahootube',
-       },
-       published: false,
-    }
-    
-    //=======MOCK OBJ===========
     
     setTimeout(() => {
         setActiveList(true)
@@ -142,35 +119,32 @@ export default function EventControlPage () {
                             :
                             <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
                                 {
-                                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value : number) =>{
-                                       return publishedEvent;
+                                    activeEvents.map((event : IEvent) =>{
+                                       return event;
                                     })
-                                
                                 }
                             </EventControlList>
                             }
-
                         </MenuAccordion>
 
                         <MenuAccordion 
-                        title="Архив"
-                        expanded={ expanded === 'archive' } 
-                        onChange={ handleChange('archive') } 
+                            title="Архив"
+                            expanded={ expanded === 'archive' } 
+                            onChange={ handleChange('archive') } 
                         > 
-                        { !activeList ? 
-                            <Box className={ classes.loaderBox }>
-                                <CircularProgress/>
-                            </Box>
-                            :
-                           <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
-                                {
-                                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value : number) =>{
-                                       return unPublishedEvent;
-                                    })
-                                
-                                }
-                            </EventControlList>
-                        }
+                            { !activeList ? 
+                                <Box className={ classes.loaderBox }>
+                                    <CircularProgress/>
+                                </Box>
+                                :
+                                <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
+                                    {
+                                        archivedEvents.map((event : IEvent) =>{
+                                           return event;
+                                        })
+                                    }
+                                </EventControlList>
+                            }
                         </MenuAccordion>
                         <Button 
                         component='button'
@@ -215,4 +189,18 @@ export default function EventControlPage () {
         <EventFormDialog open={ dialogOpen } setOpen={ setDialogOpen } event={ selectedEvent }/>
         </>
     );
+}
+
+
+export const getStaticProps = async () => {
+    
+    const activeEvents = await fetchAllActiveEvents();
+    const archivedEvents = await fetchAllArchivedEvents();
+    
+    return { 
+        props: { 
+            activeEvents: activeEvents,
+            archivedEvents: archivedEvents
+            }
+       };
 }
