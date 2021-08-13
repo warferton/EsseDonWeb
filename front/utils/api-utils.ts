@@ -14,12 +14,50 @@ export async function getEventById( id : string) {
 }
 
 export async function fetchAllActiveEvents() {
-    const mainGroupEvents : IEvent[]= [];
+    const mainGroupEvents : IEvent[] = [];
     const secondGroupEvents : IEvent[] = [];
-    const generalGroupEvents : IEvent[]= [];
+    const generalGroupEvents : IEvent[] = [];
   
     await axios
     .get(EVENT_API_URL.concat("active"))
+    .then(res => 
+      res.data.events.map((event : IEvent) => {
+        if( event.block === "main")
+          mainGroupEvents.push(event);
+        else if( event.block === "second")
+          secondGroupEvents.push(event);
+        else if( event.block === "general")
+          generalGroupEvents.push(event);
+        })
+    ).catch(err => console.log(err));
+  
+    return { 
+      mainGroupEvents: mainGroupEvents,
+      secondGroupEvents: secondGroupEvents,
+      generalGroupEvents: generalGroupEvents
+    };
+  }
+
+export async function fetchAllEvents() {
+    const mainGroupEvents : IEvent[] = [];
+    const secondGroupEvents : IEvent[] = [];
+    const generalGroupEvents : IEvent[] = [];
+  
+    await axios
+    .get(EVENT_API_URL.concat("active"))
+    .then(res => 
+      res.data.events.map((event : IEvent) => {
+        if( event.block === "main")
+          mainGroupEvents.push(event);
+        else if( event.block === "second")
+          secondGroupEvents.push(event);
+        else if( event.block === "general")
+          generalGroupEvents.push(event);
+        })
+    ).catch(err => console.log(err));
+  
+   await axios
+    .get(EVENT_API_URL.concat("archived"))
     .then(res => 
       res.data.events.map((event : IEvent) => {
         if( event.block === "main")
