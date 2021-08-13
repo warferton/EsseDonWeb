@@ -13,6 +13,31 @@ export async function getEventById( id : string) {
 
 }
 
+export const fetchAllActiveEvents = async () => {
+    const mainGroupEvents : IEvent[]= [];
+    const secondGroupEvents : IEvent[] = [];
+    const generalGroupEvents : IEvent[]= [];
+  
+    await axios
+    .get(API_URL)
+    .then(res => 
+      res.data.events.map((event : IEvent) => {
+        if( event.block === "main")
+          mainGroupEvents.push(event);
+        else if( event.block === "second")
+          secondGroupEvents.push(event);
+        else if( event.block === "general")
+          generalGroupEvents.push(event);
+        })
+    ).catch(err => console.log(err));
+  
+    return { 
+      mainGroupEvents: mainGroupEvents,
+      secondGroupEvents: secondGroupEvents,
+      generalGroupEvents: generalGroupEvents
+    };
+  }
+
 export async function fetchBarItems() {
     const barItems : IMenuItem[] = [];
     await axios
