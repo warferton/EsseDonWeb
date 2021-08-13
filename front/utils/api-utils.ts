@@ -13,13 +13,13 @@ export async function getEventById( id : string) {
 
 }
 
-export const fetchAllActiveEvents = async () => {
+export async function fetchAllActiveEvents() {
     const mainGroupEvents : IEvent[]= [];
     const secondGroupEvents : IEvent[] = [];
     const generalGroupEvents : IEvent[]= [];
   
     await axios
-    .get(API_URL)
+    .get(EVENT_API_URL.concat("active"))
     .then(res => 
       res.data.events.map((event : IEvent) => {
         if( event.block === "main")
