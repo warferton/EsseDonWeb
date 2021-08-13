@@ -11,7 +11,7 @@ import Backup from '@material-ui/icons/Backup';
 import { IEvent } from '../../../types/event/event.type';
 
 interface ICheckboxProps {
-    value: string | number;
+    event: IEvent[];
     id: string;
     checked?: boolean;
 
@@ -19,7 +19,7 @@ interface ICheckboxProps {
 
 export function EventListItemChecbox(props : ICheckboxProps) {
 
-    const { value, id, checked: mark } = props; 
+    const { event, id, checked: mark } = props; 
 
     const [checked, setChecked] = useState(mark);
 
@@ -30,7 +30,7 @@ export function EventListItemChecbox(props : ICheckboxProps) {
 
     return(
          <ListItem key={value} button>
-            <ListItemText id={ id } primary={`Line item ${value}`} />
+            <ListItemText id={ id } primary={ event.title } />
             <ListItemSecondaryAction>
             <Checkbox
                 edge="end"
