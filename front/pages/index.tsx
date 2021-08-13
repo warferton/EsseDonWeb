@@ -17,8 +17,6 @@ import axios from 'axios';
 import { fetchAllActiveEvents } from '../utils/api-utils';
 
 
-const API_URL = "http://localhost:3030/api/v1/events/active"
-
 interface IProps {
   mainGroupEvents: IEvent[];
   secondGroupEvents: IEvent[];
