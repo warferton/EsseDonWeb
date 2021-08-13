@@ -8,7 +8,11 @@ import {
     Button,
     makeStyles
 } from '@material-ui/core';
+import { IEvent } from '../../types/event/event.type';
 
+interface IProps{
+    event: IEvent;
+}
 
 const useStyles = makeStyles({
   root: {
@@ -63,7 +67,10 @@ const useStyles = makeStyles({
 });
 
 
-export function TopCard() {
+export function TopCard(props: IProps) {
+
+    const { event } = props;
+    const { title, price, shortDescription, free, image, deposit, date, time } = event;
 
     const styles = useStyles();
 
@@ -78,17 +85,23 @@ export function TopCard() {
                 />
                 <CardContent className = { styles.contentContainer }>
                     <Typography variant='h5' component="h2" className={ styles.text + ' ' + styles.titleText }>
-                        The B-Man
+                        { title }
                     </Typography>
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.dateText }>
-                        May 4 13:35 Wd
+                        { `${ date.getDate() } ${ time }` }
                     </Typography>
                     <Chip 
-                    label='Вход свободный'
+                    label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}
                     className = { styles.chip}
                     />
+                    { deposit && (
+                        <Chip 
+                        label={ `Депозит ${ deposit }₽` }
+                        className = { styles.chip}
+                        />)
+                    }
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.shortDecriptionText }>
-                        Классические произведения и композиции в сочетании с каверами на рок-хиты.
+                        { shortDescription }
                     </Typography>
                 </CardContent>
             <CardActions className={ styles.actions }>
