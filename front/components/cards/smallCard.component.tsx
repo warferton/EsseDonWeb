@@ -31,7 +31,7 @@ export function SmallEventCard(props : IProps){
                 title="Some Musician" />                
                 <CardContent className={ styles.cardContent }>
                     <Typography component="h2" className={styles.dateText}>
-                        { `${ date.getDate() } ${ time }` }
+                        { `${ date } ${ time }` }
                     </Typography>
                     <Typography component="h2" className={styles.titleText}>
                         { title }

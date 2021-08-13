@@ -30,7 +30,10 @@ const useStyles = makeStyles((theme) => ({
   },
   highlighted: {
       backgroundImage: 'conic-gradient(from 45grad at 5% -3%,#ff0000,50grad,#7b64ff) !important'
-  }
+  },
+  contentBody: {
+      flexDirection: 'column',
+  },
 }));
 
 
@@ -47,7 +50,6 @@ export function MenuSection(props : IProps) {
                 expandIcon={ <ExpandLessRounded/> }
                 aria-controls="drinks-content"
                 id="section"
-                // className={ classes.summary + ' ' + expanded? classes.highlighted : '' }
             >
 
                 <Typography variant='h5' className={ classes.heading }>
@@ -57,7 +59,7 @@ export function MenuSection(props : IProps) {
                 </Typography>
 
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails className={ classes.contentBody }>
                 
                 { children }
 

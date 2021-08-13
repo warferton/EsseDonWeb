@@ -3,7 +3,7 @@
  * Describes a Basic Abstract Event
  */
 export interface IEvent{
-    id: string;
+    _id: string;
     title: string;
     date: Date | string;
     time: string;
@@ -16,4 +16,5 @@ export interface IEvent{
     videoLink?: string;
     price?: number | string;
     tcLink?: string; 
+    block?: string;
 }

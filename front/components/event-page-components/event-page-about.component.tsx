@@ -13,14 +13,18 @@ const useStyles = makeStyles({
     }
 });
 
-export function About() {
+interface IProps{
+    description: string;
+}
+
+export function About({description} : IProps) {
 
     const classes = useStyles();
 
     return(
         <Box className={ classes.root }>
             <Typography paragraph className={ classes.text }>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, alias tempore accusantium facere officia voluptatum totam nihil fugiat quidem vitae omnis corrupti impedit quam nesciunt dolorem voluptates hic minima architecto. Cum mollitia fuga numquam tempora repellendus nisi eius animi, perspiciatis esse magni consequuntur eaque itaque corporis tempore illum voluptas sit quos veritatis, quo quidem omnis magnam. 
+                { description }
             </Typography>
         </Box>
     )

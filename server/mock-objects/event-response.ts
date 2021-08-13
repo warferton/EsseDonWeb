@@ -17,6 +17,7 @@ export const MockEventPayed : IEvent = {
   videoLink: "https://youtube.com/watch?v=2h2jWfnc_01/",
   time: "11:00",
   active: true,
+  
 }
 
 export const MockEventFree : IEvent = {
