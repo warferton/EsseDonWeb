@@ -67,9 +67,8 @@ const useStyles = makeStyles({
 });
 
 
-export function TopCard(props: IProps) {
+export function TopCard({ event }: IProps) {
 
-    const { event } = props;
     const { title, price, shortDescription, free, image, deposit, date, time } = event;
 
     const styles = useStyles();
@@ -80,15 +79,15 @@ export function TopCard(props: IProps) {
                 component="img"
                 alt="Some Musician"
                 height="250"
-                image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.zastavki.com%2Fpictures%2Foriginals%2F2013%2FMusic_B.B._King_musician_047287_.jpg&f=1&nofb=1"
-                title="Some Musician"
+                image={ image }
+                title={ title }
                 />
                 <CardContent className = { styles.contentContainer }>
                     <Typography variant='h5' component="h2" className={ styles.text + ' ' + styles.titleText }>
                         { title }
                     </Typography>
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.dateText }>
-                        { `${ date.getDate() } ${ time }` }
+                        { `${ date } ${ time }` }
                     </Typography>
                     <Chip 
                     label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}
