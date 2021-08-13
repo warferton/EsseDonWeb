@@ -14,49 +14,18 @@ import { Typography } from '@material-ui/core';
 
 import styles from '/styles/textAfisha.module.css';
 import axios from 'axios';
-
+import { fetchAllActiveEvents } from '../utils/api-utils';
 
 
 const API_URL = "http://localhost:3030/api/v1/events/active"
 
-export default function Home() {
+interface IProps {
+  mainGroupEvents: IEvent[];
+  secondGroupEvents: IEvent[];
+  generalGroupEvents: IEvent[];
+}
 
-  const [isLoading, setIsLoading] = useState(true);
-
-  const [mainEvents, setMainEvents] = useState([]);
-  const [secondEvents, setSecondEvents] = useState([]);
-  const [generalEvents, setGeneralEvents] = useState([]);
-
-  useEffect(() => {
-    fetchAllActiveEvents();
-    setTimeout(() => {setIsLoading(false)}, 500);
-  }, [])
-
-  const fetchAllActiveEvents = () => {
-  
-    const mainGroupEvents : IEvent[]= [];
-    const secondGroupEvents : IEvent[] = [];
-    const generalGroupEvents : IEvent[]= [];
-  
-    axios
-    .get(API_URL)
-    .then(res => 
-      res.data.events.map((event : IEvent) => {
-        if( event.block === "main")
-          mainGroupEvents.push(event);
-        else if( event.block === "second")
-          secondGroupEvents.push(event);
-        else if( event.block === "general")
-          generalGroupEvents.push(event);
-        })
-    ).catch(err => console.log(err));
-  
-    setMainEvents(mainGroupEvents);
-    setSecondEvents(secondGroupEvents);
-    setGeneralEvents(generalGroupEvents);
-  }
-
-
+export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupEvents } : IProps) {
 
   return (
     <>
@@ -80,7 +49,6 @@ export default function Home() {
                 )
               }
             </SwipeableStepper>
-
 
             <Typography className = { styles.heading }>
               Лучшее на этой неделе
@@ -108,4 +76,11 @@ export default function Home() {
     </>
 
   )
+}
+
+export const getStaticProps = async () => {
+  
+   const result = await fetchAllActiveEvents();
+  
+   return result;
 }
