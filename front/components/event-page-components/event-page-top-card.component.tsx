@@ -8,13 +8,17 @@ import {
     Button,
     makeStyles
 } from '@material-ui/core';
+import { IEvent } from '../../types/event/event.type';
 
+interface IProps{
+    event: IEvent;
+}
 
 const useStyles = makeStyles({
   root: {
     backgroundColor: 'black',
     borderRadius: '0px',
-    margin: 'auto'
+    margin: 'auto',
   },
   contentContainer: {
       backgroundColor: '#222222',
@@ -63,7 +67,9 @@ const useStyles = makeStyles({
 });
 
 
-export function TopCard() {
+export function TopCard({ event }: IProps) {
+
+    const { title, price, shortDescription, free, image, deposit, date, time } = event;
 
     const styles = useStyles();
 
@@ -73,22 +79,28 @@ export function TopCard() {
                 component="img"
                 alt="Some Musician"
                 height="250"
-                image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.zastavki.com%2Fpictures%2Foriginals%2F2013%2FMusic_B.B._King_musician_047287_.jpg&f=1&nofb=1"
-                title="Some Musician"
+                image={ image }
+                title={ title }
                 />
                 <CardContent className = { styles.contentContainer }>
                     <Typography variant='h5' component="h2" className={ styles.text + ' ' + styles.titleText }>
-                        The B-Man
+                        { title }
                     </Typography>
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.dateText }>
-                        May 4 13:35 Wd
+                        { `${ date } ${ time }` }
                     </Typography>
                     <Chip 
-                    label='Вход свободный'
+                    label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}
                     className = { styles.chip}
                     />
+                    { deposit && (
+                        <Chip 
+                        label={ `Депозит ${ deposit }₽` }
+                        className = { styles.chip}
+                        />)
+                    }
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.shortDecriptionText }>
-                        Классические произведения и композиции в сочетании с каверами на рок-хиты.
+                        { shortDescription }
                     </Typography>
                 </CardContent>
             <CardActions className={ styles.actions }>
@@ -97,6 +109,7 @@ export function TopCard() {
                 size="large" 
                 color="secondary"
                 className={ styles.button }
+                href='#form-box'
                 >
                     Забронировать
                 </Button>

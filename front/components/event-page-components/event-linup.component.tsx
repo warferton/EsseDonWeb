@@ -22,8 +22,11 @@ const useStyles = makeStyles({
     }
 });
 
+interface IProps{
+    lineup: string[];
+}
 
-export function EventLineup() {
+export function EventLineup({lineup} : IProps) {
 
     const classes = useStyles();
 
@@ -35,15 +38,13 @@ export function EventLineup() {
                 </Typography>
             </Box>
             <Box className={ classes.container}>
-                
                     { 
-                        ['Gaol Males', 'Test Pest', 'Ewrq Apege'].map( person => 
+                        lineup.map( person => 
                             <Typography key={ person } paragraph className={ classes.lineupText }>
                                 { person }
                             </Typography>
-                            )
+                        )
                     }
-                
             </Box>
         </>
     )

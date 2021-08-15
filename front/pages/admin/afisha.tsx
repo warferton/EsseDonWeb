@@ -4,9 +4,12 @@ import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
 import { EventListItemChecbox as ListItem} from '../../components/admin-components/list-components/list-item.component';
-import { Container, Typography, Button, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { Container, Typography, Button, makeStyles } from '@material-ui/core';
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
+
+import { fetchAllActiveEvents } from '../../utils/api-utils';
+import { IEvent } from '../../types/event/event.type';
 
 const useStyles = makeStyles({
     root: {
@@ -27,7 +30,14 @@ const useStyles = makeStyles({
     }
 }, { index: 1 });
 
-export default function Afisha() {
+
+interface IProps{
+    mainGroupEvents: IEvent[];
+    secondGroupEvents: IEvent[];
+    generalGroupEvents: IEvent[];
+}
+
+export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGroupEvents } : IProps) {
 
     const classes = useStyles();
 
@@ -77,11 +87,13 @@ export default function Afisha() {
                     onChange={ handleChange('mainBlock') } 
                     className={ classes.accordion }
                     >
-                    
                         <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
-                           {[1,2,3,4,5,6].map( v => v)}
+                           {
+                                mainGroupEvents.map( event => {
+                                   return {event}
+                                } )
+                           }
                         </EventControlList>
-
                     </MenuAccordion>
 
                     <MenuAccordion 
@@ -89,11 +101,13 @@ export default function Afisha() {
                     expanded={ expanded === 'weekBest' } 
                     onChange={ handleChange('weekBest') } 
                     >
-
-                         <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
-                           {[1,2,3,4,5,6].map( v => v)}
+                        <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
+                           {
+                                secondGroupEvents.map( event => {
+                                   return {event}
+                                } )
+                           }
                         </EventControlList>
-                    
                     </MenuAccordion>
 
                     <MenuAccordion 
@@ -101,41 +115,56 @@ export default function Afisha() {
                     expanded={ expanded === 'all' } 
                     onChange={ handleChange('all') } 
                     >
-
                        <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
-                           {[1,2,3,4,5,6].map( v => v)}
-                        </EventControlList>
-
+                           {
+                               generalGroupEvents
+                                .concat(mainGroupEvents)
+                                .concat(secondGroupEvents)
+                                .map( event => {
+                                   return {event}
+                                } )
+                           }
+                       </EventControlList>
                     </MenuAccordion>
-
                 </Container>
             </motion.div>
 
              <motion.div
-            initial={{ 
-                y: '200vw',
-                opacity: 0
-            }}
-            animate={{ 
-                y: 0,
-                opacity: 100
-             }}
-            transition={{delay: 0.5, stiffness: 90}}
-        >
-            <Container className={ classes.buttonContainer }>
-                <Button 
-                variant='contained'
-                href='./'
-                fullWidth
-                className={ classes.backButton }
-                startIcon={ <ArrowBack/> }
-                >
-                    <Typography>
-                        Назад
-                    </Typography>
-                </Button>
-            </Container>
-        </motion.div>
+                initial={{ 
+                    y: '200vw',
+                    opacity: 0
+                }}
+                animate={{ 
+                    y: 0,
+                    opacity: 100
+                }}
+                transition={{delay: 0.5, stiffness: 90}}
+            >
+                <Container className={ classes.buttonContainer }>
+                    <Button 
+                    variant='contained'
+                    href='./'
+                    fullWidth
+                    className={ classes.backButton }
+                    startIcon={ <ArrowBack/> }
+                    >
+                        <Typography>
+                            Назад
+                        </Typography>
+                    </Button>
+                </Container>
+            </motion.div>
         </>
     );
+}
+
+
+export const getStaticProps = async () => {
+
+    const activeEvents = await fetchAllActiveEvents();
+    
+    return {
+        props: {...activeEvents},
+    };
+    
 }

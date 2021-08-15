@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { 
     Card, 
     CardMedia, 
@@ -18,6 +19,8 @@ interface IProps{
 
 export function EventCard(props : IProps) {
 
+    const router = useRouter();
+
     const { event } = props;
     const { title, price, shortDescription, free, image, deposit, date, time } = event  
     
@@ -29,16 +32,15 @@ export function EventCard(props : IProps) {
                 alt="JAZZ_IMG"
                 height="200"
                 image={ image }
-                //https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.zastavki.com%2Fpictures%2Foriginals%2F2013%2FMusic_B.B._King_musician_047287_.jpg&f=1&nofb=1
-                title="Some Musician"
+                title={ title }
                 />
                 <CardContent className = { styles.contentContainer }>
                     <Typography variant='h5' component="h2" className={ styles.text + ' ' + styles.titleText }>
                         { title }
                     </Typography>
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.dateText }>
-                        { `${ date.getDate() } ${ time }` }
-                    </Typography> 
+                        { `${ date } ${ time }` }
+                    </Typography>
                     <Chip 
                     label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}
                     className = { styles.chip}
@@ -60,6 +62,7 @@ export function EventCard(props : IProps) {
                 size="large" 
                 color="secondary"
                 className={ styles.button }
+                onClick={ () => router.push(`event/${event._id}`) }
                 >
                     Забронировать
                 </Button>
