@@ -7,10 +7,13 @@ const router = express.Router();
 router.route('/active').get(EventsController.getActiveEvents);
 
 
+//Mock REST
+router.route('/test').post(( req: any, res : any) => res.status(201).send());
 
-router.route('/testPost').post(( req: any, res : any) => res.status(201).send());
+router.route('/test').put(( req: any, res : any) => res.status(200).send());
 
-router.route('/testPut').post(( req: any, res : any) => res.status(200).send());
+router.route('/error').put(( req: any, res : any) => res.status(404).send());
+
 
 
 export default router;

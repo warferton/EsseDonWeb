@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import { LogoHeader } from '../../components/headers/header.compenent';
 import { Menu } from '../../components/menu/menu.component';
-import { Footer } from '../../components/footer/footer.component';
 import { fetchBarItems, fetchKitchenItems } from '../../utils/api-utils';
 import { parseMenuItems } from '../../utils/parsing-utils';
 import { IMenuItemGroup } from '../../types/menu/menuItem.type';
@@ -27,8 +26,6 @@ export default function MenuPage(props : IProps) {
       <LogoHeader/>
 
       <Menu items={ props }/>
-
-      <Footer/>
       
     </>
   )

@@ -13,7 +13,6 @@ import { IEvent } from '../types/event/event.type';
 import { Typography } from '@material-ui/core';
 
 import styles from '/styles/textAfisha.module.css';
-import axios from 'axios';
 import { fetchAllActiveEvents } from '../utils/api-utils';
 
 
@@ -35,12 +34,11 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
 
       <LogoHeader/>
 
-      { isLoading ?  <h2>LOADING ...//</h2>  : 
         <>
           <NavigationFab>
             <SwipeableStepper>
               { 
-                mainEvents.map((event : IEvent) => 
+                mainGroupEvents.map((event : IEvent) => 
 
                   <BigEventCard key={ event._id } event={ event }/>
 
@@ -53,7 +51,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
             </Typography>
             
             <CardSlider>
-              { secondEvents.map((event : IEvent)=> 
+              { secondGroupEvents.map((event : IEvent)=> 
             
                 <SmallEventCard key={ event._id } event={ event }/>
 
@@ -61,7 +59,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
               }
             </CardSlider>
 
-            { generalEvents.map((event : IEvent) => 
+            { generalGroupEvents.map((event : IEvent) => 
             
                 <EventCard key={ event._id } event={ event }/>
 
@@ -70,7 +68,6 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
             </NavigationFab>
             <Footer/>
           </>
-        }
     </>
 
   )
@@ -80,5 +77,7 @@ export const getStaticProps = async () => {
   
    const result = await fetchAllActiveEvents();
   
-   return result;
+   return {
+      props: { ...result }
+   };
 }

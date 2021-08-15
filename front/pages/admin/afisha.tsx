@@ -4,12 +4,12 @@ import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
 import { EventListItemChecbox as ListItem} from '../../components/admin-components/list-components/list-item.component';
-import { Container, Typography, Button, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { Container, Typography, Button, makeStyles } from '@material-ui/core';
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
 
 import { fetchAllActiveEvents } from '../../utils/api-utils';
-import { IEvent } from '../../types/event';
+import { IEvent } from '../../types/event/event.type';
 
 const useStyles = makeStyles({
     root: {
@@ -89,7 +89,9 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                     >
                         <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
                            {
-                                mainGroupEvents.map( event => event )
+                                mainGroupEvents.map( event => {
+                                   return {event}
+                                } )
                            }
                         </EventControlList>
                     </MenuAccordion>
@@ -101,7 +103,9 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                     >
                         <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
                            {
-                                secondGroupEvents.map( event => event )
+                                secondGroupEvents.map( event => {
+                                   return {event}
+                                } )
                            }
                         </EventControlList>
                     </MenuAccordion>
@@ -113,8 +117,12 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                     >
                        <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
                            {
-                               const allActiveEvents = generalGroupEvents.concat(mainGroupEvents).concat(secondGroupEvents)
-                               allActiveEvents.map( event => event )
+                               generalGroupEvents
+                                .concat(mainGroupEvents)
+                                .concat(secondGroupEvents)
+                                .map( event => {
+                                   return {event}
+                                } )
                            }
                        </EventControlList>
                     </MenuAccordion>
@@ -122,31 +130,30 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
             </motion.div>
 
              <motion.div
-            initial={{ 
-                y: '200vw',
-                opacity: 0
-            }}
-            animate={{ 
-                y: 0,
-                opacity: 100
-             }}
-            transition={{delay: 0.5, stiffness: 90}}
-        >
-                 
-            <Container className={ classes.buttonContainer }>
-                <Button 
-                variant='contained'
-                href='./'
-                fullWidth
-                className={ classes.backButton }
-                startIcon={ <ArrowBack/> }
-                >
-                    <Typography>
-                        Назад
-                    </Typography>
-                </Button>
-            </Container>
-        </motion.div>
+                initial={{ 
+                    y: '200vw',
+                    opacity: 0
+                }}
+                animate={{ 
+                    y: 0,
+                    opacity: 100
+                }}
+                transition={{delay: 0.5, stiffness: 90}}
+            >
+                <Container className={ classes.buttonContainer }>
+                    <Button 
+                    variant='contained'
+                    href='./'
+                    fullWidth
+                    className={ classes.backButton }
+                    startIcon={ <ArrowBack/> }
+                    >
+                        <Typography>
+                            Назад
+                        </Typography>
+                    </Button>
+                </Container>
+            </motion.div>
         </>
     );
 }
@@ -154,14 +161,10 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
 
 export const getStaticProps = async () => {
 
-    const {mainGroupEvents, secondGroupEvents, generalGroupEvents} = await fetchAllActiveEvents();
+    const activeEvents = await fetchAllActiveEvents();
     
     return {
-        props: {
-            mainGroupEvents: mainGroupEvents,
-            secondGroupEvents: secondGroupEvents,
-            generalGroupEvents: generalGroupEvents
-        }
+        props: {...activeEvents},
     };
     
 }

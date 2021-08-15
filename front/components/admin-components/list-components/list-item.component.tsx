@@ -11,10 +11,9 @@ import Backup from '@material-ui/icons/Backup';
 import { IEvent } from '../../../types/event/event.type';
 
 interface ICheckboxProps {
-    event: IEvent[];
+    event: IEvent;
     id: string;
     checked?: boolean;
-
 }
 
 export function EventListItemChecbox(props : ICheckboxProps) {
@@ -29,7 +28,7 @@ export function EventListItemChecbox(props : ICheckboxProps) {
 
 
     return(
-         <ListItem key={value} button>
+         <ListItem key={ event._id } button>
             <ListItemText id={ id } primary={ event.title } />
             <ListItemSecondaryAction>
             <Checkbox
@@ -63,8 +62,8 @@ export function EventListItemButtons(props : IButtonsProps) {
     }
 
     return(
-         <ListItem key={ event?.id } button>
-            <ListItemText id={ id } primary={ event?.title } />
+         <ListItem key={ event._id } button>
+            <ListItemText id={ id } primary={ event.title } />
             <ListItemSecondaryAction>
             <ButtonGroup>
                 <IconButton onClick={ handleClickOpen }>

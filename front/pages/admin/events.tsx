@@ -5,11 +5,13 @@ import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
 import { EventListItemButtons as ListItem } from '../../components/admin-components/list-components/list-item.component';
 import { EventFormDialog } from '../../components/dialog-components/event-form-dialog.component';
-import { Container, Box, Button, Typography, CircularProgress, makeStyles, Theme } from '@material-ui/core';
+import { Container, Box, Button, Typography, CircularProgress, makeStyles } from '@material-ui/core';
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
 
 import { fetchAllActiveEvents, fetchAllArchivedEvents } from '../../utils/api-utils';
+import { IEvent } from '../../types/event/event.type';
+
 
 const useStyles = makeStyles({
     root: {
@@ -70,14 +72,13 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
     
     const handleOpen = (event : any) => {
         setSelectedEvent(event);
-        console.log(selectedEvent);
         setDialogOpen(true);
-        
     }
     
     setTimeout(() => {
         setActiveList(true)
     }, 3000);
+    
     return (
         <>
             <Head>
@@ -120,7 +121,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                             <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
                                 {
                                     activeEvents.map((event : IEvent) =>{
-                                       return event;
+                                       return { ...{event}, published:true };
                                     })
                                 }
                             </EventControlList>
@@ -140,7 +141,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                 <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
                                     {
                                         archivedEvents.map((event : IEvent) =>{
-                                           return event;
+                                           return { ...{event}, published:false };
                                         })
                                     }
                                 </EventControlList>
@@ -194,13 +195,23 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
 
 export const getStaticProps = async () => {
     
-    const activeEvents = await fetchAllActiveEvents();
-    const archivedEvents = await fetchAllArchivedEvents();
+    const { mainGroupEvents : activeMain,
+            secondGroupEvents : activeSecond, 
+            generalGroupEvents : activeGeneral
+    } = await fetchAllActiveEvents();
+
+    const { mainGroupEvents : archivedMain ,
+            secondGroupEvents : archivedSecond, 
+            generalGroupEvents : archivedGeneral
+    } = await fetchAllArchivedEvents();
     
+    const activeEventsArray = activeMain.concat(activeSecond).concat(activeGeneral);
+    const archivedEventsArray = archivedMain.concat(archivedSecond).concat(archivedGeneral);
+
     return { 
         props: { 
-            activeEvents: activeEvents,
-            archivedEvents: archivedEvents
-            }
-       };
+            activeEvents: activeEventsArray, 
+            archivedEvents: archivedEventsArray
+        }
+    };
 }
