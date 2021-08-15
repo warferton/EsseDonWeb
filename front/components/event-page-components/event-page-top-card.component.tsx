@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   root: {
     backgroundColor: 'black',
     borderRadius: '0px',
-    margin: 'auto'
+    margin: 'auto',
   },
   contentContainer: {
       backgroundColor: '#222222',
@@ -109,6 +109,7 @@ export function TopCard({ event }: IProps) {
                 size="large" 
                 color="secondary"
                 className={ styles.button }
+                href='#form-box'
                 >
                     Забронировать
                 </Button>

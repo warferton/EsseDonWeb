@@ -17,4 +17,15 @@ export interface IEvent{
     price?: number | string;
     tcLink?: string; 
     block?: string;
+    active: boolean;
+}
+
+/**
+ * @interface
+ * Describes grouped events returned by a fetch operation
+ */
+export interface IEventGroups {
+    mainGroupEvents : IEvent[];
+    secondGroupEvents : IEvent[];
+    generalGroupEvents : IEvent[];
 }

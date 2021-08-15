@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { 
     Card, 
     CardMedia, 
@@ -17,11 +18,13 @@ interface IProps{
 
 export function BigEventCard(props : IProps){
 
+    const router = useRouter();
+
     const { event } = props;
     const { title, image, date, time } = event
 
     return(
-        <Card raised className={styles.root} >
+        <Card raised className={styles.root} onClick={ () => router.push(`event/${event._id}`) }>
             <CardActionArea className={ styles.action }>
                 <CardMedia
                 component="img"

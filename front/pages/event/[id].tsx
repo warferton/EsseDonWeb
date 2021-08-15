@@ -7,8 +7,7 @@ import { About } from '../../components/event-page-components/event-page-about.c
 import { EventLineup } from '../../components/event-page-components/event-linup.component';
 
 import { IEvent } from '../../types/event/event.type';
-import { GetStaticProps } from 'next'
-import { getEventById } from '../../utils/api-utils';
+import { fetchActiveEventsPaths, getEventById } from '../../utils/api-utils';
 
 
 interface IProps{
@@ -16,7 +15,6 @@ interface IProps{
 }
 
 export default function EventPage({event} : IProps) {
-  
   return (
     <>
       <Head>
@@ -27,7 +25,7 @@ export default function EventPage({event} : IProps) {
       
       <LogoHeader/>
 
-      <TopCard/>
+      <TopCard event={ event }/>
 
       <About description={ event.description } />
 
@@ -40,20 +38,31 @@ export default function EventPage({event} : IProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (context : any) => {
+export const getStaticProps = async (context : any) => {
   
   const { id } = context.params;
   
-  const event : IEvent = await getEventById(id);
-  
-  if(!event)
+  const event : IEvent = await getEventById(id);  
+
+  if(!event || typeof event === undefined)
     return {
       notFound: true
     }
   
   return {
     props: {
-      event,
-    },
+      event : event
+    }
   }
 }
+
+export async function getStaticPaths() {
+  
+  const paths = await fetchActiveEventsPaths();
+  
+  return {
+    paths: paths,
+    fallback: true
+  }
+}
+

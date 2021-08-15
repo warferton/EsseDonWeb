@@ -1,5 +1,5 @@
 import { IMenuItem } from '../types/menu/menuItem.type';
-import { IEvent } from '../types/event/event.type';
+import { IEvent, IEventGroups } from '../types/event/event.type';
 import axios from 'axios';
 
 
@@ -9,11 +9,10 @@ const ADMIN_API_URL='http://localhost:3030/api/v1/spe1Ce/control/admin/'
 
 const ARCHIVED_EVENTS_PATH = 'events/get/archived';
 
-export async function getEventById( id : string) {
-  return axios.get(EVENT_API_URL.concat( id ))
+export async function getEventById( id : string) : Promise<IEvent> {
+  return await axios.get(EVENT_API_URL.concat( id ))
     .then(res => res.data.event)
     .catch(err => console.error(`Failed fetching event data. ERROR: ${err}`));
-
 }
 
 export async function fetchAllActiveEvents() {
@@ -103,4 +102,20 @@ export async function fetchKitchenItems() {
   .catch(err => console.log(err));
 
   return kitchenItems;
+}
+
+export function concatFetchedEvents({...events} : IEventGroups){
+  const { mainGroupEvents, secondGroupEvents, generalGroupEvents } = events;
+  return mainGroupEvents.concat(secondGroupEvents).concat(generalGroupEvents);
+}
+
+export async function fetchActiveEventsPaths(){
+  const events = await fetchAllActiveEvents();
+  return concatFetchedEvents({...events}).map( (event : IEvent) => {
+    return { 
+      params: {
+        id : event._id
+      }
+    };
+  })
 }

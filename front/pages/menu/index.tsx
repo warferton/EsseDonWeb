@@ -13,8 +13,6 @@ interface IProps{
 
 export default function MenuPage(props : IProps) {
 
-  console.log(`inside MenuPage:  ${props}`);
-
   return (
     <>
       <Head>

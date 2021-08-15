@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import Head from 'next/head';
 import { CardSlider } from '../components/cards/slider/card-slider.component';
 import { LogoHeader } from '../components/headers/header.compenent';
