@@ -5,8 +5,6 @@ import { Container } from '@material-ui/core';
 import { MenuAccordion } from './menu-accordion.component';
 import { MenuSection } from './menu-section.component';
 import { MenuItem } from './menu-food-item.component';
-import { IMenuItem, IMenuItemGroup } from '../../types/menu/menuItem.type';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,23 +14,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+export function Menu() {
 
-interface IProps{
-  items: {
-    barItems : IMenuItemGroup[];
-    kitchenItems : IMenuItemGroup[];
-  }
-}
-
-export function Menu({ items } : IProps ) {
-  
   const classes = useStyles();
-
-  const { barItems, kitchenItems } = items;
-
-  console.log(`inisde Menu:  ${ items }`);
-  
-
   const [expanded, setExpanded] = useState(null);
 
   const handleChange = (panel : SetStateAction<string>) => (event: ChangeEvent<{}>, isExpanded : boolean) => {
@@ -40,64 +24,50 @@ export function Menu({ items } : IProps ) {
   };
 
 
-  return(
-    <Container classes={ classes }>
-      <MenuAccordion 
-        title="Бар"
-        expanded={ expanded === 'bar' } 
-        icon={ LocalBar }
-        onChange={ handleChange('bar') } 
-        >
-          {
-            barItems.map((group : IMenuItemGroup) => {
-              return(
-                <MenuSection title={ group.name }>
-                  {
-                    group.items.map((item : IMenuItem) => {
-                      return(
-                        <MenuItem 
-                        key={ item._id } 
-                        title={ item.title } 
-                        price={ item.price } 
-                        description={ item.description }
-                        />
-                      );
-                    })
-                  }
-                </MenuSection>
-              );
-            })
+    return(
+      <Container classes={ classes }>
+            
+          <MenuAccordion 
+            title="Бар"
+            expanded={ expanded === 'drinks' } 
+            icon={ LocalBar }
+            onChange={ handleChange('drinks') } 
+            >
+              <MenuSection title='Винная Карта'>
 
-          }
-      </MenuAccordion>
+                 <MenuItem title='MOET XYU' price={ 8000 } description='Ревльно моет'/>
 
-      <MenuAccordion 
-        title="Кухня"
-        expanded={ expanded === 'kitchen' } 
-        icon={ RestaurantSharp }
-        onChange={ handleChange('kitchen') } 
-        >
-          {
-            kitchenItems.map((group : IMenuItemGroup) => {
-              return(
-                <MenuSection title={ group.name }>
-                  {
-                    group.items.map((item : IMenuItem) => {
-                      return(
-                        <MenuItem 
-                        key={ item._id } 
-                        title={ item.title } 
-                        price={ item.price } 
-                        description={ item.description }
-                        />
-                      );
-                    })
-                  }
-                </MenuSection>
-              );
-            })
-          }
-      </MenuAccordion>
-    </Container>
-  )
+              </MenuSection>
+
+              <MenuSection title='He Винная Карта'>
+
+                 <MenuItem title='HE MOET XYU' price={ 14104 } description='Ревльно He моет'/>
+
+              </MenuSection>
+
+          </MenuAccordion>
+
+          <MenuAccordion 
+            title="Кухня"
+            expanded={ expanded === 'food' } 
+            icon={ RestaurantSharp }
+            onChange={ handleChange('food') } 
+            >
+              <MenuSection title='Горячие Блюда'>
+
+                <MenuItem title='MOET XYU' price={ 8000 } description='Ревльно моет'/>
+
+              </MenuSection>
+
+              <MenuSection title='He Горячие Блюда'>
+
+                <MenuItem title='HE MOET XYU' price={ 1000 } description='Ревльно He моет'/>
+
+              </MenuSection>
+
+          </MenuAccordion>
+
+
+      </Container>
+    )
 }

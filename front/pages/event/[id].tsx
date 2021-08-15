@@ -6,15 +6,18 @@ import { FreeEventForm } from '../../components/event-page-components/freeBookin
 import { About } from '../../components/event-page-components/event-page-about.component';
 import { EventLineup } from '../../components/event-page-components/event-linup.component';
 
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import { IEvent } from '../../types/event/event.type';
-import { fetchActiveEventsPaths, getEventById } from '../../utils/api-utils';
+import { GetStaticProps } from 'next'
 
 
-interface IProps{
-  event: IEvent;
-}
-
-export default function EventPage({event} : IProps) {
+export default function EventPage({event} : IEvent) {
+  
+  const [isLoading, setisLoading] = useState(true);
+  
+  
   return (
     <>
       <Head>
@@ -25,7 +28,7 @@ export default function EventPage({event} : IProps) {
       
       <LogoHeader/>
 
-      <TopCard event={ event }/>
+      <TopCard/>
 
       <About description={ event.description } />
 
@@ -38,31 +41,29 @@ export default function EventPage({event} : IProps) {
   )
 }
 
-export const getStaticProps = async (context : any) => {
+export const getStaticProps: GetStaticProps = async (context : any) => {
   
-  const { id } = context.params;
+  const { params } = context;
   
-  const event : IEvent = await getEventById(id);  
-
-  if(!event || typeof event === undefined)
+  const { id } = params;
+  
+  const event : IEvent = await getEventById(id);
+  
+  if(!event)
     return {
-      notFound: true
+      notFound: true;
     }
   
   return {
     props: {
-      event : event
-    }
+      event,
+    },
   }
 }
 
-export async function getStaticPaths() {
-  
-  const paths = await fetchActiveEventsPaths();
-  
-  return {
-    paths: paths,
-    fallback: true
-  }
-}
+async function getEventById( id : string) {
+  return axios.get(get_event_url.concat( id ))
+    .then(res => res.data.event)
+    .catch(err => console.error(`Failed fetching event data. ERROR: ${err}`));
 
+}

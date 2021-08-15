@@ -60,7 +60,7 @@ export function EventFormDialog(props : IProps) {
             </IconButton>
             <Typography variant="h6" className={ classes.title }>
 
-              { event?._id !== undefined ? 
+              { event?.id !== undefined ? 
                             'Изменить Мероприятие'
                             :
                             'Новое Мероприятие'
@@ -69,6 +69,7 @@ export function EventFormDialog(props : IProps) {
             </Typography>
           </Toolbar>
         </AppBar>
+            {console.log("Inside", event)}
             
             <CreateEventForm event={ event }/>
 

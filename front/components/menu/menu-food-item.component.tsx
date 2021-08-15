@@ -13,6 +13,7 @@ interface IProps{
 const useStyles = makeStyles((theme) => ({
   root: {
     borderTop: '1.5px solid gray',
+    borderBottom: '1.5px solid gray',
     flexDirection: 'row'
   }
 }));

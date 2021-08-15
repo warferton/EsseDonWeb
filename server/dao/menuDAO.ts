@@ -74,63 +74,6 @@ export default class MenuDbClient{
     }
 
      /**
-     * @status READY 
-     */
-    static async getAllKitchenItems() {
-        let kitchenCursor;
-
-        try {
-            kitchenCursor = await KitchenItems.find();
-        }catch( err ){
-            console.error(
-                `Unable to issue "find" command: ${ err.message }`
-            );
-            return {kitchenItems: [], totalNumBar: 0};
-        }
-
-
-        try{
-            const kitchenItems = await kitchenCursor.toArray();
-            const totalKitchenItems = await KitchenItems.countDocuments();
-            return {kitchenItems, totalKitchenItems};
-
-        }catch( err ){
-            console.error(
-                `Unable to convert cursor to an array: ${err.message}`
-            );
-            return {kitchenItems: [], totalKitchenItems: 0};
-        }
-    }
-
-     /**
-     * @status READY 
-     */
-    static async getAllBarItems() {
-        let barCursor;
-
-        try {
-            barCursor = await BarItems.find();
-        }catch( err ){
-            console.error(
-                `Unable to issue "find" command: ${ err.message }`
-            );
-            return {barItems: [], totalNumBar: 0};
-        }
-
-        try{
-            const barItems = await barCursor.toArray();
-            const totalBarItems = await BarItems.countDocuments();
-            return {barItems, totalBarItems};
-
-        }catch( err ){
-            console.error(
-                `Unable to convert cursor to an array: ${err.message}`
-            );
-            return {barItems: [], totalBarItems: 0};
-        }
-    }
-
-     /**
      * @status READY
      */
     static async createMenuItem(menuItem: IMenuItem){
