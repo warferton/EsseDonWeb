@@ -39,30 +39,6 @@ export default class EventDbClient{
     }
 
 
-    static async getEventById( id: string ) {
-        let cursor;
-        
-        try {
-            cursor = await ActiveEvents.findOne(
-                { _id : new ObjectId(id) }
-            );
-        }catch( err ){
-            console.error(
-                `Unable to issue "find" command: ${ err.message }`
-            );
-            return { events: [], totalRetrieved: 0 };
-        }
-
-        try{
-            return { event : cursor };
-        }catch( err ){
-            console.error(
-                `Unable to convert cursor to an array: ${err.message}`
-            );
-            return { events: [] };
-        }
-    }
-
     static async getActiveEvents( filters: IQuery, eventPerLoad?: number ) {
         const loadLimit = eventPerLoad || 20;
         let query : IQuery  = {};
