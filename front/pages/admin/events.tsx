@@ -5,9 +5,13 @@ import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
 import { EventListItemButtons as ListItem } from '../../components/admin-components/list-components/list-item.component';
 import { EventFormDialog } from '../../components/dialog-components/event-form-dialog.component';
-import { Container, Box, Button, Typography, CircularProgress, makeStyles, Theme } from '@material-ui/core';
+import { Container, Box, Button, Typography, CircularProgress, makeStyles } from '@material-ui/core';
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
+
+import { fetchAllActiveEvents, fetchAllArchivedEvents } from '../../utils/api-utils';
+import { IEvent } from '../../types/event/event.type';
+
 
 const useStyles = makeStyles({
     root: {
@@ -44,7 +48,12 @@ const useStyles = makeStyles({
   }, { index: 1 });
 
 
-export default function EventControlPage () {
+interface IProps{
+    activeEvents: IEvent[];
+    archivedEvents: IEvent[];
+}
+
+export default function EventControlPage ({ activeEvents, archivedEvents } : IProps) {
 
     const classes = useStyles();
 
@@ -63,44 +72,13 @@ export default function EventControlPage () {
     
     const handleOpen = (event : any) => {
         setSelectedEvent(event);
-        console.log(selectedEvent);
         setDialogOpen(true);
-        
     }
-    
-    //=======MOCK OBJ==========
-    
-    const publishedEvent = {
-        event:{
-            id: '010001001',
-            title: 'Test Published Event',
-            lineup: ['Mama', 'Echo', 'Alpha', 'Yankee', 'Omega', 'Utah'],
-            description: "None",
-            free: true,
-            image: 'imgur',
-            videoLink: 'yahootube',
-        },
-        published: true,
-    }
-    
-    const unPublishedEvent = {
-       event:{
-            id: '111110000',
-            title: 'Test Archived Event',
-            lineup: ['Mama', 'Echo', 'Alpha', 'Yankee', 'Omega', 'Utah'],
-            description: "None",
-            free: false,
-            image: 'imgur',
-            videoLink: 'yahootube',
-       },
-       published: false,
-    }
-    
-    //=======MOCK OBJ===========
     
     setTimeout(() => {
         setActiveList(true)
     }, 3000);
+    
     return (
         <>
             <Head>
@@ -142,35 +120,32 @@ export default function EventControlPage () {
                             :
                             <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
                                 {
-                                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value : number) =>{
-                                       return publishedEvent;
+                                    activeEvents.map((event : IEvent) =>{
+                                       return { ...{event}, published:true };
                                     })
-                                
                                 }
                             </EventControlList>
                             }
-
                         </MenuAccordion>
 
                         <MenuAccordion 
-                        title="Архив"
-                        expanded={ expanded === 'archive' } 
-                        onChange={ handleChange('archive') } 
+                            title="Архив"
+                            expanded={ expanded === 'archive' } 
+                            onChange={ handleChange('archive') } 
                         > 
-                        { !activeList ? 
-                            <Box className={ classes.loaderBox }>
-                                <CircularProgress/>
-                            </Box>
-                            :
-                           <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
-                                {
-                                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value : number) =>{
-                                       return unPublishedEvent;
-                                    })
-                                
-                                }
-                            </EventControlList>
-                        }
+                            { !activeList ? 
+                                <Box className={ classes.loaderBox }>
+                                    <CircularProgress/>
+                                </Box>
+                                :
+                                <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
+                                    {
+                                        archivedEvents.map((event : IEvent) =>{
+                                           return { ...{event}, published:false };
+                                        })
+                                    }
+                                </EventControlList>
+                            }
                         </MenuAccordion>
                         <Button 
                         component='button'
@@ -215,4 +190,28 @@ export default function EventControlPage () {
         <EventFormDialog open={ dialogOpen } setOpen={ setDialogOpen } event={ selectedEvent }/>
         </>
     );
+}
+
+
+export const getStaticProps = async () => {
+    
+    const { mainGroupEvents : activeMain,
+            secondGroupEvents : activeSecond, 
+            generalGroupEvents : activeGeneral
+    } = await fetchAllActiveEvents();
+
+    const { mainGroupEvents : archivedMain ,
+            secondGroupEvents : archivedSecond, 
+            generalGroupEvents : archivedGeneral
+    } = await fetchAllArchivedEvents();
+    
+    const activeEventsArray = activeMain.concat(activeSecond).concat(activeGeneral);
+    const archivedEventsArray = archivedMain.concat(archivedSecond).concat(archivedGeneral);
+
+    return { 
+        props: { 
+            activeEvents: activeEventsArray, 
+            archivedEvents: archivedEventsArray
+        }
+    };
 }

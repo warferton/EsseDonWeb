@@ -17,7 +17,7 @@ interface Values {
 export function FreeEventForm() {
 
     return(
-        <Container className={ styles.container }>
+        <Container className={ styles.container } id='form-box'>
             <Box>
                 <Typography variant='h6' className={ styles.header }>
                     Забронировать

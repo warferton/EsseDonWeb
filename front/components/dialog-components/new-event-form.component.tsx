@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Grid, Typography, Switch, Container, Box, Button, CircularProgress, makeStyles } from '@material-ui/core';
@@ -15,7 +15,6 @@ import styles from '../../styles/BookingForm.module.css';
 interface IProps{
     event: IEvent;
 }
-
 
 const useStyles = makeStyles({
     glowText: {
@@ -53,7 +52,9 @@ export function CreateEventForm(props: IProps) {
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
     const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
-    const [successMessage, setSuccessMessage] = useState('');
+    let SUCCESS_MESSAGE = '';
+    let ERROR_MESSAGE = `Произошла ошибка: `;
+
 
     return(
         <Container className={ styles.container }>
@@ -105,13 +106,14 @@ export function CreateEventForm(props: IProps) {
                     axios.post('http://localhost:3030/api/v1/events/testPut', values)
                         .then(res => {
                             if(res.status === 200) 
-                                setSuccessMessage( 'Событие успешно обновлено' ); 
+                                SUCCESS_MESSAGE = 'Событие успешно обновлено'; 
                             else if (res.status === 201)
-                                setSuccessMessage( 'Событие успешно создано' );
+                                SUCCESS_MESSAGE = 'Событие успешно создано';
 
                             setOpenSuccessSnackbar( true );
                         }).catch( err => {
                             console.error(err); 
+                            ERROR_MESSAGE.concat(err?.name);
                             setOpenErrorSnackbar( true );
                         });
                         
@@ -309,12 +311,13 @@ export function CreateEventForm(props: IProps) {
                         
 
 
-                        {isSubmitting && 
-                            <Box 
-                            style={{ display:'flex', justifyContent: 'center'}}
-                            >
-                                <CircularProgress/>
-                            </Box>
+                        {
+                            isSubmitting && 
+                                <Box 
+                                style={{ display:'flex', justifyContent: 'center'}}
+                                >
+                                    <CircularProgress/>
+                                </Box>
                         }
 
                         <Button
@@ -336,10 +339,10 @@ export function CreateEventForm(props: IProps) {
                 </Formik>
             </Box>
             <SnackbarAlert open={ openSuccessSnackbar } onClose={() => setOpenSuccessSnackbar(false)} severity="success">
-                        { successMessage }
+                        { SUCCESS_MESSAGE }
             </SnackbarAlert>       
             <SnackbarAlert open={ openErrorSnackbar } onClose={() => setOpenErrorSnackbar(false)} severity="error">
-                        { `Произошла ошибка` }
+                        { ERROR_MESSAGE }
             </SnackbarAlert>
 
         </Container>
