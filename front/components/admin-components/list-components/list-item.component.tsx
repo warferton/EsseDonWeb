@@ -49,7 +49,6 @@ interface IButtonsProps {
     event: IEvent;
     id: string;
     checked?: boolean;
-    published: boolean;
     handleOpen: Dispatch<any>;
 }
 
@@ -70,7 +69,7 @@ export function EventListItemButtons(props : IButtonsProps) {
                     <Settings/>
                 </IconButton>
                 <IconButton>
-                    {published ? <ArchiveIcon/> : <Backup/>}
+                    { event.active ? <ArchiveIcon/> : <Backup/> }
                 </IconButton>
             </ButtonGroup>
             </ListItemSecondaryAction>
