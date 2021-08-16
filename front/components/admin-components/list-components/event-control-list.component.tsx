@@ -10,12 +10,12 @@ import { Dispatch } from 'react';
 import { IEvent } from '../../../types/event/event.type';
  
 
-interface IChild{
+interface IChild {
     event: IEvent;
     published?: boolean;
 }
 
-interface IProps{
+interface IProps {
     active?: boolean;
     childWrapper: any;
     children?: any;
@@ -38,7 +38,6 @@ const useStyles = makeStyles({
         color: 'white',
     }
 }, { index: 1 });
-
 
 
 export function EventControlList(props : IProps) {
