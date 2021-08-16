@@ -44,7 +44,10 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
     const [expanded, setExpanded] = useState(null);
 
     const [activeList, setActiveList] = useState(false);
-
+    
+    const mainEventsChecked = mainGroupEvents.concat(secondGroupEvents).concat(generalGroupEvents);
+    
+    const secondEventsChecked =  secondGroupEvents.concat(mainGroupEvents).concat(generalGroupEvents);
 
     const handleChange = (panel : SetStateAction<string>) => (event: ChangeEvent<{}>, isExpanded : boolean) => {
         setExpanded(isExpanded ? panel : null);
@@ -89,11 +92,18 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                     >
                         <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
                            {
-                                mainGroupEvents.map( event => {
-                                   return {event}
-                                } )
+                              mainEventsChecked.map( event => {
+                                  let checked = false;
+                                  if(event.group === 'main')
+                                    checked = true;
+                                  
+                                   return { 
+                                       event : event,
+                                       checked : checked 
+                                   }
+                              })
                            }
-                        </EventControlList>
+                       </EventControlList>
                     </MenuAccordion>
 
                     <MenuAccordion 
@@ -103,29 +113,20 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                     >
                         <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
                            {
-                                secondGroupEvents.map( event => {
-                                   return {event}
-                                } )
-                           }
-                        </EventControlList>
-                    </MenuAccordion>
-
-                    <MenuAccordion 
-                    title="Все мероприятия"
-                    expanded={ expanded === 'all' } 
-                    onChange={ handleChange('all') } 
-                    >
-                       <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
-                           {
-                               generalGroupEvents
-                                .concat(mainGroupEvents)
-                                .concat(secondGroupEvents)
-                                .map( event => {
-                                   return {event}
-                                } )
+                               secondEventsChecked.map( event => {
+                                  let checked = false;
+                                  if(event.group === 'second')
+                                    checked = true;
+                                  
+                                   return { 
+                                       event : event,
+                                       checked : checked 
+                                   }
+                              })
                            }
                        </EventControlList>
                     </MenuAccordion>
+
                 </Container>
             </motion.div>
 
