@@ -12,11 +12,10 @@ import { IEvent } from '../../../types/event/event.type';
 
 interface IChild {
     event: IEvent;
-    published?: boolean;
+    checked?: boolean;
 }
 
 interface IProps {
-    active?: boolean;
     childWrapper: any;
     children?: any;
     controlFunction: Dispatch<any>;
@@ -42,20 +41,17 @@ const useStyles = makeStyles({
 
 export function EventControlList(props : IProps) {
 
-    const { active, childWrapper: Wrapper, children, controlFunction } = props
+    const { childWrapper: Wrapper, children, controlFunction } = props
 
     const classes = useStyles();
 
     return(
-        <>
-        {active && 
-        (   
-            <>
+        <>          
             <List dense className={classes.root}>
                 { children.map( (child: IChild) => {
                     const labelId = `checkbox-list-secondary-label-${child?.event.title}`;
                     console.info(`childe:  ${ child }`);
-                    
+
                     return (
                         <Wrapper 
                         key={ child.event._id }
@@ -78,8 +74,6 @@ export function EventControlList(props : IProps) {
                 </Button>
             </Box>
             </>
-        )}
         </>
-
     );
 }
