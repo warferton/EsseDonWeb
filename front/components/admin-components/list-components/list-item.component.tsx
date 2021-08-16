@@ -18,9 +18,9 @@ interface ICheckboxProps {
 
 export function EventListItemChecbox(props : ICheckboxProps) {
 
-    const { event, id, checked: mark } = props; 
+    const { event, id, checked } = props; 
 
-    const [checked, setChecked] = useState(mark);
+    const [checked, setChecked] = useState(checked);
 
     const handleToggle = () => () => {
         setChecked(!checked);
