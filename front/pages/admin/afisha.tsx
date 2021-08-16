@@ -42,8 +42,6 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
     const classes = useStyles();
 
     const [expanded, setExpanded] = useState(null);
-
-    const [activeList, setActiveList] = useState(false);
     
     const mainEventsChecked = mainGroupEvents.concat(secondGroupEvents).concat(generalGroupEvents);
     
@@ -52,10 +50,6 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
     const handleChange = (panel : SetStateAction<string>) => (event: ChangeEvent<{}>, isExpanded : boolean) => {
         setExpanded(isExpanded ? panel : null);
     };
-
-    setTimeout(() => {
-        setActiveList(true)
-    }, 1500);
 
     return (
         <>
