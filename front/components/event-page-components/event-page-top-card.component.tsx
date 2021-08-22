@@ -64,7 +64,7 @@ const useStyles = makeStyles({
       background: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
   },
   illustrationContainer:{
-      backgroundColor: 'white',
+      backgroundColor: '#222222',
   }
 });
 
@@ -119,8 +119,8 @@ export function TopCard(props: IProps) {
             <CardMedia className={ styles.illustrationContainer }
                 component="img"
                 alt="illustration element with piano and guitar"
-                height="50"
-                image="https://sun9-8.userapi.com/impg/NJZYQIzICYoK8JqBV3U2ABz6MN8G1VOdnOqdzA/jIiww4cokZg.jpg?size=2560x342&quality=96&sign=29e604a13659806b2ddc5acab86832db&type=album"
+                width="100%"
+                image="https://sun9-85.userapi.com/impg/YmK-b9kKH7iyr92qMFTft9Bt9QaRTviAnTZMkw/M7uzVwYn_EA.jpg?size=2560x536&quality=96&sign=168100381311980bb70a0e9677b62ae6&type=album"
                 title="illustration"
             />
         </Card>
