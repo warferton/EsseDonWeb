@@ -44,7 +44,7 @@ const useStyles = makeStyles({
       marginTop: '14px',
       display:' -webkit-box',
       overflow: 'hidden',
-      lineClamp: 2,
+      lineClamp: 3,
       boxOrient: 'vertical'
   },
   chip: {
@@ -56,15 +56,14 @@ const useStyles = makeStyles({
   actions: {
     justifyContent: 'center',
     backgroundColor: '#222222',
-    paddingTop: 0
   },
   button:{
       borderRadius: '15px',
-      marginBottom: '0.45em',
+      margin: '0em',
       background: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
   },
   illustrationContainer:{
-      backgroundColor: '#222222',
+      backgroundColor: '#222222'
   }
 });
 
