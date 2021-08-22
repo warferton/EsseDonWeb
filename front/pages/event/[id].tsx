@@ -5,6 +5,7 @@ import { TopCard } from '../../components/event-page-components/event-page-top-c
 import { FreeEventForm } from '../../components/event-page-components/freeBookingForm.component';
 import { About } from '../../components/event-page-components/event-page-about.component';
 import { EventLineup } from '../../components/event-page-components/event-linup.component';
+import { VideoPlayer } from '../../components/event-page-components/event-videoPlayer.component';
 
 import { IEvent } from '../../types/event/event.type';
 import { fetchActiveEventsPaths, getEventById } from '../../utils/api-utils';
@@ -30,6 +31,8 @@ export default function EventPage({event} : IProps) {
       <About description={ event.description } />
 
       <EventLineup lineup={ event.lineup }/>
+
+      {event.videoLink && <VideoPlayer videoLink={event.videoLink}/>}
 
       {event.free && <FreeEventForm/>}
 
