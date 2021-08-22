@@ -119,7 +119,7 @@ export function TopCard(props: IProps) {
                 component="img"
                 alt="illustration element with piano and guitar"
                 width="100%"
-                image="https://sun9-85.userapi.com/impg/YmK-b9kKH7iyr92qMFTft9Bt9QaRTviAnTZMkw/M7uzVwYn_EA.jpg?size=2560x536&quality=96&sign=168100381311980bb70a0e9677b62ae6&type=album"
+                image="https://sun9-53.userapi.com/impg/Ovbdk366ymKkLB-TSvfW7tcNbSEjcApCHf2SiA/UoD1mQQkNFY.jpg?size=2560x532&quality=96&sign=6c26c539d355a0a43d8612e754a8c006&type=album"
                 title="illustration"
             />
         </Card>
