@@ -3,12 +3,8 @@ import { Box, Typography, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles({
     headerBox:{
         padding: '0.7rem',
-        backgroundColor: 'black',
+        backgroundColor: '#222222',
         color: 'white'
-    },
-    sectionHeader: {
-        fontSize: '24px',
-        fontWeight: 700,
     },
     lineupText: {
         fontSize: '18px',
@@ -30,7 +26,7 @@ export function EventLineup() {
     return(
         <>
             <Box className={ classes.headerBox }>
-                <Typography className={ classes.sectionHeader }>
+                <Typography variant = 'h6' className={ classes.sectionHeader }>
                     Состав
                 </Typography>
             </Box>
