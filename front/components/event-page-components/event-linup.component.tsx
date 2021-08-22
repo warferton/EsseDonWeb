@@ -26,7 +26,7 @@ export function EventLineup() {
     return(
         <>
             <Box className={ classes.headerBox }>
-                <Typography variant = 'h6' className={ classes.sectionHeader }>
+                <Typography variant = 'h6'>
                     Состав
                 </Typography>
             </Box>
