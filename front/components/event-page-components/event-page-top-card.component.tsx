@@ -90,7 +90,7 @@ export function TopCard(props: IProps) {
                         { title }
                     </Typography>
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.dateText }>
-                        { `${ date.getDate() } ${ time }` }
+                        { `${ date } ${ time }` }
                     </Typography>
                     <Chip 
                     label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}
