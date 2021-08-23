@@ -75,6 +75,7 @@ export function TopCard(props: IProps) {
 
     const styles = useStyles();
 
+
     return(
          <Card raised className={ styles.root }>
                 <CardMedia
@@ -119,9 +120,10 @@ export function TopCard(props: IProps) {
                 component="img"
                 alt="illustration element with piano and guitar"
                 width="100%"
-                image="https://sun9-53.userapi.com/impg/Ovbdk366ymKkLB-TSvfW7tcNbSEjcApCHf2SiA/UoD1mQQkNFY.jpg?size=2560x532&quality=96&sign=6c26c539d355a0a43d8612e754a8c006&type=album"
+                image="/images/instrumentsGraphics6.png"
                 title="illustration"
             />
         </Card>
+        
     )
 }
