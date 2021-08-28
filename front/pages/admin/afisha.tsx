@@ -3,7 +3,7 @@ import { SetStateAction, useState, ChangeEvent } from 'react';
 import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
-import { EventListItemChecbox as ListItem} from '../../components/admin-components/list-components/list-item.component';
+import { EventListItemSelector as ListItem} from '../../components/admin-components/list-components/list-item.component';
 import { Container, Typography, Button, makeStyles } from '@material-ui/core';
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
@@ -164,7 +164,7 @@ export const getStaticProps = async () => {
     const activeEvents = await fetchAllActiveEvents();
     
     return {
-        props: {...activeEvents},
+        props: { ...activeEvents },
     };
     
 }

@@ -159,7 +159,7 @@ export default class EventDbClient{
     static async updateEvent(event: IEvent){
         const { active } = event;
         const collectionToDeleteFrom = active ? ArchivedEvents : ActiveEvents;
-        const id = new ObjectId(event.id);
+        const id = new ObjectId(event._id);
 
         const documentFound = await collectionToDeleteFrom.findOne( { _id: id } );
 
@@ -176,7 +176,7 @@ export default class EventDbClient{
      */
     static async deleteEvent(event: IEvent){
         const { active } = event;
-        return active ? this.deleteActiveEvent(event) : this.updateArchivedEvent(event);
+        return active ? this.deleteActiveEvent(event._id) : this.updateArchivedEvent(event);
     }
 
     /**
@@ -215,10 +215,10 @@ export default class EventDbClient{
      * @param param0 
      */
     static async updateArchivedEvent(event : IEvent){
-        const {id, ...updateBody} =  event;
+        const {_id, ...updateBody} =  event;
          try{
             return await ArchivedEvents.updateOne( 
-                { _id : new ObjectId(id) },
+                { _id : new ObjectId(_id) },
                 { $set :  updateBody } 
             );
         }catch( err ){
@@ -234,10 +234,10 @@ export default class EventDbClient{
      * @param param0 
      */
     static async updateActiveEvent(event : IEvent){
-       const {id, ...updateBody} =  event;
+       const {_id, ...updateBody} =  event;
          try{
             return await ActiveEvents.updateOne( 
-                { _id : new ObjectId(id) },
+                { _id : new ObjectId(_id) },
                 { $set :  updateBody } 
             );
         }catch( err ){
@@ -270,7 +270,7 @@ export default class EventDbClient{
      * @status READY
      * @param param0 
      */
-    static async deleteActiveEvent({ id = '' } = {}){
+    static async deleteActiveEvent( id  : string){
         const filter = { _id : new ObjectId(id) };
         try{
             return await ArchivedEvents.deleteOne( filter );

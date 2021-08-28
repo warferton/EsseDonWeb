@@ -55,14 +55,12 @@ export function EventControlList(props : IProps) {
             <List dense className={classes.root}>
                 { children.map( (child: IChild) => {
                     const labelId = `checkbox-list-secondary-label-${child?.event.title}`;
-                    console.info(`childe:  ${ child }`);
                     
                     return (
                         <Wrapper 
                         key={ child.event._id }
                         event={ child.event }
                         id={ labelId } 
-                        published={ child?.published } 
                         handleOpen={ controlFunction } 
                         />
                     );
