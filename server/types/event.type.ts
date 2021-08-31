@@ -3,17 +3,19 @@
  * Describes a Basic Abstract Event
  */
 export interface IEvent{
-    id: string;
+    _id: string;
     title: string;
-    date: Date;
+    date: Date | string;
     time: string;
     lineup?: string[];
+    shortDescription?: string;
     description: string;
-    shortdescription: string;
     free: boolean;
-    image?: string;
+    deposit?: number | string;
+    image: string;
     videoLink?: string;
     price?: number | string;
-    deposit?: number | string;
+    tcLink?: string; 
+    group?: string;
     active: boolean;
 }

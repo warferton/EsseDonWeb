@@ -109,8 +109,8 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                 
                     <MenuAccordion 
                         title="Опубликованные"
-                        expanded={ expanded === 'published' } 
-                        onChange={ handleChange('published') } 
+                        expanded={ expanded === 'active' } 
+                        onChange={ handleChange('active') } 
                         className={ classes.accordion }
                         >
                             { !activeList ? 
@@ -121,7 +121,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                             <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
                                 {
                                     activeEvents.map((event : IEvent) =>{
-                                       return { ...{event}, published:true };
+                                       return { ...{event} };
                                     })
                                 }
                             </EventControlList>
@@ -141,7 +141,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                 <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
                                     {
                                         archivedEvents.map((event : IEvent) =>{
-                                           return { ...{event}, published:false };
+                                           return { ...{event} };
                                         })
                                     }
                                 </EventControlList>

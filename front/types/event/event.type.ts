@@ -16,7 +16,7 @@ export interface IEvent{
     videoLink?: string;
     price?: number | string;
     tcLink?: string; 
-    block?: string;
+    group?: string;
     active: boolean;
 }
 

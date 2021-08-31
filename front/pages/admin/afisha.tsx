@@ -3,7 +3,7 @@ import { SetStateAction, useState, ChangeEvent } from 'react';
 import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
-import { EventListItemChecbox as ListItem} from '../../components/admin-components/list-components/list-item.component';
+import { EventListItemSelector as ListItem} from '../../components/admin-components/list-components/list-item.component';
 import { Container, Typography, Button, makeStyles } from '@material-ui/core';
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
@@ -86,18 +86,11 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                     >
                         <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
                            {
-                              mainEventsChecked.map( event => {
-                                  let checked = false;
-                                  if(event.group === 'main')
-                                    checked = true;
-                                  
-                                   return { 
-                                       event : event,
-                                       checked : checked 
-                                   }
-                              })
+                                mainGroupEvents.map( event => {
+                                   return event
+                                })
                            }
-                       </EventControlList>
+                        </EventControlList>
                     </MenuAccordion>
 
                     <MenuAccordion 
@@ -107,20 +100,29 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                     >
                         <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
                            {
-                               secondEventsChecked.map( event => {
-                                  let checked = false;
-                                  if(event.group === 'second')
-                                    checked = true;
-                                  
-                                   return { 
-                                       event : event,
-                                       checked : checked 
-                                   }
-                              })
+                                secondGroupEvents.map( event => {
+                                   return event
+                                })
+                           }
+                        </EventControlList>
+                    </MenuAccordion>
+
+                    <MenuAccordion 
+                    title="Все мероприятия"
+                    expanded={ expanded === 'all' } 
+                    onChange={ handleChange('all') } 
+                    >
+                       <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
+                           {
+                               generalGroupEvents
+                                .concat(mainGroupEvents)
+                                .concat(secondGroupEvents)
+                                .map( event => {
+                                   return event
+                                })
                            }
                        </EventControlList>
                     </MenuAccordion>
-
                 </Container>
             </motion.div>
 
@@ -159,7 +161,7 @@ export const getStaticProps = async () => {
     const activeEvents = await fetchAllActiveEvents();
     
     return {
-        props: {...activeEvents},
+        props: { ...activeEvents },
     };
     
 }

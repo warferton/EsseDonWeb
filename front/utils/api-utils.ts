@@ -24,9 +24,9 @@ export async function fetchAllActiveEvents() {
   .get(EVENT_API_URL.concat("active"))
   .then(res => 
     res.data.events.map((event : IEvent) => {
-      if( event.block === "main")
+      if( event.group === "main")
         mainGroupEvents.push(event);
-      else if( event.block === "second")
+      else if( event.group === "second")
         secondGroupEvents.push(event);
       else
         generalGroupEvents.push(event);
@@ -49,9 +49,9 @@ export async function fetchAllArchivedEvents() {
   .get(ADMIN_API_URL.concat(ARCHIVED_EVENTS_PATH))
   .then(res => 
     res.data.events.map((event : IEvent) => {
-      if( event.block === "main")
+      if( event.group === "main")
         mainGroupEvents.push(event);
-      else if( event.block === "second")
+      else if( event.group === "second")
         secondGroupEvents.push(event);
       else
         generalGroupEvents.push(event);
