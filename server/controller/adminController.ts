@@ -53,6 +53,21 @@ export default class EventsController{
         
     }
 
+     /**
+     * @status READY
+     */
+    static async updateEventGroup(req: any, res : any){
+        try{
+
+            const body = req.body;
+            const EventResponse = await EventDao.updateActiveEventGroup( body );
+
+            res.status(200).send(EventResponse);
+        }catch(err){
+            res.status(500).send(err.message);
+        }
+    }
+
     /**
      * @param req 
      * @param res 

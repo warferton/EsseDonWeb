@@ -171,6 +171,7 @@ export default class EventDbClient{
         return active ? this.updateActiveEvent(event) : this.updateArchivedEvent(event);
     }
 
+
     /**
      * @status READY
      */
@@ -248,6 +249,29 @@ export default class EventDbClient{
         }
     };
 
+    /**
+     * @status READY
+     * @param param0 
+     */
+    static async updateActiveEventGroup(events : IEvent[]){
+        const result = [];
+         try{
+            for(let i = 0; i < events.length; i++) {
+                const { _id, ...updateBody } = events[i] as IEvent;
+                result.push( await ActiveEvents.updateOne( 
+                    { _id : new ObjectId(_id) },
+                    { $set :  updateBody } 
+                    ));
+            }
+            return result;
+        }catch( err ){
+            console.error(
+                `Unable to update a document: ${err.message}`
+            );
+            return { error: err };
+        }
+    };
+    
     
     /** 
      * @status READY

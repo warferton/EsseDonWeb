@@ -18,14 +18,19 @@ interface ISelectorProps {
 
 export function EventListItemSelector(props : ISelectorProps) {
 
-    const { event, id  } = props; 
+    const { event, id } = props; 
+
+    const initialGroup = event.group;
+
+    let isGroupChanged = false;
 
     const [group, setGroup] = useState( event.group );
 
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setGroup(event.target.value as string);
-        console.log(group);
-        
+    const handleChangeGroup = (changeEvent: React.ChangeEvent<{ value: string }>) => {
+        const newGroup = changeEvent.target.value;
+        isGroupChanged = initialGroup !== newGroup ? true : false;
+        setGroup(newGroup as string);
+        event.group = newGroup;
     };
 
 
@@ -34,10 +39,10 @@ export function EventListItemSelector(props : ISelectorProps) {
             <ListItemText id={ id } primary={ event.title } />
             <ListItemSecondaryAction>
             <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            labelId="group-select-label"
+            id="group-select"
             value={ group }
-            onChange={ handleChange }
+            onChange={ handleChangeGroup }
             >
                 <MenuItem value={ 'main' }>Гл. Блок</MenuItem>
                 <MenuItem value={ 'second' }>Лучшее</MenuItem>

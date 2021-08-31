@@ -90,8 +90,8 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                         <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
                            {
                                 mainGroupEvents.map( event => {
-                                   return {event}
-                                } )
+                                   return event
+                                })
                            }
                         </EventControlList>
                     </MenuAccordion>
@@ -104,8 +104,8 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                         <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
                            {
                                 secondGroupEvents.map( event => {
-                                   return {event}
-                                } )
+                                   return event
+                                })
                            }
                         </EventControlList>
                     </MenuAccordion>
@@ -121,8 +121,8 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                                 .concat(mainGroupEvents)
                                 .concat(secondGroupEvents)
                                 .map( event => {
-                                   return {event}
-                                } )
+                                   return event
+                                })
                            }
                        </EventControlList>
                     </MenuAccordion>
