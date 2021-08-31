@@ -11,6 +11,7 @@ import Settings from '@material-ui/icons/Settings';
 import Backup from '@material-ui/icons/Backup';
 import { IEvent } from '../../../types/event/event.type';
 
+
 interface ISelectorProps {
     event: IEvent;
     id: string;

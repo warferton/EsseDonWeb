@@ -12,10 +12,9 @@ import { IEvent } from '../../../types/event/event.type';
 import { SnackbarAlert } from '../../alerts/snackbar.component';
 
 import axios from 'axios';
- 
 
-interface IProps{
-    active?: boolean;
+
+interface IProps {
     childWrapper: any;
     children?: IEvent[];
     controlFunction: Dispatch<any>;
@@ -61,6 +60,7 @@ export function EventControlList(props : IProps) {
 
     const SUCCESS_MESSAGE = 'Событие успешно обновлено';
     let ERROR_MESSAGE = `Произошла ошибка: `;
+
 
     const classes = useStyles();
 
@@ -116,6 +116,5 @@ export function EventControlList(props : IProps) {
                 { ERROR_MESSAGE }
         </SnackbarAlert>
         </>
-
     );
 }
