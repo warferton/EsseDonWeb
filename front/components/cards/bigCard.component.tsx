@@ -9,6 +9,7 @@ import {
     Typography, 
 } from '@material-ui/core';
 import styles from '../../styles/BigEventCard.module.css';
+import { getLocalWeekDay } from '../../utils/date-utils';
 import { IEvent } from '../../types/event/event.type';
 
 
@@ -22,6 +23,7 @@ export function BigEventCard(props : IProps){
 
     const { event } = props;
     const { title, image, date, time } = event
+    const weekDay = getLocalWeekDay(date);
 
     return(
         <Card raised className={styles.root} onClick={ () => router.push(`event/${event._id}`) }>
@@ -31,7 +33,7 @@ export function BigEventCard(props : IProps){
                 alt="JAZZ_IMG"
                 height="220"
                 image={ image }
-                title="Some Musician" 
+                title={ title } 
                 />                
                 <CardContent className={ styles.cardContent }>
                     <Grid container wrap='nowrap' justifyContent='space-between'>
@@ -42,7 +44,7 @@ export function BigEventCard(props : IProps){
                         </Box>
                         <Box className={ styles.box }>
                             {
-                                [date, time, 'Ср'].map( item =>
+                                [date, time, weekDay].map( item =>
 
                                     <Typography 
                                     key={ `${item}`} 

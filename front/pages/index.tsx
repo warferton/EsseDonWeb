@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import Head from 'next/head';
 import { CardSlider } from '../components/cards/slider/card-slider.component';
 import { LogoHeader } from '../components/headers/header.compenent';
@@ -13,53 +11,6 @@ import { IEvent } from '../types/event/event.type';
 import { Typography } from '@material-ui/core';
 
 import styles from '/styles/textAfisha.module.css';
-<<<<<<< HEAD
-import axios from 'axios';
-
-
-
-const API_URL = "http://localhost:3030/api/v1/events/active"
-
-export default function Home() {
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  const [mainEvents, setMainEvents] = useState([]);
-  const [secondEvents, setSecondEvents] = useState([]);
-  const [generalEvents, setGeneralEvents] = useState([]);
-
-  useEffect(() => {
-    fetchAllActiveEvents();
-    setTimeout(() => {setIsLoading(false)}, 500);
-  }, [])
-
-  const fetchAllActiveEvents = () => {
-  
-    const mainGroupEvents : IEvent[]= [];
-    const secondGroupEvents : IEvent[] = [];
-    const generalGroupEvents : IEvent[]= [];
-  
-    axios
-    .get(API_URL)
-    .then(res => 
-      res.data.events.map((event : IEvent) => {
-        if( event.block === "main")
-          mainGroupEvents.push(event);
-        else if( event.block === "second")
-          secondGroupEvents.push(event);
-        else if( event.block === "general")
-          generalGroupEvents.push(event);
-        })
-    ).catch(err => console.log(err));
-  
-    setMainEvents(mainGroupEvents);
-    setSecondEvents(secondGroupEvents);
-    setGeneralEvents(generalGroupEvents);
-  }
-
-
-
-=======
 import { fetchAllActiveEvents } from '../utils/api-utils';
 
 
@@ -71,7 +22,6 @@ interface IProps {
 
 export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupEvents } : IProps) {
 
->>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
   return (
     <>
       <Head>
@@ -81,40 +31,6 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
       </Head>
 
       <LogoHeader/>
-<<<<<<< HEAD
-
-      { isLoading ?  <h2>LOADING ...//</h2>  : 
-        <>
-          <NavigationFab>
-            <SwipeableStepper>
-              { 
-                mainEvents.map((event : IEvent) => 
-
-                  <BigEventCard key={ event._id } event={ event }/>
-
-                )
-              }
-            </SwipeableStepper>
-
-
-            <Typography className = { styles.heading }>
-              Лучшее на этой неделе
-            </Typography>
-            
-            <CardSlider>
-              { secondEvents.map((event : IEvent)=> 
-            
-                <SmallEventCard key={ event._id } event={ event }/>
-
-                )
-              }
-            </CardSlider>
-
-            { generalEvents.map((event : IEvent) => 
-            
-                <EventCard key={ event._id } event={ event }/>
-
-=======
 
         <>
           <NavigationFab>
@@ -145,16 +61,11 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
             
                 <EventCard key={ event._id } event={ event }/>
 
->>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
               )
             }
             </NavigationFab>
             <Footer/>
           </>
-<<<<<<< HEAD
-        }
-=======
->>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
     </>
 
   )

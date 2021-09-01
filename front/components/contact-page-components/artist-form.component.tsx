@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui'
 import { Container, Box, Typography, Button, LinearProgress } from '@material-ui/core'
@@ -5,6 +6,7 @@ import { PhoneRegex, EmailRegex } from '../../regex/regex';
 
 import styles from '../../styles/BookingForm.module.css'
 import { Alert } from '../alerts/alert.component';
+import { SnackbarAlert } from '../alerts/snackbar.component';
 
 
 interface Values {
@@ -18,8 +20,14 @@ interface Values {
 
 export function ArtistForm() {
 
+    const SUCCESS_MESSAGE = 'Событие успешно обновлено';
+    let ERROR_MESSAGE = `Произошла ошибка: `;
+
+    const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
+    const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
     return(
+        <>
         <Container className={ styles.container }>
             <Box>
                 <Typography variant='h6' className={ styles.header }>
@@ -65,6 +73,7 @@ export function ArtistForm() {
                     setSubmitting(false);
                     alert(JSON.stringify(values, null, 2));
                     }, 3000);
+                    //set snacbat : ERROR / SUCCESS
                 }}
                 >
                 {({ submitForm, isSubmitting }) => (
@@ -134,5 +143,12 @@ export function ArtistForm() {
                 </Formik>
             </Box>
         </Container>
+        <SnackbarAlert open={ openSuccessSnackbar } onClose={() => setOpenSuccessSnackbar(false)} severity="success">
+                { SUCCESS_MESSAGE }
+        </SnackbarAlert>       
+        <SnackbarAlert open={ openErrorSnackbar } onClose={() => setOpenErrorSnackbar(false)} severity="error">
+                { ERROR_MESSAGE }
+        </SnackbarAlert>
+        </>
     )
 }

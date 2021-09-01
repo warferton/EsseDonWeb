@@ -9,6 +9,7 @@ import {
     makeStyles
 } from '@material-ui/core';
 import { IEvent } from '../../types/event/event.type';
+import { getLocalWeekDay } from '../../utils/date-utils';
 
 interface IProps{
     event: IEvent;
@@ -70,6 +71,7 @@ const useStyles = makeStyles({
 export function TopCard({ event }: IProps) {
 
     const { title, price, shortDescription, free, image, deposit, date, time } = event;
+    const weekDay = getLocalWeekDay(date);
 
     const styles = useStyles();
 
@@ -87,7 +89,7 @@ export function TopCard({ event }: IProps) {
                         { title }
                     </Typography>
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.dateText }>
-                        { `${ date } ${ time }` }
+                        { `${ date } ${ time } ${ weekDay }` }
                     </Typography>
                     <Chip 
                     label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}

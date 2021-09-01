@@ -5,17 +5,10 @@ import { TopCard } from '../../components/event-page-components/event-page-top-c
 import { FreeEventForm } from '../../components/event-page-components/freeBookingForm.component';
 import { About } from '../../components/event-page-components/event-page-about.component';
 import { EventLineup } from '../../components/event-page-components/event-linup.component';
-<<<<<<< HEAD
-
-import { IEvent } from '../../types/event/event.type';
-import { GetStaticProps } from 'next'
-import { getEventById } from '../../utils/api-utils';
-=======
 import { VideoPlayer } from '../../components/event-page-components/event-videoPlayer.component';
 
 import { IEvent } from '../../types/event/event.type';
 import { fetchActiveEventsPaths, getEventById } from '../../utils/api-utils';
->>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
 
 
 interface IProps{
@@ -23,10 +16,6 @@ interface IProps{
 }
 
 export default function EventPage({event} : IProps) {
-<<<<<<< HEAD
-  
-=======
->>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
   return (
     <>
       <Head>
@@ -52,13 +41,7 @@ export default function EventPage({event} : IProps) {
   )
 }
 
-<<<<<<< HEAD
-export const getStaticProps: GetStaticProps = async (context : any) => {
-  
-  const { id } = context.params;
-=======
 export const getStaticProps = async (context : any) => {
->>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
   
   const { id } = context.params;
   
@@ -75,8 +58,6 @@ export const getStaticProps = async (context : any) => {
     }
   }
 }
-<<<<<<< HEAD
-=======
 
 export async function getStaticPaths() {
   
@@ -88,4 +69,3 @@ export async function getStaticPaths() {
   }
 }
 
->>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852

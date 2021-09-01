@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { IEvent } from '../../types/event/event.type';
 import styles from '../../styles/StandartEventCard.module.css';
+import { getLocalWeekDay } from '../../utils/date-utils';
 
 
 interface IProps{
@@ -23,6 +24,7 @@ export function EventCard(props : IProps) {
 
     const { event } = props;
     const { title, price, shortDescription, free, image, deposit, date, time } = event  
+    const weekDay = getLocalWeekDay(date);
     
     return (   
         <Card raised className={ styles.root }>
@@ -32,18 +34,14 @@ export function EventCard(props : IProps) {
                 alt="JAZZ_IMG"
                 height="200"
                 image={ image }
-<<<<<<< HEAD
-                title="Some Musician"
-=======
                 title={ title }
->>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
                 />
                 <CardContent className = { styles.contentContainer }>
                     <Typography variant='h5' component="h2" className={ styles.text + ' ' + styles.titleText }>
                         { title }
                     </Typography>
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.dateText }>
-                        { `${ date } ${ time }` }
+                        { `${ date } ${ time } ${ weekDay }` }
                     </Typography>
                     <Chip 
                     label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}

@@ -121,7 +121,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                             <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
                                 {
                                     activeEvents.map((event : IEvent) =>{
-                                       return { ...{event} };
+                                       return event;
                                     })
                                 }
                             </EventControlList>
@@ -141,7 +141,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                 <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
                                     {
                                         archivedEvents.map((event : IEvent) =>{
-                                           return { ...{event} };
+                                           return event;
                                         })
                                     }
                                 </EventControlList>
