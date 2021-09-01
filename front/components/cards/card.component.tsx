@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { 
     Card, 
     CardMedia, 
@@ -18,6 +19,8 @@ interface IProps{
 
 export function EventCard(props : IProps) {
 
+    const router = useRouter();
+
     const { event } = props;
     const { title, price, shortDescription, free, image, deposit, date, time } = event  
     
@@ -29,7 +32,11 @@ export function EventCard(props : IProps) {
                 alt="JAZZ_IMG"
                 height="200"
                 image={ image }
+<<<<<<< HEAD
                 title="Some Musician"
+=======
+                title={ title }
+>>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
                 />
                 <CardContent className = { styles.contentContainer }>
                     <Typography variant='h5' component="h2" className={ styles.text + ' ' + styles.titleText }>
@@ -59,6 +66,7 @@ export function EventCard(props : IProps) {
                 size="large" 
                 color="secondary"
                 className={ styles.button }
+                onClick={ () => router.push(`event/${event._id}`) }
                 >
                     Забронировать
                 </Button>

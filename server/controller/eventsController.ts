@@ -2,12 +2,23 @@ import EventDao from '../dao/eventDAO';
 
 export default class EventsController{
 
+    static async getEventById(req: any, res : any){
+        try{
+
+            const id = req.params.id;
+            
+            const EventResponse = await EventDao.getEventById( id );
+
+            res.status(200).send(EventResponse);
+        }catch(err){
+            res.status(500).send(err.message);
+        }
+    }
+
     static async getActiveEvents(req: any, res : any){
         try{
 
             const filters = req.query;
-
-            console.log(filters);
             
             const EventResponse = await EventDao.getActiveEvents( filters );
 
@@ -28,8 +39,6 @@ export default class EventsController{
         try{
 
             const filters = req.query;
-
-            console.log(filters);
 
             const EventResponse = await EventDao.getArchivedEvents( filters );
 

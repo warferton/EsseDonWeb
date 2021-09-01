@@ -13,6 +13,7 @@ import { IEvent } from '../types/event/event.type';
 import { Typography } from '@material-ui/core';
 
 import styles from '/styles/textAfisha.module.css';
+<<<<<<< HEAD
 import axios from 'axios';
 
 
@@ -58,6 +59,19 @@ export default function Home() {
 
 
 
+=======
+import { fetchAllActiveEvents } from '../utils/api-utils';
+
+
+interface IProps {
+  mainGroupEvents: IEvent[];
+  secondGroupEvents: IEvent[];
+  generalGroupEvents: IEvent[];
+}
+
+export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupEvents } : IProps) {
+
+>>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
   return (
     <>
       <Head>
@@ -67,6 +81,7 @@ export default function Home() {
       </Head>
 
       <LogoHeader/>
+<<<<<<< HEAD
 
       { isLoading ?  <h2>LOADING ...//</h2>  : 
         <>
@@ -99,13 +114,57 @@ export default function Home() {
             
                 <EventCard key={ event._id } event={ event }/>
 
+=======
+
+        <>
+          <NavigationFab>
+            <SwipeableStepper>
+              { 
+                mainGroupEvents.map((event : IEvent) => 
+
+                  <BigEventCard key={ event._id } event={ event }/>
+
+                )
+              }
+            </SwipeableStepper>
+
+            <Typography className = { styles.heading }>
+              Лучшее на этой неделе
+            </Typography>
+            
+            <CardSlider>
+              { secondGroupEvents.map((event : IEvent)=> 
+            
+                <SmallEventCard key={ event._id } event={ event }/>
+
+                )
+              }
+            </CardSlider>
+
+            { generalGroupEvents.map((event : IEvent) => 
+            
+                <EventCard key={ event._id } event={ event }/>
+
+>>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
               )
             }
             </NavigationFab>
             <Footer/>
           </>
+<<<<<<< HEAD
         }
+=======
+>>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
     </>
 
   )
+}
+
+export const getStaticProps = async () => {
+  
+   const result = await fetchAllActiveEvents();
+  
+   return {
+      props: { ...result }
+   };
 }

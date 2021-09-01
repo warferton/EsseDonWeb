@@ -16,5 +16,16 @@ export interface IEvent{
     videoLink?: string;
     price?: number | string;
     tcLink?: string; 
-    block?: string;
+    group?: string;
+    active: boolean;
+}
+
+/**
+ * @interface
+ * Describes grouped events returned by a fetch operation
+ */
+export interface IEventGroups {
+    mainGroupEvents : IEvent[];
+    secondGroupEvents : IEvent[];
+    generalGroupEvents : IEvent[];
 }

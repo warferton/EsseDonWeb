@@ -1,7 +1,10 @@
 import Head from 'next/head';
 import { LogoHeader } from '../../components/headers/header.compenent';
 import { Menu } from '../../components/menu/menu.component';
+<<<<<<< HEAD
 import { Footer } from '../../components/footer/footer.component';
+=======
+>>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
 import { fetchBarItems, fetchKitchenItems } from '../../utils/api-utils';
 import { parseMenuItems } from '../../utils/parsing-utils';
 import { IMenuItemGroup } from '../../types/menu/menuItem.type';
@@ -13,8 +16,11 @@ interface IProps{
 }
 
 export default function MenuPage(props : IProps) {
+<<<<<<< HEAD
 
   console.log(`inside MenuPage:  ${props}`);
+=======
+>>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
 
   return (
     <>
@@ -27,8 +33,11 @@ export default function MenuPage(props : IProps) {
       <LogoHeader/>
 
       <Menu items={ props }/>
+<<<<<<< HEAD
 
       <Footer/>
+=======
+>>>>>>> f51981a9c6f26c62e0c71d92d8654a7e57172852
       
     </>
   )

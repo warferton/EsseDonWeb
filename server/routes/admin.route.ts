@@ -21,6 +21,12 @@ router.route('/events/create').post(AdminController.createEvent);
 router.route('/events/update').put(AdminController.updateEvent);
 
 /**
+ * Update Groups of Active Events
+ */
+router.route('/events/update/group').put(AdminController.updateEventGroup);
+
+
+/**
  * Delete Event
  */
 router.route('/events/delete').delete(AdminController.deleteEvent);

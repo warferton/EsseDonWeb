@@ -61,8 +61,8 @@ export function MenuAccordion(props : IProps) {
         className={ className }>
             <AccordionSummary
                 expandIcon={ <ExpandMoreTwoTone fontSize='large'/> }
-                aria-controls="drinks-content"
-                id="drinks-header"
+                aria-controls={`${title}-content`}
+                id={`${title}-accordion`}
             >
                 {Icon && <Icon className={ classes.icon }/>}
                 <Typography variant={ titleVariant } className={ classes.heading } style={ titleStyle }>
