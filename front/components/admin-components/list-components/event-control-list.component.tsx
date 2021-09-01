@@ -15,7 +15,6 @@ import axios from 'axios';
 
 
 interface IProps {
-    active: boolean;
     childWrapper: any;
     children?: IEvent[];
     controlFunction: Dispatch<any>;
@@ -42,7 +41,7 @@ const useStyles = makeStyles({
 
 export function EventControlList(props : IProps) {
 
-    const { active, childWrapper: Wrapper, children, controlFunction } = props;
+    const { childWrapper: Wrapper, children, controlFunction } = props;
 
     const childEvents = children.map( (event: IEvent) => {
                             const labelId = `selector-list-secondary-label-${event.title}`;
@@ -67,49 +66,47 @@ export function EventControlList(props : IProps) {
 
     return(
         <>
-        {active && 
-        (
-            <Formik
-            initialValues={{
-                events: [],
-            }}
-            onSubmit={(values, { setSubmitting }) => {
-                setSubmitting(true);
-                axios.put('http://localhost:3030/api/v1/spe1Ce/control/admin/events/update/group', children)
-                    .then(res => {
-                        if(res.status === 200) 
-                        setOpenSuccessSnackbar( true );
-                    }).catch( err => {
-                        console.error(err); 
-                        ERROR_MESSAGE.concat(err?.name);
-                        setOpenErrorSnackbar( true );
-                    });
-                    
-                setSubmitting(false);
+        <Formik
+        initialValues={{
+            events: [],
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+            setSubmitting(true);
+            axios.put('http://localhost:3030/api/v1/spe1Ce/control/admin/events/update/group', children)
+                .then(res => {
+                    if(res.status === 200) 
+                    setOpenSuccessSnackbar( true );
+                }).catch( err => {
+                    console.error(err); 
+                    ERROR_MESSAGE.concat(err?.name);
+                    setOpenErrorSnackbar( true );
+                });
                 
-            }}
-            >
-            {({ submitForm, isSubmitting }) => (
-                <Form>
-                    <List dense className={classes.root}>
-                        { childEvents }
-                    </List>
-                    <Box className={ classes.buttonBox }>
-                        <Button 
-                        fullWidth
-                        endIcon={ <SaveIcon/> } 
-                        className={ classes.saveButton }
-                        onClick={ submitForm }
-                        >
-                            <Typography>
-                                Save
-                            </Typography>
-                        </Button>
-                    </Box>
-                </Form>
-                )}
-            </Formik>
-        )}
+            setSubmitting(false);
+            
+        }}
+        >
+        {({ submitForm, isSubmitting }) => (
+            <Form>
+                <List dense className={classes.root}>
+                    { childEvents }
+                </List>
+                <Box className={ classes.buttonBox }>
+                    <Button 
+                    fullWidth
+                    endIcon={ <SaveIcon/> } 
+                    className={ classes.saveButton }
+                    onClick={ submitForm }
+                    >
+                        <Typography>
+                            Save
+                        </Typography>
+                    </Button>
+                </Box>
+            </Form>
+            )}
+        </Formik>
+    
         <SnackbarAlert open={ openSuccessSnackbar } onClose={() => setOpenSuccessSnackbar(false)} severity="success">
                 { SUCCESS_MESSAGE }
         </SnackbarAlert>       

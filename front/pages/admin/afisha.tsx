@@ -42,10 +42,6 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
     const classes = useStyles();
 
     const [expanded, setExpanded] = useState(null);
-    
-    const mainEventsChecked = mainGroupEvents.concat(secondGroupEvents).concat(generalGroupEvents);
-    
-    const secondEventsChecked =  secondGroupEvents.concat(mainGroupEvents).concat(generalGroupEvents);
 
     const handleChange = (panel : SetStateAction<string>) => (event: ChangeEvent<{}>, isExpanded : boolean) => {
         setExpanded(isExpanded ? panel : null);
@@ -84,7 +80,7 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                     onChange={ handleChange('mainBlock') } 
                     className={ classes.accordion }
                     >
-                        <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
+                        <EventControlList childWrapper={ ListItem } controlFunction={ null }>
                            {
                                 mainGroupEvents.map( event => {
                                    return event
@@ -98,7 +94,7 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                     expanded={ expanded === 'weekBest' } 
                     onChange={ handleChange('weekBest') } 
                     >
-                        <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
+                        <EventControlList childWrapper={ ListItem } controlFunction={ null }>
                            {
                                 secondGroupEvents.map( event => {
                                    return event
@@ -112,7 +108,7 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                     expanded={ expanded === 'all' } 
                     onChange={ handleChange('all') } 
                     >
-                       <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ null }>
+                       <EventControlList childWrapper={ ListItem } controlFunction={ null }>
                            {
                                generalGroupEvents
                                 .concat(mainGroupEvents)
