@@ -6,10 +6,10 @@ export function Footer() {
     return(
         <Container disableGutters maxWidth={ false } className = { styles.footerContainer }>
             <Typography align='center' className = { styles.infoText }>
-                Ростов-на-Дону
+                { `Ростов-на-Дону` }
             </Typography>
             <Typography align='center' className = { styles.infoText }>
-                Красноармейская 166
+                { `Красноармейская 166` }
             </Typography> 
             <Typography align='center' className = { styles.infoText }>
                 <Link 
@@ -23,12 +23,14 @@ export function Footer() {
                     justifyContent: 'center'
                 }}> 
                     <CallIcon fontSize='small' viewBox='0 0 25 25'/>
-                    { '+7 863 310 41 10' }
+                    { `+7 863 310 41 10` }
                 </Link>
             </Typography>
             <Typography align='center' variant='h1' className = { styles.motoText }>
-                Jazz lives here
-                <span className = { styles.motoDot }>.</span>
+                { `Jazz lives here` }
+                <span className = { styles.motoDot }>
+                    { `.` }
+                </span>
             </Typography>
         </Container>
     );

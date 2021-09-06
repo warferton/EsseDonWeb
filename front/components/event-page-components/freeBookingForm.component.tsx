@@ -10,7 +10,7 @@ interface Values {
     name: string;
     email: string;
     tel: string;
-    people_number: string;
+    peopleCount: string;
     comment: string;
 }
 
@@ -29,7 +29,7 @@ export function FreeEventForm() {
                     name: '',
                     tel:'',
                     email: '',
-                    people_number: 1,
+                    peopleCount: 1,
                 }}
                 validate={values => {
                     const errors: Partial<Values> = {};
@@ -42,8 +42,8 @@ export function FreeEventForm() {
                     else if(!PhoneRegex.test(values.tel)){
                         errors.tel = 'Invalid phone number';
                     }
-                    if (!Number.isInteger(values.people_number)) {
-                        errors.people_number = 'Invalid number';
+                    if (!Number.isInteger(values.peopleCount)) {
+                        errors.peopleCount = 'Invalid number';
                     }
                     if (!values.email) {
                         errors.email = 'Required';
@@ -93,7 +93,7 @@ export function FreeEventForm() {
 
                          <Field
                             component={ TextField }
-                            name="people_number"
+                            name="peopleCount"
                             type="number"
                             label="Количество Персон"
                             variant="outlined"

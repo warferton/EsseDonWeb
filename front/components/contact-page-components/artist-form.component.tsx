@@ -13,14 +13,13 @@ interface Values {
     name: string;
     email: string;
     tel: string;
-    people_number: string;
     comment: string;
-    videoLink: string;
+    url: string;
 }
 
 export function ArtistForm() {
 
-    const SUCCESS_MESSAGE = 'Событие успешно обновлено';
+    const SUCCESS_MESSAGE = 'Заявка успешно отправлена';
     let ERROR_MESSAGE = `Произошла ошибка: `;
 
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
@@ -119,7 +118,7 @@ export function ArtistForm() {
 
                         <Field
                             component={ TextField }
-                            name="videoLink"
+                            name="url"
                             type="text"
                             label="Ссылка на видео"
                             variant="outlined"
