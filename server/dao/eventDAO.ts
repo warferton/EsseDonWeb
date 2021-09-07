@@ -53,6 +53,9 @@ export default class EventDbClient{
             return { events: [], totalRetrieved: 0 };
         }
 
+        /**
+         * @todo Refactor
+         */
         try{
             return { event : cursor };
         }catch( err ){

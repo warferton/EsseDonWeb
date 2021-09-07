@@ -4,7 +4,10 @@ export default class AuthController{
 
     static async login(req: any, res : any){
         try{
-            const AuthResponse = AuthDao.login(req);
+
+            const {username, password} = req.body
+
+            const AuthResponse = AuthDao.login(username, password);
 
             res.status(200).send(AuthResponse);
         }catch(err){

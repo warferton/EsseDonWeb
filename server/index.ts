@@ -2,6 +2,7 @@ import mongodb from 'mongodb';
 import dotenv from 'dotenv';
 import EventDao from './dao/eventDAO';
 import MenuDao from './dao/menuDAO';
+import AuthDao from 'dao/authDAO';
 import app from './server';
 
 dotenv.config();
@@ -30,6 +31,8 @@ MongoClient.connect(
     console.info('Event DB connection established');
     await MenuDao.injectDB(client);
     console.info('Menu DB connection established');
+    await AuthDao.injectDB(client);
+    console.info('Users DB connection established');
     console.info('ALL DB\'s connection established');
     app.listen(port, () => {
         console.info(`Started Listenning on port: ${ port }`);
