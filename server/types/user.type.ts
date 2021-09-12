@@ -4,8 +4,9 @@
  * Describes data held in user object
  */
 export interface IUser {
- id: string;
+ id?: string;
  username: string;
  password: string;
- lastLogin: Date;
+ lastLogin?: Date;
+ created?: Date;
 }

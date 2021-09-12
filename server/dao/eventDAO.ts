@@ -1,5 +1,6 @@
 import { MongoClient, ObjectId, Collection } from "mongodb";
 import { IEvent } from '../types/event.type';
+import config from '../config/server-config';
 
 
 interface IQuery extends Object{
@@ -27,9 +28,9 @@ export default class EventDbClient{
 
         try{
             if( !ActiveEvents )
-                ActiveEvents = await connection.db(process.env['EVENTS_NS']).collection('active_events');
+                ActiveEvents = await connection.db(config.dataBases.events).collection('active_events');
             if( !ArchivedEvents )
-                ArchivedEvents = await connection.db(process.env['EVENTS_NS']).collection('archived_events');
+                ArchivedEvents = await connection.db(config.dataBases.events).collection('archived_events');
 
         }catch(err){
             console.error(

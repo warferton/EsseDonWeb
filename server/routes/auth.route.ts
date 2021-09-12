@@ -1,12 +1,18 @@
 import express from 'express';
+import { extractJWT } from 'util/jwt-util';
 import AuthController from '../controller/authController';
 
 const router = express.Router();
 
-//Send email notifying about event booking
-router.route('/login').get(AuthController.login);
+//Validate the user
+router.route('/validate').get(extractJWT).get(AuthController.validate);
 
-//Send email request for band to perform
-router.route('/logout').get(AuthController.logout);
+//Log user in
+router.route('/login').post(AuthController.login);
+
+//Perform user logout action
+router.route('/logout').post(AuthController.logout);
+
+router.route('/register').post(AuthController.register);
 
 export default router;

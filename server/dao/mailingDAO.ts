@@ -1,7 +1,9 @@
 
 
-export default class MenuDbClient {
+export default class MailingDao {
 
+    static async sendMail() {
 
+    }
     
 }

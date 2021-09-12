@@ -1,5 +1,9 @@
-import { MongoClient, ObjectId, Collection } from "mongodb";
-import jwt from 'njwt';
+import { MongoClient, Collection } from "mongodb";
+import { Request, Response } from 'express';
+import bcryptjs from 'bcryptjs';
+import config from '../config/server-config';
+import { signJWT } from "util/jwt-util";
+import { IUser } from "types/user.type";
 
 let AdminUsers : Collection;
 
@@ -11,7 +15,7 @@ export default class AuthDao {
 
         try{
             if( !AdminUsers )
-                AdminUsers = await connection.db(process.env['USERS_NS']).collection('admin_users');
+                AdminUsers = await connection.db(config.dataBases.users).collection('admin_users');
 
         }catch( err ){
             console.error(
@@ -20,42 +24,87 @@ export default class AuthDao {
         }
     }
 
-    static async login( username: string, password: string ) {
-        let cursor;
+    static async login( req: Request, res: Response ) {
+        const { username, password } = req.body;
+
+        let cursor: IUser;
         
         //find user and check passwords
-        try {
-            cursor = await AdminUsers.findOne(
-                { username : new ObjectId( username ) }
-            );
-        }catch( err ){
-            console.error(
-                `Unable to issue "find" command: ${ err.message }`
-            );
-        }
-
-        const { usernameFromDb, passwordFromDb } = cursor;
-
-        if(passwordFromDb !== password) {
-            const ERROR = new Error("Password is Invalid");
-            console.log(ERROR);
-            throw ERROR;
-        }
+        cursor = await AdminUsers.findOne(
+            { username :  username }
+        ).catch(err => {
+            console.error(`Unable to issue "find" command: ${ err.message }`);
+        });
         
-        //generate jwt
-        const payload = { iss: 'jazzesse', sub: usernameFromDb }
-        const token = jwt.create(payload, process.env['JWT_SECRET'])
-        token.setExpiration(new Date().getTime() + 90*10000) //15 min
+        if( !cursor ){
+            const error = new Error("Unable to find user");
+            console.error(error.stack);
+            res.status(400).json( {message: "Wrong username or password"});
+        }
+        else {
+            console.log('User found');
+        
 
-        return { 
-            username: usernameFromDb, 
-            token: token 
+            const { password: passwordFromDb } = cursor;
+
+            const compareResult = bcryptjs.compareSync(password, passwordFromDb);
+            if( compareResult ) {
+                    //generate jwt
+                    signJWT(
+                    cursor,
+                    (error, token) => {
+                        if (error) {
+                            throw error;
+                        }
+                        else if (token) {
+                            console.log("Successfully signed and returned token");
+                            res.status(200).json({
+                                message: "Successful Authentication",
+                                username: username,
+                                token: `Bearer ${token}`
+                            });
+                        }
+                        else {
+                            const error = new Error("Unexpected exception: Token was not retured but no error was caught");
+                            console.error(error.stack);
+                        }
+                    })
+                } 
+            else {
+                const error = new Error(`Password mismatch for user: ${username}`)
+                console.error(error.stack);
+                res.status(401).json({ message: "Wrong username or password" });
+            }
         }
     }
 
-    static async logout( req : any ) {
+    static async logout( req : Request ) {}
 
+    static async validate( req: Request ) {
+        console.log('Token was successfully validated');
+
+        return { message: 'Token was successfully validated'};
     }
 
+    static async register( req: Request ) {
+        const { username, password } = req.body;
+        return bcryptjs
+        .hash(password, 10)
+        .then(hash => {
+            //insert new user into db
+                return AdminUsers.insertOne({
+                    username: username,
+                    password: hash,
+                    created: new Date(),
+                    lastLogin: new Date()
+                })
+            })
+        .catch( err => {
+            if(err) {
+                throw err;
+            }
+        });
+
+    }
 
 }

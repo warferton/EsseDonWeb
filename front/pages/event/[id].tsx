@@ -36,7 +36,7 @@ export default function EventPage({event} : IProps) {
 
       {event.free && <FreeEventForm/>}
 
-      <Footer />
+      <Footer position='static'/>
     </>
   )
 }
