@@ -1,5 +1,6 @@
 import Head from 'next/head'
-import { SetStateAction, useState, ChangeEvent } from 'react';
+import { useRouter } from 'next/router';
+import { SetStateAction, useState, ChangeEvent, useEffect } from 'react';
 import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
@@ -8,7 +9,7 @@ import { Container, Typography, Button, makeStyles } from '@material-ui/core';
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
 
-import { fetchAllActiveEvents } from '../../utils/api-utils';
+import { fetchAllActiveEvents, validateCurrentClient } from '../../utils/api-utils';
 import { IEvent } from '../../types/event/event.type';
 
 const useStyles = makeStyles({
@@ -38,6 +39,17 @@ interface IProps{
 }
 
 export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGroupEvents } : IProps) {
+
+    const router = useRouter();
+    useEffect(()=> {
+        const cookies = document.cookie;
+        validateCurrentClient(cookies).then((res)=> {
+            console.log(res);
+            if(!res) {
+                router.push('/login');
+            }
+        }).catch((err)=> console.error(err));
+    }, []);
 
     const classes = useStyles();
 
@@ -153,11 +165,9 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
 
 
 export const getStaticProps = async () => {
-
     const activeEvents = await fetchAllActiveEvents();
     
     return {
         props: { ...activeEvents },
     };
-    
 }

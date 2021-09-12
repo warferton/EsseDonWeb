@@ -58,10 +58,12 @@ export default class AuthDao {
                         }
                         else if (token) {
                             console.log("Successfully signed and returned token");
-                            res.status(200).json({
+                            res
+                            .status(200)
+                            .cookie('_JazzEsseDonToken', token, { maxAge: 3600000, httpOnly: false })
+                            .send({
                                 message: "Successful Authentication",
                                 username: username,
-                                token: `Bearer ${token}`
                             });
                         }
                         else {
@@ -83,7 +85,7 @@ export default class AuthDao {
     static async validate( req: Request ) {
         console.log('Token was successfully validated');
 
-        return { message: 'Token was successfully validated'};
+        return { message: 'Token was successfully validated', ok: true };
     }
 
     static async register( req: Request ) {

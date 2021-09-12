@@ -1,7 +1,7 @@
 import { IMenuItem } from '../types/menu/menuItem.type';
 import { IEvent, IEventGroups } from '../types/event/event.type';
 import axios from 'axios';
-
+import { getJwtFromCookies } from './parsing-utils';
 
 const EVENT_API_URL='http://localhost:3030/api/v1/events/'
 const MENU_API_URL='http://localhost:3030/api/v1/menu/';
@@ -44,7 +44,6 @@ export async function fetchAllArchivedEvents() {
   const mainGroupEvents : IEvent[] = [];
   const secondGroupEvents : IEvent[] = [];
   const generalGroupEvents : IEvent[] = [];
-
   await axios
   .get(ADMIN_API_URL.concat(ARCHIVED_EVENTS_PATH))
   .then(res => 
@@ -118,4 +117,20 @@ export async function fetchActiveEventsPaths(){
       }
     };
   })
+}
+
+export async function validateCurrentClient(cookies: string){
+  const token = getJwtFromCookies(cookies);
+  console.log(token);
+  try{
+    return axios
+    .get('http://localhost:3030/api/v1/auth/validate').then(res => {
+      console.log(res)
+      return res.status === 200 ? true : false
+    }).catch(error => false);
+  }
+  catch(err){
+    console.error(err);
+    return false
+  }
 }

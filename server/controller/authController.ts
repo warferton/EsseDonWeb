@@ -1,8 +1,9 @@
 import AuthDao from '../dao/authDAO';
+import { Request, Response} from 'express';
 
 export default class AuthController{
 
-    static async validate(req: any, res : any){
+    static async validate(req: Request, res : Response){
         try{
             const ValidationResponse = await AuthDao.validate(req);
             console.log("New user was created successfully");
@@ -12,7 +13,7 @@ export default class AuthController{
         }
     }
 
-    static async login(req: any, res : any){
+    static async login(req: Request, res : Response){
         try{
             await AuthDao.login(req, res);
         }catch(err){
@@ -20,7 +21,7 @@ export default class AuthController{
         }
     }
 
-    static async logout(req: any, res : any){
+    static async logout(req: Request, res : Response){
         try{
             const LogoutResponse = await AuthDao.logout(req);
             res.status(200).send(LogoutResponse);
@@ -29,7 +30,7 @@ export default class AuthController{
         }
     }
 
-    static async register(req: any, res : any){
+    static async register(req: Request, res : Response){
         try{
             const RegistrationResponse = await AuthDao.register(req);
             res.status(200).send(RegistrationResponse);

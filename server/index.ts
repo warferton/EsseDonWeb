@@ -1,6 +1,6 @@
 import mongodb from 'mongodb';
-// import EventDao from './dao/eventDAO';
-// import MenuDao from './dao/menuDAO';
+import EventDao from './dao/eventDAO';
+import MenuDao from './dao/menuDAO';
 import AuthDao from 'dao/authDAO';
 import app from './server';
 import config from './config/server-config';
@@ -25,10 +25,10 @@ MongoClient.connect(
     process.exit(1);
     
 }).then( async client => {
-    // await EventDao.injectDB(client);
-    // console.info('Event DB connection established');
-    // await MenuDao.injectDB(client);
-    // console.info('Menu DB connection established');
+    await EventDao.injectDB(client);
+    console.info('Event DB connection established');
+    await MenuDao.injectDB(client);
+    console.info('Menu DB connection established');
     await AuthDao.injectDB(client);
     console.info('Users DB connection established');
     console.info('ALL DB\'s connection established');

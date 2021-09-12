@@ -1,9 +1,24 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router';
 import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { AdminMenu } from '../../components/admin-components/main-page/admin-menu.component';
+import { validateCurrentClient } from '../../utils/api-utils';
+import { useEffect } from 'react';
 
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 
-export default function AdminMain () {
+export default function AdminMain(props: any) {
+    const router = useRouter();
+    useEffect(()=> {
+        const cookies = document.cookie;
+        validateCurrentClient(cookies).then((res)=> {
+            console.log(res);
+            if(!res) {
+                router.push('/login');
+            }
+        }).catch((err)=> console.error(err));
+    }, []);
 
     return (
         <>

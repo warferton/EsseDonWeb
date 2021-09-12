@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { SetStateAction, useState, ChangeEvent } from 'react';
+import { SetStateAction, useState, ChangeEvent, useEffect } from 'react';
 import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
@@ -9,8 +9,9 @@ import { Container, Box, Button, Typography, CircularProgress, makeStyles } from
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
 
-import { fetchAllActiveEvents, fetchAllArchivedEvents } from '../../utils/api-utils';
+import { fetchAllActiveEvents, fetchAllArchivedEvents, validateCurrentClient } from '../../utils/api-utils';
 import { IEvent } from '../../types/event/event.type';
+import { useRouter } from 'next/router';
 
 
 const useStyles = makeStyles({
@@ -54,6 +55,17 @@ interface IProps{
 }
 
 export default function EventControlPage ({ activeEvents, archivedEvents } : IProps) {
+    //authenticate
+    const router = useRouter();
+    useEffect(()=> {
+        const cookies = document.cookie;
+        validateCurrentClient(cookies).then((res)=> {
+            console.log(res);
+            if(!res) {
+                router.push('/login');
+            }
+        }).catch((err)=> console.error(err));
+    }, []);
 
     const classes = useStyles();
 
@@ -118,7 +130,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                 <CircularProgress/>
                             </Box>
                             :
-                            <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
+                            <EventControlList childWrapper={ ListItem } controlFunction={ handleOpen }>
                                 {
                                     activeEvents.map((event : IEvent) =>{
                                        return event;
@@ -138,7 +150,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                     <CircularProgress/>
                                 </Box>
                                 :
-                                <EventControlList active={ activeList } childWrapper={ ListItem } controlFunction={ handleOpen }>
+                                <EventControlList childWrapper={ ListItem } controlFunction={ handleOpen }>
                                     {
                                         archivedEvents.map((event : IEvent) =>{
                                            return event;
@@ -193,8 +205,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
 }
 
 
-export const getStaticProps = async () => {
-    
+export const getServerSideProps = async () => {
     const { mainGroupEvents : activeMain,
             secondGroupEvents : activeSecond, 
             generalGroupEvents : activeGeneral
