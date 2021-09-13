@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(`/api/v1/events/`, eventRoutes);
 app.use(`/api/v1/menu/`, menuRoutes);
 app.use('/api/v1/auth/', authRoutes);
-app.use(`/api/v1/innerMailing/`, mailingRoutes);
+app.use(`/api/v1/mailing/`, mailingRoutes);
 app.use(`/api/v1/spe1Ce/control/admin/`, adminRoutes);
 app.use('*', (req, res) => res.status(404).json({
     error:'No Such Page Exists'

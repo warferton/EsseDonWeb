@@ -1,6 +1,7 @@
 export interface IBookingData{
+ email: string;
  bookingNumber: number;
- recipientName: string;
+ name: string;
  eventName: string;
  weekDay: string;
  time: string;
@@ -8,7 +9,7 @@ export interface IBookingData{
 }
 
 export interface IPerformRequestData{
- recipientName: string
+ name: string
  email: string;
  tel: string;
  comment: string;
