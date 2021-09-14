@@ -1,4 +1,4 @@
-import { MongoClient, Collection } from "mongodb";
+import { MongoClient, Collection, ObjectId } from "mongodb";
 import { Request, Response } from 'express';
 import bcryptjs from 'bcryptjs';
 import config from '../config/server-config';
@@ -49,18 +49,24 @@ export default class AuthDao {
 
             const compareResult = bcryptjs.compareSync(password, passwordFromDb);
             if( compareResult ) {
-                    //generate jwt
-                    signJWT(
+                //generate jwt
+                signJWT(
                     cursor,
-                    (error, token) => {
+                    async (error, token) => {
                         if (error) {
                             throw error;
                         }
                         else if (token) {
-                            console.log("Successfully signed and returned token");
+                            console.log("Successfully signed the token");
+                            try{
+                                console.log('Updating lastLogin field in database');
+                                await AdminUsers.findOneAndUpdate({ _id: new ObjectId(cursor.id)}, { $set: { lastLogin: new Date() }});
+                            } catch( err ){
+                                console.error('Failed to update "lastLogin" field in the database');
+                            }
                             res
                             .status(200)
-                            .cookie('_JazzEsseDonToken', token, { maxAge: 3600000, httpOnly: false })
+                            .cookie('JazzEsseDonToken', token, { expires: new Date(Date.now() +  36000000), httpOnly: false })
                             .send({
                                 message: "Successful Authentication",
                                 username: username,

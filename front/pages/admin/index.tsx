@@ -3,24 +3,23 @@ import { useRouter } from 'next/router';
 import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { AdminMenu } from '../../components/admin-components/main-page/admin-menu.component';
 import { validateCurrentClient } from '../../utils/api-utils';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function AdminMain(props: any) {
-    let AUTHENTICATED = false;
+    const [ isAuthenticated, setIsAuthenticated ] = useState(false);
     const router = useRouter();
     useEffect(()=> {
-        const cookies = document.cookie;
-        validateCurrentClient(cookies).then((res)=> {
+        validateCurrentClient().then((res)=> {
             if(!res) {
                 router.push('/login');
             }
             else {
-                AUTHENTICATED = true;
+                setIsAuthenticated(true);
             }
         }).catch((err)=> console.error(err));
     }, []);
 
-    if( !AUTHENTICATED ) {
+    if( !isAuthenticated ) {
         return <></>;
     }
     else {

@@ -55,17 +55,15 @@ interface IProps{
 }
 
 export default function EventControlPage ({ activeEvents, archivedEvents } : IProps) {
-    let AUTHENTICATED = false;
-    //authenticate
+    const [ isAuthenticated, setIsAuthenticated ] = useState(false);
     const router = useRouter();
     useEffect(()=> {
-        const cookies = document.cookie;
-        validateCurrentClient(cookies).then((res)=> {
+        validateCurrentClient().then((res)=> {
             if(!res) {
                 router.push('/login');
             }
             else {
-                AUTHENTICATED = true;
+                setIsAuthenticated(true);
             }
         }).catch((err)=> console.error(err));
     }, []);
@@ -94,7 +92,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
         setActiveList(true)
     }, 3000);
     
-    if( !AUTHENTICATED ){
+    if( !isAuthenticated ){
         return <></>;
     }
     else {
@@ -139,9 +137,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                 :
                                 <EventControlList childWrapper={ ListItem } controlFunction={ handleOpen }>
                                     {
-                                        activeEvents.map((event : IEvent) =>{
-                                        return event;
-                                        })
+                                        activeEvents.map((event : IEvent) => event)
                                     }
                                 </EventControlList>
                                 }
@@ -159,9 +155,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                     :
                                     <EventControlList childWrapper={ ListItem } controlFunction={ handleOpen }>
                                         {
-                                            archivedEvents.map((event : IEvent) =>{
-                                            return event;
-                                            })
+                                            archivedEvents.map((event : IEvent) => event)
                                         }
                                     </EventControlList>
                                 }

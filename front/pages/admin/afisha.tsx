@@ -39,17 +39,16 @@ interface IProps{
 }
 
 export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGroupEvents } : IProps) {
-    let AUTHENTICATED = false;
+    const [ isAuthenticated, setIsAuthenticated ] = useState(false);
     
     const router = useRouter();
     useEffect(()=> {
-        const cookies = document.cookie;
-        validateCurrentClient(cookies).then((res)=> {
+        validateCurrentClient().then((res)=> {
             if(!res) {
                 router.push('/login');
             }
             else {
-                AUTHENTICATED = true;
+                setIsAuthenticated(true);
             }
         }).catch((err)=> console.error(err));
     }, []);
@@ -62,7 +61,7 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
         setExpanded(isExpanded ? panel : null);
     };
 
-    if( !AUTHENTICATED ){
+    if( !isAuthenticated ){
         return <></>;
     }
     else {
@@ -101,9 +100,7 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                         >
                             <EventControlList childWrapper={ ListItem } controlFunction={ null }>
                             {
-                                    mainGroupEvents.map( event => {
-                                    return event
-                                    })
+                                    mainGroupEvents.map( event => event )
                             }
                             </EventControlList>
                         </MenuAccordion>
@@ -115,9 +112,7 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                         >
                             <EventControlList childWrapper={ ListItem } controlFunction={ null }>
                             {
-                                    secondGroupEvents.map( event => {
-                                    return event
-                                    })
+                                    secondGroupEvents.map( event => event )
                             }
                             </EventControlList>
                         </MenuAccordion>
@@ -132,9 +127,7 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                                 generalGroupEvents
                                     .concat(mainGroupEvents)
                                     .concat(secondGroupEvents)
-                                    .map( event => {
-                                    return event
-                                    })
+                                    .map( event => event )
                             }
                         </EventControlList>
                         </MenuAccordion>

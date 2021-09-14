@@ -73,10 +73,7 @@ export function LoginForm() {
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
-                    setSubmitting(false);
-                    }, 500);
+                   setSubmitting(true);
                     axios.post('http://localhost:3030/api/v1/auth/login', values, { withCredentials: true })
                     .then( res => {
                         if(res.status === 200) {
@@ -87,6 +84,7 @@ export function LoginForm() {
                         ERROR_MESSAGE.concat(`\n ${err.message}`)
                         setOpenErrorSnackbar(true);
                     })
+                    setSubmitting(false);
                 }}
                 >
                 {({ submitForm, isSubmitting }) => (

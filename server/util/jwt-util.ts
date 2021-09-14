@@ -5,11 +5,7 @@ import config from '../config/server-config';
 
 
 export function extractJWT(req: Request, res: Response, next: NextFunction) {
-
-    const token = decodeURIComponent(req.cookies._JazzEsseDonToken);
-    console.log(token);
-    
-
+    const token = decodeURIComponent(req.cookies.JazzEsseDonToken);
     if(token) {
         jwt.verify(
             token, 
@@ -33,7 +29,6 @@ export function extractJWT(req: Request, res: Response, next: NextFunction) {
         console.error(`User tried to access a page but no token recieved from | ${req.hostname} |`);
         return res.status(400).json({message: 'No token received'})
     }
-
 }
 
 export function signJWT(user: IUser, callback: (error: Error | null, token: string | null) => void) {
@@ -68,7 +63,7 @@ export function signJWT(user: IUser, callback: (error: Error | null, token: stri
             }
         );
     } catch(err) {
-        console.log(`Error when signing a token: ${err.message} \n ${err}`);
+        console.error(`Error when signing a token: ${err.message} \n ${err}`);
         callback( err, null );
     }
 }

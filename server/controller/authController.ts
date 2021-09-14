@@ -6,7 +6,6 @@ export default class AuthController{
     static async validate(req: Request, res : Response){
         try{
             const ValidationResponse = await AuthDao.validate(req);
-            console.log("New user was created successfully");
             res.status(200).send(ValidationResponse);
         }catch(err){
             res.status(500).send(err.message);
@@ -33,6 +32,7 @@ export default class AuthController{
     static async register(req: Request, res : Response){
         try{
             const RegistrationResponse = await AuthDao.register(req);
+            console.log(`New user: ${req.body.username} was created successfully`);
             res.status(200).send(RegistrationResponse);
         }catch(err){
             res.status(500).send(err.message);
