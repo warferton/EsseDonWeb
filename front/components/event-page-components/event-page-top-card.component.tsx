@@ -63,8 +63,10 @@ const useStyles = makeStyles({
       borderRadius: '15px',
       marginBottom: '0.45em',
       background: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
-  }
-
+  },
+  illustrationContainer:{
+      backgroundColor: '#222222'
+}
 });
 
 
@@ -116,6 +118,13 @@ export function TopCard({ event }: IProps) {
                     Забронировать
                 </Button>
             </CardActions>
+            <CardMedia className={ styles.illustrationContainer }
+                component="img"
+                alt="illustration element with piano and guitar"
+                width="100%"
+                image="/images/instruments.png"
+                title="illustration"
+            />
         </Card>
     )
 }
