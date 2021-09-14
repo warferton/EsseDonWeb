@@ -1,7 +1,7 @@
 /**
  * @interface
  * 
- * Describes a memnu item to be put insibe menu section component
+ * Describes a menu item to be put insibe menu section component
  */
 export interface IMenuItem {
     id: string;

@@ -34,9 +34,9 @@ export default function EventPage({event} : IProps) {
 
       {event.videoLink && <VideoPlayer videoLink={event.videoLink}/>}
 
-      {event.free && <FreeEventForm/>}
+      {event.free && <FreeEventForm event={ event }/>}
 
-      <Footer />
+      <Footer position='static'/>
     </>
   )
 }

@@ -3,24 +3,23 @@ import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui'
 import { Container, Box, Typography, Button, LinearProgress } from '@material-ui/core'
 import { PhoneRegex, EmailRegex } from '../../regex/regex';
-
 import styles from '../../styles/BookingForm.module.css'
 import { Alert } from '../alerts/alert.component';
 import { SnackbarAlert } from '../alerts/snackbar.component';
+import axios from 'axios';
 
 
 interface Values {
     name: string;
     email: string;
     tel: string;
-    people_number: string;
     comment: string;
-    videoLink: string;
+    url: string;
 }
 
 export function ArtistForm() {
 
-    const SUCCESS_MESSAGE = 'Событие успешно обновлено';
+    const SUCCESS_MESSAGE = 'Заявка успешно отправлена';
     let ERROR_MESSAGE = `Произошла ошибка: `;
 
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
@@ -44,6 +43,7 @@ export function ArtistForm() {
                     tel:'',
                     email: '',
                     comment: '',
+                    url: '',
                 }}
                 validate={values => {
                     const errors: Partial<Values> = {};
@@ -69,11 +69,18 @@ export function ArtistForm() {
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                    setSubmitting(false);
-                    alert(JSON.stringify(values, null, 2));
-                    }, 3000);
-                    //set snacbat : ERROR / SUCCESS
+                    setSubmitting(true);
+                    axios.post('http://localhost:3030/api/v1/mailing/perfrormRequestMail', values)
+                    .then(response => {
+                        if(response.status === 200) {
+                            setOpenSuccessSnackbar( true );
+                        }
+                    })
+                    .catch(err => {
+                        ERROR_MESSAGE.concat(err.message);
+                        setOpenErrorSnackbar( true );
+                    });
+                    setSubmitting( false );
                 }}
                 >
                 {({ submitForm, isSubmitting }) => (
@@ -119,7 +126,7 @@ export function ArtistForm() {
 
                         <Field
                             component={ TextField }
-                            name="videoLink"
+                            name="url"
                             type="text"
                             label="Ссылка на видео"
                             variant="outlined"

@@ -80,10 +80,12 @@ export function EventControlList(props : IProps) {
                     console.error(err); 
                     ERROR_MESSAGE.concat(err?.name);
                     setOpenErrorSnackbar( true );
-                });
-                
+                });    
             setSubmitting(false);
-            
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500)
         }}
         >
         {({ submitForm, isSubmitting }) => (

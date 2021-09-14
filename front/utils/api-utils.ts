@@ -2,7 +2,6 @@ import { IMenuItem } from '../types/menu/menuItem.type';
 import { IEvent, IEventGroups } from '../types/event/event.type';
 import axios from 'axios';
 
-
 const EVENT_API_URL='http://localhost:3030/api/v1/events/'
 const MENU_API_URL='http://localhost:3030/api/v1/menu/';
 const ADMIN_API_URL='http://localhost:3030/api/v1/spe1Ce/control/admin/'
@@ -31,7 +30,7 @@ export async function fetchAllActiveEvents() {
       else
         generalGroupEvents.push(event);
       })
-  ).catch(err => console.log(err));
+  ).catch(err => console.error(err));
 
   return { 
     mainGroupEvents: mainGroupEvents,
@@ -44,7 +43,6 @@ export async function fetchAllArchivedEvents() {
   const mainGroupEvents : IEvent[] = [];
   const secondGroupEvents : IEvent[] = [];
   const generalGroupEvents : IEvent[] = [];
-
   await axios
   .get(ADMIN_API_URL.concat(ARCHIVED_EVENTS_PATH))
   .then(res => 
@@ -56,7 +54,7 @@ export async function fetchAllArchivedEvents() {
       else
         generalGroupEvents.push(event);
       })
-  ).catch(err => console.log(err));
+  ).catch(err => console.error(err));
 
   return { 
     mainGroupEvents: mainGroupEvents,
@@ -89,7 +87,7 @@ export async function fetchBarItems() {
   await axios
   .get(MENU_API_URL.concat('bar'))
   .then( res => res.data.barItems.map((item : IMenuItem) => barItems.push(item)))
-  .catch(err => console.log(err));
+  .catch(err => console.error(err));
 
   return barItems;
 }
@@ -99,7 +97,7 @@ export async function fetchKitchenItems() {
   await axios
   .get(MENU_API_URL.concat('kitchen'))
   .then( res => res.data.kitchenItems.map((item : IMenuItem) => kitchenItems.push(item)))
-  .catch(err => console.log(err));
+  .catch(err => console.error(err));
 
   return kitchenItems;
 }
@@ -118,4 +116,17 @@ export async function fetchActiveEventsPaths(){
       }
     };
   })
+}
+
+export async function validateCurrentClient(){
+  try{
+    return axios
+    .get('http://localhost:3030/api/v1/auth/validate', { withCredentials: true }).then(res => {
+      return res.status === 200 ? true : false
+    }).catch(error => false);
+  }
+  catch(err){
+    console.error(err);
+    return false
+  }
 }

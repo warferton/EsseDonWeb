@@ -64,7 +64,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
               )
             }
             </NavigationFab>
-            <Footer/>
+            <Footer position='static'/>
           </>
     </>
 

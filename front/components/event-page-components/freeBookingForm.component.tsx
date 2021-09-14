@@ -1,22 +1,37 @@
+import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui'
 import { Container, Box, Typography, Button, LinearProgress } from '@material-ui/core'
 import { PhoneRegex, EmailRegex } from '../../regex/regex';
+import { SnackbarAlert } from '../alerts/snackbar.component';
+import { IEvent } from '../../types/event/event.type';
+import { getLocalWeekDay } from '../../utils/date-utils';
+import axios from 'axios';
 
 import styles from '../../styles/BookingForm.module.css'
 
+interface IProps{
+    event: IEvent;
+}
 
 interface Values {
     name: string;
     email: string;
     tel: string;
-    people_number: string;
+    peopleCount: string;
     comment: string;
 }
 
-export function FreeEventForm() {
+export function FreeEventForm({ event } : IProps) {
+
+    const SUCCESS_MESSAGE = 'Заявка успешно отправлена';
+    let ERROR_MESSAGE = `Произошла ошибка: `;
+
+    const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
+    const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
     return(
+        <>
         <Container className={ styles.container } id='form-box'>
             <Box>
                 <Typography variant='h6' className={ styles.header }>
@@ -29,7 +44,8 @@ export function FreeEventForm() {
                     name: '',
                     tel:'',
                     email: '',
-                    people_number: 1,
+                    peopleCount: 1,
+                    comment: ''
                 }}
                 validate={values => {
                     const errors: Partial<Values> = {};
@@ -42,8 +58,8 @@ export function FreeEventForm() {
                     else if(!PhoneRegex.test(values.tel)){
                         errors.tel = 'Invalid phone number';
                     }
-                    if (!Number.isInteger(values.people_number)) {
-                        errors.people_number = 'Invalid number';
+                    if (!Number.isInteger(values.peopleCount)) {
+                        errors.peopleCount = 'Invalid number';
                     }
                     if (!values.email) {
                         errors.email = 'Required';
@@ -55,10 +71,32 @@ export function FreeEventForm() {
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                    setSubmitting(false);
-                    alert(JSON.stringify(values, null, 2));
-                    }, 3000);
+                    const { name, email, tel, peopleCount, comment } = values;
+                    const { title: eventName, time, date } = event
+                    const weekDay = getLocalWeekDay(date);
+                    const bookingData = {
+                        eventName,
+                        time,
+                        date,
+                        weekDay,
+                        name,
+                        tel,
+                        email,
+                        peopleCount,
+                        comment
+                    }
+                    setSubmitting(true);
+                    axios.post('http://localhost:3030/api/v1/mailing/bookingMail', bookingData)
+                    .then(response => {
+                        if(response.status === 200) {
+                            setOpenSuccessSnackbar( true );
+                        }
+                    })
+                    .catch(err => {
+                        ERROR_MESSAGE.concat(err.message);
+                        setOpenErrorSnackbar( true );
+                    });
+                    setSubmitting( false );
                 }}
                 >
                 {({ submitForm, isSubmitting }) => (
@@ -93,7 +131,7 @@ export function FreeEventForm() {
 
                          <Field
                             component={ TextField }
-                            name="people_number"
+                            name="peopleCount"
                             type="number"
                             label="Количество Персон"
                             variant="outlined"
@@ -128,5 +166,13 @@ export function FreeEventForm() {
                 </Formik>
             </Box>
         </Container>
+
+        <SnackbarAlert open={ openSuccessSnackbar } onClose={() => setOpenSuccessSnackbar(false)} severity="success">
+                { SUCCESS_MESSAGE }
+        </SnackbarAlert>       
+        <SnackbarAlert open={ openErrorSnackbar } onClose={() => setOpenErrorSnackbar(false)} severity="error">
+                { ERROR_MESSAGE }
+        </SnackbarAlert>
+        </>
     )
 }
