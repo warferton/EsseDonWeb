@@ -3,7 +3,7 @@ import { Box, Typography, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles({
     headerBox:{
         padding: '0.7rem',
-        backgroundColor: 'black',
+        backgroundColor: '#222222',
         color: 'white'
     },
     sectionHeader: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     container: {
         padding: '1.2rem',
         backgroundColor: 'white',
-        color: 'black'
+        color: '#222222'
     }
 });
 

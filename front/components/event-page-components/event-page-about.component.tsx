@@ -4,7 +4,7 @@ const useStyles = makeStyles({
     root:{
         padding: '1rem',
         backgroundColor: 'white',
-        borderTop: '0.25rem solid black',
+        borderTop: 'white',
     },
     text: {
         fontSize: '18px',
