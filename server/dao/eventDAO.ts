@@ -321,45 +321,5 @@ export default class EventDbClient{
             throw new Error( err );
         }
         return res;
-        // const transferArray = [];
-        // // search and delete
-        // let collectionToDeleteFrom : Collection = {} as Collection;
-        // try{
-        //     for(let i = 0; i < events.length; i++){
-        //         if(events[i] !== undefined){
-        //             const active = events[i]?.active;
-        //             collectionToDeleteFrom = active ? ArchivedEvents : ActiveEvents;
-        //             console.log(`CollectionTODeleteFrom ${collectionToDeleteFrom.collectionName}`);
-        //             const id = events[i]?._id;
-        //             const documentFound = await collectionToDeleteFrom.findOne( { _id: new ObjectId(id) } );
-        //             console.log(`Document Found: ${documentFound}`);
-        //             if(documentFound){
-        //                 transferArray.push(events[i]);
-        //             }
-        //         } else {
-        //             continue;
-        //         }
-        //     }
-        // } catch( err ){
-        //     console.error(`Unable to update a document: ${err.message}`);
-        //     throw new Error(err);
-        // }
-        // console.log(transferArray);
-        
-        // // //insert into new db
-        // // try{
-        //     const collectionToInsertTo = transferArray[0]?.active ? ActiveEvents : ArchivedEvents;
-        //     console.log(`CollectionToInsertTo = ${collectionToInsertTo.collectionName}`);
-        //     await collectionToInsertTo.insertMany(transferArray);
-        // //     const deleteRes = [];
-        //     // for(const event of transferArray){
-        //     //     const deleteRes = await collectionToDeleteFrom.deleteOne( { _id: event?._id } )
-        //     //     console.log(`DeleteRes = ${deleteRes}`);
-        //     // }
-        // //     return { insertRes, deleteRes };
-        // // }catch( err ){
-        // //     console.error(`Unable to update a document: ${err.message}`);
-        // //     throw new Error(err);
-        // // }
     }
 }
