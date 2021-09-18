@@ -7,7 +7,6 @@ import { EventListItemButtons as ListItem } from '../../components/admin-compone
 import { EventFormDialog } from '../../components/dialog-components/event-form-dialog.component';
 import { Container, Box, Button, Typography, CircularProgress, makeStyles } from '@material-ui/core';
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
-import { motion } from 'framer-motion';
 
 import { fetchAllActiveEvents, fetchAllArchivedEvents, validateCurrentClient } from '../../utils/api-utils';
 import { IEvent } from '../../types/event/event.type';
@@ -20,8 +19,8 @@ const useStyles = makeStyles({
         marginBottom: '2rem',
         width: '95%',
     },
-    accordion: {
-        marginTop: '2rem',
+    headerContainer: {
+        marginBottom: '2rem',
     },
     buttonContainer:{
         marginTop: '4rem',
@@ -105,25 +104,30 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                 </Head>
 
                 <AdminHeader />
-
-                <motion.div
-                initial={{ 
-                    x: '200vw',
-                    opacity: 0
-                }}
-                animate={{ 
-                    x: 0,
-                    opacity: 100
-                }}
-                >
-                    <Container className={ classes.root }>
-                        <Container>
-                            <Typography variant='h4' align='center'>
-                                Мероприятия
-                            </Typography>
-                        </Container>
-                        
+                <Container className={ classes.root }>
+                    <Container className={ classes.headerContainer}>
+                        <Typography variant='h4' align='center'>
+                            Мероприятия
+                        </Typography>
+                    </Container>
                     
+                    <MenuAccordion 
+                        title="Опубликованные"
+                        expanded={ expanded === 'active' } 
+                        onChange={ handleChange('active') } 
+                        >
+                            { !activeList ? 
+                            <Box className={ classes.loaderBox }>
+                                <CircularProgress/>
+                            </Box>
+                            :
+                            <EventControlList childWrapper={ ListItem } controlFunction={ handleOpen }>
+                                {
+                                    activeEvents.map((event : IEvent) => event)
+                                }
+                            </EventControlList>
+                            }
+                        </MenuAccordion>
                         <MenuAccordion 
                             title="Опубликованные"
                             expanded={ expanded === 'active' } 
@@ -137,7 +141,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                 :
                                 <EventControlList childWrapper={ ListItem } controlFunction={ handleOpen }>
                                     {
-                                        activeEvents.map((event : IEvent) => event)
+                                        archivedEvents.map((event : IEvent) => event)
                                     }
                                 </EventControlList>
                                 }
@@ -198,7 +202,19 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                         </Typography>
                     </Button>
                 </Container>
-            </motion.div>
+                <Container className={ classes.buttonContainer }>
+                    <Button 
+                    variant='contained' 
+                    href="./" 
+                    fullWidth 
+                    startIcon={ <ArrowBack/> }
+                    className={ classes.button }
+                    >
+                        <Typography variant='h6'>
+                            Назад
+                        </Typography>
+                    </Button>
+                </Container>
                 
             <EventFormDialog open={ dialogOpen } setOpen={ setDialogOpen } event={ selectedEvent }/>
             </>

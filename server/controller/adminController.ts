@@ -69,6 +69,22 @@ export default class EventsController{
     }
 
     /**
+     * @deprecated
+     * @status READY
+     */
+    static async updateEventSwitchDb(req: any, res : any){
+        try{
+
+            const body = req.body;
+            const EventResponse = await EventDao.switchEventsDb( body );
+
+            res.status(200).send(EventResponse);
+        }catch(err){
+            res.status(500).send(err.message);
+        }
+    }
+
+    /**
      * @param req 
      * @param res 
      */

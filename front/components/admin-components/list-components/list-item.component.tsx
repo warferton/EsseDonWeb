@@ -1,4 +1,4 @@
-import { Dispatch, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -10,6 +10,7 @@ import ArchiveIcon from '@material-ui/icons/Archive';
 import Settings from '@material-ui/icons/Settings';
 import Backup from '@material-ui/icons/Backup';
 import { IEvent } from '../../../types/event/event.type';
+import { PropTypes } from '@material-ui/core';
 
 
 interface ISelectorProps {
@@ -21,15 +22,10 @@ export function EventListItemSelector(props : ISelectorProps) {
 
     const { event, id } = props; 
 
-    const initialGroup = event.group;
-
-    let isGroupChanged = false;
-
     const [group, setGroup] = useState( event.group );
 
     const handleChangeGroup = (changeEvent: React.ChangeEvent<{ value: string }>) => {
         const newGroup = changeEvent.target.value;
-        isGroupChanged = initialGroup !== newGroup ? true : false;
         setGroup(newGroup as string);
         event.group = newGroup;
     };
@@ -59,15 +55,35 @@ export function EventListItemSelector(props : ISelectorProps) {
 
 interface IButtonsProps {
     event: IEvent;
+    archived: boolean;
     id: string;
     handleOpen: Dispatch<any>;
 }
 
 export function EventListItemButtons(props : IButtonsProps) {
 
-    const { event, id, handleOpen } = props; 
+    const { event, id, archived, handleOpen } = props; 
 
     const { active } = event;
+
+    const [buttonActive, setButtonActive] = useState(false);
+
+    const [buttonColour, setButtonColour] : [PropTypes.Color, Dispatch<SetStateAction<PropTypes.Color>>] = useState('default');
+
+    const handleSwitchDb = () => {
+        setButtonActive(!buttonActive);
+        event.active = !active;        
+        if(event.active && archived) {
+            setButtonColour('primary');
+        } else if(event.active && !archived) {
+            setButtonColour('default');
+        } else if(!event.active && archived) {
+            setButtonColour('default');
+        }
+        else {
+            setButtonColour('primary');
+        }
+    }
 
     const handleClickOpen = () => {
         handleOpen( event );
@@ -81,8 +97,8 @@ export function EventListItemButtons(props : IButtonsProps) {
                 <IconButton onClick={ handleClickOpen }>
                     <Settings/>
                 </IconButton>
-                <IconButton>
-                    {active ? <ArchiveIcon/> : <Backup/>}
+                <IconButton onClick={ handleSwitchDb } color={ buttonColour }>
+                    {archived ?  <Backup/> : <ArchiveIcon/>}
                 </IconButton>
             </ButtonGroup>
             </ListItemSecondaryAction>
