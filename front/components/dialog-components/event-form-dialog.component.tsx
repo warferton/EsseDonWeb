@@ -44,6 +44,8 @@ export function EventFormDialog(props : IProps) {
   
   const { open, setOpen, event } = props;
 
+  const isUpdate =  event?._id !== undefined;
+
   const classes = useStyles();
 
   const handleClose = () => {
@@ -60,7 +62,7 @@ export function EventFormDialog(props : IProps) {
             </IconButton>
             <Typography variant="h6" className={ classes.title }>
 
-              { event?._id !== undefined ? 
+              { isUpdate ?
                             'Изменить Мероприятие'
                             :
                             'Новое Мероприятие'
@@ -70,7 +72,7 @@ export function EventFormDialog(props : IProps) {
           </Toolbar>
         </AppBar>
             
-            <CreateEventForm event={ event }/>
+            <CreateEventForm event={ event } isUpdate={ isUpdate }/>
 
       </Dialog>
     </>

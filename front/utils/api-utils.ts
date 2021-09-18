@@ -8,8 +8,8 @@ const ADMIN_API_URL='http://localhost:3030/api/v1/spe1Ce/control/admin/'
 
 const ARCHIVED_EVENTS_PATH = 'events/get/archived';
 
-export async function getEventById( id : string) : Promise<IEvent> {
-  return await axios.get(EVENT_API_URL.concat( id ))
+export async function getEventById( id : string ) : Promise<IEvent> {
+  return await axios.get(EVENT_API_URL.concat( id ), { withCredentials: true })
     .then(res => res.data.event)
     .catch(err => console.error(`Failed fetching event data. ERROR: ${err}`));
 }
@@ -20,7 +20,7 @@ export async function fetchAllActiveEvents() {
   const generalGroupEvents : IEvent[] = [];
 
   await axios
-  .get(EVENT_API_URL.concat("active"))
+  .get(EVENT_API_URL.concat("active"), { withCredentials: true })
   .then(res => 
     res.data.events.map((event : IEvent) => {
       if( event.group === "main")
@@ -44,7 +44,7 @@ export async function fetchAllArchivedEvents() {
   const secondGroupEvents : IEvent[] = [];
   const generalGroupEvents : IEvent[] = [];
   await axios
-  .get(ADMIN_API_URL.concat(ARCHIVED_EVENTS_PATH))
+  .get(ADMIN_API_URL.concat(ARCHIVED_EVENTS_PATH), { withCredentials: true })
   .then(res => 
     res.data.events.map((event : IEvent) => {
       if( event.group === "main")
@@ -85,7 +85,7 @@ export async function fetchAllEvents() {
 export async function fetchBarItems() {
   const barItems : IMenuItem[] = [];
   await axios
-  .get(MENU_API_URL.concat('bar'))
+  .get(MENU_API_URL.concat('bar'), { withCredentials: true })
   .then( res => res.data.barItems.map((item : IMenuItem) => barItems.push(item)))
   .catch(err => console.error(err));
 
@@ -95,7 +95,7 @@ export async function fetchBarItems() {
 export async function fetchKitchenItems() {
   const kitchenItems : IMenuItem[] = [];
   await axios
-  .get(MENU_API_URL.concat('kitchen'))
+  .get(MENU_API_URL.concat('kitchen'), { withCredentials: true })
   .then( res => res.data.kitchenItems.map((item : IMenuItem) => kitchenItems.push(item)))
   .catch(err => console.error(err));
 

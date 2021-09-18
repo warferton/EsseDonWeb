@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { Container, makeStyles } from '@material-ui/core';
 import { LogoHeader } from '../../components/headers/header.compenent';
 import { Footer } from '../../components/footer/footer.component';
 import { TopCard } from '../../components/event-page-components/event-page-top-card.component';
@@ -11,11 +12,26 @@ import { IEvent } from '../../types/event/event.type';
 import { fetchActiveEventsPaths, getEventById } from '../../utils/api-utils';
 
 
+const useStyles = makeStyles({
+  body: {
+    boxShadow: '0px 0px 15px #11111185',
+    '@media (min-width: 684px)': {
+      alignItems: 'center',
+      maxWidth: '80%',
+    },
+    maxWidth: '100%',
+    padding: 0
+  }
+})
+
 interface IProps{
   event: IEvent;
 }
 
 export default function EventPage({event} : IProps) {
+
+  const classes = useStyles();
+
   return (
     <>
       <Head>
@@ -26,15 +42,19 @@ export default function EventPage({event} : IProps) {
       
       <LogoHeader/>
 
-      <TopCard event={ event }/>
+      <Container className={ classes.body }>
 
-      <About description={ event.description } />
+        <TopCard event={ event }/>
 
-      <EventLineup lineup={ event.lineup }/>
+        <About description={ event.description } />
 
-      {event.videoLink && <VideoPlayer videoLink={event.videoLink}/>}
+        <EventLineup lineup={ event.lineup }/>
 
-      {event.free && <FreeEventForm event={ event }/>}
+        {event.videoLink && <VideoPlayer videoLink={event.videoLink}/>}
+
+        {event.free && <FreeEventForm event={ event }/>}
+
+      </Container>
 
       <Footer position='static'/>
     </>

@@ -11,6 +11,8 @@ export default class EventsController{
 
             res.status(200).send(EventResponse);
         }catch(err){
+            console.error(err);
+            
             res.status(500).send(err.message);
         }
     }
