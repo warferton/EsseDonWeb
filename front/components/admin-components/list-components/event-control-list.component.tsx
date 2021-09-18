@@ -74,13 +74,13 @@ export function EventControlList(props : IProps) {
         }}
         onSubmit={(values, { setSubmitting }) => {
             setSubmitting(true);
-            axios.put(eventsUpdateLink, children)
+            axios.put(eventsUpdateLink, children, {withCredentials: true})
                 .then(res => {
                     if(res.status === 200) 
                     setOpenSuccessSnackbar( true );
                 })
                 .then(() => setSubmitting(false))
-                // .then(() => window.location.reload())
+                .then(() => window.location.reload())
                 .catch( err => {
                     console.error(err); 
                     ERROR_MESSAGE.concat(err?.name);

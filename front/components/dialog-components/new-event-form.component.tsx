@@ -28,6 +28,7 @@ const useStyles = makeStyles({
 export function CreateEventForm(props: IProps) {
 
     const { 
+        _id,
         title, 
         lineup, 
         shortDescription,
@@ -39,7 +40,9 @@ export function CreateEventForm(props: IProps) {
         price, 
         image, 
         videoLink,
-        tcLink 
+        tcLink,
+        group,
+        active
     } = props.event;
 
     const { isUpdate } = props;
@@ -55,8 +58,8 @@ export function CreateEventForm(props: IProps) {
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
     const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
-    let SUCCESS_MESSAGE = '';
-    let ERROR_MESSAGE = `Произошла ошибка: `;
+    let SUCCESS_MESSAGE = 'Операция проведена успешно';
+    let ERROR_MESSAGE = 'Произошла ошибка: ';
     const API_ENDPOINT = isUpdate ? 'update' : 'create';
 
     return(
@@ -64,6 +67,7 @@ export function CreateEventForm(props: IProps) {
             <Box>
                 <Formik
                 initialValues={{
+                    _id: _id || '',
                     title: title || '',
                     lineup: lineup || [],
                     description: description || '',
@@ -76,6 +80,8 @@ export function CreateEventForm(props: IProps) {
                     image: image || '',
                     videoLink: videoLink || '',
                     tcLink: tcLink || '',
+                    group: group || '',
+                    active: active || true,
                 }}
                 validate={values => {
                     const errors: Partial<IEvent> = {};
@@ -106,19 +112,26 @@ export function CreateEventForm(props: IProps) {
                 onSubmit={(values, { setSubmitting }) => {
                     values.free = isFreeEvent;
                     setSubmitting(true);
-                    axios.post(`http://localhost:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, values)
-                        .then(res => {
-                            if(res.status === 200) 
-                                SUCCESS_MESSAGE = 'Событие успешно обновлено'; 
-                            else if (res.status === 201)
-                                SUCCESS_MESSAGE = 'Событие успешно создано';
-
-                            setOpenSuccessSnackbar( true );
-                        }).catch( err => {
-                            console.error(err); 
-                            ERROR_MESSAGE.concat(err?.name);
-                            setOpenErrorSnackbar( true );
-                        });
+                    if(isUpdate){
+                        axios.put(`http://localhost:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, values, {withCredentials: true})
+                            .then(res => {
+                                setOpenSuccessSnackbar( true );
+                            }).catch( err => {
+                                console.error(err); 
+                                ERROR_MESSAGE.concat(err?.name);
+                                setOpenErrorSnackbar( true );
+                            });
+                    }
+                    else {
+                        axios.post(`http://localhost:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, values, {withCredentials: true})
+                            .then(res => {
+                                setOpenSuccessSnackbar( true );
+                            }).catch( err => {
+                                console.error(err); 
+                                ERROR_MESSAGE.concat(err?.name);
+                                setOpenErrorSnackbar( true );
+                            });
+                    }
                         
                     setSubmitting(false);
                     
@@ -138,7 +151,7 @@ export function CreateEventForm(props: IProps) {
 
                         <Field
                         component={ TextField }
-                        name="shortDecription"
+                        name="shortDescription"
                         type="text"
                         label="Краткое Описание"
                         variant="outlined"
@@ -272,7 +285,7 @@ export function CreateEventForm(props: IProps) {
 
                                 <Field
                                 component={ TextField }
-                                name="ticketCloudLink"
+                                name="tcLink"
                                 type="text"
                                 label="Ссылка на TicketCloud"
                                 variant="outlined"
