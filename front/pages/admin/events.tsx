@@ -128,13 +128,13 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                             </EventControlList>
                             }
                         </MenuAccordion>
-
                         <MenuAccordion 
-                            title="Архив"
-                            expanded={ expanded === 'archive' } 
-                            onChange={ handleChange('archive') } 
-                        > 
-                            { !activeList ? 
+                            title="Опубликованные"
+                            expanded={ expanded === 'active' } 
+                            onChange={ handleChange('active') } 
+                            className={ classes.accordion }
+                            >
+                                { !activeList ? 
                                 <Box className={ classes.loaderBox }>
                                     <CircularProgress/>
                                 </Box>
@@ -144,19 +144,63 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                         archivedEvents.map((event : IEvent) => event)
                                     }
                                 </EventControlList>
-                            }
-                        </MenuAccordion>
-                        <Button 
-                        component='button'
-                        fullWidth 
-                        variant='contained' 
-                        className={ `${classes.button} ${classes.createButton}`}
-                        onClick={ handleOpen }
-                        >
-                            <Typography align='center'>
-                                Создать новое мероприятие
-                            </Typography>
-                        </Button>
+                                }
+                            </MenuAccordion>
+
+                            <MenuAccordion 
+                                title="Архив"
+                                expanded={ expanded === 'archive' } 
+                                onChange={ handleChange('archive') } 
+                            > 
+                                { !activeList ? 
+                                    <Box className={ classes.loaderBox }>
+                                        <CircularProgress/>
+                                    </Box>
+                                    :
+                                    <EventControlList childWrapper={ ListItem } controlFunction={ handleOpen }>
+                                        {
+                                            archivedEvents.map((event : IEvent) => event)
+                                        }
+                                    </EventControlList>
+                                }
+                            </MenuAccordion>
+                            <Button 
+                            component='button'
+                            fullWidth 
+                            variant='contained' 
+                            className={ `${classes.button} ${classes.createButton}`}
+                            onClick={ handleOpen }
+                            >
+                                <Typography align='center'>
+                                    Создать новое мероприятие
+                                </Typography>
+                            </Button>
+                    </Container>
+                </motion.div>
+
+            <motion.div
+                initial={{ 
+                    y: '200vw',
+                    opacity: 0
+                }}
+                animate={{ 
+                    y: 0,
+                    opacity: 100
+                }}
+                transition={{delay: 0.5, stiffness: 90}}
+            >
+                <Container className={ classes.buttonContainer }>
+                    <Button 
+                    variant='contained' 
+                    href="./" 
+                    fullWidth 
+                    startIcon={ <ArrowBack/> }
+                    className={ classes.button }
+                    >
+                        <Typography variant='h6'>
+                            Назад
+                        </Typography>
+                    </Button>
                 </Container>
                 <Container className={ classes.buttonContainer }>
                     <Button 

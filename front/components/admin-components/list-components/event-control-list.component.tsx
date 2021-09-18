@@ -86,7 +86,6 @@ export function EventControlList(props : IProps) {
                     ERROR_MESSAGE.concat(err?.name);
                     setOpenErrorSnackbar( true );
                 });    
-       
         }}
         >
         {({ submitForm, isSubmitting }) => (
