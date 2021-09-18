@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId, Collection } from "mongodb";
+import { MongoClient, Collection, ObjectId } from "mongodb";
 import { IEvent } from '../types/event.type';
 import config from '../config/server-config';
 
@@ -162,23 +162,16 @@ export default class EventDbClient{
      */
     static async updateEvent(event: IEvent){
         const { active } = event;
-
-        console.log(event);
-        
         const collectionToDeleteFrom = active ? ArchivedEvents : ActiveEvents;
-        const id = new ObjectId(event._id);
-        console.log('EventId==> ' + id);
+        console.log('EventId ==> ' + event._id);
         console.log(collectionToDeleteFrom.collectionName);
-        
-        const documentFound = await collectionToDeleteFrom.findOne( { _id: id } );
-        console.log('DocumentFound =>> ' + documentFound);
-        
+        const documentFound = await collectionToDeleteFrom.findOne( { _id:  new ObjectId(event._id) } );
+        console.log('DocumentFound ==> ' + documentFound);
         if( documentFound ){
-            const deleteRes = collectionToDeleteFrom.deleteOne( { _id: id } );
+            const deleteRes = collectionToDeleteFrom.deleteOne( { _id:  new ObjectId(event._id) } );
             console.log('DeleteRes==> ' + deleteRes);
             return active ? this.createActiveEvent(event) : this.createArchivedEvent(event);
         }
-
         return active ? this.updateActiveEvent(event) : this.updateArchivedEvent(event);
     }
 
@@ -187,16 +180,17 @@ export default class EventDbClient{
      * @status READY
      */
     static async deleteEvent(event: IEvent){
-        const { active } = event;
-        return active ? this.deleteActiveEvent(event._id) : this.deleteArchvedEvent(event._id);
+        const { _id, active } = event;
+        return active ? this.deleteActiveEvent(_id) : this.deleteArchvedEvent(_id);
     }
 
     /**
      * @status READY
      */
     static async createArchivedEvent(event: IEvent){
+        const { _id, ...insertBody } = event;
         try{
-            return await ArchivedEvents.insertOne( event );
+            return await ArchivedEvents.insertOne( insertBody );
         }catch( err ){
             console.error(
                 `Unable to insert a new document: ${err.message}`
@@ -210,8 +204,9 @@ export default class EventDbClient{
      * @status READY
      */
     static async createActiveEvent(event: IEvent){
+        const { _id, ...insertBody } = event;
         try{
-            return await ActiveEvents.insertOne( event );
+            return await ActiveEvents.insertOne( insertBody );
         }catch( err ){
             console.error(
                 `Unable to insert a new document: ${err.message}`
@@ -317,46 +312,54 @@ export default class EventDbClient{
         if(events === null || events.length <= 0){
             throw new Error("Invalid Input : parameter is empty");
         }
-        const transferArray = [];
-        // search and delete
-        try{
-            for(let i = 0; i < events.length; i++){
-                if(events[i] !== undefined){
-
-                    const active = events[i]?.active;
-                    console.log('Active =' + active);
-                    const collectionToDeleteFrom = active ? ArchivedEvents : ActiveEvents;
-                    console.log(`CollectionTODeleteFrom ${collectionToDeleteFrom.collectionName}`);
-                    const id = new ObjectId(events[i]?._id);
-                    console.log(id);
-                    const documentFound = await collectionToDeleteFrom.findOne( { _id: id } );
-                    console.log(`Document Found: ${documentFound}`);
-                    if(documentFound){
-                        transferArray.push(events[i]);
-                        const deleteRes = await collectionToDeleteFrom.deleteOne( { _id: id } );
-                        console.log(`DeleteRes = ${deleteRes}`);
-                    }
-                } else {
-                    continue;
-                }
+        const res = [];
+        try {
+            for(const event of events){
+                res.push( await this.updateEvent( event ) );
             }
         } catch( err ){
-            console.error(
-                `Unable to update a document: ${err.message}`
-            );
-            throw new Error(err);
+            throw new Error( err );
         }
-        //insert into new db
-        try{
-            const collectionToInsertTo = transferArray[0]?.active ? ArchivedEvents : ActiveEvents;
-            console.log(`CollectionToInsertTo = ${collectionToInsertTo.collectionName}`);
-            console.table(transferArray);
-            return await collectionToInsertTo.insertMany(transferArray);
-        }catch( err ){
-            console.error(
-                `Unable to update a document: ${err.message}`
-            );
-            throw new Error(err);
-        }
+        return res;
+        // const transferArray = [];
+        // // search and delete
+        // let collectionToDeleteFrom : Collection = {} as Collection;
+        // try{
+        //     for(let i = 0; i < events.length; i++){
+        //         if(events[i] !== undefined){
+        //             const active = events[i]?.active;
+        //             collectionToDeleteFrom = active ? ArchivedEvents : ActiveEvents;
+        //             console.log(`CollectionTODeleteFrom ${collectionToDeleteFrom.collectionName}`);
+        //             const id = events[i]?._id;
+        //             const documentFound = await collectionToDeleteFrom.findOne( { _id: new ObjectId(id) } );
+        //             console.log(`Document Found: ${documentFound}`);
+        //             if(documentFound){
+        //                 transferArray.push(events[i]);
+        //             }
+        //         } else {
+        //             continue;
+        //         }
+        //     }
+        // } catch( err ){
+        //     console.error(`Unable to update a document: ${err.message}`);
+        //     throw new Error(err);
+        // }
+        // console.log(transferArray);
+        
+        // // //insert into new db
+        // // try{
+        //     const collectionToInsertTo = transferArray[0]?.active ? ActiveEvents : ArchivedEvents;
+        //     console.log(`CollectionToInsertTo = ${collectionToInsertTo.collectionName}`);
+        //     await collectionToInsertTo.insertMany(transferArray);
+        // //     const deleteRes = [];
+        //     // for(const event of transferArray){
+        //     //     const deleteRes = await collectionToDeleteFrom.deleteOne( { _id: event?._id } )
+        //     //     console.log(`DeleteRes = ${deleteRes}`);
+        //     // }
+        // //     return { insertRes, deleteRes };
+        // // }catch( err ){
+        // //     console.error(`Unable to update a document: ${err.message}`);
+        // //     throw new Error(err);
+        // // }
     }
 }
