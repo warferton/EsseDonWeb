@@ -8,7 +8,7 @@ const ADMIN_API_URL='http://localhost:3030/api/v1/spe1Ce/control/admin/'
 
 const ARCHIVED_EVENTS_PATH = 'events/get/archived';
 
-export async function getEventById( id : string) : Promise<IEvent> {
+export async function getEventById( id : string ) : Promise<IEvent> {
   return await axios.get(EVENT_API_URL.concat( id ))
     .then(res => res.data.event)
     .catch(err => console.error(`Failed fetching event data. ERROR: ${err}`));

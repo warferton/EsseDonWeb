@@ -25,6 +25,11 @@ router.route('/events/update').put(AdminController.updateEvent);
  */
 router.route('/events/update/group').put(AdminController.updateEventGroup);
 
+/**
+ * @deprecated
+ * Switch DBs for Events
+ */
+router.route('/events/update/switchDb').put(AdminController.updateEventSwitchDb);
 
 /**
  * Delete Event
