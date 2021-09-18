@@ -14,6 +14,7 @@ import styles from '../../styles/BookingForm.module.css';
 
 interface IProps{
     event: IEvent;
+    isUpdate: boolean;
 }
 
 const useStyles = makeStyles({
@@ -41,6 +42,8 @@ export function CreateEventForm(props: IProps) {
         tcLink 
     } = props.event;
 
+    const { isUpdate } = props;
+
     const [ isFreeEvent, setIsFreeEvent] = useState(free);
 
     const classes = useStyles();
@@ -54,7 +57,7 @@ export function CreateEventForm(props: IProps) {
 
     let SUCCESS_MESSAGE = '';
     let ERROR_MESSAGE = `Произошла ошибка: `;
-
+    const API_ENDPOINT = isUpdate ? 'update' : 'create';
 
     return(
         <Container className={ styles.container }>
@@ -103,7 +106,7 @@ export function CreateEventForm(props: IProps) {
                 onSubmit={(values, { setSubmitting }) => {
                     values.free = isFreeEvent;
                     setSubmitting(true);
-                    axios.post('http://localhost:3030/api/v1/events/testPut', values)
+                    axios.post(`http://localhost:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, values)
                         .then(res => {
                             if(res.status === 200) 
                                 SUCCESS_MESSAGE = 'Событие успешно обновлено'; 
