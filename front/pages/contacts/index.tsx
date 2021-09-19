@@ -1,8 +1,9 @@
-import Head from 'next/head'
-import { LogoHeader } from '../../components/headers/header.compenent'
+import Head from 'next/head';
+import { LogoHeader } from '../../components/headers/header.compenent';
 import { AboutContact } from '../../components/contact-page-components/about.component';
 import { ArtistForm } from '../../components/contact-page-components/artist-form.component';
-import { MapBox } from '../../components/contact-page-components/map.component'
+import { MapBox } from '../../components/contact-page-components/map.component';
+import { Footer } from '../../components/footer/footer.component';
 
 export default function EventPage() {
 
@@ -23,6 +24,7 @@ export default function EventPage() {
 
       <ArtistForm/>
 
+      <Footer position='static'/>
     </>
   )
 }

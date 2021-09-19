@@ -1,6 +1,7 @@
 import { MongoClient, Collection, ObjectId } from "mongodb";
 import { IEvent } from '../types/event.type';
 import config from '../config/server-config';
+import { parseLineup } from "util/parsing-utils";
 
 
 interface IQuery extends Object{
@@ -154,6 +155,8 @@ export default class EventDbClient{
      */
     static async createEvent(event: IEvent){
         const { active } = event;
+        const bandArray = parseLineup(event.lineup?.toString() as string);
+        event.lineup = bandArray;
         return active ? this.createActiveEvent(event) : this.createArchivedEvent(event);
     }
 

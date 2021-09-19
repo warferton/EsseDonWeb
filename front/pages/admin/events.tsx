@@ -110,24 +110,6 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                             Мероприятия
                         </Typography>
                     </Container>
-                    
-                    <MenuAccordion 
-                        title="Опубликованные"
-                        expanded={ expanded === 'active' } 
-                        onChange={ handleChange('active') } 
-                        >
-                            { !activeList ? 
-                            <Box className={ classes.loaderBox }>
-                                <CircularProgress/>
-                            </Box>
-                            :
-                            <EventControlList childWrapper={ ListItem } controlFunction={ handleOpen }>
-                                {
-                                    activeEvents.map((event : IEvent) => event)
-                                }
-                            </EventControlList>
-                            }
-                        </MenuAccordion>
                         <MenuAccordion 
                             title="Опубликованные"
                             expanded={ expanded === 'active' } 
@@ -140,7 +122,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                 :
                                 <EventControlList childWrapper={ ListItem } controlFunction={ handleOpen }>
                                     {
-                                        archivedEvents.map((event : IEvent) => event)
+                                        activeEvents.map((event : IEvent) => event)
                                     }
                                 </EventControlList>
                                 }
@@ -175,19 +157,6 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                 </Typography>
                             </Button>
                     </Container>
-                <Container className={ classes.buttonContainer }>
-                    <Button 
-                    variant='contained' 
-                    href="./" 
-                    fullWidth 
-                    startIcon={ <ArrowBack/> }
-                    className={ classes.button }
-                    >
-                        <Typography variant='h6'>
-                            Назад
-                        </Typography>
-                    </Button>
-                </Container>
                 <Container className={ classes.buttonContainer }>
                     <Button 
                     variant='contained' 

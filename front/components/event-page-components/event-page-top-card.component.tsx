@@ -52,7 +52,9 @@ const useStyles = makeStyles({
       backgroundColor: '#FF2020',
       color: 'white',
       fontWeight: 600,
-      fontSize: '14px'
+      fontSize: '14px',
+      marginRight: '10px',
+      marginTop: '10px',
   },
   actions: {
     justifyContent: 'center',
@@ -93,12 +95,12 @@ export function TopCard({ event }: IProps) {
                     </Typography>
                     <Chip 
                     label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}
-                    className = { styles.chip}
+                    className = { styles.chip }
                     />
                     { deposit && (
                         <Chip 
                         label={ `Депозит ${ deposit }₽` }
-                        className = { styles.chip}
+                        className = { styles.chip }
                         />)
                     }
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.shortDecriptionText }>
