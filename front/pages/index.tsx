@@ -70,12 +70,12 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
               }
             </SwipeableStepper>
 
-            
             { secondGroupEvents.length > 0 &&
               <Typography className = { styles.heading }>
                 Лучшее на этой неделе
               </Typography>
             }
+            
             <CardSlider>
               { secondGroupEvents.map((event : IEvent)=> 
             
@@ -85,7 +85,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
               }
             </CardSlider>
 
-            <Divider variant='fullWidth' orientation='horizontal' style={{ height: '5px', boxShadow:'0px 7px 5px #00000055'}}/>
+            <Divider variant='fullWidth' orientation='horizontal' style={{ height: '5px', boxShadow: '0px 7px 5px #00000055' }}/>
 
             <Container className={ styles.generalEvents }>
               { generalGroupEvents.map((event : IEvent) => 
@@ -95,9 +95,9 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
                 )
               }
             </Container>
-            </NavigationFab>
-            <Footer position='static'/>
-          </>
+          </NavigationFab>
+          <Footer position='static'/>
+        </>
     </>
 
   )
