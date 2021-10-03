@@ -4,6 +4,8 @@ import { Menu } from '../../components/menu/menu.component';
 import { fetchBarItems, fetchKitchenItems } from '../../utils/api-utils';
 import { parseMenuItems } from '../../utils/parsing-utils';
 import { IMenuItemGroup } from '../../types/menu/menuItem.type';
+import { NavigationFab } from '../../components/navigation/navigation-fab.component';
+import { Footer } from '../../components/footer/footer.component';
 
 
 interface IProps{
@@ -24,6 +26,10 @@ export default function MenuPage(props : IProps) {
       <LogoHeader/>
 
       <Menu items={ props }/>
+
+      <NavigationFab/>
+
+      <Footer position='static'/>
       
     </>
   )
