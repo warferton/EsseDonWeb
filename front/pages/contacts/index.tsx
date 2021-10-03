@@ -4,6 +4,7 @@ import { AboutContact } from '../../components/contact-page-components/about.com
 import { ArtistForm } from '../../components/contact-page-components/artist-form.component';
 import { MapBox } from '../../components/contact-page-components/map.component';
 import { Footer } from '../../components/footer/footer.component';
+import { NavigationFab } from '../../components/navigation/navigation-fab.component';
 
 export default function EventPage() {
 
@@ -18,11 +19,15 @@ export default function EventPage() {
 
       <LogoHeader/>
 
+      <NavigationFab>
+
       <MapBox/>
 
       <AboutContact/>
 
       <ArtistForm/>
+
+      </NavigationFab>
 
       <Footer position='static'/>
     </>
