@@ -9,6 +9,7 @@ import ContactIcon from '@material-ui/icons/ContactPhone';
 import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import ExploreIcon from '@material-ui/icons/Explore';
 import ExploreOffIcon from '@material-ui/icons/ExploreOff';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +40,7 @@ const actions = [
   { icon: <MusicNoteIcon />, name: 'Афиша', url: '/' },
   { icon: <RestaurantMenuIcon />, name: 'Ресторан', url: '/menu' },
   { icon: <ContactIcon />, name: 'Контакты', url: '/contacts' },
+  { icon: <ImportContactsIcon />, name: 'О Клубе', url: '/contacts'}
 ];
 
 export function NavigationFab(props : any) {
