@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import styles from '../../styles/BigEventCard.module.css';
 import { getLocalWeekDay } from '../../utils/date-utils';
-import { IEvent } from '../../types/event/event.type';
+import { IEvent, Image } from '../../types/event/event.type';
 
 
 interface IProps{
@@ -22,7 +22,8 @@ export function BigEventCard(props : IProps){
     const router = useRouter();
 
     const { event } = props;
-    const { title, image, date, time } = event
+    const { title, date, time } = event
+    const image = event.image as Image;
     const weekDay = getLocalWeekDay(date);
 
     return(
@@ -31,8 +32,8 @@ export function BigEventCard(props : IProps){
                 <CardMedia
                 component="img"
                 alt="JAZZ_IMG"
-                height="220"
-                image={ image }
+                height="275"
+                src={`data:${image.mimetype};base64,${image.data}`}
                 title={ title } 
                 />                
                 <CardContent className={ styles.cardContent }>

@@ -9,7 +9,7 @@ import {
     Typography, 
     Button,  
 } from '@material-ui/core';
-import { IEvent } from '../../types/event/event.type';
+import { IEvent, Image } from '../../types/event/event.type';
 import styles from '../../styles/StandartEventCard.module.css';
 import { getLocalWeekDay } from '../../utils/date-utils';
 
@@ -23,7 +23,8 @@ export function EventCard(props : IProps) {
     const router = useRouter();
 
     const { event } = props;
-    const { title, price, shortDescription, free, image, deposit, date, time } = event  
+    const { title, price, shortDescription, free, deposit, date, time } = event  
+    const image = event.image as Image;
     const weekDay = getLocalWeekDay(date);
     
     return (   
@@ -33,7 +34,7 @@ export function EventCard(props : IProps) {
                 component="img"
                 alt="JAZZ_IMG"
                 height="200"
-                image={ image }
+                src={`data:${image.mimetype};base64,${image.data}`}
                 title={ title }
                 />
                 <CardContent className = { styles.contentContainer }>

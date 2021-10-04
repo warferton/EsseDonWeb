@@ -1,6 +1,7 @@
 import express from 'express';
-import { extractJWT } from 'util/jwt-util';
 import AdminController from '../controller/adminController';
+import MediaDao from '../dao/mediaDAO';
+import { extractJWT } from 'util/jwt-util';
 
 
 const router = express.Router();
@@ -13,12 +14,12 @@ router.route('/events/get/archived').get(AdminController.getArchivedEvents);
 /**
  * Create Event
  */
-router.route('/events/create').post(extractJWT).post(AdminController.createEvent);
+router.route('/events/create').post(extractJWT).post(MediaDao.uploadMedia).post(AdminController.createEvent);
 
 /**
  * Update Event
  */
-router.route('/events/update').put(extractJWT).put(AdminController.updateEvent);
+router.route('/events/update').put(extractJWT).put(MediaDao.uploadMedia).put(AdminController.updateEvent);
 
 /**
  * Update Groups of Active Events
@@ -60,7 +61,7 @@ router.route('/events/update/archived').put(extractJWT).put(AdminController.upda
  * @deprecated
  * Update Active Event
  */
-router.route('/events/update/active').put(extractJWT).put(AdminController.updateActiveEvent);
+router.route('/events/update/active').put(extractJWT).put(MediaDao.uploadMedia).put(AdminController.updateActiveEvent);
 
 /**
  * @deprecated
@@ -89,6 +90,12 @@ router.route('/menu/delete').delete(extractJWT).delete(AdminController.deleteMen
 
 //special 
 router.route('/menu/kitchen/many').post(extractJWT).post(AdminController.createMany);
+
+//media get
+router.route('/media/:mediaId').get(AdminController.getMediaFile);
+
+//media uploads
+router.route('/media/upload/:mediaType').post(extractJWT).post(AdminController.uploadMedia);
 
 
 export default router;

@@ -22,6 +22,11 @@
   margin: 0.7rem !important;
 }
 
+.uploadField {
+  margin-top: 1.5rem !important;
+  margin: 0.7rem !important;
+}
+
 .motionFormField {
   margin: 0.7rem !important;
   width: calc(100% - 22px);

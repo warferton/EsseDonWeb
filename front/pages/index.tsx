@@ -45,7 +45,7 @@ interface IProps {
 }
 
 export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupEvents } : IProps) {
-
+  
   const styles = useStyles();
 
   return (
@@ -104,17 +104,29 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
 }
 
 export const getStaticProps = async () => {
-  return await fetchAllActiveEvents().then((result) => {
-      return {
-          props: { ...result }
-      };
+  return await fetchAllActiveEvents()
+  .then((result) => {
+    if(result.generalGroupEvents.length < 1
+      && result.secondGroupEvents.length < 1
+      && result.mainGroupEvents.length < 1) {
+        return { 
+          redirect: {
+            destination: '/fallback/error',
+            permanent: false,
+          },
+        }
+      }
+
+    return {
+        props: { ...result }
+    };
   })
   .catch((error) => {
     console.error(error);
     return { 
-        redirect: {
-          destination: '/fallback/error',
-          permanent: false,
+      redirect: {
+        destination: '/fallback/error',
+        permanent: false,
       },
     }
   });

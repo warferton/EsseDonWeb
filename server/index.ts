@@ -2,6 +2,7 @@ import mongodb from 'mongodb';
 import EventDao from './dao/eventDAO';
 import MenuDao from './dao/menuDAO';
 import AuthDao from 'dao/authDAO';
+import MediaDao from 'dao/mediaDAO';
 import app from './server';
 import config from './config/server-config';
 
@@ -31,6 +32,8 @@ MongoClient.connect(
     console.info('Menu DB connection established');
     await AuthDao.injectDB(client);
     console.info('Users DB connection established');
+    await MediaDao.injectDB(client);
+    console.info('Media DB connection established');
     console.info('ALL DB\'s connection established');
     app.listen(port, () => {
         console.info(`Started Listenning on port: ${ port }`);

@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import fileUpload from 'express-fileupload';
 import eventRoutes from './routes/events.route';
 import menuRoutes from './routes/menu.route';
 import adminRoutes from './routes/admin.route';
@@ -11,6 +12,7 @@ const app = express();
 app.use(cors({origin : 'http://localhost:3000', credentials: true}));
 app.use(express.json())
 app.use(cookieParser());
+app.use(fileUpload({ createParentPath: true }));
 
 
 //routes

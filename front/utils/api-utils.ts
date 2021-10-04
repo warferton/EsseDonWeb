@@ -8,38 +8,109 @@ const ADMIN_API_URL='http://localhost:3030/api/v1/spe1Ce/control/admin/'
 
 const ARCHIVED_EVENTS_PATH = 'events/get/archived';
 
+interface IEventFetchResult {
+  mainGroupEvents: IEvent[]; 
+  secondGroupEvents: IEvent[]; 
+  generalGroupEvents: IEvent[];
+}
+
 export async function getEventById( id : string ) : Promise<IEvent> {
   return await axios.get(EVENT_API_URL.concat( id ), { withCredentials: true })
-    .then(res => res.data.event)
+    .then(async (res) => {
+      const event = res.data.event;
+      event.image = await fetchEventImage( event.image as string );
+      return event;
+    })
     .catch(err => console.error(`Failed fetching event data. ERROR: ${err}`));
 }
 
-export async function fetchAllActiveEvents() {
+export async function fetchAllActiveEvents() : Promise<IEventFetchResult> {
   const mainGroupEvents : IEvent[] = [];
   const secondGroupEvents : IEvent[] = [];
   const generalGroupEvents : IEvent[] = [];
-
   await axios
   .get(EVENT_API_URL.concat("active"), { withCredentials: true })
-  .then(res => 
-    res.data.events.map((event : IEvent) => {
-      if( event.group === "main")
-        mainGroupEvents.push(event);
-      else if( event.group === "second")
-        secondGroupEvents.push(event);
-      else
-        generalGroupEvents.push(event);
-      })
-  ).catch(err => console.error(err));
+  .then( res => {
+    res.data.events.map( async (event : IEvent) => {
+        //split into groups
+        if( event.group === "main") {
+          mainGroupEvents.push(event);
+        }
+        else if( event.group === "second") {
+          secondGroupEvents.push(event);
+        }
+        else {
+          generalGroupEvents.push(event);
+        }
+      }); 
+    })
+    .catch(err => {
+      console.error(err)
+      return { 
+        mainGroupEvents,
+        secondGroupEvents,
+        generalGroupEvents
+      }
+    }) as IEventFetchResult;
 
-  return { 
-    mainGroupEvents: mainGroupEvents,
-    secondGroupEvents: secondGroupEvents,
-    generalGroupEvents: generalGroupEvents
-  };
+    const mainGroupEventsInjected = await Promise.all(
+        mainGroupEvents.map(async (event) => {
+            event.image = await fetchEventImage( event.image as string );
+            return event;
+        })
+    );
+    const secondGroupEventsInjected = await Promise.all(
+        secondGroupEvents.map(async (event) => {
+            event.image = await fetchEventImage( event.image as string );
+            return event;
+        })
+    );
+    const generalGroupEventsInjected = await Promise.all(
+        generalGroupEvents.map(async (event) => {
+            event.image = await fetchEventImage( event.image as string );
+            return event;
+        })
+    );
+
+    return { 
+      mainGroupEvents: mainGroupEventsInjected,
+      secondGroupEvents: secondGroupEventsInjected,
+      generalGroupEvents: generalGroupEventsInjected
+    };
 }
 
-export async function fetchAllArchivedEvents() {
+export async function fetchAllActiveEventsNoImageData() : Promise<IEventFetchResult> {
+  const mainGroupEvents : IEvent[] = [];
+  const secondGroupEvents : IEvent[] = [];
+  const generalGroupEvents : IEvent[] = [];
+  await axios
+  .get(EVENT_API_URL.concat("active"), { withCredentials: true })
+  .then( res => {
+    res.data.events.map( async (event : IEvent) => {
+        //split into groups
+        if( event.group === "main") {
+          mainGroupEvents.push(event);
+        }
+        else if( event.group === "second") {
+          secondGroupEvents.push(event);
+        }
+        else {
+          generalGroupEvents.push(event);
+        }
+      }); 
+    })
+    .catch(err => {
+      console.error(err)
+      return null;
+    }) as IEventFetchResult;
+    return { 
+      mainGroupEvents,
+      secondGroupEvents,
+      generalGroupEvents
+    };
+}
+
+export async function fetchAllArchivedEvents() : Promise<IEventFetchResult> {
   const mainGroupEvents : IEvent[] = [];
   const secondGroupEvents : IEvent[] = [];
   const generalGroupEvents : IEvent[] = [];
@@ -57,13 +128,13 @@ export async function fetchAllArchivedEvents() {
   ).catch(err => console.error(err));
 
   return { 
-    mainGroupEvents: mainGroupEvents,
-    secondGroupEvents: secondGroupEvents,
-    generalGroupEvents: generalGroupEvents
+    mainGroupEvents,
+    secondGroupEvents,
+    generalGroupEvents
   };
 }
 
-export async function fetchAllEvents() {
+export async function fetchAllEvents() : Promise<IEventFetchResult> {
   const mainGroupEvents : IEvent[] = [];
   const secondGroupEvents : IEvent[] = [];
   const generalGroupEvents : IEvent[] = [];
@@ -76,9 +147,9 @@ export async function fetchAllEvents() {
   Object.assign(generalGroupEvents, activeEvents.generalGroupEvents, archivedEvents.generalGroupEvents);
 
   return { 
-    mainGroupEvents: mainGroupEvents,
-    secondGroupEvents: secondGroupEvents,
-    generalGroupEvents: generalGroupEvents
+    mainGroupEvents,
+    secondGroupEvents,
+    generalGroupEvents
   };
 }
 
@@ -123,10 +194,26 @@ export async function validateCurrentClient(){
     return axios
     .get('http://localhost:3030/api/v1/auth/validate', { withCredentials: true }).then(res => {
       return res.status === 200 ? true : false
-    }).catch(error => false);
+    }).catch(err => console.error(err));
   }
   catch(err){
     console.error(err);
     return false
+  }
+}
+
+export async function fetchEventImage(imageId : string) {
+  try{
+    return axios
+    .get(ADMIN_API_URL.concat(`/media/${ imageId }`), { withCredentials: true }).then(res => {
+      if( res.status === 200 && res.data.image !== null && res.data.image !== undefined ) {
+        return res.data.image;
+      } else {
+        return { mimetype: 'image/jpg', data: "none" }
+      }
+    });
+  } catch(err) {
+    console.error(err);
+    return { mimetype: 'image/jpg', data: "none" }
   }
 }

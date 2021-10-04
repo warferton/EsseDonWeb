@@ -4,11 +4,11 @@ import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
 import { EventListItemButtons as ListItem } from '../../components/admin-components/list-components/list-item.component';
-import { EventFormDialog } from '../../components/dialog-components/event-form-dialog.component';
+import { EventFormDialog } from '../../components/admin-components/dialog-components/event-form-dialog.component';
 import { Container, Box, Button, Typography, CircularProgress, makeStyles } from '@material-ui/core';
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 
-import { fetchAllActiveEvents, fetchAllArchivedEvents, validateCurrentClient } from '../../utils/api-utils';
+import { fetchAllActiveEventsNoImageData, fetchAllArchivedEvents, validateCurrentClient } from '../../utils/api-utils';
 import { IEvent } from '../../types/event/event.type';
 import { useRouter } from 'next/router';
 
@@ -64,7 +64,10 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
             else {
                 setIsAuthenticated(true);
             }
-        }).catch((err)=> console.error(err));
+        }).catch((err)=> {
+            console.error(err);
+            router.push('/login');
+        });
     }, []);
 
     const classes = useStyles();
@@ -182,7 +185,7 @@ export const getServerSideProps = async () => {
     const { mainGroupEvents : activeMain,
             secondGroupEvents : activeSecond, 
             generalGroupEvents : activeGeneral
-    } = await fetchAllActiveEvents();
+    } = await fetchAllActiveEventsNoImageData();
 
     const { mainGroupEvents : archivedMain ,
             secondGroupEvents : archivedSecond, 

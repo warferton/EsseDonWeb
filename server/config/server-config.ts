@@ -10,6 +10,7 @@ const dbUrl = process.env['DB_URL'] || 'localhost';
 const events = process.env['EVENTS_NS'] || '';
 const menu = process.env['MENU_NS'] || '';
 const users = process.env['USERS_NS'] || '';
+const media = process.env['MEDIA_NS'] || '';
 
 // JWT TOKEN
 const secret = process.env['JWT_SECRET'] || 'secretsecretsecret123';
@@ -29,7 +30,8 @@ const config = {
     dataBases: {
         events,
         menu,
-        users
+        users,
+        media,
     },
     token: {
         secret,

@@ -31,7 +31,7 @@ interface IProps{
 export default function EventPage({event} : IProps) {
 
   const classes = useStyles();
-
+  
   return (
     <>
       <Head>
@@ -65,18 +65,21 @@ export const getStaticProps = async (context : any) => {
   
   const { id } = context.params;
   
-  const event : IEvent = await getEventById(id);  
-
-  if(!event || typeof event === undefined)
-    return {
-      notFound: true
+  return await getEventById(id)
+  .then( event => {
+    if(event === null || event === undefined || event.title === undefined) {
+      return {
+        notFound: true
+      }
+    } else {
+      return {
+        props: {
+          event
+        }
+      }
     }
+  }) 
   
-  return {
-    props: {
-      event : event
-    }
-  }
 }
 
 export async function getStaticPaths() {
@@ -85,7 +88,7 @@ export async function getStaticPaths() {
   
   return {
     paths: paths,
-    fallback: true
+    fallback: 'blocking'
   }
 }
 

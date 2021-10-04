@@ -169,10 +169,10 @@ export default class EventDbClient{
         console.log('EventId ==> ' + event._id);
         console.log(collectionToDeleteFrom.collectionName);
         const documentFound = await collectionToDeleteFrom.findOne( { _id:  new ObjectId(event._id) } );
-        console.log('DocumentFound ==> ' + documentFound);
+        console.log('DocumentFound ==> ' + Object.entries(documentFound));
         if( documentFound ){
             const deleteRes = collectionToDeleteFrom.deleteOne( { _id:  new ObjectId(event._id) } );
-            console.log('DeleteRes==> ' + deleteRes);
+            console.log('DeleteRes==> ' + (await deleteRes).result);
             return active ? this.createActiveEvent(event) : this.createArchivedEvent(event);
         }
         return active ? this.updateActiveEvent(event) : this.updateArchivedEvent(event);
@@ -309,7 +309,7 @@ export default class EventDbClient{
         };
 
     /** 
-     * @status TODO
+     * @status READY
      */
     static async switchEventsDb( events: IEvent[] ){
         if(events === null || events.length <= 0){

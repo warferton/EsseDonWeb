@@ -17,6 +17,7 @@ import axios from 'axios';
 interface IProps {
     childWrapper: any;
     children?: IEvent[];
+    noButton?: boolean;
     controlFunction: Dispatch<any>;
 }
 
@@ -41,7 +42,7 @@ const useStyles = makeStyles({
 
 export function EventControlList(props : IProps) {
 
-    const { childWrapper: Wrapper, children, controlFunction } = props;
+    const { childWrapper: Wrapper, children, controlFunction, noButton } = props;
 
     const childEvents = children.map( (event: IEvent) => {
         const labelId = `selector-list-secondary-label-${event.title}`;
@@ -94,6 +95,7 @@ export function EventControlList(props : IProps) {
                     { childEvents }
                 </List>
                 <Box className={ classes.buttonBox }>
+                {!noButton &&
                     <Button 
                     fullWidth
                     endIcon={ <SaveIcon/> } 
@@ -104,6 +106,7 @@ export function EventControlList(props : IProps) {
                             Save
                         </Typography>
                     </Button>
+                }
                 </Box>
             </Form>
             )}

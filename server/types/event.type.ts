@@ -1,3 +1,5 @@
+import { UploadedFile } from "express-fileupload";
+
 /**
  * @interface
  * Describes a Basic Abstract Event
@@ -12,7 +14,7 @@ export interface IEvent{
     description: string;
     free: boolean;
     deposit?: number | string;
-    image: string;
+    image: UploadedFile;
     videoLink?: string;
     price?: number | string;
     tcLink?: string; 
