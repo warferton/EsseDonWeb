@@ -109,12 +109,7 @@ export const getStaticProps = async () => {
     if(result.generalGroupEvents.length < 1
       && result.secondGroupEvents.length < 1
       && result.mainGroupEvents.length < 1) {
-        return { 
-          redirect: {
-            destination: '/fallback/error',
-            permanent: false,
-          },
-        }
+        throw new Error("No Data Recieved From Server")
       }
 
     return {
