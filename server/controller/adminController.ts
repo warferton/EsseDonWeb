@@ -15,7 +15,8 @@ export default class EventsController{
             const EventResponse = await EventDao.getArchivedEvents(filters);
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -32,7 +33,8 @@ export default class EventsController{
             const EventResponse = await EventDao.createEvent( event );
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -49,7 +51,8 @@ export default class EventsController{
             const EventResponse = await EventDao.updateEvent( event );
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -64,7 +67,8 @@ export default class EventsController{
             const EventResponse = await EventDao.updateActiveEventGroup( event );
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -80,7 +84,8 @@ export default class EventsController{
             const EventResponse = await EventDao.switchEventsDb( event );
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -96,7 +101,8 @@ export default class EventsController{
             const EventResponse = await EventDao.deleteEvent( event );
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         } 
     }
@@ -113,7 +119,8 @@ export default class EventsController{
             const EventResponse = await EventDao.createArchivedEvent( event );
 
             res.status(201).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -130,7 +137,8 @@ export default class EventsController{
             const EventResponse = await EventDao.createActiveEvent( event );
 
             res.status(201).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -147,7 +155,8 @@ export default class EventsController{
             const EventResponse = await EventDao.updateArchivedEvent( event );
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -164,7 +173,8 @@ export default class EventsController{
             const EventResponse = await EventDao.updateActiveEvent( event );
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -181,7 +191,8 @@ export default class EventsController{
             const EventResponse = await EventDao.deleteActiveEvent( event );
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         } 
     }
@@ -199,7 +210,8 @@ export default class EventsController{
             const EventResponse = await EventDao.deleteArchvedEvent( event );
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -213,7 +225,8 @@ export default class EventsController{
             const EventResponse = await MenuDao.createMenuItem( event );
 
             res.status(200).send(EventResponse);
-        } catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -225,7 +238,8 @@ export default class EventsController{
             const EventResponse = await MenuDao.createKitchenItem( event );
 
             res.status(200).send(EventResponse);
-        } catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -236,7 +250,8 @@ export default class EventsController{
             const EventResponse = await MenuDao.updateMenuItem( event );
 
             res.status(200).send(EventResponse);
-        } catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -247,7 +262,8 @@ export default class EventsController{
             const EventResponse = await MenuDao.deleteMenuItem( event );
 
             res.status(200).send(EventResponse);
-        } catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -257,7 +273,8 @@ export default class EventsController{
             const EventResponse = await MediaDao.uploadMedia( req, res, next );
 
             res.status(200).send(EventResponse);
-        } catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -268,7 +285,8 @@ export default class EventsController{
             const EventResponse = await MediaDao.getMediaFile( imageParams );
 
             res.status(200).send(EventResponse);
-        } catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }

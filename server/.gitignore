@@ -3,6 +3,6 @@
 # dependencies
 /node_modules
 package-lock.json
-
+/build
 # environment configs
 .env

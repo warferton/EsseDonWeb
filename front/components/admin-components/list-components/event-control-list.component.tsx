@@ -60,7 +60,7 @@ export function EventControlList(props : IProps) {
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
     const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
-    const eventsUpdateLink = 'http://localhost:3030/api/v1/spe1Ce/control/admin/events/update/switchDb';
+    const eventsUpdateLink = 'https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/events/update/switchDb';
 
     const SUCCESS_MESSAGE = 'Событие успешно обновлено';
     let ERROR_MESSAGE = `Произошла ошибка: `;

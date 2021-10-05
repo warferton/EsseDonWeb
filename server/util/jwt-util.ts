@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { IUser } from 'types/user.type';
+import { IUser } from '../types/user.type';
 import config from '../config/server-config';
 
-
+//Verify JWT
 export function extractJWT(req: Request, res: Response, next: NextFunction) {
     const token = decodeURIComponent(req.cookies.JazzEsseDonToken);
     if(token) {
@@ -62,7 +62,8 @@ export function signJWT(user: IUser, callback: (error: Error | null, token: stri
                 }
             }
         );
-    } catch(err) {
+    } catch(error : any) {
+        const err = new Error( error.message );
         console.error(`Error when signing a token: ${err.message} \n ${err}`);
         callback( err, null );
     }

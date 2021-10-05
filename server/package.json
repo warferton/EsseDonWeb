@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "EsseDon backend API server package",
   "main": "index.js",
+  "engines": {
+    "node": "v14.15.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
-    "start": "node index.js"
+    "postinstall": "tsc",
+    "start": "node index.js",
+    "deploy-heroku": "git add -A && git commit -m Heroku && git push heroku master"
   },
   "repository": {
     "type": "git",

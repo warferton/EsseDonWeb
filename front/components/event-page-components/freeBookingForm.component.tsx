@@ -86,7 +86,7 @@ export function FreeEventForm({ event } : IProps) {
                         comment
                     }
                     setSubmitting(true);
-                    axios.post('http://localhost:3030/api/v1/mailing/bookingMail', bookingData)
+                    axios.post('https://esse-api-test.herokuapp.com/api/v1/mailing/bookingMail', bookingData)
                     .then(response => {
                         if(response.status === 200) {
                             setOpenSuccessSnackbar( true );

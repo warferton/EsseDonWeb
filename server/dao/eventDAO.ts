@@ -1,7 +1,7 @@
 import { MongoClient, Collection, ObjectId } from "mongodb";
 import { IEvent } from '../types/event.type';
 import config from '../config/server-config';
-import { parseLineup } from "util/parsing-utils";
+import { parseLineup } from "../util/parsing-utils";
 
 
 interface IQuery extends Object{
@@ -33,7 +33,8 @@ export default class EventDbClient{
             if( !ArchivedEvents )
                 ArchivedEvents = await connection.db(config.dataBases.events).collection('archived_events');
 
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to retrieve data from the database: ${ err.message }`
             );
@@ -48,7 +49,8 @@ export default class EventDbClient{
             cursor = await ActiveEvents.findOne(
                 { _id : new ObjectId(id) }
             );
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to issue "find" command: ${ err.message }`
             );
@@ -60,7 +62,8 @@ export default class EventDbClient{
          */
         try{
             return { event : cursor };
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to convert cursor to an array: ${err.message}`
             );
@@ -85,7 +88,8 @@ export default class EventDbClient{
 
         try {
             cursor = await ActiveEvents.find(query);
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to issue "find" command: ${ err.message }`
             );
@@ -101,7 +105,8 @@ export default class EventDbClient{
             const totalActiveEvents = await ActiveEvents.countDocuments(query);
 
             return {events, totalActiveEvents};
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to convert cursor to an array: ${err.message}`
             );
@@ -126,7 +131,8 @@ export default class EventDbClient{
 
         try {
             cursor = await ArchivedEvents.find(query);
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to issue "find" command: ${ err.message }`
             );
@@ -141,7 +147,8 @@ export default class EventDbClient{
             const totalActiveEvents = await ArchivedEvents.countDocuments(query);
 
             return {events, totalActiveEvents};
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to convert cursor to an array: ${err.message}`
             );
@@ -194,11 +201,12 @@ export default class EventDbClient{
         const { _id, ...insertBody } = event;
         try{
             return await ArchivedEvents.insertOne( insertBody );
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to insert a new document: ${err.message}`
             );
-            throw new Error(err);
+            throw err;
         }
     };
     
@@ -210,11 +218,12 @@ export default class EventDbClient{
         const { _id, ...insertBody } = event;
         try{
             return await ActiveEvents.insertOne( insertBody );
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to insert a new document: ${err.message}`
             );
-            throw new Error(err);
+            throw err;
         }
     };
 
@@ -228,11 +237,12 @@ export default class EventDbClient{
                 { _id : new ObjectId(_id) },
                 { $set :  updateBody } 
             );
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to update a document: ${err.message}`
             );
-            throw new Error(err);
+            throw err;
         }
     };  
 
@@ -246,11 +256,12 @@ export default class EventDbClient{
                 { _id : new ObjectId(_id) },
                 { $set :  updateBody } 
             );
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to update a document: ${err.message}`
             );
-            throw new Error(err);
+            throw err;
         }
     };
 
@@ -268,11 +279,12 @@ export default class EventDbClient{
                 ));
             }
             return result;
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to update a document: ${err.message}`
             );
-            throw new Error(err);
+            throw err;
         }
     };
     
@@ -284,11 +296,12 @@ export default class EventDbClient{
         const filter = { _id : new ObjectId(id) };
         try{
             return await ArchivedEvents.deleteOne( filter );
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to delete a document: ${err.message}`
                 );
-            throw new Error(err);
+            throw err;
             }
         };
 
@@ -300,13 +313,14 @@ export default class EventDbClient{
         const filter = { _id : new ObjectId(id) };
         try{
             return await ArchivedEvents.deleteOne( filter );
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to delete a document: ${err.message}`
-                );
-                throw new Error(err);
-            }
-        };
+            );
+            throw err;
+        }
+    };
 
     /** 
      * @status READY
@@ -320,8 +334,8 @@ export default class EventDbClient{
             for(const event of events){
                 res.push( await this.updateEvent( event ) );
             }
-        } catch( err ){
-            throw new Error( err );
+        } catch(error : any) {
+            throw new Error( error );
         }
         return res;
     }

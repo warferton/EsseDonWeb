@@ -1,5 +1,5 @@
 import { MongoClient, Collection, ObjectId } from "mongodb";
-import { IMenuItem } from "types/menu-item.type";
+import { IMenuItem } from "../types/menu-item.type";
 import config from '../config/server-config';
 
 
@@ -24,7 +24,8 @@ export default class MenuDbClient{
             if( !VeganItems )
                 VeganItems = await connection.db(config.dataBases.menu).collection('vegan_items');
 
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error( error.message as string );
             console.error(
                 `Unable to retrieve data from the database: ${ err.message }`
             );
@@ -40,7 +41,8 @@ export default class MenuDbClient{
 
         try {
             barCursor = await BarItems.find();
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error( error.message as string );
             console.error(
                 `Unable to issue "find" command: ${ err.message }`
             );
@@ -48,7 +50,8 @@ export default class MenuDbClient{
         }
         try {
             kitchenCursor = await KitchenItems.find();
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error( error.message as string );
             console.error(
                 `Unable to issue "find" command: ${ err.message }`
             );
@@ -66,7 +69,8 @@ export default class MenuDbClient{
 
             return {barItems, totalBarItems, kitchenItems, totalKitchenItems};
 
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error( error.message as string );
             console.error(
                 `Unable to convert cursor to an array: ${err.message}`
             );
@@ -82,7 +86,8 @@ export default class MenuDbClient{
 
         try {
             kitchenCursor = await KitchenItems.find();
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error( error.message as string );
             console.error(
                 `Unable to issue "find" command: ${ err.message }`
             );
@@ -95,7 +100,8 @@ export default class MenuDbClient{
             const totalKitchenItems = await KitchenItems.countDocuments();
             return {kitchenItems, totalKitchenItems};
 
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error( error.message as string );
             console.error(
                 `Unable to convert cursor to an array: ${err.message}`
             );
@@ -111,7 +117,8 @@ export default class MenuDbClient{
 
         try {
             barCursor = await BarItems.find();
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error( error.message as string );
             console.error(
                 `Unable to issue "find" command: ${ err.message }`
             );
@@ -123,7 +130,8 @@ export default class MenuDbClient{
             const totalBarItems = await BarItems.countDocuments();
             return {barItems, totalBarItems};
 
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error( error.message as string );
             console.error(
                 `Unable to convert cursor to an array: ${err.message}`
             );
@@ -138,7 +146,8 @@ export default class MenuDbClient{
         const collection = this.getCollectionFromCategory(menuItem.category);
         try{
             return await collection.insertOne( menuItem );
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error( error.message as string );
             console.error(
                 `Unable to insert a new document: ${err.message}`
             );
@@ -152,7 +161,8 @@ export default class MenuDbClient{
     static async createKitchenItem(menuItem: IMenuItem){
         try{
             return await KitchenItems.insert( menuItem );
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error( error.message as string );
             console.error(
                 `Unable to insert a new document: ${err.message}`
             );
@@ -171,7 +181,8 @@ export default class MenuDbClient{
                 { _id : new ObjectId(id) },
                 { $set: updateBody } 
             );
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error( error.message as string );
             console.error(
                 `Unable to update an existing document: ${err.message}`
             );
@@ -187,7 +198,8 @@ export default class MenuDbClient{
         const { id } =  menuItem;
         try{
             return await collection.deleteOne( { _id : new ObjectId(id) } );
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error( error.message as string );
             console.error(
                 `Unable to delete an existing document: ${err.message}`
             );

@@ -7,7 +7,8 @@ export default class AuthController{
         try{
             const ValidationResponse = await AuthDao.validate(req);
             res.status(200).send(ValidationResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -15,7 +16,8 @@ export default class AuthController{
     static async login(req: Request, res : Response){
         try{
             await AuthDao.login(req, res);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -24,7 +26,8 @@ export default class AuthController{
         try{
             const LogoutResponse = await AuthDao.logout(req);
             res.status(200).send(LogoutResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -34,7 +37,8 @@ export default class AuthController{
             const RegistrationResponse = await AuthDao.register(req);
             console.log(`New user: ${req.body.username} was created successfully`);
             res.status(200).send(RegistrationResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }

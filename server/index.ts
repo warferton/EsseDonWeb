@@ -1,8 +1,8 @@
 import mongodb from 'mongodb';
 import EventDao from './dao/eventDAO';
 import MenuDao from './dao/menuDAO';
-import AuthDao from 'dao/authDAO';
-import MediaDao from 'dao/mediaDAO';
+import AuthDao from './dao/authDAO';
+import MediaDao from './dao/mediaDAO';
 import app from './server';
 import config from './config/server-config';
 

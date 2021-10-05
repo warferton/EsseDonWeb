@@ -165,7 +165,7 @@ export function CreateEventForm(props: IProps) {
                     
                     setSubmitting(true);
                     if(isUpdate){
-                        axios.put(`http://localhost:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
+                        axios.put(`https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
                             .then(res => {
                                 setOpenSuccessSnackbar( true );
                             }).catch( err => {
@@ -175,7 +175,7 @@ export function CreateEventForm(props: IProps) {
                             });
                     }
                     else {
-                        axios.post(`http://localhost:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
+                        axios.post(`https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
                             .then(res => {
                                 setOpenSuccessSnackbar( true );
                             }).catch( err => {
