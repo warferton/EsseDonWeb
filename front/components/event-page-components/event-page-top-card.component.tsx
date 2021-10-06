@@ -94,7 +94,7 @@ export function TopCard({ event }: IProps) {
                         { `${ date } ${ time } ${ weekDay }` }
                     </Typography>
                     <Chip 
-                    label={ free === 'true' && !price ? 'Вход свободный' : `от ${ price }₽`}
+                    label={ free === 'true' || !price ? 'Вход свободный' : `от ${ price }₽`}
                     className = { styles.chip }
                     />
                     { deposit && (

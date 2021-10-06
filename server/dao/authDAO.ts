@@ -62,13 +62,13 @@ export default class AuthDao {
                             console.log("Successfully signed the token");
                             try{
                                 console.log('Updating lastLogin field in database');
-                                await AdminUsers.findOneAndUpdate({ _id: new ObjectId(cursor.id)}, { $set: { lastLogin: new Date() }});
+                                await AdminUsers.findOneAndUpdate({ _id: new ObjectId(cursor._id)}, { $set: { lastLogin: new Date() }});
                             } catch(error : any) {
                                 console.error('Failed to update "lastLogin" field in the database');
                             }
                             res
                             .status(200)
-                            .cookie('JazzEsseDonToken', token, { expires: new Date(Date.now() +  36000000), httpOnly: false })
+                            .cookie('JazzEsseDonToken', token, { expires: new Date(Date.now() +  36000000), httpOnly: false, secure: true, sameSite: 'none' })
                             .send({
                                 message: "Successful Authentication",
                                 username: username,

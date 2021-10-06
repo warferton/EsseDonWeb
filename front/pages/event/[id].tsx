@@ -61,7 +61,7 @@ export default function EventPage({event} : IProps) {
   )
 }
 
-export const getStaticProps = async (context : any) => {
+export const getServerSideProps = async (context: any) => {
   
   const { id } = context.params;
   
@@ -82,13 +82,13 @@ export const getStaticProps = async (context : any) => {
   
 }
 
-export async function getStaticPaths() {
+// export async function getStaticPaths() {
   
-  const paths = await fetchActiveEventsPaths();
+//   const paths = await fetchActiveEventsPaths();
   
-  return {
-    paths: paths,
-    fallback: false
-  }
-}
+//   return {
+//     paths: paths,
+//     fallback: false
+//   }
+// }
 

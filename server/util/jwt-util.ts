@@ -19,6 +19,8 @@ export function extractJWT(req: Request, res: Response, next: NextFunction) {
                 }
                 else {
                     res.locals['token'] = decoded;
+                    console.log(decoded);
+                    
                     next();
                 }
             }

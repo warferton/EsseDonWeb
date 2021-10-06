@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Grid, Typography, Switch, Container, Box, Button, CircularProgress, InputAdornment, makeStyles } from '@material-ui/core';
@@ -90,7 +90,10 @@ export function CreateEventForm(props: IProps) {
 
     const styles = useStyles();
 
+    const isFree = useRef(free === 'true');
+
     const handleChecked = () =>{
+        isFree.current = !isFree.current;
         setIsFreeEvent(!isFreeEvent);
     }
 
@@ -155,15 +158,14 @@ export function CreateEventForm(props: IProps) {
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting, setFieldValue }) => {
-                    setFieldValue('free', `${isFreeEvent}`)
+                    setSubmitting(true);
                     const formData = new FormData();
                     Object.entries(values).forEach(value => {
                         formData.append(value[0], value[1]?.toString());
                     })
-                    formData.set("media", media, media.name);
-                    console.log(formData.entries);
+                    formData.set('media', media, media.name);
+                    formData.set('free', `${isFree.current}`)
                     
-                    setSubmitting(true);
                     if(isUpdate){
                         axios.put(`https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
                             .then(res => {
@@ -291,7 +293,6 @@ export function CreateEventForm(props: IProps) {
                                     Бесплатное
                                 </Grid>
                                 <Grid item>
-
                                     <Field
                                     component={ Switch }
                                     name="free"
@@ -299,7 +300,7 @@ export function CreateEventForm(props: IProps) {
                                     variant="outlined"
                                     className={ styles.formField }
                                     checked={ !isFreeEvent } 
-                                    value={ isFreeEvent || false }
+                                    // value={ isFreeEvent }
                                     onChange={ handleChecked }
                                     />
                                 </Grid>

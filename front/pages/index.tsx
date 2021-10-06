@@ -103,7 +103,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
   )
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   return await fetchAllActiveEvents()
   .then((result) => {
     if(result.generalGroupEvents.length < 1

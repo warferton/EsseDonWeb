@@ -9,7 +9,7 @@ import mailingRoutes from './routes/mailing.route';
 import authRoutes from './routes/auth.route'
 
 const app = express();
-app.use(cors({origin : 'http://localhost:3000', credentials: true}));
+app.use(cors({origin : ['http://localhost:3000', 'https://esse-don-web.vercel.app'], credentials: true}));
 app.use(express.json())
 app.use(cookieParser());
 app.use(fileUpload({ createParentPath: true }));
