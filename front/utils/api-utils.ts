@@ -153,24 +153,14 @@ export async function fetchAllEvents() : Promise<IEventFetchResult> {
   };
 }
 
-export async function fetchBarItems() {
-  const barItems : IMenuItem[] = [];
+export async function fetchMenuItems(type: string) {
+  const menuItems : IMenuItem[] = [];
   await axios
-  .get(MENU_API_URL.concat('bar'), { withCredentials: true })
-  .then( res => res.data.barItems.map((item : IMenuItem) => barItems.push(item)))
+  .get(MENU_API_URL.concat(type), { withCredentials: true })
+  .then( res => res.data.menuItems.map((item : IMenuItem) => menuItems.push(item)) )
   .catch(err => console.error(err));
 
-  return barItems;
-}
-    
-export async function fetchKitchenItems() {
-  const kitchenItems : IMenuItem[] = [];
-  await axios
-  .get(MENU_API_URL.concat('kitchen'), { withCredentials: true })
-  .then( res => res.data.kitchenItems.map((item : IMenuItem) => kitchenItems.push(item)))
-  .catch(err => console.error(err));
-
-  return kitchenItems;
+  return menuItems;
 }
 
 export function concatFetchedEvents({...events} : IEventGroups){
