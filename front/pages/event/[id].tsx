@@ -7,9 +7,8 @@ import { FreeEventForm } from '../../components/event-page-components/freeBookin
 import { About } from '../../components/event-page-components/event-page-about.component';
 import { EventLineup } from '../../components/event-page-components/event-linup.component';
 import { VideoPlayer } from '../../components/event-page-components/event-videoPlayer.component';
-
 import { IEvent } from '../../types/event/event.type';
-import { fetchActiveEventsPaths, getEventById } from '../../utils/api-utils';
+import { getEventById } from '../../utils/api-utils';
 
 
 const useStyles = makeStyles({
@@ -81,14 +80,3 @@ export const getServerSideProps = async (context: any) => {
   }) 
   
 }
-
-// export async function getStaticPaths() {
-  
-//   const paths = await fetchActiveEventsPaths();
-  
-//   return {
-//     paths: paths,
-//     fallback: false
-//   }
-// }
-

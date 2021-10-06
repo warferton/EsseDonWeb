@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     display: 'grid',
     justifyContent: 'space-between',
     alignItems: 'center',
-    gridTemplateColumns: 'repeat(3, auto)',
+    gridTemplateColumns: 'repeat(3, 1fr)',
     gridAutoRows: 'auto',
     gridGap: '0.5rem',
     '@media (max-width: 1240px)': {
