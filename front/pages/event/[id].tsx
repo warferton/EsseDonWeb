@@ -52,7 +52,7 @@ export default function EventPage({event} : IProps) {
 
         {event.videoLink && <VideoPlayer videoLink={event.videoLink}/>}
 
-        {event.free && <FreeEventForm event={ event }/>}
+        {event.free === 'true' && <FreeEventForm event={ event }/>}
 
       </Container>
 

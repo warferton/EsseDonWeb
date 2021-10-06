@@ -84,7 +84,7 @@ export function CreateEventForm(props: IProps) {
 
     const { isUpdate } = props;
 
-    const [isFreeEvent, setIsFreeEvent] = useState(free);
+    const [isFreeEvent, setIsFreeEvent] = useState(free === 'true');
 
     const [media, setMedia] = useState(null);
 

@@ -10,14 +10,14 @@ export interface IEvent{
     lineup?: string[];
     shortDescription?: string;
     description: string;
-    free: boolean;
+    free: boolean | string;
     deposit?: number | string;
     image: Image | string;
     videoLink?: string;
     price?: number | string;
     tcLink?: string; 
     group?: string;
-    active: boolean;
+    active: boolean | string;
 }
 
 export interface IUploadEvent{
