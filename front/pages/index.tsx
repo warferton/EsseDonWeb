@@ -15,7 +15,15 @@ import { Divider } from '@material-ui/core';
 import { fetchAllActiveEvents } from '../utils/api-utils';
 
 
-const useStyles = makeStyles({
+interface IProps {
+  mainGroupEvents: IEvent[];
+  secondGroupEvents: IEvent[];
+  generalGroupEvents: IEvent[];
+}
+
+export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupEvents } : IProps) {
+  const gridColumns = generalGroupEvents.length < 2 ? 1 : generalGroupEvents.length < 3 ? 2 : 3;
+  const useStyles = makeStyles({
   heading: {
     fontSize: '20px',
     fontWeight: 600,
@@ -26,8 +34,8 @@ const useStyles = makeStyles({
   generalEvents: {
     display: 'grid',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    justifyItems: 'center',
+    gridTemplateColumns: `repeat(${ gridColumns }, 1fr)`,
     gridAutoRows: 'auto',
     gridGap: '0.5rem',
     '@media (max-width: 1240px)': {
@@ -37,14 +45,6 @@ const useStyles = makeStyles({
     }
   }
 });
-
-interface IProps {
-  mainGroupEvents: IEvent[];
-  secondGroupEvents: IEvent[];
-  generalGroupEvents: IEvent[];
-}
-
-export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupEvents } : IProps) {
   
   const styles = useStyles();
 
@@ -126,4 +126,3 @@ export const getServerSideProps = async () => {
     }
   });
 }
-//testing

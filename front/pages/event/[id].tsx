@@ -53,6 +53,13 @@ export default function EventPage({event} : IProps) {
 
         {event.free === 'true' && <FreeEventForm event={ event }/>}
 
+        { event.free === 'false' && 
+          <span 
+            data-tc-event-inline="615212ed69a7aa2da29c6d02" 
+            data-tc-token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSJ9.eyJwIjoiNjAzZTE0YzdhMWVmZDliZWY5OTM4MmI0In0.QysMNBusa-3tHBV49Uw-RxTNa9lj6MTaw-Z_mfFJjbw"
+          ></span>
+        }
+
       </Container>
 
       <Footer position='static'/>

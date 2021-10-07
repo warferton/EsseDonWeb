@@ -8,9 +8,9 @@ import {
     Chip,
     Typography, 
     Button,  
+    makeStyles
 } from '@material-ui/core';
 import { IEvent, Image } from '../../types/event/event.type';
-import styles from '../../styles/StandartEventCard.module.css';
 import { getLocalWeekDay } from '../../utils/date-utils';
 
 
@@ -18,10 +18,63 @@ interface IProps{
     event: IEvent;
 }
 
+const useStyles = makeStyles({
+    root: {
+        maxWidth: '350px',
+        height: 'fit-content',
+        maxHeight: '500px',
+        backgroundColor: 'black',
+        borderRadius: '15px',
+        margin: '2rem auto 2rem auto',
+    },
+    contentContainer: {
+        backgroundColor: '#222222',
+        borderTop: '2px solid #101010',
+        height: '15em',
+    },
+    text: {
+        color: 'white',
+    },
+    titleText: {
+        fontWeight: 500,
+        fontSize: '20px',
+        lineClamp: 2,
+    },
+    dateText: {
+        fontWeight: 100,
+        fontSize: '14px',
+    },
+    aboutText: {
+        marginTop: '14px',
+        display: '-webkit-box',
+        overflow: 'hidden',
+        boxOrient: 'vertical',
+        lineClamp: 3,
+    },
+    chip: {
+        backgroundColor: '#ff2020',
+        color: 'white',
+        fontWeight: 600,
+        marginRight: '10px',
+    },
+    actions: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+        textAlign: 'center',
+        backgroundColor: '#222222',
+        paddingTop: 0,
+    },
+    button: {
+        borderRadius: '15px',
+        background: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
+    },
+});
+
 export function EventCard(props : IProps) {
 
     const router = useRouter();
-
+    const styles = useStyles();
     const { event } = props;
     const { title, price, shortDescription, free, deposit, date, time } = event  
     const image = event.image as Image;
