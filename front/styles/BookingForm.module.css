@@ -1,6 +1,8 @@
 .container {
   background-color: white;
   padding: 0 !important;
+  margin: 0 !important;
+  max-width: 100% !important;
 }
 
 .header {
@@ -17,6 +19,11 @@
 }
 
 .formField {
+  margin: 0.7rem !important;
+}
+
+.uploadField {
+  margin-top: 1.5rem !important;
   margin: 0.7rem !important;
 }
 

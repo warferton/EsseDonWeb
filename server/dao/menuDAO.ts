@@ -1,5 +1,6 @@
 import { MongoClient, Collection, ObjectId } from "mongodb";
 import { IMenuItem } from "types/menu-item.type";
+import config from '../config/server-config';
 
 
 let BarItems : Collection;
@@ -15,13 +16,13 @@ export default class MenuDbClient{
 
         try{
             if( !BarItems )
-                BarItems = await connection.db(process.env['MENU_NS']).collection('bar_items');
+                BarItems = await connection.db(config.dataBases.menu).collection('bar_items');
             if( !KitchenItems )
-                KitchenItems = await connection.db(process.env['MENU_NS']).collection('kitchen_items');
+                KitchenItems = await connection.db(config.dataBases.menu).collection('kitchen_items');
             if( !SpecialItems )
-                SpecialItems = await connection.db(process.env['MENU_NS']).collection('special_items');
+                SpecialItems = await connection.db(config.dataBases.menu).collection('special_items');
             if( !VeganItems )
-                VeganItems = await connection.db(process.env['MENU_NS']).collection('vegan_items');
+                VeganItems = await connection.db(config.dataBases.menu).collection('vegan_items');
 
         }catch(err){
             console.error(

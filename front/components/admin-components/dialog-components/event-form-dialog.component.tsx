@@ -9,7 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import { TransitionProps } from '@material-ui/core/transitions';
 import { CreateEventForm } from './new-event-form.component';
-import { IEvent } from '../../types/event/event.type';
+import { IEvent } from '../../../types/event/event.type';
 
 
 interface IProps{
@@ -44,6 +44,8 @@ export function EventFormDialog(props : IProps) {
   
   const { open, setOpen, event } = props;
 
+  const isUpdate =  event?._id !== undefined;
+
   const classes = useStyles();
 
   const handleClose = () => {
@@ -60,7 +62,7 @@ export function EventFormDialog(props : IProps) {
             </IconButton>
             <Typography variant="h6" className={ classes.title }>
 
-              { event?._id !== undefined ? 
+              { isUpdate ?
                             'Изменить Мероприятие'
                             :
                             'Новое Мероприятие'
@@ -70,7 +72,7 @@ export function EventFormDialog(props : IProps) {
           </Toolbar>
         </AppBar>
             
-            <CreateEventForm event={ event }/>
+            <CreateEventForm event={ event } isUpdate={ isUpdate }/>
 
       </Dialog>
     </>

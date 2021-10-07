@@ -1,15 +1,15 @@
 import mongodb from 'mongodb';
-import dotenv from 'dotenv';
 import EventDao from './dao/eventDAO';
 import MenuDao from './dao/menuDAO';
+import AuthDao from 'dao/authDAO';
+import MediaDao from 'dao/mediaDAO';
 import app from './server';
-
-dotenv.config();
+import config from './config/server-config';
 
 const MongoClient = mongodb.MongoClient;
 
-const port = process.env['PORT'] || 8080;
-const db_url = process.env['DB_URL'] || 'localhost';
+const port = config.port;
+const db_url = config.dbUrl;
 
 MongoClient.connect(
     db_url,
@@ -30,6 +30,10 @@ MongoClient.connect(
     console.info('Event DB connection established');
     await MenuDao.injectDB(client);
     console.info('Menu DB connection established');
+    await AuthDao.injectDB(client);
+    console.info('Users DB connection established');
+    await MediaDao.injectDB(client);
+    console.info('Media DB connection established');
     console.info('ALL DB\'s connection established');
     app.listen(port, () => {
         console.info(`Started Listenning on port: ${ port }`);

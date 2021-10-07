@@ -1,5 +1,7 @@
 import EventDao from '../dao/eventDAO';
 import MenuDao from '../dao/menuDAO';
+import MediaDao from '../dao/mediaDAO';
+import { Request, Response } from 'express';
 
 export default class EventsController{
 
@@ -16,24 +18,23 @@ export default class EventsController{
         }catch(err){
             res.status(500).send(err.message);
         }
-        
     }
 
     /**
      * @param req 
      * @param res 
      */
-    static async createEvent(req: any, res : any){
+    static async createEvent(req: Request, res : Response){
         try{
 
-            const body = req.body;
-            const EventResponse = await EventDao.createEvent( body );
+            const event = req.body;
+            event.image = res.locals['mediaId'];
+            const EventResponse = await EventDao.createEvent( event );
 
             res.status(200).send(EventResponse);
         }catch(err){
             res.status(500).send(err.message);
         }
-        
     }
 
     /**
@@ -43,14 +44,14 @@ export default class EventsController{
     static async updateEvent(req: any, res : any){
         try{
 
-            const body = req.body;
-            const EventResponse = await EventDao.updateEvent( body );
+            const event = req.body;
+            event.image = res.locals['mediaId'];
+            const EventResponse = await EventDao.updateEvent( event );
 
             res.status(200).send(EventResponse);
         }catch(err){
             res.status(500).send(err.message);
         }
-        
     }
 
      /**
@@ -59,8 +60,24 @@ export default class EventsController{
     static async updateEventGroup(req: any, res : any){
         try{
 
-            const body = req.body;
-            const EventResponse = await EventDao.updateActiveEventGroup( body );
+            const event = req.body;
+            const EventResponse = await EventDao.updateActiveEventGroup( event );
+
+            res.status(200).send(EventResponse);
+        }catch(err){
+            res.status(500).send(err.message);
+        }
+    }
+
+    /**
+     * @deprecated
+     * @status READY
+     */
+    static async updateEventSwitchDb(req: any, res : any){
+        try{
+
+            const event = req.body;
+            const EventResponse = await EventDao.switchEventsDb( event );
 
             res.status(200).send(EventResponse);
         }catch(err){
@@ -75,8 +92,8 @@ export default class EventsController{
     static async deleteEvent(req: any, res : any){
         try{
 
-            const body = req.body;
-            const EventResponse = await EventDao.deleteEvent( body );
+            const event = req.body;
+            const EventResponse = await EventDao.deleteEvent( event );
 
             res.status(200).send(EventResponse);
         }catch(err){
@@ -92,14 +109,13 @@ export default class EventsController{
     static async createArchivedEvent(req: any, res : any){
         try{
 
-            const body = req.body;
-            const EventResponse = await EventDao.createArchivedEvent( body );
+            const event = req.body;
+            const EventResponse = await EventDao.createArchivedEvent( event );
 
             res.status(201).send(EventResponse);
         }catch(err){
             res.status(500).send(err.message);
         }
-        
     }
 
     /**
@@ -110,14 +126,13 @@ export default class EventsController{
     static async createActiveEvent(req: any, res : any){
         try{
 
-            const body = req.body;
-            const EventResponse = await EventDao.createActiveEvent( body );
+            const event = req.body;
+            const EventResponse = await EventDao.createActiveEvent( event );
 
             res.status(201).send(EventResponse);
         }catch(err){
             res.status(500).send(err.message);
         }
-        
     }
 
      /**
@@ -128,14 +143,13 @@ export default class EventsController{
     static async updateArchivedEvent(req: any, res : any){
         try{
 
-            const body = req.body;
-            const EventResponse = await EventDao.updateArchivedEvent( body );
+            const event = req.body;
+            const EventResponse = await EventDao.updateArchivedEvent( event );
 
             res.status(200).send(EventResponse);
         }catch(err){
             res.status(500).send(err.message);
         }
-        
     }
 
      /**
@@ -146,14 +160,13 @@ export default class EventsController{
     static async updateActiveEvent(req: any, res : any){
         try{
 
-            const body = req.body;
-            const EventResponse = await EventDao.updateActiveEvent( body );
+            const event = req.body;
+            const EventResponse = await EventDao.updateActiveEvent( event );
 
             res.status(200).send(EventResponse);
         }catch(err){
             res.status(500).send(err.message);
         }
-        
     }
 
      /**
@@ -164,8 +177,8 @@ export default class EventsController{
     static async deleteActiveEvent(req: any, res : any){
         try{
 
-            const body = req.body;
-            const EventResponse = await EventDao.deleteActiveEvent( body );
+            const event = req.body;
+            const EventResponse = await EventDao.deleteActiveEvent( event );
 
             res.status(200).send(EventResponse);
         }catch(err){
@@ -182,8 +195,8 @@ export default class EventsController{
     static async deleteArchvedEvent(req: any, res : any){
         try{
 
-            const body = req.body;
-            const EventResponse = await EventDao.deleteArchvedEvent( body );
+            const event = req.body;
+            const EventResponse = await EventDao.deleteArchvedEvent( event );
 
             res.status(200).send(EventResponse);
         }catch(err){
@@ -196,8 +209,8 @@ export default class EventsController{
 
     static async createMenuItem( req: any, res: any ) {
         try{
-            const body = req.body;
-            const EventResponse = await MenuDao.createMenuItem( body );
+            const event = req.body;
+            const EventResponse = await MenuDao.createMenuItem( event );
 
             res.status(200).send(EventResponse);
         } catch(err){
@@ -208,8 +221,8 @@ export default class EventsController{
     /**@todo */
     static async createMany( req: any, res: any ) {
         try{
-            const body = req.body;
-            const EventResponse = await MenuDao.createKitchenItem( body );
+            const event = req.body;
+            const EventResponse = await MenuDao.createKitchenItem( event );
 
             res.status(200).send(EventResponse);
         } catch(err){
@@ -219,8 +232,8 @@ export default class EventsController{
 
     static async updateMenuItem( req: any, res: any ) {
         try{
-            const body = req.body;
-            const EventResponse = await MenuDao.updateMenuItem( body );
+            const event = req.body;
+            const EventResponse = await MenuDao.updateMenuItem( event );
 
             res.status(200).send(EventResponse);
         } catch(err){
@@ -230,8 +243,29 @@ export default class EventsController{
 
     static async deleteMenuItem( req: any, res: any ) {
         try{
-            const body = req.body;
-            const EventResponse = await MenuDao.deleteMenuItem( body );
+            const event = req.body;
+            const EventResponse = await MenuDao.deleteMenuItem( event );
+
+            res.status(200).send(EventResponse);
+        } catch(err){
+            res.status(500).send(err.message);
+        }
+    }
+
+    static async uploadMedia( req: any, res: any, next: any ) {
+        try{
+            const EventResponse = await MediaDao.uploadMedia( req, res, next );
+
+            res.status(200).send(EventResponse);
+        } catch(err){
+            res.status(500).send(err.message);
+        }
+    }
+
+    static async getMediaFile( req: any, res: any ) {
+        try{
+            const imageParams = req.params;
+            const EventResponse = await MediaDao.getMediaFile( imageParams );
 
             res.status(200).send(EventResponse);
         } catch(err){

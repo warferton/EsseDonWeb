@@ -17,6 +17,7 @@ import axios from 'axios';
 interface IProps {
     childWrapper: any;
     children?: IEvent[];
+    noButton?: boolean;
     controlFunction: Dispatch<any>;
 }
 
@@ -41,26 +42,28 @@ const useStyles = makeStyles({
 
 export function EventControlList(props : IProps) {
 
-    const { childWrapper: Wrapper, children, controlFunction } = props;
+    const { childWrapper: Wrapper, children, controlFunction, noButton } = props;
 
     const childEvents = children.map( (event: IEvent) => {
-                            const labelId = `selector-list-secondary-label-${event.title}`;
-                            return (
-                                <Wrapper 
-                                key={ event._id }
-                                event={ event }
-                                id={ labelId } 
-                                handleOpen={ controlFunction }
-                                />
-                            );
-                        })
+        const labelId = `selector-list-secondary-label-${event.title}`;
+        return (
+            <Wrapper 
+            key={ event._id }
+            event={ event }
+            id={ labelId } 
+            handleOpen={ controlFunction }
+            archived={ !event.active }
+            />
+        );
+    })
 
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
     const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
+    const eventsUpdateLink = 'http://localhost:3030/api/v1/spe1Ce/control/admin/events/update/switchDb';
+
     const SUCCESS_MESSAGE = 'Событие успешно обновлено';
     let ERROR_MESSAGE = `Произошла ошибка: `;
-
 
     const classes = useStyles();
 
@@ -72,18 +75,18 @@ export function EventControlList(props : IProps) {
         }}
         onSubmit={(values, { setSubmitting }) => {
             setSubmitting(true);
-            axios.put('http://localhost:3030/api/v1/spe1Ce/control/admin/events/update/group', children)
+            axios.put(eventsUpdateLink, children, {withCredentials: true})
                 .then(res => {
                     if(res.status === 200) 
                     setOpenSuccessSnackbar( true );
-                }).catch( err => {
+                })
+                .then(() => setSubmitting(false))
+                .then(() => window.location.reload())
+                .catch( err => {
                     console.error(err); 
                     ERROR_MESSAGE.concat(err?.name);
                     setOpenErrorSnackbar( true );
-                });
-                
-            setSubmitting(false);
-            
+                });    
         }}
         >
         {({ submitForm, isSubmitting }) => (
@@ -92,6 +95,7 @@ export function EventControlList(props : IProps) {
                     { childEvents }
                 </List>
                 <Box className={ classes.buttonBox }>
+                {!noButton &&
                     <Button 
                     fullWidth
                     endIcon={ <SaveIcon/> } 
@@ -102,6 +106,7 @@ export function EventControlList(props : IProps) {
                             Save
                         </Typography>
                     </Button>
+                }
                 </Box>
             </Form>
             )}

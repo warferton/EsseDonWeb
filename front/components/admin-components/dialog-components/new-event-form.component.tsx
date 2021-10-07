@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
-import { Grid, Typography, Switch, Container, Box, Button, CircularProgress, makeStyles } from '@material-ui/core';
+import { Grid, Typography, Switch, Container, Box, Button, CircularProgress, InputAdornment, makeStyles } from '@material-ui/core';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-
-import { SnackbarAlert } from '../alerts/snackbar.component';
-import { IEvent } from '../../types/event/event.type';
-
-import styles from '../../styles/BookingForm.module.css';
+import { UploadButton } from './form-components/upload-button.component';
+import { SnackbarAlert } from '../../alerts/snackbar.component';
+import { IEvent, IUploadEvent } from '../../../types/event/event.type';
 
 
 
 interface IProps{
     event: IEvent;
+    isUpdate: boolean;
 }
 
 const useStyles = makeStyles({
@@ -22,11 +21,51 @@ const useStyles = makeStyles({
         textDecoration: 'underline',
         textShadow: '0px 0px 0.3px #971391'
     },
+    container: {
+        backgroundColor: 'white',
+        padding: 0,
+        margin: 0,
+        maxWidth: '100%',
+    },
+    header: {
+        maxWidth: '100vw',
+        padding: '1rem',
+        backgroundColor:'black',
+        color: 'white',
+    },
+    formBody: {
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '1rem',
+    },
+    formField: {
+        margin: '0.7rem',
+    },
+    uploadField: {
+        marginTop: '1.5rem',
+        margin: '0.7rem',
+    },
+    motionFormField: {
+        margin: '0.7rem',
+        width: 'calc(100% - 22px)',
+    },
+    formButton: {
+        backgroundImage: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
+        paddingTop: '0.7rem',
+        paddingBottom: '0.7rem',
+        marginTop: '0.7rem',
+    },
+    uploadBox: {
+        maxWidth: '100%',
+        justifyContent: 'center',
+        display: 'flex',
+    }
 })
 
 export function CreateEventForm(props: IProps) {
 
     const { 
+        _id,
         title, 
         lineup, 
         shortDescription,
@@ -38,29 +77,42 @@ export function CreateEventForm(props: IProps) {
         price, 
         image, 
         videoLink,
-        tcLink 
+        tcLink,
+        group,
+        active
     } = props.event;
 
-    const [ isFreeEvent, setIsFreeEvent] = useState(free);
+    const { isUpdate } = props;
 
-    const classes = useStyles();
+    const [isFreeEvent, setIsFreeEvent] = useState(free);
+
+    const [media, setMedia] = useState(null);
+
+    const styles = useStyles();
 
     const handleChecked = () =>{
         setIsFreeEvent(!isFreeEvent);
     }
 
+
+    const handleUploadImage = (fileData : any) =>{
+        console.log(fileData);
+        setMedia(fileData);
+    }
+
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
     const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
-    let SUCCESS_MESSAGE = '';
-    let ERROR_MESSAGE = `Произошла ошибка: `;
-
+    let SUCCESS_MESSAGE = 'Операция проведена успешно';
+    let ERROR_MESSAGE = 'Произошла ошибка: ';
+    const API_ENDPOINT = isUpdate ? 'update' : 'create';
 
     return(
         <Container className={ styles.container }>
             <Box>
                 <Formik
                 initialValues={{
+                    _id: _id || '',
                     title: title || '',
                     lineup: lineup || [],
                     description: description || '',
@@ -70,12 +122,14 @@ export function CreateEventForm(props: IProps) {
                     free: isFreeEvent,
                     deposit: deposit || '',
                     price: price || '',
-                    image: image || '',
+                    media: image || null,
                     videoLink: videoLink || '',
                     tcLink: tcLink || '',
+                    group: group || 'general',
+                    active: active || true,
                 }}
                 validate={values => {
-                    const errors: Partial<IEvent> = {};
+                    const errors: Partial<IUploadEvent> = {};
                     if(!values.title){
                         errors.title = 'Required';
                     }
@@ -94,28 +148,42 @@ export function CreateEventForm(props: IProps) {
                     if(!isFreeEvent && !values.tcLink){
                         errors.tcLink = 'Required';
                     }
-                    if(!values.image){
-                        errors.image = 'Required';
+                    if(!media){
+                        errors.media = 'Required';
                     }
 
                     return errors;
                 }}
-                onSubmit={(values, { setSubmitting }) => {
-                    values.free = isFreeEvent;
+                onSubmit={(values, { setSubmitting, setFieldValue }) => {
+                    setFieldValue('free', `${isFreeEvent}`)
+                    const formData = new FormData();
+                    Object.entries(values).forEach(value => {
+                        formData.append(value[0], value[1]?.toString());
+                    })
+                    formData.set("media", media, media.name);
+                    console.log(formData.entries);
+                    
                     setSubmitting(true);
-                    axios.post('http://localhost:3030/api/v1/events/testPut', values)
-                        .then(res => {
-                            if(res.status === 200) 
-                                SUCCESS_MESSAGE = 'Событие успешно обновлено'; 
-                            else if (res.status === 201)
-                                SUCCESS_MESSAGE = 'Событие успешно создано';
-
-                            setOpenSuccessSnackbar( true );
-                        }).catch( err => {
-                            console.error(err); 
-                            ERROR_MESSAGE.concat(err?.name);
-                            setOpenErrorSnackbar( true );
-                        });
+                    if(isUpdate){
+                        axios.put(`http://localhost:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
+                            .then(res => {
+                                setOpenSuccessSnackbar( true );
+                            }).catch( err => {
+                                console.error(err); 
+                                ERROR_MESSAGE.concat(err?.name);
+                                setOpenErrorSnackbar( true );
+                            });
+                    }
+                    else {
+                        axios.post(`http://localhost:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
+                            .then(res => {
+                                setOpenSuccessSnackbar( true );
+                            }).catch( err => {
+                                console.error(err); 
+                                ERROR_MESSAGE.concat(err?.name);
+                                setOpenErrorSnackbar( true );
+                            });
+                    }
                         
                     setSubmitting(false);
                     
@@ -135,7 +203,7 @@ export function CreateEventForm(props: IProps) {
 
                         <Field
                         component={ TextField }
-                        name="shortDecription"
+                        name="shortDescription"
                         type="text"
                         label="Краткое Описание"
                         variant="outlined"
@@ -181,15 +249,20 @@ export function CreateEventForm(props: IProps) {
                         className={ styles.formField }
                         InputLabelProps={{ shrink: true }}
                         />
-
+                        
                         <Field
-                        component={ TextField }
-                        name="image"
-                        type="text"
-                        label="Фото"
-                        variant="outlined"
-                        className={ styles.formField }
+                        name="media"
+                        value={ media || "null" }
+                        hidden
                         />
+                        <Typography>
+                            { media && `Выбраный файл: ${ media.name }` }
+                        </Typography>
+                        <Box className={ styles.uploadBox }>
+                            <UploadButton
+                            handleUpload={ handleUploadImage }
+                            />
+                        </Box>
 
                         <Field
                         component={ TextField }
@@ -213,7 +286,7 @@ export function CreateEventForm(props: IProps) {
                             >
                                 <Grid 
                                 item 
-                                className={isFreeEvent ? classes.glowText : ''}
+                                className={isFreeEvent ? styles.glowText : ''}
                                 >
                                     Бесплатное
                                 </Grid>
@@ -222,7 +295,7 @@ export function CreateEventForm(props: IProps) {
                                     <Field
                                     component={ Switch }
                                     name="free"
-                                    label="Состав"
+                                    label="Переключатель"
                                     variant="outlined"
                                     className={ styles.formField }
                                     checked={ !isFreeEvent } 
@@ -232,7 +305,7 @@ export function CreateEventForm(props: IProps) {
                                 </Grid>
                                 <Grid 
                                 item 
-                                className={!isFreeEvent ? classes.glowText : ''}>
+                                className={!isFreeEvent ? styles.glowText : ''}>
                                     Платное
                                 </Grid>
                             </Grid>
@@ -265,11 +338,14 @@ export function CreateEventForm(props: IProps) {
                                 label="Цена"
                                 variant="outlined"
                                 className={ styles.motionFormField }
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start">₽</InputAdornment>,
+                                }}
                                 />
 
                                 <Field
                                 component={ TextField }
-                                name="ticketCloudLink"
+                                name="tcLink"
                                 type="text"
                                 label="Ссылка на TicketCloud"
                                 variant="outlined"
@@ -304,6 +380,9 @@ export function CreateEventForm(props: IProps) {
                             label="Депозит"
                             variant="outlined"
                             className={ styles.motionFormField }
+                            InputProps={{
+                                    startAdornment: <InputAdornment position="start">₽</InputAdornment>,
+                                }}
                             />
 
                         </motion.div>

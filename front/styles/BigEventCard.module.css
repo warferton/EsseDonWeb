@@ -45,3 +45,9 @@
   width: 100%;
   background: transparent !important;
 }
+
+@media (min-width: 600px) {
+  .root {
+    max-width: 85%;
+  }
+}

@@ -8,7 +8,7 @@ import {
     Button,
     makeStyles
 } from '@material-ui/core';
-import { IEvent } from '../../types/event/event.type';
+import { IEvent, Image } from '../../types/event/event.type';
 import { getLocalWeekDay } from '../../utils/date-utils';
 
 interface IProps{
@@ -52,7 +52,9 @@ const useStyles = makeStyles({
       backgroundColor: '#FF2020',
       color: 'white',
       fontWeight: 600,
-      fontSize: '14px'
+      fontSize: '14px',
+      marginRight: '10px',
+      marginTop: '10px',
   },
   actions: {
     justifyContent: 'center',
@@ -70,9 +72,9 @@ const useStyles = makeStyles({
 
 export function TopCard({ event }: IProps) {
 
-    const { title, price, shortDescription, free, image, deposit, date, time } = event;
+    const { title, price, shortDescription, free, deposit, date, time } = event;
+    const image = event.image as Image;
     const weekDay = getLocalWeekDay(date);
-
     const styles = useStyles();
 
     return(
@@ -81,7 +83,7 @@ export function TopCard({ event }: IProps) {
                 component="img"
                 alt="Some Musician"
                 height="250"
-                image={ image }
+                src={`data:${image.mimetype};base64,${image.data}`}
                 title={ title }
                 />
                 <CardContent className = { styles.contentContainer }>
@@ -93,12 +95,12 @@ export function TopCard({ event }: IProps) {
                     </Typography>
                     <Chip 
                     label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}
-                    className = { styles.chip}
+                    className = { styles.chip }
                     />
                     { deposit && (
                         <Chip 
                         label={ `Депозит ${ deposit }₽` }
-                        className = { styles.chip}
+                        className = { styles.chip }
                         />)
                     }
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.shortDecriptionText }>

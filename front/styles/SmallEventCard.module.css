@@ -1,6 +1,6 @@
 .root {
   min-width: 240px !important;
-  height:fit-content !important;
+  height: fit-content !important;
   background-color: rgb(243, 243, 243) !important;
   border-radius: 15px !important;
   margin: 1rem;
@@ -40,4 +40,10 @@
 
 .action {
   border-radius: inherit !important;
+}
+
+@media (min-width: 600px) {
+  .root {
+    min-width: 350px !important;
+  }
 }

@@ -7,7 +7,7 @@ import {
     Typography, 
 } from '@material-ui/core';
 import styles from '../../styles/SmallEventCard.module.css';
-import { IEvent } from '../../types/event/event.type';
+import { IEvent, Image } from '../../types/event/event.type';
 import { getLocalWeekDay } from '../../utils/date-utils';
 
 
@@ -20,7 +20,8 @@ export function SmallEventCard(props : IProps){
     const router = useRouter();
 
     const { event } = props;
-    const { title, image, date, time } = event
+    const { title, date, time } = event
+    const image = event.image as Image;
     const weekDay = getLocalWeekDay(date);
 
     return(
@@ -31,7 +32,7 @@ export function SmallEventCard(props : IProps){
                 component="img"
                 alt="Some Musician"
                 height="120"
-                image={ image }
+                src={`data:${image.mimetype};base64,${image.data}`}
                 title={ title } />                
                 <CardContent className={ styles.cardContent }>
                     <Typography component="h2" className={ styles.dateText }>
