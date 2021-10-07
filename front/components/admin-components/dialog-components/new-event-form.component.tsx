@@ -1,12 +1,22 @@
 import { useState, useRef } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
-import { Grid, Typography, Switch, Container, Box, Button, CircularProgress, InputAdornment, makeStyles } from '@material-ui/core';
+import { 
+    Grid, 
+    Typography, 
+    Switch, 
+    Container, 
+    Box, 
+    Button,
+    InputAdornment, 
+    makeStyles 
+} from '@material-ui/core';
+import { Backdrop } from '../../backdrop/backdrop.component';
 import { motion } from 'framer-motion';
-import axios from 'axios';
 import { UploadButton } from './form-components/upload-button.component';
 import { SnackbarAlert } from '../../alerts/snackbar.component';
 import { IEvent, IUploadEvent } from '../../../types/event/event.type';
+import axios from 'axios';
 
 
 
@@ -88,6 +98,8 @@ export function CreateEventForm(props: IProps) {
 
     const [media, setMedia] = useState(null);
 
+    const [openBackdrop, setOpenBackdrop] = useState(false);
+
     const styles = useStyles();
 
     const isFree = useRef(free === 'true');
@@ -97,7 +109,6 @@ export function CreateEventForm(props: IProps) {
         setIsFreeEvent(!isFreeEvent);
     }
 
-
     const handleUploadImage = (fileData : any) =>{
         console.log(fileData);
         setMedia(fileData);
@@ -106,8 +117,8 @@ export function CreateEventForm(props: IProps) {
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
     const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
-    let SUCCESS_MESSAGE = 'Операция проведена успешно';
-    let ERROR_MESSAGE = 'Произошла ошибка: ';
+    const SUCCESS_MESSAGE = 'Операция проведена успешно';
+    const [ERROR_MESSAGE, setErrorMsg] = useState('Произошла ошибка');
     const API_ENDPOINT = isUpdate ? 'update' : 'create';
 
     return(
@@ -153,11 +164,14 @@ export function CreateEventForm(props: IProps) {
                     }
                     if(!media){
                         errors.media = 'Required';
+                        setErrorMsg('Добавьте фото мероприятия');
+                        setOpenErrorSnackbar( true );
                     }
 
                     return errors;
                 }}
-                onSubmit={(values, { setSubmitting, setFieldValue }) => {
+                onSubmit={(values, { setSubmitting }) => {
+                    setOpenBackdrop(true);
                     setSubmitting(true);
                     const formData = new FormData();
                     Object.entries(values).forEach(value => {
@@ -165,30 +179,36 @@ export function CreateEventForm(props: IProps) {
                     })
                     formData.set('media', media, media.name);
                     formData.set('free', `${isFree.current}`)
-                    
+
                     if(isUpdate){
                         axios.put(`https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
                             .then(res => {
+                                setOpenBackdrop(false);
                                 setOpenSuccessSnackbar( true );
+                                setSubmitting(false);
                             }).catch( err => {
+                                setOpenBackdrop(false);
                                 console.error(err); 
-                                ERROR_MESSAGE.concat(err?.name);
+                                setErrorMsg(`Произошла ошибка: ${err?.message}`);
+                                setSubmitting(false);
                                 setOpenErrorSnackbar( true );
                             });
                     }
                     else {
                         axios.post(`https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
                             .then(res => {
+                                setOpenBackdrop(false);
+                                setSubmitting(false);
                                 setOpenSuccessSnackbar( true );
                             }).catch( err => {
+                                setOpenBackdrop(false);
                                 console.error(err); 
-                                ERROR_MESSAGE.concat(err?.name);
+                                setErrorMsg(`Произошла ошибка: ${err?.message}`);
+                                setSubmitting(false);
                                 setOpenErrorSnackbar( true );
                             });
                     }
-                        
-                    setSubmitting(false);
-                    
+
                 }}
                 >
                 {({ submitForm, isSubmitting }) => (
@@ -388,17 +408,6 @@ export function CreateEventForm(props: IProps) {
 
                         </motion.div>
                         }
-                        
-
-
-                        {
-                            isSubmitting && 
-                                <Box 
-                                style={{ display:'flex', justifyContent: 'center'}}
-                                >
-                                    <CircularProgress/>
-                                </Box>
-                        }
 
                         <Button
                         variant="contained"
@@ -424,6 +433,8 @@ export function CreateEventForm(props: IProps) {
             <SnackbarAlert open={ openErrorSnackbar } onClose={() => setOpenErrorSnackbar(false)} severity="error">
                         { ERROR_MESSAGE }
             </SnackbarAlert>
+
+            <Backdrop open={ openBackdrop }/>
 
         </Container>
     )

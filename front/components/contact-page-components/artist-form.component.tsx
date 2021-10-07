@@ -20,7 +20,7 @@ interface Values {
 export function ArtistForm() {
 
     const SUCCESS_MESSAGE = 'Заявка успешно отправлена';
-    let ERROR_MESSAGE = `Произошла ошибка: `;
+    let ERROR_MESSAGE = `Произошла ошибка!`;
 
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
     const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
@@ -73,14 +73,14 @@ export function ArtistForm() {
                     axios.post('https://esse-api-test.herokuapp.com/api/v1/mailing/perfrormRequestMail', values)
                     .then(response => {
                         if(response.status === 200) {
+                            setSubmitting( false );
                             setOpenSuccessSnackbar( true );
                         }
                     })
                     .catch(err => {
-                        ERROR_MESSAGE.concat(err.message);
+                        setSubmitting( false );
                         setOpenErrorSnackbar( true );
                     });
-                    setSubmitting( false );
                 }}
                 >
                 {({ submitForm, isSubmitting }) => (
