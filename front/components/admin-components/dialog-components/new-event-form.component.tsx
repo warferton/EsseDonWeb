@@ -69,6 +69,9 @@ const useStyles = makeStyles({
         maxWidth: '100%',
         justifyContent: 'center',
         display: 'flex',
+    },
+    redText: {
+        color: 'red'
     }
 })
 
@@ -164,8 +167,6 @@ export function CreateEventForm(props: IProps) {
                     }
                     if(!media){
                         errors.media = 'Required';
-                        setErrorMsg('Добавьте фото мероприятия');
-                        setOpenErrorSnackbar( true );
                     }
 
                     return errors;
@@ -277,9 +278,15 @@ export function CreateEventForm(props: IProps) {
                         value={ media || "null" }
                         hidden
                         />
-                        <Typography>
-                            { media && `Выбраный файл: ${ media.name }` }
-                        </Typography>
+                        { media ?
+                            <Typography>
+                                { `Выбраный файл: ${ media.name }` }
+                            </Typography>
+                            :
+                            <Typography className={ styles.redText }>
+                                { `Файл не выбран` }
+                            </Typography>
+                        }
                         <Box className={ styles.uploadBox }>
                             <UploadButton
                             handleUpload={ handleUploadImage }
