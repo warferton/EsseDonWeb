@@ -148,25 +148,25 @@ export function CreateEventForm(props: IProps) {
                 validate={values => {
                     const errors: Partial<IUploadEvent> = {};
                     if(!values.title){
-                        errors.title = 'Required';
+                        errors.title = 'Обязательное поле';
                     }
                     if(!values.description){
-                        errors.description = 'Required';
+                        errors.description = 'Обязательное поле';
                     }
                     if(!isFreeEvent && !values.price){
                         errors.price = 'Обязательное поле | Неверный формат';
                     }
                     if(!values.date){
-                        errors.date = 'Required';
+                        errors.date = 'Обязательное поле';
                     }
                     if(!values.time){
-                        errors.time = 'Required';
+                        errors.time = 'Обязательное поле';
                     }
                     if(!isFreeEvent && !values.tcLink){
-                        errors.tcLink = 'Required';
+                        errors.tcLink = 'Обязательное поле';
                     }
                     if(!media){
-                        errors.media = 'Required';
+                        errors.media = 'Обязательное поле';
                     }
 
                     return errors;

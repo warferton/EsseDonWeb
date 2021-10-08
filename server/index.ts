@@ -5,6 +5,7 @@ import AuthDao from './dao/authDAO';
 import MediaDao from './dao/mediaDAO';
 import app from './server';
 import config from './config/server-config';
+import { sys } from 'typescript';
 
 const MongoClient = mongodb.MongoClient;
 
@@ -26,14 +27,19 @@ MongoClient.connect(
     process.exit(1);
     
 }).then( async client => {
-    await EventDao.injectDB(client);
-    console.info('Event DB connection established');
-    await MenuDao.injectDB(client);
-    console.info('Menu DB connection established');
-    await AuthDao.injectDB(client);
-    console.info('Users DB connection established');
-    await MediaDao.injectDB(client);
-    console.info('Media DB connection established');
+    await EventDao.injectDB(client)
+    .then(() =>     console.info('Event DB connection established'))
+    .catch(err => {console.error("Failed to connect to Event DB"); sys.exit(1)});
+    await MenuDao.injectDB(client)
+    .then(() => console.info('Menu DB connection established'))
+    .catch(err => console.error("Failed to connect to Menu DB"));
+    await AuthDao.injectDB(client)
+    .then(() => console.info('Users DB connection established'))
+    .catch(err => console.error("Failed to connect to Users DB"));
+    await MediaDao.injectDB(client)
+    .then(() => console.info('Media DB connection established'))
+    .catch(err => {console.error("Failed to connect to Media DB"); sys.exit(1)});
+    
     console.info('ALL DB\'s connection established');
     app.listen(port, () => {
         console.info(`Started Listenning on port: ${ port }`);
