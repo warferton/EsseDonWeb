@@ -1,12 +1,22 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
-import { Grid, Typography, Switch, Container, Box, Button, CircularProgress, InputAdornment, makeStyles } from '@material-ui/core';
+import { 
+    Grid, 
+    Typography, 
+    Switch, 
+    Container, 
+    Box, 
+    Button,
+    InputAdornment, 
+    makeStyles 
+} from '@material-ui/core';
+import { Backdrop } from '../../backdrop/backdrop.component';
 import { motion } from 'framer-motion';
-import axios from 'axios';
 import { UploadButton } from './form-components/upload-button.component';
 import { SnackbarAlert } from '../../alerts/snackbar.component';
 import { IEvent, IUploadEvent } from '../../../types/event/event.type';
+import axios from 'axios';
 
 
 
@@ -59,6 +69,9 @@ const useStyles = makeStyles({
         maxWidth: '100%',
         justifyContent: 'center',
         display: 'flex',
+    },
+    redText: {
+        color: 'red'
     }
 })
 
@@ -84,16 +97,20 @@ export function CreateEventForm(props: IProps) {
 
     const { isUpdate } = props;
 
-    const [isFreeEvent, setIsFreeEvent] = useState(free);
+    const [isFreeEvent, setIsFreeEvent] = useState(free === 'true');
 
     const [media, setMedia] = useState(null);
 
+    const [openBackdrop, setOpenBackdrop] = useState(false);
+
     const styles = useStyles();
 
+    const isFree = useRef(free === 'true');
+
     const handleChecked = () =>{
+        isFree.current = !isFree.current;
         setIsFreeEvent(!isFreeEvent);
     }
-
 
     const handleUploadImage = (fileData : any) =>{
         console.log(fileData);
@@ -103,8 +120,8 @@ export function CreateEventForm(props: IProps) {
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
     const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
-    let SUCCESS_MESSAGE = 'Операция проведена успешно';
-    let ERROR_MESSAGE = 'Произошла ошибка: ';
+    const SUCCESS_MESSAGE = 'Операция проведена успешно';
+    const [ERROR_MESSAGE, setErrorMsg] = useState('Произошла ошибка');
     const API_ENDPOINT = isUpdate ? 'update' : 'create';
 
     return(
@@ -131,62 +148,68 @@ export function CreateEventForm(props: IProps) {
                 validate={values => {
                     const errors: Partial<IUploadEvent> = {};
                     if(!values.title){
-                        errors.title = 'Required';
+                        errors.title = 'Обязательное поле';
                     }
                     if(!values.description){
-                        errors.description = 'Required';
+                        errors.description = 'Обязательное поле';
                     }
                     if(!isFreeEvent && !values.price){
                         errors.price = 'Обязательное поле | Неверный формат';
                     }
                     if(!values.date){
-                        errors.date = 'Required';
+                        errors.date = 'Обязательное поле';
                     }
                     if(!values.time){
-                        errors.time = 'Required';
+                        errors.time = 'Обязательное поле';
                     }
                     if(!isFreeEvent && !values.tcLink){
-                        errors.tcLink = 'Required';
+                        errors.tcLink = 'Обязательное поле';
                     }
                     if(!media){
-                        errors.media = 'Required';
+                        errors.media = 'Обязательное поле';
                     }
 
                     return errors;
                 }}
-                onSubmit={(values, { setSubmitting, setFieldValue }) => {
-                    setFieldValue('free', `${isFreeEvent}`)
+                onSubmit={(values, { setSubmitting }) => {
+                    setOpenBackdrop(true);
+                    setSubmitting(true);
                     const formData = new FormData();
                     Object.entries(values).forEach(value => {
                         formData.append(value[0], value[1]?.toString());
                     })
-                    formData.set("media", media, media.name);
-                    console.log(formData.entries);
-                    
-                    setSubmitting(true);
+                    formData.set('media', media, media.name);
+                    formData.set('free', `${isFree.current}`)
+
                     if(isUpdate){
-                        axios.put(`http://localhost:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
+                        axios.put(`https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
                             .then(res => {
+                                setOpenBackdrop(false);
                                 setOpenSuccessSnackbar( true );
+                                setSubmitting(false);
                             }).catch( err => {
+                                setOpenBackdrop(false);
                                 console.error(err); 
-                                ERROR_MESSAGE.concat(err?.name);
+                                setErrorMsg(`Произошла ошибка: ${err?.message}`);
+                                setSubmitting(false);
                                 setOpenErrorSnackbar( true );
                             });
                     }
                     else {
-                        axios.post(`http://localhost:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
+                        axios.post(`https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
                             .then(res => {
+                                setOpenBackdrop(false);
+                                setSubmitting(false);
                                 setOpenSuccessSnackbar( true );
                             }).catch( err => {
+                                setOpenBackdrop(false);
                                 console.error(err); 
-                                ERROR_MESSAGE.concat(err?.name);
+                                setErrorMsg(`Произошла ошибка: ${err?.message}`);
+                                setSubmitting(false);
                                 setOpenErrorSnackbar( true );
                             });
                     }
-                        
-                    setSubmitting(false);
-                    
+
                 }}
                 >
                 {({ submitForm, isSubmitting }) => (
@@ -255,9 +278,15 @@ export function CreateEventForm(props: IProps) {
                         value={ media || "null" }
                         hidden
                         />
-                        <Typography>
-                            { media && `Выбраный файл: ${ media.name }` }
-                        </Typography>
+                        { media ?
+                            <Typography>
+                                { `Выбраный файл: ${ media.name }` }
+                            </Typography>
+                            :
+                            <Typography className={ styles.redText }>
+                                { `Файл не выбран` }
+                            </Typography>
+                        }
                         <Box className={ styles.uploadBox }>
                             <UploadButton
                             handleUpload={ handleUploadImage }
@@ -291,7 +320,6 @@ export function CreateEventForm(props: IProps) {
                                     Бесплатное
                                 </Grid>
                                 <Grid item>
-
                                     <Field
                                     component={ Switch }
                                     name="free"
@@ -299,7 +327,7 @@ export function CreateEventForm(props: IProps) {
                                     variant="outlined"
                                     className={ styles.formField }
                                     checked={ !isFreeEvent } 
-                                    value={ isFreeEvent || false }
+                                    // value={ isFreeEvent }
                                     onChange={ handleChecked }
                                     />
                                 </Grid>
@@ -387,17 +415,6 @@ export function CreateEventForm(props: IProps) {
 
                         </motion.div>
                         }
-                        
-
-
-                        {
-                            isSubmitting && 
-                                <Box 
-                                style={{ display:'flex', justifyContent: 'center'}}
-                                >
-                                    <CircularProgress/>
-                                </Box>
-                        }
 
                         <Button
                         variant="contained"
@@ -423,6 +440,8 @@ export function CreateEventForm(props: IProps) {
             <SnackbarAlert open={ openErrorSnackbar } onClose={() => setOpenErrorSnackbar(false)} severity="error">
                         { ERROR_MESSAGE }
             </SnackbarAlert>
+
+            <Backdrop open={ openBackdrop }/>
 
         </Container>
     )

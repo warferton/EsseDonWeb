@@ -2,8 +2,8 @@ import { MongoClient, Collection, ObjectId } from "mongodb";
 import { Request, Response } from 'express';
 import bcryptjs from 'bcryptjs';
 import config from '../config/server-config';
-import { signJWT } from "util/jwt-util";
-import { IUser } from "types/user.type";
+import { signJWT } from "../util/jwt-util";
+import { IUser } from "../types/user.type";
 
 let AdminUsers : Collection;
 
@@ -17,7 +17,8 @@ export default class AuthDao {
             if( !AdminUsers )
                 AdminUsers = await connection.db(config.dataBases.users).collection('admin_users');
 
-        }catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to retrieve data from the database: ${ err.message }`
             );
@@ -32,7 +33,8 @@ export default class AuthDao {
         //find user and check passwords
         cursor = await AdminUsers.findOne(
             { username :  username }
-        ).catch(err => {
+        ).catch(error => {
+            const err = new Error(error);
             console.error(`Unable to issue "find" command: ${ err.message }`);
         });
         
@@ -60,13 +62,13 @@ export default class AuthDao {
                             console.log("Successfully signed the token");
                             try{
                                 console.log('Updating lastLogin field in database');
-                                await AdminUsers.findOneAndUpdate({ _id: new ObjectId(cursor.id)}, { $set: { lastLogin: new Date() }});
-                            } catch( err ){
+                                await AdminUsers.findOneAndUpdate({ _id: new ObjectId(cursor._id)}, { $set: { lastLogin: new Date() }});
+                            } catch(error : any) {
                                 console.error('Failed to update "lastLogin" field in the database');
                             }
                             res
                             .status(200)
-                            .cookie('JazzEsseDonToken', token, { expires: new Date(Date.now() +  36000000), httpOnly: false })
+                            .cookie('JazzEsseDonToken', token, { expires: new Date(Date.now() +  36000000), httpOnly: false, secure: true, sameSite: 'none' })
                             .send({
                                 message: "Successful Authentication",
                                 username: username,

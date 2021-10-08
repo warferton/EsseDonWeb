@@ -1,7 +1,7 @@
 import express from 'express';
 import AdminController from '../controller/adminController';
 import MediaDao from '../dao/mediaDAO';
-import { extractJWT } from 'util/jwt-util';
+import { extractJWT } from '../util/jwt-util';
 
 
 const router = express.Router();

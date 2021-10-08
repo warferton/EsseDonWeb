@@ -7,7 +7,8 @@ export default class MailingController{
             const mail = req.body
             const MailingResponse = await MailingDao.sendBookingMail(mail);
             res.status(200).send(MailingResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -17,7 +18,8 @@ export default class MailingController{
             const mail = req.body
             const MailingResponse = await MailingDao.sendPerformRequestMail(mail);
             res.status(200).send(MailingResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }

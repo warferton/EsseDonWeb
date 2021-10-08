@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Container, Button, LinearProgress, makeStyles } from '@material-ui/core';
-import { TextField } from 'formik-material-ui'
+import { TextField } from 'formik-material-ui';
 import { Formik, Form, Field } from 'formik';
 import { SnackbarAlert } from '../alerts/snackbar.component';
+import { Backdrop } from '../backdrop/backdrop.component';
 
 import axios from 'axios';
 
@@ -49,7 +50,9 @@ export function LoginForm() {
 
     const SUCCESS_MESSAGE = 'Успешный Вход!';
     let ERROR_MESSAGE = `Неправильное имя пользователя или пароль!`;
-    
+
+    const [openBackdrop, setOpenBackdrop] = useState(false);
+
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
     const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
@@ -73,15 +76,17 @@ export function LoginForm() {
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
+                   setOpenBackdrop(true); 
                    setSubmitting(true);
-                    axios.post('http://localhost:3030/api/v1/auth/login', values, { withCredentials: true })
+                    axios.post('https://esse-api-test.herokuapp.com/api/v1/auth/login', values, { withCredentials: true })
                     .then( res => {
                         if(res.status === 200) {
+                            setOpenBackdrop(false);
                             setOpenSuccessSnackbar(true);
                             router.push('/admin');
                         }
                     }).catch( err => {
-                        ERROR_MESSAGE.concat(`\n ${err.message}`)
+                        setOpenBackdrop(false);
                         setOpenErrorSnackbar(true);
                     })
                     setSubmitting(false);
@@ -124,7 +129,8 @@ export function LoginForm() {
                     )}
                 </Formik>
         </Container>
-         <SnackbarAlert open={ openSuccessSnackbar } onClose={() => setOpenSuccessSnackbar(false)} severity="success">
+        <Backdrop open={ openBackdrop }/>
+        <SnackbarAlert open={ openSuccessSnackbar } onClose={() => setOpenSuccessSnackbar(false)} severity="success">
                 { SUCCESS_MESSAGE }
         </SnackbarAlert>       
         <SnackbarAlert open={ openErrorSnackbar } onClose={() => setOpenErrorSnackbar(false)} severity="error">

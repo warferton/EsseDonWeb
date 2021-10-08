@@ -50,22 +50,22 @@ export function FreeEventForm({ event } : IProps) {
                 validate={values => {
                     const errors: Partial<Values> = {};
                     if(!values.name){
-                        errors.name = 'Required';
+                        errors.name = 'Обязательное поле';
                     }
                     if(!values.tel){
-                        errors.tel = 'Required';
+                        errors.tel = 'Обязательное поле';
                     }
                     else if(!PhoneRegex.test(values.tel)){
-                        errors.tel = 'Invalid phone number';
+                        errors.tel = 'Неверный формат';
                     }
-                    if (!Number.isInteger(values.peopleCount)) {
-                        errors.peopleCount = 'Invalid number';
+                    else if (!Number.isInteger(values.peopleCount)) {
+                        errors.peopleCount = 'Недопустимое значение';
                     }
                     if (!values.email) {
-                        errors.email = 'Required';
+                        errors.email = 'Обязательное поле';
                     } 
                     else if (!EmailRegex.test(values.email)){
-                        errors.email = 'Invalid email address';
+                        errors.email = 'Неверный формат Email';
                     }
 
                     return errors;
@@ -86,17 +86,18 @@ export function FreeEventForm({ event } : IProps) {
                         comment
                     }
                     setSubmitting(true);
-                    axios.post('http://localhost:3030/api/v1/mailing/bookingMail', bookingData)
+                    axios.post('https://esse-api-test.herokuapp.com/api/v1/mailing/bookingMail', bookingData)
                     .then(response => {
+                        setSubmitting( false );
                         if(response.status === 200) {
                             setOpenSuccessSnackbar( true );
                         }
                     })
                     .catch(err => {
+                        setSubmitting( false );
                         ERROR_MESSAGE.concat(err.message);
                         setOpenErrorSnackbar( true );
                     });
-                    setSubmitting( false );
                 }}
                 >
                 {({ submitForm, isSubmitting }) => (
@@ -108,6 +109,7 @@ export function FreeEventForm({ event } : IProps) {
                             label="Имя"
                             name="name"
                             variant="outlined"
+                            disabled={ isSubmitting }
                             className={ styles.formField }
                         />
 
@@ -117,6 +119,7 @@ export function FreeEventForm({ event } : IProps) {
                             type="tel"
                             label="Телефон"
                             variant="outlined"
+                            disabled={ isSubmitting }
                             className={ styles.formField }
                         />
 
@@ -126,6 +129,7 @@ export function FreeEventForm({ event } : IProps) {
                             type="email"
                             label="Email"
                             variant="outlined"
+                            disabled={ isSubmitting }
                             className={ styles.formField }
                         />
 
@@ -135,6 +139,7 @@ export function FreeEventForm({ event } : IProps) {
                             type="number"
                             label="Количество Персон"
                             variant="outlined"
+                            disabled={ isSubmitting }
                             className={ styles.formField }
                         />
 
@@ -146,6 +151,7 @@ export function FreeEventForm({ event } : IProps) {
                             variant="outlined"
                             multiline
                             rows={ 3 }
+                            disabled={ isSubmitting }
                             className={ styles.formField }
                         />
 
@@ -154,8 +160,8 @@ export function FreeEventForm({ event } : IProps) {
                         <Button
                             variant="contained"
                             color="primary"
-                            disabled={ isSubmitting }
                             onClick={ submitForm }
+                            disabled={ isSubmitting }
                             className={ styles.formButton }
                         >
                             Забронировать

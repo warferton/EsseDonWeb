@@ -9,7 +9,7 @@ import { Container, Typography, Button, makeStyles } from '@material-ui/core';
 import { ArrowBackIos as ArrowBack } from'@material-ui/icons';
 import { motion } from 'framer-motion';
 
-import { fetchAllActiveEvents, validateCurrentClient } from '../../utils/api-utils';
+import { fetchAllActiveEventsNoImageData, validateCurrentClient } from '../../utils/api-utils';
 import { IEvent } from '../../types/event/event.type';
 
 const useStyles = makeStyles({
@@ -165,8 +165,8 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
 }
 
 
-export const getStaticProps = async () => {
-    const activeEvents = await fetchAllActiveEvents();
+export const getServerSideProps = async () => {
+    const activeEvents = await fetchAllActiveEventsNoImageData();
     
     return {
         props: { ...activeEvents },

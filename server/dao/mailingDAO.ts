@@ -1,5 +1,5 @@
 import mailer from '@sendgrid/mail';
-import { IBookingData, IPerformRequestData } from 'types/mail.type';
+import { IBookingData, IPerformRequestData } from '../types/mail.type';
 import config from '../config/server-config';
 
 mailer.setApiKey(config.mailing.apiToken);

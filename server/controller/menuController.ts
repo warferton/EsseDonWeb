@@ -6,7 +6,8 @@ export default class MenuController{
             const EventResponse = await MenuDao.getAllMenuItems();
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -16,7 +17,8 @@ export default class MenuController{
             const EventResponse = await MenuDao.getAllBarItems();
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }
@@ -26,7 +28,8 @@ export default class MenuController{
             const EventResponse = await MenuDao.getAllKitchenItems();
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
     }

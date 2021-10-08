@@ -1,4 +1,4 @@
-import config from "config/server-config";
+import config from "../config/server-config";
 import { Collection, MongoClient, ObjectId } from "mongodb";
 import { NextFunction, Request, Response } from 'express';
 
@@ -12,7 +12,8 @@ export default class MediaDao {
         try {
             if( !Photos )
                 Photos = await connection.db(config.dataBases.media).collection('pictures');
-        } catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to retrieve data from the database: ${ err.message }`
             );
@@ -27,7 +28,8 @@ export default class MediaDao {
             const insertResultId = await Photos.insertOne(mediafile.media);
             res.locals['mediaId'] = insertResultId.ops[0]._id;
             next();
-        } catch( err ){
+        } catch(error : any) {
+            const err = new Error(error);
             console.log(err);
             res.status(500).json({ message: err.message });
         }
@@ -44,7 +46,8 @@ export default class MediaDao {
             return {
                 image: cursor
             }
-        } catch (err) {
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(
                 `Unable to issue "find" command: ${ err.message }`
             );

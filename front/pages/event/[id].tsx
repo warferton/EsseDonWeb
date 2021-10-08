@@ -7,9 +7,8 @@ import { FreeEventForm } from '../../components/event-page-components/freeBookin
 import { About } from '../../components/event-page-components/event-page-about.component';
 import { EventLineup } from '../../components/event-page-components/event-linup.component';
 import { VideoPlayer } from '../../components/event-page-components/event-videoPlayer.component';
-
 import { IEvent } from '../../types/event/event.type';
-import { fetchActiveEventsPaths, getEventById } from '../../utils/api-utils';
+import { getEventById } from '../../utils/api-utils';
 
 
 const useStyles = makeStyles({
@@ -52,7 +51,14 @@ export default function EventPage({event} : IProps) {
 
         {event.videoLink && <VideoPlayer videoLink={event.videoLink}/>}
 
-        {event.free && <FreeEventForm event={ event }/>}
+        {event.free === 'true' && <FreeEventForm event={ event }/>}
+
+        { event.free === 'false' && 
+          <span 
+            data-tc-event-inline="615212ed69a7aa2da29c6d02" 
+            data-tc-token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSJ9.eyJwIjoiNjAzZTE0YzdhMWVmZDliZWY5OTM4MmI0In0.QysMNBusa-3tHBV49Uw-RxTNa9lj6MTaw-Z_mfFJjbw"
+          ></span>
+        }
 
       </Container>
 
@@ -61,7 +67,7 @@ export default function EventPage({event} : IProps) {
   )
 }
 
-export const getStaticProps = async (context : any) => {
+export const getServerSideProps = async (context: any) => {
   
   const { id } = context.params;
   
@@ -81,14 +87,3 @@ export const getStaticProps = async (context : any) => {
   }) 
   
 }
-
-export async function getStaticPaths() {
-  
-  const paths = await fetchActiveEventsPaths();
-  
-  return {
-    paths: paths,
-    fallback: 'blocking'
-  }
-}
-

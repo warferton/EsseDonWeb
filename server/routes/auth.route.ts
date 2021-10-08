@@ -1,5 +1,5 @@
 import express from 'express';
-import { extractJWT } from 'util/jwt-util';
+import { extractJWT } from '../util/jwt-util';
 import AuthController from '../controller/authController';
 
 const router = express.Router();

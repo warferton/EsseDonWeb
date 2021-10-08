@@ -72,9 +72,10 @@ const useStyles = makeStyles({
 
 export function TopCard({ event }: IProps) {
 
-    const { title, price, shortDescription, free, deposit, date, time } = event;
+    const { title, price, shortDescription, free, deposit, date, time, tcLink } = event;
     const image = event.image as Image;
     const weekDay = getLocalWeekDay(date);
+    const buttonLink = free === 'true' ? '#form-box' : tcLink;
     const styles = useStyles();
 
     return(
@@ -94,7 +95,7 @@ export function TopCard({ event }: IProps) {
                         { `${ date } ${ time } ${ weekDay }` }
                     </Typography>
                     <Chip 
-                    label={ free && !price ? 'Вход свободный' : `от ${ price }₽`}
+                    label={ free === 'true' || !price ? 'Вход свободный' : `от ${ price }₽`}
                     className = { styles.chip }
                     />
                     { deposit && (
@@ -108,12 +109,13 @@ export function TopCard({ event }: IProps) {
                     </Typography>
                 </CardContent>
             <CardActions className={ styles.actions }>
+                
                 <Button
                 variant='contained'
                 size="large" 
                 color="secondary"
                 className={ styles.button }
-                href='#form-box'
+                href={ buttonLink }
                 >
                     Забронировать
                 </Button>

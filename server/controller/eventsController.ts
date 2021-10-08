@@ -10,7 +10,8 @@ export default class EventsController{
             const EventResponse = await EventDao.getEventById( id );
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             console.error(err);
             
             res.status(500).send(err.message);
@@ -25,7 +26,8 @@ export default class EventsController{
             const EventResponse = await EventDao.getActiveEvents( filters );
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
         
@@ -45,7 +47,8 @@ export default class EventsController{
             const EventResponse = await EventDao.getArchivedEvents( filters );
 
             res.status(200).send(EventResponse);
-        }catch(err){
+        } catch(error : any) {
+            const err = new Error(error);
             res.status(500).send(err.message);
         }
         

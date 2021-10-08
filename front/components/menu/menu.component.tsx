@@ -1,6 +1,6 @@
 import { SetStateAction, useState, ChangeEvent } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { LocalBar, RestaurantSharp } from '@material-ui/icons';
+import { LocalBar, RestaurantSharp, Star, Favorite } from '@material-ui/icons';
 import { Container } from '@material-ui/core';
 import { MenuAccordion } from './menu-accordion.component';
 import { MenuSection } from './menu-section.component';
@@ -21,6 +21,8 @@ interface IProps{
   items: {
     barItems : IMenuItemGroup[];
     kitchenItems : IMenuItemGroup[];
+    specialItems : IMenuItemGroup[];
+    veganItems : IMenuItemGroup[];
   }
 }
 
@@ -28,11 +30,8 @@ export function Menu({ items } : IProps ) {
   
   const classes = useStyles();
 
-  const { barItems, kitchenItems } = items;
-
-  console.log(`inisde Menu:  ${ items }`);
+  const { barItems, kitchenItems, specialItems, veganItems } = items;
   
-
   const [expanded, setExpanded] = useState(null);
 
   const handleChange = (panel : SetStateAction<string>) => (event: ChangeEvent<{}>, isExpanded : boolean) => {
@@ -98,6 +97,63 @@ export function Menu({ items } : IProps ) {
             })
           }
       </MenuAccordion>
+
+      <MenuAccordion 
+        title="Специальное Меню"
+        expanded={ expanded === 'special' } 
+        icon={ Star }
+        onChange={ handleChange('special') } 
+        >
+          {
+            specialItems.map((group : IMenuItemGroup) => {
+              return(
+                <MenuSection title={ group.name }>
+                  {
+                    group.items.map((item : IMenuItem) => {
+                      return(
+                        <MenuItem 
+                        key={ item._id } 
+                        title={ item.title } 
+                        price={ item.price } 
+                        description={ item.description }
+                        />
+                      );
+                    })
+                  }
+                </MenuSection>
+              );
+            })
+          }
+      </MenuAccordion>
+
+      <MenuAccordion 
+        title="Вегитарианское Меню"
+        expanded={ expanded === 'vegan' } 
+        icon={ Favorite }
+        onChange={ handleChange('vegan') } 
+        >
+          {
+            veganItems.map((group : IMenuItemGroup) => {
+              return(
+                <MenuSection title={ group.name }>
+                  {
+                    group.items.map((item : IMenuItem) => {
+                      return(
+                        <MenuItem 
+                        key={ item._id } 
+                        title={ item.title } 
+                        price={ item.price } 
+                        description={ item.description }
+                        />
+                      );
+                    })
+                  }
+                </MenuSection>
+              );
+            })
+          }
+      </MenuAccordion>
+
     </Container>
   )
 }

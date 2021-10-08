@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { LogoHeader } from '../../components/headers/header.compenent';
 import { Menu } from '../../components/menu/menu.component';
-import { fetchBarItems, fetchKitchenItems } from '../../utils/api-utils';
+import { fetchMenuItems } from '../../utils/api-utils';
 import { parseMenuItems } from '../../utils/parsing-utils';
 import { IMenuItemGroup } from '../../types/menu/menuItem.type';
 
@@ -9,6 +9,8 @@ import { IMenuItemGroup } from '../../types/menu/menuItem.type';
 interface IProps{
   barItems : IMenuItemGroup[];
   kitchenItems : IMenuItemGroup[];
+  specialItems : IMenuItemGroup[];
+  veganItems : IMenuItemGroup[];
 }
 
 export default function MenuPage(props : IProps) {
@@ -30,8 +32,10 @@ export default function MenuPage(props : IProps) {
 }
 
 export const getStaticProps = async () => {
-  const rawBarData = await fetchBarItems();
-  const rawKitchenData = await fetchKitchenItems();
+  const rawBarData = await fetchMenuItems('bar');
+  const rawKitchenData = await fetchMenuItems('kitchen');
+  const rawSpecialData = await fetchMenuItems('special');
+  const rawVeganData = await fetchMenuItems('vegan');
 
   if(rawBarData.length < 1 &&
       rawKitchenData.length < 1) {
@@ -45,11 +49,15 @@ export const getStaticProps = async () => {
 
   const parsedBarData = parseMenuItems(rawBarData);
   const parsedKitchenData = parseMenuItems(rawKitchenData);
+  const parsedSpecialData = parseMenuItems(rawSpecialData);
+  const parsedVeganData = parseMenuItems(rawVeganData);
 
   return {
     props:{
       barItems: parsedBarData,
       kitchenItems: parsedKitchenData,
+      specialItems: parsedSpecialData,
+      veganItems: parsedVeganData
     }
   }
 
