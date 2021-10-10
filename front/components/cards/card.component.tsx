@@ -20,7 +20,7 @@ interface IProps{
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: '350px',
+        width: '350px',
         height: 'fit-content',
         maxHeight: '500px',
         backgroundColor: 'black',
@@ -56,6 +56,7 @@ const useStyles = makeStyles({
         color: 'white',
         fontWeight: 600,
         marginRight: '10px',
+        marginTop: '10px',
     },
     actions: {
         justifyContent: 'center',
