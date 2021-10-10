@@ -31,7 +31,6 @@ export function SmallEventCard(props : IProps){
                 className={ styles.picture }
                 component="img"
                 alt="Some Musician"
-                height="120"
                 src={`data:${image.mimetype};base64,${image.data}`}
                 title={ title } />                
                 <CardContent className={ styles.cardContent }>

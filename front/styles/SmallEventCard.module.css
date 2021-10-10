@@ -7,7 +7,8 @@
 }
 
 .picture {
-  width: 220px;
+  min-height: 100px;
+  max-height: 150px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
