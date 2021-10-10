@@ -41,10 +41,10 @@ export const getLocalWeekDay = ( date : string | Date ) : string => {
 
 export const getLocalizedMonth = ( date : string | Date ) : string => {
     if(typeof date === 'string') {
-        return parseWeekDay( new Date(date).getMonth() );
+        return parseMonth( new Date(date).getMonth() );
     }
     else if ( date instanceof  Date) {
-        return parseWeekDay( date.getMonth() );
+        return parseMonth( date.getMonth() );
     }
     else throw new Error("Invalid Date Format");
 }
