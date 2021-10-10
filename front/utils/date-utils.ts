@@ -11,12 +11,40 @@ const parseWeekDay = (day : number)=> {
     }
 }
 
-export const getLocalWeekDay = ( date : string | Date ) => {
+const parseMonth = (month : number)=> {
+    switch(month){
+        case 1 : return 'Января';
+        case 2 : return 'Февраля';
+        case 3 : return 'Марта';
+        case 4 : return 'Апреля';
+        case 5 : return 'Мая';
+        case 6 : return 'Июня';
+        case 7 : return 'Июля';
+        case 8 : return 'Августа';
+        case 9 : return 'Сентября';
+        case 10 : return 'Октября';
+        case 11 : return 'Ноября';
+        case 12 : return 'Декабря';
+        default : throw new Error("Invalid Date Format")
+    }
+}
+
+export const getLocalWeekDay = ( date : string | Date ) : string => {
     if(typeof date === 'string') {
         return parseWeekDay( new Date(date).getDay() );
     }
     else if ( date instanceof  Date) {
         return parseWeekDay( date.getDay() );
+    }
+    else throw new Error("Invalid Date Format");
+}
+
+export const getLocalizedMonth = ( date : string | Date ) : string => {
+    if(typeof date === 'string') {
+        return parseMonth( new Date(date).getMonth() );
+    }
+    else if ( date instanceof  Date) {
+        return parseMonth( date.getMonth() );
     }
     else throw new Error("Invalid Date Format");
 }

@@ -1,3 +1,4 @@
+import { IEvent } from "../types/event/event.type";
 import { IMenuItem, IMenuItemGroup } from "../types/menu/menuItem.type";
 
 export function toCamelCase(value: string): string {
@@ -39,4 +40,8 @@ export function getJwtFromCookies(cookies: string){
     }
   }
   return "";
+}
+
+export function sortEventsByDate(events : IEvent[]) {
+  events.sort(( event1, event2 ) => new Date(event1.date).getTime() - new Date(event2.date).getTime());
 }

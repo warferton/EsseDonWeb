@@ -1,5 +1,6 @@
 import { IMenuItem } from '../types/menu/menuItem.type';
 import { IEvent, IEventGroups } from '../types/event/event.type';
+import { sortEventsByDate } from './parsing-utils';
 import axios from 'axios';
 
 const EVENT_API_URL='https://esse-api-test.herokuapp.com/api/v1/events/'
@@ -35,14 +36,19 @@ export async function fetchAllActiveEvents() : Promise<IEventFetchResult> {
         //split into groups
         if( event.group === "main") {
           mainGroupEvents.push(event);
+          generalGroupEvents.push(event);
         }
         else if( event.group === "second") {
           secondGroupEvents.push(event);
+          generalGroupEvents.push(event);
         }
         else {
           generalGroupEvents.push(event);
         }
       }); 
+    })
+    .then(res => {
+      sortEventsByDate(generalGroupEvents);
     })
     .catch(err => {
       console.error(err)
@@ -90,14 +96,19 @@ export async function fetchAllActiveEventsNoImageData() : Promise<IEventFetchRes
         //split into groups
         if( event.group === "main") {
           mainGroupEvents.push(event);
+          generalGroupEvents.push(event);
         }
         else if( event.group === "second") {
           secondGroupEvents.push(event);
+          generalGroupEvents.push(event);
         }
         else {
           generalGroupEvents.push(event);
         }
       }); 
+    })
+    .then(res => {
+      sortEventsByDate(generalGroupEvents);
     })
     .catch(err => {
       console.error(err)

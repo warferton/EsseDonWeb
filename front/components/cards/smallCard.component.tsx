@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import styles from '../../styles/SmallEventCard.module.css';
 import { IEvent, Image } from '../../types/event/event.type';
-import { getLocalWeekDay } from '../../utils/date-utils';
+import { getLocalizedMonth, getLocalWeekDay } from '../../utils/date-utils';
 
 
 interface IProps{
@@ -23,6 +23,7 @@ export function SmallEventCard(props : IProps){
     const { title, date, time } = event
     const image = event.image as Image;
     const weekDay = getLocalWeekDay(date);
+    const localisedDate = `${ new Date(date).getDate()+1 } ${ getLocalizedMonth(date) }`;
 
     return(
         <Card raised className={ styles.root } onClick={ () => router.push(`event/${event._id}`) } >
@@ -35,7 +36,7 @@ export function SmallEventCard(props : IProps){
                 title={ title } />                
                 <CardContent className={ styles.cardContent }>
                     <Typography component="h2" className={ styles.dateText }>
-                        { `${ date } ${ time } ${ weekDay }` }
+                        { `${ localisedDate } ${ time } ${ weekDay }` }
                     </Typography>
                     <Typography component="h2" className={ styles.titleText }>
                         { title }

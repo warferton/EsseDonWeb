@@ -11,7 +11,7 @@ import {
     makeStyles
 } from '@material-ui/core';
 import { IEvent, Image } from '../../types/event/event.type';
-import { getLocalWeekDay } from '../../utils/date-utils';
+import { getLocalizedMonth, getLocalWeekDay } from '../../utils/date-utils';
 
 
 interface IProps{
@@ -80,6 +80,7 @@ export function EventCard(props : IProps) {
     const { title, price, shortDescription, free, deposit, date, time } = event  
     const image = event.image as Image;
     const weekDay = getLocalWeekDay(date);
+    const localisedDate = `${ new Date(date).getDate()+1 } ${ getLocalizedMonth(date) }`;
     
     return (   
         <Card raised className={ styles.root }>
@@ -96,7 +97,7 @@ export function EventCard(props : IProps) {
                         { title }
                     </Typography>
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.dateText }>
-                        { `${ date } ${ time } ${ weekDay }` }
+                        { `${ localisedDate } ${ time } ${ weekDay }` }
                     </Typography>
                     <Chip 
                     label={ free === 'true' && !price ? 'Вход свободный' : `от ${ price }₽`}
