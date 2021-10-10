@@ -111,7 +111,6 @@ export const getServerSideProps = async () => {
       && result.mainGroupEvents.length < 1) {
         throw new Error("No Data Recieved From Server")
       }
-
     return {
         props: { ...result }
     };

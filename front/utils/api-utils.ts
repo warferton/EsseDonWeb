@@ -31,8 +31,18 @@ export async function fetchAllActiveEvents() : Promise<IEventFetchResult> {
   const generalGroupEvents : IEvent[] = [];
   await axios
   .get(EVENT_API_URL.concat("active"), { withCredentials: true })
-  .then( res => {
-    res.data.events.map( async (event : IEvent) => {
+  .then( async res => {
+    const events = res.data.events;
+    //sort events by date
+    sortEventsByDate(events);
+    //inject images
+    const eventsInjected = await Promise.all(
+      events.map(async (event : IEvent) => {
+          event.image = await fetchEventImage( event.image as string );
+          return event;
+      })
+    );
+    eventsInjected.map( async (event : IEvent) => {
         //split into groups
         if( event.group === "main") {
           mainGroupEvents.push(event);
@@ -47,9 +57,6 @@ export async function fetchAllActiveEvents() : Promise<IEventFetchResult> {
         }
       }); 
     })
-    .then(res => {
-      sortEventsByDate(generalGroupEvents);
-    })
     .catch(err => {
       console.error(err)
       return { 
@@ -58,30 +65,11 @@ export async function fetchAllActiveEvents() : Promise<IEventFetchResult> {
         generalGroupEvents
       }
     }) as IEventFetchResult;
-
-    const mainGroupEventsInjected = await Promise.all(
-        mainGroupEvents.map(async (event) => {
-            event.image = await fetchEventImage( event.image as string );
-            return event;
-        })
-    );
-    const secondGroupEventsInjected = await Promise.all(
-        secondGroupEvents.map(async (event) => {
-            event.image = await fetchEventImage( event.image as string );
-            return event;
-        })
-    );
-    const generalGroupEventsInjected = await Promise.all(
-        generalGroupEvents.map(async (event) => {
-            event.image = await fetchEventImage( event.image as string );
-            return event;
-        })
-    );
-
+    
     return { 
-      mainGroupEvents: mainGroupEventsInjected,
-      secondGroupEvents: secondGroupEventsInjected,
-      generalGroupEvents: generalGroupEventsInjected
+      mainGroupEvents,
+      secondGroupEvents,
+      generalGroupEvents
     };
 }
 
@@ -215,6 +203,6 @@ export async function fetchEventImage(imageId : string) {
     });
   } catch(err) {
     console.error(err);
-    return { mimetype: 'image/jpg', data: "none" }
+    return { mimetype: 'image/jpg', data: "none" };
   }
 }
