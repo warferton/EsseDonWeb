@@ -9,7 +9,7 @@ import {
     Typography, 
 } from '@material-ui/core';
 import styles from '../../styles/BigEventCard.module.css';
-import { getLocalWeekDay } from '../../utils/date-utils';
+import { getLocalWeekDay, getLocalizedMonth } from '../../utils/date-utils';
 import { IEvent, Image } from '../../types/event/event.type';
 
 
@@ -24,6 +24,7 @@ export function BigEventCard(props : IProps){
     const { event } = props;
     const { title, date, time } = event
     const image = event.image as Image;
+    const localisedDate = `${ new Date(date).getDate()+1 } ${ getLocalizedMonth(date) }`;
     const weekDay = getLocalWeekDay(date);
 
     return(
@@ -45,7 +46,7 @@ export function BigEventCard(props : IProps){
                         </Box>
                         <Box className={ styles.box }>
                             {
-                                [date, time, weekDay].map( item =>
+                                [localisedDate, time, weekDay].map( item =>
 
                                     <Typography 
                                     key={ `${item}`} 
