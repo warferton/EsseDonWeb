@@ -31,6 +31,13 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
     paddingLeft: '1rem',
     lineHeight: '10px',
   },
+  heading2: {
+    fontSize: '20px',
+    fontWeight: 600,
+    paddingTop: '3rem',
+    textAlign: 'center',
+    lineHeight: '10px',
+  },
   generalEvents: {
     display: 'grid',
     justifyContent: 'space-between',
@@ -85,7 +92,11 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
               }
             </CardSlider>
 
-            <Divider variant='fullWidth' orientation='horizontal' style={{ height: '5px', boxShadow: '0px 7px 5px #00000055' }}/>
+            <Divider variant='fullWidth' orientation='horizontal' style={{ height: '5px', background: 'white'}}/>
+
+            <Typography className = { styles.heading }>
+                Мероприятия в этом месяце
+            </Typography>
 
             <Container className={ styles.generalEvents }>
               { generalGroupEvents.map((event : IEvent) => 
