@@ -13,18 +13,18 @@ const parseWeekDay = (day : number)=> {
 
 const parseMonth = (month : number)=> {
     switch(month){
-        case 1 : return 'Января';
-        case 2 : return 'Февраля';
-        case 3 : return 'Марта';
-        case 4 : return 'Апреля';
-        case 5 : return 'Мая';
-        case 6 : return 'Июня';
-        case 7 : return 'Июля';
-        case 8 : return 'Августа';
-        case 9 : return 'Сентября';
-        case 10 : return 'Октября';
-        case 11 : return 'Ноября';
-        case 12 : return 'Декабря';
+        case 0 : return 'Января';
+        case 1 : return 'Февраля';
+        case 2 : return 'Марта';
+        case 3 : return 'Апреля';
+        case 4 : return 'Мая';
+        case 5 : return 'Июня';
+        case 6 : return 'Июля';
+        case 7 : return 'Августа';
+        case 8 : return 'Сентября';
+        case 9 : return 'Октября';
+        case 10 : return 'Ноября';
+        case 11 : return 'Декабря';
         default : throw new Error("Invalid Date Format")
     }
 }
