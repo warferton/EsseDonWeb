@@ -24,7 +24,7 @@ export function BigEventCard(props : IProps){
     const { event } = props;
     const { title, date, time } = event
     const image = event.image as Image;
-    const localisedDate = `${ new Date(date).getDate()+1 } ${ getLocalizedMonth(date) }`;
+    const localisedDate = `${ new Date(date).getDate() } ${ getLocalizedMonth(date) }`;
     const weekDay = getLocalWeekDay(date);
 
     return(

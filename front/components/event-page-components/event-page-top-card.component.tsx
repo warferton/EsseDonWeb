@@ -75,7 +75,7 @@ export function TopCard({ event }: IProps) {
     const { title, price, shortDescription, free, deposit, date, time, tcLink } = event;
     const image = event.image as Image;
     const weekDay = getLocalWeekDay(date);
-    const localisedDate = `${ new Date(date).getDate()+1 } ${ getLocalizedMonth(date) }`;
+    const localisedDate = `${ new Date(date).getDate() } ${ getLocalizedMonth(date) }`;
     const buttonLink = free === 'true' ? '#form-box' : tcLink;
     const styles = useStyles();
 

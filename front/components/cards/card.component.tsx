@@ -80,7 +80,7 @@ export function EventCard(props : IProps) {
     const { title, price, shortDescription, free, deposit, date, time } = event  
     const image = event.image as Image;
     const weekDay = getLocalWeekDay(date);
-    const localisedDate = `${ new Date(date).getDate()+1 } ${ getLocalizedMonth(date) }`;
+    const localisedDate = `${ new Date(date).getDate() } ${ getLocalizedMonth(date) }`;
     
     return (   
         <Card raised className={ styles.root }>
