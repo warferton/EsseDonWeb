@@ -36,7 +36,7 @@ const actions = [
   { icon: <MusicNoteIcon />, name: 'Афиша', url: '/' },
   { icon: <RestaurantMenuIcon />, name: 'Ресторан', url: '/menu' },
   { icon: <ContactIcon />, name: 'Контакты', url: '/contacts' },
-  { icon: <ImportContactsIcon />, name: 'О\&nbsp;Клубе', url: '/club'},
+  { icon: <ImportContactsIcon />, name: 'О\u00a0Клубе', url: '/club'},
 ];
 
 export function NavigationFab(props : any) {
