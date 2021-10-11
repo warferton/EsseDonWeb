@@ -11,7 +11,6 @@ import { NavigationFab } from '../components/navigation/navigation-fab.component
 import { IEvent } from '../types/event/event.type';
 import { Typography } from '@material-ui/core';
 import { Container } from '@material-ui/core';
-import { Divider } from '@material-ui/core';
 import { fetchAllActiveEvents } from '../utils/api-utils';
 
 
