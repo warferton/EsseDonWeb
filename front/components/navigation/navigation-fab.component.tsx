@@ -13,10 +13,6 @@ import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    tooltipStyle: {
-        fontSize: 11,
-        bottom: 0
-    },
     speedDial: {
       position: 'fixed',
       bottom: 30,
@@ -40,7 +36,7 @@ const actions = [
   { icon: <MusicNoteIcon />, name: 'Афиша', url: '/' },
   { icon: <RestaurantMenuIcon />, name: 'Ресторан', url: '/menu' },
   { icon: <ContactIcon />, name: 'Контакты', url: '/contacts' },
-  { icon: <ImportContactsIcon />, name: 'О Клубе', url: '/club'},
+  { icon: <ImportContactsIcon />, name: 'О\&nbsp;Клубе', url: '/club'},
 ];
 
 export function NavigationFab(props : any) {
@@ -60,7 +56,7 @@ export function NavigationFab(props : any) {
 
   return (
     <>
-      <Backdrop className={ classes.backdrop }open={ open } />
+      <Backdrop className={ classes.backdrop } open={ open } />
       <SpeedDial
         ariaLabel="Navigation menu tooltip"
         className={ classes.speedDial }
@@ -68,7 +64,7 @@ export function NavigationFab(props : any) {
         FabProps={{
             className:classes.speedDialIconed
         }}
-        direction='left'
+        direction='up'
         onClose={ handleClose }
         onOpen={ handleOpen }
         open={ open }
@@ -79,10 +75,8 @@ export function NavigationFab(props : any) {
             icon={ action.icon }
             onClick={ handleClose }
             tooltipTitle={ action.name }
-            tooltipPlacement='bottom'
-            TooltipClasses={{
-                tooltipPlacementBottom: classes.tooltipStyle
-            }}
+            tooltipPlacement='left'
+            tooltipOpen={ true }
             FabProps={{
                 size: 'large',
                 href: action.url

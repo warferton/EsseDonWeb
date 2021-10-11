@@ -85,7 +85,11 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
               }
             </CardSlider>
 
-            <Divider variant='fullWidth' orientation='horizontal' style={{ height: '5px', boxShadow: '0px 7px 5px #00000055' }}/>
+            { generalGroupEvents.length > 0 &&
+              <Typography className = { styles.heading }>
+                Мероприятия в этом месяце
+              </Typography>
+            }
 
             <Container className={ styles.generalEvents }>
               { generalGroupEvents.map((event : IEvent) => 

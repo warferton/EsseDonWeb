@@ -9,7 +9,7 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    marginTop: '0.25rem',
+    marginTop: '0.05rem',
   },
   stepper: {
     justifyContent: 'center',
