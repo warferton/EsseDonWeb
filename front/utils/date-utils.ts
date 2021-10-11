@@ -1,12 +1,12 @@
 const parseWeekDay = (day : number)=> {
     switch(day){
-        case 0 : return 'Пн';
-        case 1 : return 'Вт';
-        case 2 : return 'Ср';
-        case 3 : return 'Чт';
-        case 4 : return 'Пт';
-        case 5 : return 'Сб';
-        case 6 : return 'Вс';
+        case 0 : return 'Вс';
+        case 1 : return 'Пн';
+        case 2 : return 'Вт';
+        case 3 : return 'Ср';
+        case 4 : return 'Чт';
+        case 5 : return 'Пт';
+        case 6 : return 'Сб';
         default : throw new Error("Invalid Date Format")
     }
 }
