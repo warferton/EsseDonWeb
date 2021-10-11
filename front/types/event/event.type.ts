@@ -49,13 +49,13 @@ export interface IEventGroups {
 }
 
 export interface Image {
-    _id: string;
+    _id?: string;
     name: string;
     data: Blob;
     size: number;
     encoding: string;
-    tempFilePath: string;
-    truncated: boolean;
+    tempFilePath?: string;
+    truncated?: boolean;
     mimetype: string;
-    md5: string;
+    md5?: string;
 }

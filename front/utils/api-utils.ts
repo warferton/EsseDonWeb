@@ -117,13 +117,18 @@ export async function fetchAllArchivedEvents() : Promise<IEventFetchResult> {
   .get(ADMIN_API_URL.concat(ARCHIVED_EVENTS_PATH), { withCredentials: true })
   .then(res => 
     res.data.events.map((event : IEvent) => {
-      if( event.group === "main")
+      if( event.group === "main") {
         mainGroupEvents.push(event);
-      else if( event.group === "second")
-        secondGroupEvents.push(event);
-      else
         generalGroupEvents.push(event);
-      })
+      }
+      else if( event.group === "second") {
+        secondGroupEvents.push(event);
+        generalGroupEvents.push(event);
+      }
+      else {
+        generalGroupEvents.push(event);
+      }
+    })
   ).catch(err => console.error(err));
 
   return { 

@@ -124,10 +124,7 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                         >
                         <EventControlList childWrapper={ ListItem } controlFunction={ null }>
                             {
-                                generalGroupEvents
-                                    .concat(mainGroupEvents)
-                                    .concat(secondGroupEvents)
-                                    .map( event => event )
+                                generalGroupEvents.map( event => event )
                             }
                         </EventControlList>
                         </MenuAccordion>

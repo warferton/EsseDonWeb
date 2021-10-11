@@ -99,7 +99,7 @@ export function CreateEventForm(props: IProps) {
 
     const [isFreeEvent, setIsFreeEvent] = useState(free === 'true');
 
-    const [media, setMedia] = useState(null);
+    const [media, setMedia] = useState(image as any);
 
     const [openBackdrop, setOpenBackdrop] = useState(false);
 
@@ -117,6 +117,8 @@ export function CreateEventForm(props: IProps) {
         setMedia(fileData);
     }
 
+    console.log(image);
+    
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
     const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
@@ -280,7 +282,7 @@ export function CreateEventForm(props: IProps) {
                         />
                         { media ?
                             <Typography>
-                                { `Выбраный файл: ${ media.name }` }
+                                { `Выбраный файл: ${ media.name ? media.name : media }` }
                             </Typography>
                             :
                             <Typography className={ styles.redText }>

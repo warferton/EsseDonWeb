@@ -182,23 +182,14 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
 
 
 export const getServerSideProps = async () => {
-    const { mainGroupEvents : activeMain,
-            secondGroupEvents : activeSecond, 
-            generalGroupEvents : activeGeneral
-    } = await fetchAllActiveEventsNoImageData();
+    const { generalGroupEvents : activeEvents } = await fetchAllActiveEventsNoImageData();
 
-    const { mainGroupEvents : archivedMain ,
-            secondGroupEvents : archivedSecond, 
-            generalGroupEvents : archivedGeneral
-    } = await fetchAllArchivedEvents();
+    const { generalGroupEvents: archivedEvents } = await fetchAllArchivedEvents();
     
-    const activeEventsArray = activeMain.concat(activeSecond).concat(activeGeneral);
-    const archivedEventsArray = archivedMain.concat(archivedSecond).concat(archivedGeneral);
-
     return { 
         props: { 
-            activeEvents: activeEventsArray, 
-            archivedEvents: archivedEventsArray
+            activeEvents, 
+            archivedEvents
         }
     };
 }
