@@ -180,7 +180,7 @@ export function CreateEventForm(props: IProps) {
                     Object.entries(values).forEach(value => {
                         formData.append(value[0], value[1]?.toString());
                     })
-                    formData.set('media', media, media.name);
+                    formData.set('media', media);
                     formData.set('free', `${isFree.current}`)
 
                     if(isUpdate){
