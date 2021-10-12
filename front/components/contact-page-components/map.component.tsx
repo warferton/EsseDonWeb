@@ -21,7 +21,7 @@ export function MapBox(){
 
     const lng = 39.711977;
     const lat = 47.227510;
-    const zoom = 16.5;
+    const zoom = 13;
 
 
     useEffect(() => {
