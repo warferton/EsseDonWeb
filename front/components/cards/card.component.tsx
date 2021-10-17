@@ -83,7 +83,7 @@ export function EventCard(props : IProps) {
     const localisedDate = `${ new Date(date).getDate() } ${ getLocalizedMonth(date) }`;
     
     return (   
-        <Card raised className={ styles.root }>
+        <Card raised className={ styles.root } onClick={ () => router.push(`event/${event._id}`) }>
             <CardActionArea>
                 <CardMedia
                 component="img"
