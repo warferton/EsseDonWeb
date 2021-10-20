@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { Container, makeStyles } from '@material-ui/core';
-import { LogoHeader } from '../../components/headers/header.compenent';
 import { Footer } from '../../components/footer/footer.component';
 import { TopCard } from '../../components/event-page-components/event-page-top-card.component';
 import { FreeEventForm } from '../../components/event-page-components/freeBookingForm.component';
@@ -17,6 +16,7 @@ const useStyles = makeStyles({
     '@media (min-width: 684px)': {
       alignItems: 'center',
       maxWidth: '80%',
+      marginTop: '0.1rem'
     },
     maxWidth: '100%',
     padding: 0
@@ -38,29 +38,20 @@ export default function EventPage({event} : IProps) {
         <meta name="description" content={ event.shortDescription } />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      
-      <LogoHeader/>
 
-      <Container className={ classes.body }>
+        <Container className={ classes.body }>
 
-        <TopCard event={ event }/>
+          <TopCard event={ event }/>
 
-        <About description={ event.description } />
+          <About description={ event.description } />
 
-        <EventLineup lineup={ event.lineup }/>
+          <EventLineup lineup={ event.lineup }/>
 
-        {event.videoLink && <VideoPlayer videoLink={event.videoLink}/>}
+          { event.videoLink && <VideoPlayer videoLink={event.videoLink}/> }
 
-        {event.free === 'true' && <FreeEventForm event={ event }/>}
+          { event.free === 'true' && <FreeEventForm event={ event }/> }
 
-        { event.free === 'false' && 
-          <span 
-            data-tc-event-inline="615212ed69a7aa2da29c6d02" 
-            data-tc-token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSJ9.eyJwIjoiNjAzZTE0YzdhMWVmZDliZWY5OTM4MmI0In0.QysMNBusa-3tHBV49Uw-RxTNa9lj6MTaw-Z_mfFJjbw"
-          ></span>
-        }
-
-      </Container>
+        </Container>
 
       <Footer position='static'/>
     </>

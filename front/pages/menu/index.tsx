@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { LogoHeader } from '../../components/headers/header.compenent';
 import { Menu } from '../../components/menu/menu.component';
 import { fetchMenuItems } from '../../utils/api-utils';
 import { parseMenuItems } from '../../utils/parsing-utils';
@@ -22,8 +21,6 @@ export default function MenuPage(props : IProps) {
         <meta name="description" content="Джаз-Клуб ЭССЕ. Меню Ресторана" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <LogoHeader/>
 
       <Menu items={ props }/>
       

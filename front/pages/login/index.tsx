@@ -1,13 +1,10 @@
 import { LoginForm } from '../../components/authentication/login-form';
-import { LogoHeader } from '../../components/headers/header.compenent';
 
 
 export default function LoginPage() {
 
     return(
         <>
-            <LogoHeader/>
-
             <LoginForm/>
         </>
     );

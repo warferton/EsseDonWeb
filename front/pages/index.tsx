@@ -1,13 +1,11 @@
 import Head from 'next/head';
 import { makeStyles } from '@material-ui/core';
 import { CardSlider } from '../components/cards/slider/card-slider.component';
-import { LogoHeader } from '../components/headers/header.compenent';
 import { Footer } from '../components/footer/footer.component';
 import { BigEventCard } from '../components/cards/bigCard.component';
 import { EventCard } from '../components/cards/card.component';
 import { SmallEventCard } from '../components/cards/smallCard.component';
 import{ SwipeableStepper } from '../components/cards/carousel/carousel.component';
-import { NavigationFab } from '../components/navigation/navigation-fab.component'
 import { IEvent } from '../types/event/event.type';
 import { Typography } from '@material-ui/core';
 import { Container } from '@material-ui/core';
@@ -55,10 +53,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <LogoHeader/>
-
         <>
-          <NavigationFab>
             <SwipeableStepper>
               { 
                 mainGroupEvents.map((event : IEvent) => 
@@ -98,7 +93,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
                 )
               }
             </Container>
-          </NavigationFab>
+
           <Footer position='static'/>
         </>
     </>

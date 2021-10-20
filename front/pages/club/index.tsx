@@ -1,7 +1,6 @@
+import Head from 'next/head';
 import { Typography, makeStyles } from '@material-ui/core';
-import Head from 'next/head'
-import { LogoHeader } from '../../components/headers/header.compenent'
-import { Footer } from '../../components/footer/footer.component'
+import { Footer } from '../../components/footer/footer.component';
 
 const useStyles = makeStyles({
   root:{
@@ -44,8 +43,6 @@ export default function EventPage() {
           <meta name="История Джаз Клуба Эссе Дон" content="«Esse Jazz Club. Rostov» – это джазовый клуб и ресторан, открытый в марте 2021 года в городе Ростов-на-Дону." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-
-        <LogoHeader/>
 
         <>
 
