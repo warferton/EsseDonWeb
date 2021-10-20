@@ -10,6 +10,7 @@ import { IEvent } from '../types/event/event.type';
 import { Typography } from '@material-ui/core';
 import { Container } from '@material-ui/core';
 import { fetchAllActiveEvents } from '../utils/api-utils';
+import { motion } from 'framer-motion';
 
 
 interface IProps {
@@ -20,6 +21,13 @@ interface IProps {
 
 export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupEvents } : IProps) {
   const gridColumns = generalGroupEvents.length < 2 ? 1 : generalGroupEvents.length < 3 ? 2 : 3;
+
+  const animVariants = {
+    hidden: { opacity: 0 },
+    enter: { opacity: 1 },
+    exit: { opacity: 0 },
+  }
+
   const useStyles = makeStyles({
   heading: {
     fontSize: '20px',
@@ -53,7 +61,13 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-        <>
+        <motion.main
+          variants={ animVariants }
+          initial="hidden"
+          animate="enter"
+          exit="exit"
+          transition={{ type: 'linear' }}
+        >
             <SwipeableStepper>
               { 
                 mainGroupEvents.map((event : IEvent) => 
@@ -95,7 +109,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
             </Container>
 
           <Footer position='static'/>
-        </>
+        </motion.main>
     </>
 
   )

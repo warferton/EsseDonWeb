@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../theme/theme';
+import { AnimatePresence } from 'framer-motion';
 import { LogoHeader } from '../components/headers/header.compenent';
 import { AdminHeader } from '../components/headers/adminHeader.component';
 import { NavigationFab } from '../components/navigation/navigation-fab.component';
@@ -29,14 +30,18 @@ export default function MyApp(props : any) {
         <title>Эссе-Дон</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        { !isAdminPage ? <LogoHeader/> : <AdminHeader /> }
-        <NavigationFab>
-          <Component {...pageProps} />
-        </NavigationFab>
-      </ThemeProvider>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+            <AnimatePresence initial={ false } exitBeforeEnter >
+              <div key={ router.route }>
+                { !isAdminPage ? <LogoHeader/> : <AdminHeader /> }
+                <NavigationFab>
+                    <Component {...pageProps} key={ router.route }/>
+                </NavigationFab>
+              </div>
+            </AnimatePresence>
+        </ThemeProvider>
     </React.Fragment>
   );
 }

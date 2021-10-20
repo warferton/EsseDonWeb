@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { Typography, makeStyles } from '@material-ui/core';
 import { Footer } from '../../components/footer/footer.component';
+import { motion } from 'framer-motion';
 
 const useStyles = makeStyles({
   root:{
@@ -36,6 +37,12 @@ export default function EventPage() {
   
   const classes = useStyles();
 
+  const animVariants = {
+    hidden: { opacity: 0 },
+    enter: { opacity: 1 },
+    exit: { opacity: 0 },
+  }
+
     return (
       <>
         <Head>
@@ -44,7 +51,13 @@ export default function EventPage() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <>
+        <motion.div
+          variants={ animVariants }
+          initial="hidden"
+          animate="enter"
+          exit="exit"
+          transition={{ type: 'linear' }}
+        >
 
           <img src="images/club2.jpg" className={classes.image} alt="фото джаз клуба Эссе"/>
 
@@ -63,7 +76,7 @@ export default function EventPage() {
           </Typography>
           
           <Footer position='relative'/>
-        </>
+        </motion.div>
 
       </>
     )

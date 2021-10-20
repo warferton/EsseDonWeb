@@ -8,6 +8,7 @@ import { EventLineup } from '../../components/event-page-components/event-linup.
 import { VideoPlayer } from '../../components/event-page-components/event-videoPlayer.component';
 import { IEvent } from '../../types/event/event.type';
 import { getEventById } from '../../utils/api-utils';
+import { motion } from 'framer-motion';
 
 
 const useStyles = makeStyles({
@@ -30,31 +31,45 @@ interface IProps{
 export default function EventPage({event} : IProps) {
 
   const classes = useStyles();
+
+  const animVariants = {
+    hidden: { opacity: 0, x: 250, y:0 },
+    enter: { opacity: 1, x: 0, y: 0 },
+    exit: { opacity: 0, x: 200, y: 0 },
+  }
   
   return (
-    <>
+    <motion.main
+      variants={ animVariants }
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      transition={{ type: 'spring', damping: 15, bounce: 0.20 }}
+    >
       <Head>
         <title>{ event.title }</title>
         <meta name="description" content={ event.shortDescription } />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-        <Container className={ classes.body }>
 
-          <TopCard event={ event }/>
+      <Container className={ classes.body }>
 
-          <About description={ event.description } />
+        <TopCard event={ event }/>
 
-          <EventLineup lineup={ event.lineup }/>
+        <About description={ event.description } />
 
-          { event.videoLink && <VideoPlayer videoLink={event.videoLink}/> }
+        <EventLineup lineup={ event.lineup }/>
 
-          { event.free === 'true' && <FreeEventForm event={ event }/> }
+        { event.videoLink && <VideoPlayer videoLink={event.videoLink}/> }
 
-        </Container>
+        { event.free === 'true' && <FreeEventForm event={ event }/> }
+
+      </Container>
 
       <Footer position='static'/>
-    </>
+        
+    </motion.main>
   )
 }
 
