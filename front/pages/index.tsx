@@ -1,17 +1,16 @@
 import Head from 'next/head';
 import { makeStyles } from '@material-ui/core';
 import { CardSlider } from '../components/cards/slider/card-slider.component';
-import { LogoHeader } from '../components/headers/header.compenent';
 import { Footer } from '../components/footer/footer.component';
 import { BigEventCard } from '../components/cards/bigCard.component';
 import { EventCard } from '../components/cards/card.component';
 import { SmallEventCard } from '../components/cards/smallCard.component';
 import{ SwipeableStepper } from '../components/cards/carousel/carousel.component';
-import { NavigationFab } from '../components/navigation/navigation-fab.component'
 import { IEvent } from '../types/event/event.type';
 import { Typography } from '@material-ui/core';
 import { Container } from '@material-ui/core';
 import { fetchAllActiveEvents } from '../utils/api-utils';
+import { motion } from 'framer-motion';
 
 
 interface IProps {
@@ -22,6 +21,13 @@ interface IProps {
 
 export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupEvents } : IProps) {
   const gridColumns = generalGroupEvents.length < 2 ? 1 : generalGroupEvents.length < 3 ? 2 : 3;
+
+  const animVariants = {
+    hidden: { opacity: 0 },
+    enter: { opacity: 1 },
+    exit: { opacity: 0 },
+  }
+
   const useStyles = makeStyles({
   heading: {
     fontSize: '20px',
@@ -55,10 +61,13 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <LogoHeader/>
-
-        <>
-          <NavigationFab>
+        <motion.main
+          variants={ animVariants }
+          initial="hidden"
+          animate="enter"
+          exit="exit"
+          transition={{ type: 'linear' }}
+        >
             <SwipeableStepper>
               { 
                 mainGroupEvents.map((event : IEvent) => 
@@ -98,9 +107,9 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
                 )
               }
             </Container>
-          </NavigationFab>
+
           <Footer position='static'/>
-        </>
+        </motion.main>
     </>
 
   )

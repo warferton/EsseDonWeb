@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import Link  from 'next/link';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Backdrop from '@material-ui/core/Backdrop';
 import SpeedDial from '@material-ui/lab/SpeedDial';
@@ -33,10 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const actions = [
-  { icon: <MusicNoteIcon />, name: 'Афиша', url: '/' },
-  { icon: <RestaurantMenuIcon />, name: 'Ресторан', url: '/menu' },
-  { icon: <ContactIcon />, name: 'Контакты', url: '/contacts' },
-  { icon: <ImportContactsIcon />, name: 'О\u00a0Клубе', url: '/club'},
+  { icon: <Link href='/'><MusicNoteIcon /></Link>, name: 'Афиша' },
+  { icon: <Link href='/menu'><RestaurantMenuIcon /></Link>, name: 'Ресторан' },
+  { icon: <Link href='/contacts'><ContactIcon /></Link>, name: 'Контакты' },
+  { icon: <Link href='/club'><ImportContactsIcon /></Link>, name: 'О\u00a0Клубе' },
 ];
 
 export function NavigationFab(props : any) {
@@ -79,7 +80,6 @@ export function NavigationFab(props : any) {
             tooltipOpen={ true }
             FabProps={{
                 size: 'large',
-                href: action.url
             }}
             className={ classes.action }
           />
