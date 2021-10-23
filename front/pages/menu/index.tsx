@@ -1,9 +1,9 @@
 import Head from 'next/head';
-import { LogoHeader } from '../../components/headers/header.compenent';
 import { Menu } from '../../components/menu/menu.component';
 import { fetchMenuItems } from '../../utils/api-utils';
 import { parseMenuItems } from '../../utils/parsing-utils';
 import { IMenuItemGroup } from '../../types/menu/menuItem.type';
+import { motion } from 'framer-motion';
 
 
 interface IProps{
@@ -15,6 +15,12 @@ interface IProps{
 
 export default function MenuPage(props : IProps) {
 
+  const animVariants = {
+    hidden: { opacity: 0.4, y: 300, x: 0 },
+    enter: { opacity: 1, y: 0, x: 0 },
+    exit: { opacity: 0 , y: 100, x: 0 },
+  }
+
   return (
     <>
       <Head>
@@ -22,11 +28,18 @@ export default function MenuPage(props : IProps) {
         <meta name="description" content="Джаз-Клуб ЭССЕ. Меню Ресторана" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <LogoHeader/>
-
-      <Menu items={ props }/>
       
+      <motion.div
+          variants={ animVariants }
+          initial="hidden"
+          animate="enter"
+          exit="exit"
+          transition={{ type: 'spring', damping: 15, bounce: 0.50 }}
+      >
+
+        <Menu items={ props }/>
+
+      </motion.div>
     </>
   )
 }

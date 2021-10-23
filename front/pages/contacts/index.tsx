@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { LogoHeader } from '../../components/headers/header.compenent';
 import { AboutContact } from '../../components/contact-page-components/about.component';
 import { ArtistForm } from '../../components/contact-page-components/artist-form.component';
 import { MapBox } from '../../components/contact-page-components/map.component';
@@ -15,8 +14,6 @@ export default function EventPage() {
         <link rel="icon" href="/favicon.ico" />
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
       </Head>
-
-      <LogoHeader/>
 
       <MapBox/>
 

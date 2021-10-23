@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import { SetStateAction, useState, ChangeEvent, useEffect } from 'react';
-import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
 import { EventListItemButtons as ListItem } from '../../components/admin-components/list-components/list-item.component';
@@ -106,7 +105,6 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
 
-                <AdminHeader />
                 <Container className={ classes.root }>
                     <Container className={ classes.headerContainer}>
                         <Typography variant='h4' align='center'>

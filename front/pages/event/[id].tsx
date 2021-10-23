@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { Container, makeStyles } from '@material-ui/core';
-import { LogoHeader } from '../../components/headers/header.compenent';
 import { Footer } from '../../components/footer/footer.component';
 import { TopCard } from '../../components/event-page-components/event-page-top-card.component';
 import { FreeEventForm } from '../../components/event-page-components/freeBookingForm.component';
@@ -9,6 +8,7 @@ import { EventLineup } from '../../components/event-page-components/event-linup.
 import { VideoPlayer } from '../../components/event-page-components/event-videoPlayer.component';
 import { IEvent } from '../../types/event/event.type';
 import { getEventById } from '../../utils/api-utils';
+import { motion } from 'framer-motion';
 
 
 const useStyles = makeStyles({
@@ -17,6 +17,7 @@ const useStyles = makeStyles({
     '@media (min-width: 684px)': {
       alignItems: 'center',
       maxWidth: '80%',
+      marginTop: '0.1rem'
     },
     maxWidth: '100%',
     padding: 0
@@ -30,16 +31,27 @@ interface IProps{
 export default function EventPage({event} : IProps) {
 
   const classes = useStyles();
+
+  const animVariants = {
+    hidden: { opacity: 0, x: 250, y:0 },
+    enter: { opacity: 1, x: 0, y: 0 },
+    exit: { opacity: 0, x: 200, y: 0 },
+  }
   
   return (
-    <>
+    <motion.main
+      variants={ animVariants }
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      transition={{ type: 'spring', damping: 15, bounce: 0.20 }}
+    >
       <Head>
         <title>{ event.title }</title>
         <meta name="description" content={ event.shortDescription } />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      
-      <LogoHeader/>
+
 
       <Container className={ classes.body }>
 
@@ -49,21 +61,15 @@ export default function EventPage({event} : IProps) {
 
         <EventLineup lineup={ event.lineup }/>
 
-        {event.videoLink && <VideoPlayer videoLink={event.videoLink}/>}
+        { event.videoLink && <VideoPlayer videoLink={event.videoLink}/> }
 
-        {event.free === 'true' && <FreeEventForm event={ event }/>}
-
-        { event.free === 'false' && 
-          <span 
-            data-tc-event-inline="615212ed69a7aa2da29c6d02" 
-            data-tc-token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImlzcyI6InRpY2tldHNjbG91ZC5ydSJ9.eyJwIjoiNjAzZTE0YzdhMWVmZDliZWY5OTM4MmI0In0.QysMNBusa-3tHBV49Uw-RxTNa9lj6MTaw-Z_mfFJjbw"
-          ></span>
-        }
+        { event.free === 'true' && <FreeEventForm event={ event }/> }
 
       </Container>
 
       <Footer position='static'/>
-    </>
+        
+    </motion.main>
   )
 }
 

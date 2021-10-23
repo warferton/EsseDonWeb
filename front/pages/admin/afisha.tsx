@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router';
 import { SetStateAction, useState, ChangeEvent, useEffect } from 'react';
-import { AdminHeader } from '../../components/headers/adminHeader.component';
 import { MenuAccordion } from '../../components/menu/menu-accordion.component';
 import { EventControlList } from '../../components/admin-components/list-components/event-control-list.component';
 import { EventListItemSelector as ListItem} from '../../components/admin-components/list-components/list-item.component';
@@ -72,8 +71,6 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                     <meta name="description" content="EsseJazz-Don Admin Controls" />
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-
-                <AdminHeader/>
 
                 <motion.div
                 initial={{ 
