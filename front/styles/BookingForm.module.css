@@ -5,11 +5,17 @@
   max-width: 100% !important;
 }
 
-.header {
-  max-width: 100vw !important;
-  padding: 1rem;
-  background-color: black;
-  color: white;
+.headerBox {
+  padding: 0.7rem;
+  background-color: white;
+  color: black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.sectionHeader {
+  font-size: 24px !important;
+  font-weight: 500 !important;
 }
 
 .formBody {
@@ -33,12 +39,7 @@
 }
 
 .formButton {
-  background-image: conic-gradient(
-    from 45grad at 5% -3%,
-    #ff0000,
-    50grad,
-    #7b64ff
-  );
+  background: black !important;
   padding-top: 0.7rem !important;
   padding-bottom: 0.7rem !important;
   margin-top: 0.7rem !important;

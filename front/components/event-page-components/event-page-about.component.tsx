@@ -1,16 +1,21 @@
 import { Box, Typography, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
-    root:{
-        padding: '1rem',
-        backgroundColor: 'white',
-        borderTop: '0.25rem solid black',
+    sectionHeader: {
+        fontSize: '24px',
+        fontWeight: 500,
+        paddingBottom: '0.7rem',
     },
     text: {
         fontSize: '18px',
         lineHeight: '35px',
         fontWeight: 300,
-    }
+    },
+    container:{
+        padding: '1rem',
+        backgroundColor: 'white',
+        borderTop: '1px solid black',
+    },
 });
 
 interface IProps{
@@ -22,10 +27,15 @@ export function About({description} : IProps) {
     const classes = useStyles();
 
     return(
-        <Box className={ classes.root }>
-            <Typography paragraph className={ classes.text }>
-                { description }
-            </Typography>
-        </Box>
+        <>
+            <Box className={classes.container}>
+                <Typography className={ classes.sectionHeader }>
+                    О мероприятии
+                </Typography>
+                <Typography paragraph className={ classes.text }>
+                    { description }
+                </Typography>
+            </Box>
+        </>
     )
 }
