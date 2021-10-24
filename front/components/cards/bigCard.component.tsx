@@ -43,17 +43,15 @@ export function BigEventCard(props : IProps){
                                 { title }
                             </Typography>
                             {
-                                [localisedDate].map( item =>
-
                                     <Typography 
-                                    key={ `${item}`} 
+                                    key={ `${localisedDate}`} 
                                     component="h2" 
                                     className={ styles.dateText } 
                                     align='right'
                                     >
-                                        { item }
+                                        { localisedDate }
                                     </Typography>
-                            )}
+                            }
                         </Box>
                     </Grid>
                 </CardContent>
