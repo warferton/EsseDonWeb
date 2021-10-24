@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     root: {
         width: '320px',
         height: 'fit-content',
-        maxHeight: '600px',
+        maxHeight: '500px',
         backgroundColor: 'white',
         margin: '2rem auto 2rem auto',
         justifySelf:'center'
@@ -30,6 +30,9 @@ const useStyles = makeStyles({
     contentContainer: {
         backgroundColor: 'white',
         borderTop: '2px solid gray',
+        '@media (min-width: 600px)' : {
+            height: '15em',
+        }
     },
     text: {
         color: 'black',
