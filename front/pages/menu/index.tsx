@@ -44,7 +44,7 @@ export default function MenuPage(props : IProps) {
   )
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const rawBarData = await fetchMenuItems('bar');
   const rawKitchenData = await fetchMenuItems('kitchen');
   const rawSpecialData = await fetchMenuItems('special');
