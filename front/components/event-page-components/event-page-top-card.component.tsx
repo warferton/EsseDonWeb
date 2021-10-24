@@ -22,15 +22,16 @@ const useStyles = makeStyles({
     margin: 'auto',
   },
   contentContainer: {
-      backgroundColor: '#222222',
-      borderTop: '2px solid #101010'
+      backgroundColor: 'white',
+      borderTop: '2px solid grey'
   },
   text: {
-      color: 'white'
+      color: 'black'
   },
   titleText: {
       fontWeight: 500,
-      fontSize: '26px'
+      fontSize: '26px',
+      textTransform: 'uppercase'
   },
   shortDecriptionText: {
       marginTop: '10px',
@@ -39,18 +40,18 @@ const useStyles = makeStyles({
   },
   dateText: {
       fontWeight: 100,
-      fontSize: '16px'
+      fontSize: '16px',
+      textTransform: 'uppercase'
   },
   aboutText: {
       marginTop: '14px',
       display:' -webkit-box',
       overflow: 'hidden',
       lineClamp: 2,
-      boxOrient: 'vertical'
+      boxOrient: 'vertical',
   },
   chip: {
-      backgroundColor: '#FF2020',
-      color: 'white',
+      backgroundColor: 'white',
       fontWeight: 600,
       fontSize: '14px',
       marginRight: '10px',
@@ -58,15 +59,14 @@ const useStyles = makeStyles({
   },
   actions: {
     justifyContent: 'center',
-    backgroundColor: '#222222',
-    paddingTop: 0
+    backgroundColor: 'white',
+    paddingTop: 0,
   },
   button:{
-      borderRadius: '15px',
+      width: '100%',
       marginBottom: '0.45em',
-      background: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
-  }
-
+      background: 'black',
+  },
 });
 
 
@@ -77,6 +77,7 @@ export function TopCard({ event }: IProps) {
     const weekDay = getLocalWeekDay(date);
     const localisedDate = `${ new Date(date).getDate() } ${ getLocalizedMonth(date) }`;
     const buttonLink = free === 'true' ? '#form-box' : tcLink;
+    const buttonTitle = free === 'true' ? 'Забронировать' : 'Купить Билет';
     const styles = useStyles();
 
     return(
@@ -95,12 +96,12 @@ export function TopCard({ event }: IProps) {
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.dateText }>
                         { `${ localisedDate } ${ time } ${ weekDay }` }
                     </Typography>
-                    <Chip 
+                    <Chip variant="outlined" size="small"
                     label={ free === 'true' || !price ? 'Вход свободный' : `от ${ price }₽`}
                     className = { styles.chip }
                     />
                     { deposit && (
-                        <Chip 
+                        <Chip variant="outlined" size="small"
                         label={ `Депозит ${ deposit }₽` }
                         className = { styles.chip }
                         />)
@@ -118,7 +119,7 @@ export function TopCard({ event }: IProps) {
                 className={ styles.button }
                 href={ buttonLink }
                 >
-                    Забронировать
+                    { buttonTitle }
                 </Button>
             </CardActions>
         </Card>

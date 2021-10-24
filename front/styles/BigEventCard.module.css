@@ -1,8 +1,6 @@
 .root {
   max-width: 420px;
   border-radius: 0px !important;
-  border-bottom-left-radius: 20px !important;
-  border-bottom-right-radius: 20px !important;
   margin: auto !important;
   justify-self: center;
 }
@@ -22,16 +20,12 @@
 
 .dateText {
   font-size: 18px !important;
-  font-weight: 300 !important;
+  font-weight: 400 !important;
+  padding-top: 1rem;
+  text-transform: uppercase;
 }
 
 .cardContent {
-  background-image: conic-gradient(
-    from 45grad at 5% -3%,
-    #ff0000,
-    50grad,
-    #7b64ff
-  ) !important;
   padding: 0 !important;
 }
 
@@ -43,7 +37,7 @@
   color: white;
   padding: 1rem !important;
   width: 100%;
-  background: transparent !important;
+  background-color:#121212;
 }
 
 @media (min-width: 600px) {

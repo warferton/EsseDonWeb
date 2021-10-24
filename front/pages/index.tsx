@@ -80,7 +80,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
 
             { secondGroupEvents.length > 0 &&
               <Typography className = { styles.heading }>
-                Лучшее на этой неделе
+                В ближайшие дни
               </Typography>
             }
             

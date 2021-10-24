@@ -6,6 +6,8 @@ import { PhoneRegex, EmailRegex } from '../../regex/regex';
 import { SnackbarAlert } from '../alerts/snackbar.component';
 import { IEvent } from '../../types/event/event.type';
 import { getLocalWeekDay } from '../../utils/date-utils';
+import { FormatListNumberedRtl }from '@material-ui/icons';
+
 import axios from 'axios';
 
 import styles from '../../styles/BookingForm.module.css'
@@ -33,9 +35,9 @@ export function FreeEventForm({ event } : IProps) {
     return(
         <>
         <Container className={ styles.container } id='form-box'>
-            <Box>
-                <Typography variant='h6' className={ styles.header }>
-                    Забронировать
+            <Box className={styles.headerBox}>
+                <Typography className={ styles.sectionHeader }>
+                    Забронировать <FormatListNumberedRtl fontSize='large'style={{position: 'relative', top: '10px'}}/>
                 </Typography>
             </Box>
             <Box>

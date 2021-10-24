@@ -23,27 +23,30 @@ const useStyles = makeStyles({
         width: '320px',
         height: 'fit-content',
         maxHeight: '500px',
-        backgroundColor: 'black',
-        borderRadius: '15px',
+        backgroundColor: 'white',
         margin: '2rem auto 2rem auto',
         justifySelf:'center'
     },
     contentContainer: {
-        backgroundColor: '#222222',
-        borderTop: '2px solid #101010',
-        height: '15em',
+        backgroundColor: 'white',
+        borderTop: '2px solid gray',
+        '@media (min-width: 600px)' : {
+            height: '15em',
+        }
     },
     text: {
-        color: 'white',
+        color: 'black',
     },
     titleText: {
-        fontWeight: 500,
+        fontWeight: 1000,
         fontSize: '20px',
         lineClamp: 2,
+        textTransform: 'uppercase',
     },
     dateText: {
         fontWeight: 100,
-        fontSize: '14px',
+        fontSize: '15px',
+        textTransform: 'uppercase',
     },
     aboutText: {
         marginTop: '14px',
@@ -53,8 +56,7 @@ const useStyles = makeStyles({
         lineClamp: 3,
     },
     chip: {
-        backgroundColor: '#ff2020',
-        color: 'white',
+        color: 'black',
         fontWeight: 600,
         marginRight: '10px',
     },
@@ -63,12 +65,12 @@ const useStyles = makeStyles({
         alignItems: 'center',
         alignContent: 'center',
         textAlign: 'center',
-        backgroundColor: '#222222',
+        backgroundColor: 'white',
         paddingTop: 0,
     },
     button: {
-        borderRadius: '15px',
-        background: 'conic-gradient(from 45grad at 5% -3%, #ff0000, 50grad, #7b64ff)',
+        background: 'black',
+        width: '100%'
     },
 });
 
@@ -77,10 +79,12 @@ export function EventCard(props : IProps) {
     const router = useRouter();
     const styles = useStyles();
     const { event } = props;
-    const { title, price, shortDescription, free, deposit, date, time } = event  
+    const { title, price, shortDescription, free, deposit, date, time, tcLink } = event  
     const image = event.image as Image;
     const weekDay = getLocalWeekDay(date);
     const localisedDate = `${ new Date(date).getDate() } ${ getLocalizedMonth(date) }`;
+    const buttonLink = free === 'true' ? `event/${event._id}/#form-box` : tcLink;
+    const buttonTitle = free === 'true' ? 'Забронировать' : 'Купить Билет';
     
     return (   
         <Card raised className={ styles.root } onClick={ () => router.push(`event/${event._id}`) }>
@@ -99,16 +103,17 @@ export function EventCard(props : IProps) {
                     <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.dateText }>
                         { `${ localisedDate } ${ time } ${ weekDay }` }
                     </Typography>
-                    <Chip 
+                    <Chip variant = 'outlined' size = 'small'
                     label={ free === 'true' && !price ? 'Вход свободный' : `от ${ price }₽`}
                     className = { styles.chip}
                     />
                     { deposit && (
-                    <Chip 
+                    <Chip variant = 'outlined'  size = 'small'
                     label={ `Депозит ${ deposit }₽` }
                     className = { styles.chip}
                     />)
                     }
+                
                     <Typography variant="body2" color="textSecondary" className={ styles.text + ' ' + styles.aboutText } component="p">
                        { shortDescription }
                     </Typography>
@@ -120,9 +125,9 @@ export function EventCard(props : IProps) {
                 size="large" 
                 color="secondary"
                 className={ styles.button }
-                onClick={ () => router.push(`event/${event._id}`) }
+                onClick={ () => router.push(buttonLink) }
                 >
-                    Забронировать
+                    { buttonTitle }
                 </Button>
             </CardActions>
         </Card>
