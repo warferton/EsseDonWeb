@@ -160,3 +160,10 @@ export default function EventPage() {
     cols: 2,
   },
 ];
+
+export const getStaticProps = async () => {
+  return {
+    props: {},
+  }
+ }
+

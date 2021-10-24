@@ -30,9 +30,7 @@ const useStyles = makeStyles({
     contentContainer: {
         backgroundColor: 'white',
         borderTop: '2px solid gray',
-        '@media (min-width: 600px)' : {
-            height: '15em',
-        }
+        height: '15em',
     },
     text: {
         color: 'black',

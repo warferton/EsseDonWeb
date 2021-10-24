@@ -13,15 +13,20 @@
 }
 
 .titleText {
+  height: 50px;
   font-size: 18px !important;
   font-weight: 500 !important;
-  line-height: 21px !important;
+  line-height: 23px !important;
+  overflow: hidden !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .dateText {
   font-size: 18px !important;
   font-weight: 400 !important;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   text-transform: uppercase;
 }
 
@@ -37,7 +42,7 @@
   color: white;
   padding: 1rem !important;
   width: 100%;
-  background-color:#121212;
+  background-color: #121212;
 }
 
 @media (min-width: 600px) {
