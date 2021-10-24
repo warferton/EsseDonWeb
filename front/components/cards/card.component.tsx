@@ -39,9 +39,14 @@ const useStyles = makeStyles({
     },
     titleText: {
         fontWeight: 1000,
-        fontSize: '20px',
-        lineClamp: 2,
+        fontSize: '19px',
         textTransform: 'uppercase',
+        textOverflow: 'elipsis',
+        overflow: 'hidden',
+        boxOrient: 'vertical',
+        display: '-webkit-box',
+        lineClamp: 2,
+        maxHeight: '50px'
     },
     dateText: {
         fontWeight: 100,
@@ -49,7 +54,7 @@ const useStyles = makeStyles({
         textTransform: 'uppercase',
     },
     aboutText: {
-        marginTop: '14px',
+        marginTop: '10px',
         display: '-webkit-box',
         overflow: 'hidden',
         boxOrient: 'vertical',
