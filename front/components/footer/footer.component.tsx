@@ -24,13 +24,13 @@ export function Footer(props: IProps) {
         },
         motoText: {
             fontSize: '44px',
-            fontFamily: "Proxima Nova",
+            fontFamily: "Futura",
             color: 'white',
             margin: '10px',
         },
         motoDot: {
             fontSize: '44px',
-            fontFamily: "Proxima Nova",
+            fontFamily: "Futura",
             color: 'yellow',
         }
 
