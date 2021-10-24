@@ -4,9 +4,6 @@ import ReactPlayer from "react-player";
 
 const useStyles = makeStyles({
     headerBox:{
-        paddingTop: '0.2rem',
-        paddingLeft: '1.4rem',
-        paddingBottom: '0.7rem',
         backgroundColor: 'white',
         color: 'black',
         borderTop: '1px solid black',
@@ -17,8 +14,11 @@ const useStyles = makeStyles({
         color: 'black'
     },
     sectionHeader: {
+        paddingTop: '0.2rem',
+        paddingLeft: '1.4rem',
+        paddingBottom: '0.7rem',
         fontSize: '24px',
-        fontWeight: 500,
+        fontWeight: 'bold',
     },
 });
 

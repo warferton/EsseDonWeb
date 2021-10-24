@@ -28,8 +28,8 @@ export function ArtistForm() {
     return(
         <>
         <Container className={ styles.container }>
-            <Box>
-                <Typography variant='h6' className={ styles.header }>
+            <Box className={ styles.headerBox}>
+                <Typography variant='h6' className={ styles.sectionHeader }>
                     Заявка на выступление в Эссе
                 </Typography>
             </Box>
