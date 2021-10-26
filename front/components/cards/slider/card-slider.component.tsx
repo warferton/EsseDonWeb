@@ -11,7 +11,11 @@ const useStyles = makeStyles({
         overflow: 'scroll',
         scrollbarColor: 'transparent',
         height: 'fit-content',
-        maxWidth: '100%'
+        maxWidth: '100%',
+    },
+    cap: {
+        height: 'auto',
+        width: '2rem',
     }
 })
 
@@ -19,8 +23,9 @@ export function CardSlider(props : IProps){
     const { children } = props
     const classes = useStyles();
     return(
-        <Container classes={ classes }>
+        <Container className={ classes.root }>
             { children }
+            <div className={ classes.cap }>&nbsp;</div>
         </Container>
     )
 }

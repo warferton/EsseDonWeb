@@ -44,6 +44,12 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
     gridAutoRows: 'auto',
     gridGap: '0.5rem',
     '@media (max-width: 1240px)': {
+      display: 'grid',
+      justifyContent: 'space-between',
+      justifyItems: 'center',
+      gridTemplateColumns: `repeat(${ gridColumns }, 1fr)`,
+    },
+    '@media (max-width: 875px)': {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
