@@ -47,7 +47,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
       display: 'grid',
       justifyContent: 'space-between',
       justifyItems: 'center',
-      gridTemplateColumns: `repeat(${ gridColumns }, 1fr)`,
+      gridTemplateColumns: `repeat( 2, 1fr)`,
     },
     '@media (max-width: 875px)': {
       display: 'flex',
