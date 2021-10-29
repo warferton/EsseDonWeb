@@ -12,7 +12,7 @@ const useStyles = makeStyles({
         left: 0,
         width: '100%',
         height: '10vh',
-        border: '1.3px solid black',
+        border: '2.3px solid black',
         borderTopLeftRadius: '7px',
         borderTopRightRadius: '7px',
         boxShadow: '0px 0px 3px #404040',
@@ -23,23 +23,28 @@ const useStyles = makeStyles({
         fontWeight: 600,
         width: '100%',
         height: '100%',
-        display: 'flex'
+        display: 'flex',
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
     },
     button: {
+        padding: 0,
         color: '#FFFFFF',
         backgroundColor: '#000000',
         transition: '0.3s linear',
         '&:hover': {
             color: '#000000',
         },
-        borderRadius: 0,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
     },
     buttonActive: {
         color: '#000000',
         backgroundColor: '#FFFFFF',
-        transition: '0.3s linear',
+        transition: '0.15s linear',
         size: 1.1,
-        borderRadius: 0,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
     },
 });
 
@@ -66,43 +71,43 @@ export function NavigationSelector(props : any) {
         <>
             { children }
         <Container className={ classes.root }>
-            <ButtonGroup fullWidth className={ classes.buttonGroup }>
-                <Link href="/">
+            <ButtonGroup fullWidth variant='contained' className={ classes.buttonGroup }>
                     <Button 
                     fullWidth
                     onClick={ () => setCurrentPage('afisha') }
                     className={ buttonActive === 'afisha' ? classes.buttonActive : classes.button }
                     >
-                        Афиша
+                        <Link href="/">
+                            Афиша
+                        </Link>
                     </Button>
-                </Link>
-                <Link href="/menu">
                     <Button 
                     fullWidth
                     onClick={ () => setCurrentPage('menu') }
                     className={ buttonActive === 'menu' ? classes.buttonActive : classes.button }
                     >
-                        Ресторан
+                        <Link href="/menu">
+                                Ресторан
+                        </Link>
                     </Button>
-                </Link>
-                <Link href="/contacts">
                     <Button
                     fullWidth
                     onClick={ () => setCurrentPage('contacts') }
                     className={ buttonActive === 'contacts' ? classes.buttonActive : classes.button }
                     >
-                        Контакты
+                        <Link href="/contacts">
+                                Контакты
+                        </Link>
                     </Button>
-                </Link>
-                <Link href="/club">
                     <Button 
                     fullWidth
                     onClick={ () => setCurrentPage('club') }
                     className={ buttonActive === 'club' ? classes.buttonActive : classes.button }
                     >
-                        О&nbsp;Клубе
+                    <Link href="/club">
+                            О&nbsp;Клубе
+                    </Link>
                     </Button>
-                </Link>
             </ButtonGroup>
         </Container>
         </>
