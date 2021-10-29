@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Link  from 'next/link';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Backdrop from '@material-ui/core/Backdrop';

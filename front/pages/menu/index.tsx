@@ -4,6 +4,7 @@ import { fetchMenuItems } from '../../utils/api-utils';
 import { parseMenuItems } from '../../utils/parsing-utils';
 import { IMenuItemGroup } from '../../types/menu/menuItem.type';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 
 
 interface IProps{
@@ -14,6 +15,10 @@ interface IProps{
 }
 
 export default function MenuPage(props : IProps) {
+
+  useEffect(()=> {
+    localStorage.setItem("EsseCurentPageName", "menu");
+  })
 
   const animVariants = {
     hidden: { opacity: 0.4, y: 300, x: 0 },
@@ -30,6 +35,7 @@ export default function MenuPage(props : IProps) {
       </Head>
       
       <motion.div
+          style={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}
           variants={ animVariants }
           initial="hidden"
           animate="enter"
@@ -38,7 +44,6 @@ export default function MenuPage(props : IProps) {
       >
 
         <Menu items={ props }/>
-
       </motion.div>
     </>
   )

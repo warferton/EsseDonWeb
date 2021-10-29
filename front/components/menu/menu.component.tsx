@@ -107,7 +107,7 @@ export function Menu({ items } : IProps ) {
           {
             specialItems.map((group : IMenuItemGroup) => {
               return(
-                <MenuSection title={ group.name }>
+                <MenuSection title={ group.name } key={ group.name }>
                   {
                     group.items.map((item : IMenuItem) => {
                       return(
@@ -135,7 +135,7 @@ export function Menu({ items } : IProps ) {
           {
             veganItems.map((group : IMenuItemGroup) => {
               return(
-                <MenuSection title={ group.name }>
+                <MenuSection title={ group.name } key={ group.name }>
                   {
                     group.items.map((item : IMenuItem) => {
                       return(

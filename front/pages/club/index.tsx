@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Head from 'next/head';
 import { Box, Typography, ImageList, ImageListItem, makeStyles } from '@material-ui/core';
 import { Footer } from '../../components/footer/footer.component';
@@ -63,7 +64,11 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
   };
 }
 
-export default function EventPage() {
+export default function ClubInfoPage() {
+  
+  useEffect(()=> {
+    localStorage.setItem("EsseCurentPageName", "club");
+  })
   
   const classes = useStyles();
 
