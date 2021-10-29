@@ -37,6 +37,18 @@ const useStyles = makeStyles({
         },
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
+        '@media (max-width: 350px)': {
+            fontSize: 11,
+        },
+        '@media (min-width: 375px)': {
+            fontSize: 14,
+        },
+        '@media (min-width: 1000px)': {
+            fontSize: 16,
+        },
+        '@media (min-width: 1800px)': {
+            fontSize: 20,
+        },
     },
     buttonActive: {
         color: '#000000',
