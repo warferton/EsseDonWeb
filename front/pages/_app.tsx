@@ -15,8 +15,8 @@ export default function MyApp(props : any) {
   const { Component, pageProps } = props;
   const router = useRouter();
   const isAdminPage = router.route.includes("admin") || router.route.includes("login");
-  const isWhiteBackground = router.route.includes("menu") || isAdminPage;
-  const divColor = isWhiteBackground ? '#FFFFFF' : '#000000';
+  const isWhiteBackground = router.route.includes("menu") || router.route.includes("event") || isAdminPage;
+  const divColor = isWhiteBackground ? '#FFFFFF' : '#121212';
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
