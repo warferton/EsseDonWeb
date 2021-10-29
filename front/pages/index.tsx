@@ -11,6 +11,7 @@ import { Typography } from '@material-ui/core';
 import { Container } from '@material-ui/core';
 import { fetchAllActiveEvents } from '../utils/api-utils';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 
 
 interface IProps {
@@ -20,6 +21,11 @@ interface IProps {
 }
 
 export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupEvents } : IProps) {
+  
+  useEffect(()=> {
+    localStorage.setItem("EsseCurentPageName", "afisha");
+  })
+
   const gridColumns = generalGroupEvents.length < 2 ? 1 : generalGroupEvents.length < 3 ? 2 : 3;
 
   const animVariants = {
@@ -29,6 +35,9 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
   }
 
   const useStyles = makeStyles({
+  body: {
+    backgroundColor: '#FFFFFF'
+  },
   heading: {
     fontSize: '20px',
     fontWeight: 600,
@@ -68,6 +77,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
       </Head>
 
         <motion.main
+          className={ styles.body }
           variants={ animVariants }
           initial="hidden"
           animate="enter"

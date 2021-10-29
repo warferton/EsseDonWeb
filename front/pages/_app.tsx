@@ -9,12 +9,14 @@ import theme from '../theme/theme';
 import { AnimatePresence } from 'framer-motion';
 import { LogoHeader } from '../components/headers/header.compenent';
 import { AdminHeader } from '../components/headers/adminHeader.component';
-import { NavigationFab } from '../components/navigation/navigation-fab.component';
+import { NavigationSelector } from '../components/navigation/navigation-selector.component';
 
 export default function MyApp(props : any) {
   const { Component, pageProps } = props;
   const router = useRouter();
-  const isAdminPage = router.route.includes("admin");
+  const isAdminPage = router.route.includes("admin") || router.route.includes("login");
+  const isWhiteBackground = router.route.includes("menu") || isAdminPage;
+  const divColor = isWhiteBackground ? '#FFFFFF' : '#000000';
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -31,16 +33,24 @@ export default function MyApp(props : any) {
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
         <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-            <AnimatePresence initial={ false } exitBeforeEnter >
-              <div key={ router.route }>
-                { !isAdminPage ? <LogoHeader/> : <AdminHeader /> }
-                <NavigationFab>
-                    <Component {...pageProps} key={ router.route }/>
-                </NavigationFab>
-              </div>
-            </AnimatePresence>
+          { isAdminPage ? 
+              <>
+                <AdminHeader /> 
+                <Component {...pageProps} key={ router.route }/>
+              </>
+              :
+              <AnimatePresence initial={ false } exitBeforeEnter >
+                  <div key={ router.route } style={{ backgroundColor: divColor, position: 'relative', zIndex:100 }}>
+                      <>
+                        <LogoHeader/> 
+                        <NavigationSelector>
+                            <Component {...pageProps} key={ router.route }/>
+                        </NavigationSelector>
+                      </>
+                  </div>
+              </AnimatePresence>
+          }
         </ThemeProvider>
     </React.Fragment>
   );

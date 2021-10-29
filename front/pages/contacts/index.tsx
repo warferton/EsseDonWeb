@@ -1,10 +1,16 @@
 import Head from 'next/head';
+import { useEffect } from 'react';
 import { AboutContact } from '../../components/contact-page-components/about.component';
 import { ArtistForm } from '../../components/contact-page-components/artist-form.component';
 import { MapBox } from '../../components/contact-page-components/map.component';
 import { Footer } from '../../components/footer/footer.component';
 
-export default function EventPage() {
+export default function ContactsPage() {
+
+  useEffect(()=> {
+    localStorage.setItem("EsseCurentPageName", "contacts");
+  })
+  
 
   return (
     <>
