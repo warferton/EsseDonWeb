@@ -35,10 +35,10 @@ export default function MyApp(props : any) {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           { isAdminPage ? 
-              <>
+              <div style={{ backgroundColor: '#FFFFFF', position: 'relative', zIndex:100, minHeight: '100vh', }}>
                 <AdminHeader /> 
                 <Component {...pageProps} key={ router.route }/>
-              </>
+              </div>
               :
               <AnimatePresence initial={ false } exitBeforeEnter >
                   <div key={ router.route } style={{ backgroundColor: divColor, position: 'relative', zIndex:100 }}>
