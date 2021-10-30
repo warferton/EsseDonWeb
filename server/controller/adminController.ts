@@ -94,11 +94,11 @@ export default class EventsController{
      * @param req 
      * @param res 
      */
-    static async deleteEvent(req: any, res : any){
+    static async deleteEvents(req: any, res : any){
         try{
 
             const event = req.body;
-            const EventResponse = await EventDao.deleteEvent( event );
+            const EventResponse = await EventDao.deleteEvents( event );
 
             res.status(200).send(EventResponse);
         } catch(error : any) {

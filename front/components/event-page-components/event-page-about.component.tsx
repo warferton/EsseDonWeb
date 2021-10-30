@@ -4,15 +4,16 @@ const useStyles = makeStyles({
     sectionHeader: {
         fontSize: '24px',
         fontWeight: 500,
-        paddingBottom: '0.7rem',
+        padding: '0.7rem',
+        borderBottom: '1px solid black',
     },
     text: {
+        padding: '1rem',
         fontSize: '18px',
         lineHeight: '35px',
         fontWeight: 300,
     },
     container:{
-        padding: '1rem',
         backgroundColor: 'white',
         borderTop: '1px solid black',
     },

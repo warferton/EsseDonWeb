@@ -44,6 +44,27 @@ export function EventControlList(props : IProps) {
 
     const { childWrapper: Wrapper, children, controlFunction, noButton } = props;
 
+    const [openBackdrop, setOpenBackdrop] = useState(false);
+
+    const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
+    const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
+
+    const deleteIdList : string[] = [];
+    const addToDeleteList = (id : string) => {
+        if (!deleteIdList.includes(id)) {
+            deleteIdList.push(id);
+            console.log("PUSHED : " + id);
+            console.log("DELETELIST = " + deleteIdList);
+        }
+    }
+    const removeFromDeleteList = (id : string) => {
+        if (deleteIdList.includes(id)) {
+            const index = deleteIdList.indexOf(id);
+            console.log('REMOVED ID :' + deleteIdList.splice(index, 1));
+            console.log("DELETELIST = " + deleteIdList);
+        }
+    }
+
     const childEvents = children.map( (event: IEvent) => {
         const labelId = `selector-list-secondary-label-${event.title}`;
         return (
@@ -53,19 +74,17 @@ export function EventControlList(props : IProps) {
             id={ labelId } 
             handleOpen={ controlFunction }
             archived={ !event.active }
+            addToDeleteList={ addToDeleteList }
+            removeFromDeleteList={ removeFromDeleteList }
             />
         );
     })
 
-    const [openBackdrop, setOpenBackdrop] = useState(false);
-
-    const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
-    const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
-
     const eventsUpdateLink = 'https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/events/update/switchDb';
+    const eventsDeleteLink = 'https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/events/delete';
 
     const SUCCESS_MESSAGE = 'Событие успешно обновлено';
-    let ERROR_MESSAGE = `Произошла ошибка: `;
+    let ERROR_MESSAGE = ``;
 
     const classes = useStyles();
 
@@ -82,15 +101,32 @@ export function EventControlList(props : IProps) {
                 .then(res => {
                     if(res.status === 200) {
                         setOpenSuccessSnackbar( true );
-                        setOpenBackdrop(false);
                     }
                 })
-                .then(() => setSubmitting(false))
+                .then(() => {
+                    if (deleteIdList.length > 0) {
+                        axios.post(eventsDeleteLink, deleteIdList, {withCredentials: true})
+                            .then((res) => {
+                                if(res.status === 200) {
+                                    setOpenSuccessSnackbar( true );
+                                }
+                            }).catch((err) => {
+                                setOpenBackdrop(false);
+                                console.error(err); 
+                                ERROR_MESSAGE = 'Произошла ошибка: '.concat(err?.name);
+                                setOpenErrorSnackbar( true );
+                            });
+                    }
+                })
+                .then(() => { 
+                    setOpenBackdrop(false);
+                    setSubmitting(false) 
+                })
                 .then(() => window.location.reload())
                 .catch( err => {
                     setOpenBackdrop(false);
                     console.error(err); 
-                    ERROR_MESSAGE.concat(err?.name);
+                    ERROR_MESSAGE = 'Произошла ошибка: '.concat(err?.name);
                     setOpenErrorSnackbar( true );
                 });    
         }}

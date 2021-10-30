@@ -188,10 +188,14 @@ export default class EventDbClient{
 
     /**
      * @status READY
+     * delete only the are archived events
      */
-    static async deleteEvent(event: IEvent){
-        const { _id, active } = event;
-        return active ? this.deleteActiveEvent(_id) : this.deleteArchvedEvent(_id);
+    static async deleteEvents(eventIds: string[]){
+        const results = [];
+        for(const id of eventIds){
+            results.push(this.deleteArchvedEvent(id));
+        }
+        return results;
     }
 
     /**

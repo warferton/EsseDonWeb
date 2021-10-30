@@ -61,7 +61,7 @@ export default function EventPage({event} : IProps) {
 
         <EventLineup lineup={ event.lineup }/>
 
-        { event.videoLink && <VideoPlayer videoLink={event.videoLink}/> }
+        { event.videoLink && <VideoPlayer videoLink={ event.videoLink }/> }
 
         { event.free === 'true' && <FreeEventForm event={ event }/> }
 

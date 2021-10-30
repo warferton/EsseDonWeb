@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Container, ButtonGroup, Button, makeStyles } from '@material-ui/core';
-import  Link  from 'next/link';
 
 const useStyles = makeStyles({
     root: {
@@ -86,39 +85,35 @@ export function NavigationSelector(props : any) {
             <ButtonGroup fullWidth variant='contained' className={ classes.buttonGroup }>
                     <Button 
                     fullWidth
+                    href="/"
                     onClick={ () => setCurrentPage('afisha') }
                     className={ buttonActive === 'afisha' ? classes.buttonActive : classes.button }
                     >
-                        <Link href="/">
-                            Афиша
-                        </Link>
+                        Афиша
                     </Button>
                     <Button 
                     fullWidth
+                    href='/menu'
                     onClick={ () => setCurrentPage('menu') }
                     className={ buttonActive === 'menu' ? classes.buttonActive : classes.button }
                     >
-                        <Link href="/menu">
-                                Ресторан
-                        </Link>
+                        Ресторан
                     </Button>
                     <Button
                     fullWidth
+                    href='/contacts'
                     onClick={ () => setCurrentPage('contacts') }
                     className={ buttonActive === 'contacts' ? classes.buttonActive : classes.button }
                     >
-                        <Link href="/contacts">
-                                Контакты
-                        </Link>
+                        Контакты
                     </Button>
                     <Button 
                     fullWidth
+                    href='/club'
                     onClick={ () => setCurrentPage('club') }
                     className={ buttonActive === 'club' ? classes.buttonActive : classes.button }
                     >
-                    <Link href="/club">
-                            О&nbsp;Клубе
-                    </Link>
+                        О&nbsp;Клубе
                     </Button>
             </ButtonGroup>
         </Container>

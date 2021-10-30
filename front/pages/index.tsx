@@ -39,11 +39,14 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
     backgroundColor: '#FFFFFF'
   },
   heading: {
+    marginTop: '1rem',
+    padding: '1.3rem',
+    paddingLeft: '2rem',
     fontSize: '20px',
     fontWeight: 600,
-    paddingTop: '2rem',
-    paddingLeft: '1rem',
     lineHeight: '10px',
+    borderTop: '1px solid black',
+    borderBottom: '1px solid black',
   },
   generalEvents: {
     display: 'grid',

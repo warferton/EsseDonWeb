@@ -35,7 +35,7 @@ router.route('/events/update/switchDb').put(extractJWT).put(AdminController.upda
 /**
  * Delete Event
  */
-router.route('/events/delete').delete(extractJWT).delete(AdminController.deleteEvent);
+router.route('/events/delete').post(extractJWT).post(AdminController.deleteEvents);
 
 
 /**

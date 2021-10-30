@@ -19,7 +19,13 @@ const useStyles = makeStyles({
         paddingBottom: '0.7rem',
         fontSize: '24px',
         fontWeight: 'bold',
+        borderTop: '1px solid black',
+        borderBottom: '1px solid black',
     },
+    icon: { 
+        position: 'relative',
+        top: '10px'
+    }
 });
 
 interface IProps{
@@ -33,15 +39,15 @@ export function VideoPlayer({videoLink} : IProps) {
     return(
         <>
             <Box className={ classes.headerBox }>
-                <Typography className={ classes.sectionHeader}>
+                <Typography className={ classes.sectionHeader }>
                     Видео
-                    <TheatersOutlined fontSize='large' style={{position: 'relative', top: '10px'}}/>
+                    <TheatersOutlined fontSize='large' className={ classes.icon }/>
                 </Typography>
                 
             </Box> 
-            <Box className={ classes.container}>
+            <Box className={ classes.container }>
                 <ReactPlayer
-                    height="200px"
+                    height="300px"
                     width="100%"
                     url={videoLink}
                 />

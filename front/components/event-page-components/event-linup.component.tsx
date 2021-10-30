@@ -4,15 +4,20 @@ const useStyles = makeStyles({
     sectionHeader: {
         fontSize: '24px',
         fontWeight: 500,
-        paddingBottom: '0.7rem',
+        padding: '0.7rem',
+        borderTop: '1px solid black',
+        borderBottom: '1px solid black',
     },
     lineupText: {
+        paddingLeft: '1rem',
+        paddingRight: '1rem',
+        margin:'0.5rem',
         fontSize: '18px',
         lineHeight: '35px',
         fontWeight: 300,
     },
     container: {
-        padding: '1.2rem',
+        paddingBottom: '1rem',
         backgroundColor: 'white',
         color: 'black'
     }
@@ -30,7 +35,7 @@ export function EventLineup({lineup} : IProps) {
         <>
             <Box className={ classes.container}>
                     <Typography className={ classes.sectionHeader }>
-                        Состав:
+                        Состав
                     </Typography>
                     { 
                         lineup.map( person => 

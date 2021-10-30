@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import ArchiveIcon from '@material-ui/icons/Archive';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Settings from '@material-ui/icons/Settings';
 import Backup from '@material-ui/icons/Backup';
 import { IEvent } from '../../../types/event/event.type';
@@ -58,30 +59,54 @@ interface IButtonsProps {
     archived: boolean;
     id: string;
     handleOpen: Dispatch<any>;
+    addToDeleteList: any;
+    removeFromDeleteList: any;
 }
 
 export function EventListItemButtons(props : IButtonsProps) {
 
-    const { event, id, archived, handleOpen } = props; 
+    const [isToDelete, setToDelete] = useState(false);
+
+    const { event, id, archived, handleOpen, addToDeleteList, removeFromDeleteList } = props; 
 
     const { active } = event;
 
-    const [buttonActive, setButtonActive] = useState(false);
+    const [isToUpdate, setToUpdate] = useState(false);
 
-    const [buttonColour, setButtonColour] : [PropTypes.Color, Dispatch<SetStateAction<PropTypes.Color>>] = useState('default');
+    const [cloudButtonColour, setCloudButtonColour] : [PropTypes.Color, Dispatch<SetStateAction<PropTypes.Color>>] = useState('default');
+
+    const [deleteButtonColour, setDeleteButtonColour] : [PropTypes.Color, Dispatch<SetStateAction<PropTypes.Color>>] = useState('default');
 
     const handleSwitchDb = () => {
-        setButtonActive(!buttonActive);
+        if (isToDelete) {
+            handleDelete();
+        }
+        setToUpdate(!isToUpdate);
         event.active = !active;        
         if(event.active && archived) {
-            setButtonColour('primary');
-        } else if(event.active && !archived) {
-            setButtonColour('default');
-        } else if(!event.active && archived) {
-            setButtonColour('default');
+            setCloudButtonColour('primary');
+        } else if (event.active && !archived) {
+            setCloudButtonColour('default');
+        } else if (!event.active && archived) {
+            setCloudButtonColour('default');
         }
         else {
-            setButtonColour('primary');
+            setCloudButtonColour('primary');
+        }
+    }
+
+    const handleDelete = () => {
+        if (isToUpdate) {
+            handleSwitchDb();
+        }
+        if (isToDelete) {
+            removeFromDeleteList(event._id);
+            setToDelete(false);
+            setDeleteButtonColour('default');
+        } else {
+            addToDeleteList(event._id);
+            setToDelete(true);
+            setDeleteButtonColour('primary');
         }
     }
 
@@ -97,8 +122,11 @@ export function EventListItemButtons(props : IButtonsProps) {
                 <IconButton onClick={ handleClickOpen }>
                     <Settings/>
                 </IconButton>
-                <IconButton onClick={ handleSwitchDb } color={ buttonColour }>
+                <IconButton onClick={ handleSwitchDb } color={ cloudButtonColour }>
                     {archived ?  <Backup/> : <ArchiveIcon/>}
+                </IconButton>
+                <IconButton onClick={ handleDelete } color={ deleteButtonColour }>
+                   <DeleteIcon/>
                 </IconButton>
             </ButtonGroup>
             </ListItemSecondaryAction>
