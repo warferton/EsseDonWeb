@@ -45,10 +45,10 @@ export default class MailingDao {
     static async doubleSend (mailToClient : any, mailToServer: any) {
         console.log('Sending email to client\'s address');
         await mailer.send(mailToClient)
-        .then( res => console.log(`Email sent to ${mailToServer.to}`))
+        .then( res => console.log(`Email sent to ${mailToClient.to}`))
         .catch(err => {
             const error = new Error(err.message);
-            console.log(`Failed sending email to ${mailToServer.to}`);
+            console.log(`Failed sending email to ${mailToClient.to}`);
             throw error;
         });
         console.log('Sending email to our address');

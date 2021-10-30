@@ -19,7 +19,7 @@ router.route('/events/create').post(extractJWT).post(MediaDao.uploadMedia).post(
 /**
  * Update Event
  */
-router.route('/events/update').put(extractJWT).put(MediaDao.uploadMedia).put(AdminController.updateEvent);
+router.route('/events/update').put(extractJWT).put(MediaDao.updateEventMediaHandler).put(AdminController.updateEvent);
 
 /**
  * Update Groups of Active Events
@@ -27,13 +27,12 @@ router.route('/events/update').put(extractJWT).put(MediaDao.uploadMedia).put(Adm
 router.route('/events/update/group').put(extractJWT).put(AdminController.updateEventGroup);
 
 /**
- * @deprecated
  * Switch DBs for Events
  */
 router.route('/events/update/switchDb').put(extractJWT).put(AdminController.updateEventSwitchDb);
 
 /**
- * Delete Event
+ * Delete Events
  */
 router.route('/events/delete').post(extractJWT).post(AdminController.deleteEvents);
 
@@ -75,7 +74,7 @@ router.route('/events/delete/archived').delete(extractJWT).delete(AdminControlle
  */
 router.route('/events/delete/active').delete(extractJWT).delete(AdminController.deleteActiveEvent);
 
-/* ==============  MENU ============== */
+/* ============== MENU ============== */
 
 // Create Menu Item
 router.route('/menu/create').post(extractJWT).post(AdminController.createMenuItem);
@@ -87,9 +86,10 @@ router.route('/menu/update').put(extractJWT).put(AdminController.updateMenuItem)
 // Delete Menu Item
 router.route('/menu/delete').delete(extractJWT).delete(AdminController.deleteMenuItem);
 
-
 //special 
 router.route('/menu/kitchen/many').post(extractJWT).post(AdminController.createMany);
+
+/* ============== MEDIA ============== */
 
 //media get
 router.route('/media/:mediaId').get(AdminController.getMediaFile);

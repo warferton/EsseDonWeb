@@ -7,21 +7,8 @@ const router = express.Router();
 router.route('/all').get(MenuController.getAllMenuItems);
 
 
-// // Get All Items in the Bar or Kitchen menu
-router.route('/:category').get((req, res) => {
-
-    const category = req.params.category;
-
-    if(category === 'bar'){
-       return MenuController.getAllBarItems(req, res);
-    }
-    else if (category === 'kitchen'){
-        return MenuController.getAllKitchenItems(req, res);
-    }
-    else{
-        return res.status(404).send({error: 'Bad Request'})
-    }
-});
+// // Get All Items in the category
+router.route('/:category').get(MenuController.getMenuItems);
 
 
 

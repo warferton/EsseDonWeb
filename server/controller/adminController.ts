@@ -45,8 +45,8 @@ export default class EventsController{
      */
     static async updateEvent(req: any, res : any){
         try{
-
-            const event = req.body;
+            
+            const {media, ...event} = req.body;
             event.image = res.locals['mediaId'];
             const EventResponse = await EventDao.updateEvent( event );
 
@@ -97,8 +97,8 @@ export default class EventsController{
     static async deleteEvents(req: any, res : any){
         try{
 
-            const event = req.body;
-            const EventResponse = await EventDao.deleteEvents( event );
+            const eventIds = req.body;
+            const EventResponse = await EventDao.deleteEvents( eventIds );
 
             res.status(200).send(EventResponse);
         } catch(error : any) {

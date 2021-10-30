@@ -122,7 +122,6 @@ export function EventControlList(props : IProps) {
                     setOpenBackdrop(false);
                     setSubmitting(false) 
                 })
-                .then(() => window.location.reload())
                 .catch( err => {
                     setOpenBackdrop(false);
                     console.error(err); 

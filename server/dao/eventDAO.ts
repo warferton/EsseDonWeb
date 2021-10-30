@@ -176,25 +176,29 @@ export default class EventDbClient{
         console.log('EventId ==> ' + event._id);
         console.log(collectionToDeleteFrom.collectionName);
         const documentFound = await collectionToDeleteFrom.findOne( { _id:  new ObjectId(event._id) } );
-        console.log('DocumentFound ==> ' + Object.entries(documentFound));
+        console.log('DocumentFound ==> ' + documentFound);
         if( documentFound ){
             const deleteRes = collectionToDeleteFrom.deleteOne( { _id:  new ObjectId(event._id) } );
             console.log('DeleteRes==> ' + (await deleteRes).result);
-            return active ? this.createActiveEvent(event) : this.createArchivedEvent(event);
+            return this.createEvent(event);
         }
+        const bandArray = parseLineup(event.lineup?.toString() as string);
+        event.lineup = bandArray;
         return active ? this.updateActiveEvent(event) : this.updateArchivedEvent(event);
     }
 
 
     /**
      * @status READY
-     * delete only the are archived events
      */
     static async deleteEvents(eventIds: string[]){
+        console.log("Recieved ID's for deletion");
+        console.log(eventIds);
         const results = [];
-        for(const id of eventIds){
+        for(const id in eventIds) {
             results.push(this.deleteArchvedEvent(id));
         }
+        console.log(results);
         return results;
     }
 
@@ -297,9 +301,8 @@ export default class EventDbClient{
      * @status READY
      */
     static async deleteArchvedEvent( id  : string ){
-        const filter = { _id : new ObjectId(id) };
         try{
-            return await ArchivedEvents.deleteOne( filter );
+            return await ArchivedEvents.deleteOne({ _id : new ObjectId(id) });
         } catch(error : any) {
             const err = new Error(error);
             console.error(
@@ -314,9 +317,8 @@ export default class EventDbClient{
      * @status READY
      */
     static async deleteActiveEvent( id  : string ){
-        const filter = { _id : new ObjectId(id) };
         try{
-            return await ArchivedEvents.deleteOne( filter );
+            return await ActiveEvents.deleteOne({ _id : new ObjectId(id) });
         } catch(error : any) {
             const err = new Error(error);
             console.error(

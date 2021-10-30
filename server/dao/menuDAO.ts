@@ -34,6 +34,7 @@ export default class MenuDbClient{
 
     /**
      * @status READY 
+     * @deprecated
      */
     static async getAllMenuItems() {
         let barCursor;
@@ -80,6 +81,7 @@ export default class MenuDbClient{
 
      /**
      * @status READY 
+     * @deprecated
      */
     static async getAllKitchenItems() {
         let kitchenCursor;
@@ -111,6 +113,7 @@ export default class MenuDbClient{
 
      /**
      * @status READY 
+     * @deprecated
      */
     static async getAllBarItems() {
         let barCursor;
@@ -136,6 +139,33 @@ export default class MenuDbClient{
                 `Unable to convert cursor to an array: ${err.message}`
             );
             return {barItems: [], totalBarItems: 0};
+        }
+    }
+
+    static async getMenuItems(category: string) {
+        let cursor;
+        const collection = this.getCollectionFromCategory(category)
+        try {
+            cursor = await collection.find();
+        } catch(error : any) {
+            const err = new Error( error.message as string );
+            console.error(
+                `Unable to issue "find" command: ${ err.message }`
+            );
+            return {menuItems: [], totalMenuItems: 0};
+        }
+
+        try{
+            const menuItems = await cursor.toArray();
+            const totalMenuItems = await collection.countDocuments();
+            return {menuItems, totalMenuItems};
+
+        } catch(error : any) {
+            const err = new Error( error.message as string );
+            console.error(
+                `Unable to convert cursor to an array: ${err.message}`
+            );
+            return {menuItems: [], totalMenuItems: 0};
         }
     }
 
