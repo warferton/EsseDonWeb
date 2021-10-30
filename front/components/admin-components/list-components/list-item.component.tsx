@@ -125,9 +125,11 @@ export function EventListItemButtons(props : IButtonsProps) {
                 <IconButton onClick={ handleSwitchDb } color={ cloudButtonColour }>
                     {archived ?  <Backup/> : <ArchiveIcon/>}
                 </IconButton>
-                <IconButton onClick={ handleDelete } color={ deleteButtonColour }>
-                   <DeleteIcon/>
-                </IconButton>
+                { archived &&
+                    <IconButton onClick={ handleDelete } color={ deleteButtonColour }>
+                        <DeleteIcon/>
+                    </IconButton>
+                }
             </ButtonGroup>
             </ListItemSecondaryAction>
         </ListItem>

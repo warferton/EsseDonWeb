@@ -103,9 +103,9 @@ export function EventControlList(props : IProps) {
                         setOpenSuccessSnackbar( true );
                     }
                 })
-                .then(() => {
+                .then(async () => {
                     if (deleteIdList.length > 0) {
-                        axios.post(eventsDeleteLink, deleteIdList, {withCredentials: true})
+                        await axios.post(eventsDeleteLink, deleteIdList, {withCredentials: true})
                             .then((res) => {
                                 if(res.status === 200) {
                                     setOpenSuccessSnackbar( true );
@@ -121,6 +121,9 @@ export function EventControlList(props : IProps) {
                 .then(() => { 
                     setOpenBackdrop(false);
                     setSubmitting(false) 
+                })
+                .then(() => {
+                    window.location.reload();
                 })
                 .catch( err => {
                     setOpenBackdrop(false);
