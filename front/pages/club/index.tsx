@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 const useStyles = makeStyles({
   overlay: {
-    boxShadow: 'rgba(0, 0, 0, .7) 0 0 0 1000000px inset',
+    boxShadow: 'rgba(0, 0, 0, .5) 0 0 0 1000000px inset',
     margin: '0 !important',
   },
   blackBackground: {
@@ -132,37 +132,49 @@ export default function ClubInfoPage() {
 
   const backgroundImages = [
   {
-    img: 'images/club2.jpg',
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: 'images/A&P-Band-08.jpg',
-    rows: 2
-  },
-
-  {
-    img: 'images/kmPqz0Gf3zQ.jpg',
-    cols: 3,
-    rows: 1
-  },
-  {
-    img: 'images/club2.jpg',
-    cols: 2,
-  },
-  {
-    img: 'images/A&P-Band-08.jpg',
+    img: 'images/image-hug-1.jpg',
     rows: 2,
     cols: 1,
   },
   {
-    img: 'images/kmPqz0Gf3zQ.jpg',
-    rows: 2
+    img: 'images/image-stage-2.jpg',
+    rows: 2,
+    cols: 1,
   },
   {
-    img: 'images/A&P-Band-08.jpg',
+    img: 'images/image-guitar.jpg',
+    rows: 2,
+    cold: 1
+  },
+  {
+    img: 'images/image-hug-2.jpg',
+    rows: 2,
+    cols: 1,
+  },
+   {
+    img: 'images/image-stage-1.jpg',
+    rows: 2,
+    cols: 1,
+  },
+  {
+    img: 'images/image-group-2.jpg',
+    rows: 2,
+    cols: 1,
+  },
+  {
+    img: 'images/image-audience.jpg',
+    rows: 2,
+    cols: 1
+  },
+  {
+    img: 'images/image-group-3.jpg',
     rows: 2,
     cols: 2,
+  },
+  {
+    img: 'images/image-piano.jpg',
+    rows: 1,
+    cols: 3,
   },
 ];
 
@@ -170,5 +182,5 @@ export const getStaticProps = async () => {
   return {
     props: {},
   }
- }
+}
 
