@@ -36,7 +36,7 @@ export function FreeEventForm({ event } : IProps) {
         <>
         <Container className={ styles.container } id='form-box'>
             <Box className={styles.headerBox}>
-                <Typography className={ styles.sectionHeader }>
+                <Typography variant='h5' className={ styles.sectionHeader }>
                     Забронировать <FormatListNumberedRtl fontSize='large'style={{position: 'relative', top: '10px'}}/>
                 </Typography>
             </Box>

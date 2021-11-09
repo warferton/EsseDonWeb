@@ -14,10 +14,11 @@
 
 .sectionHeader {
   padding-top: 0.2rem;
-  padding-left: 1.4rem;
+  padding-left: 0.7rem;
   padding-bottom: 0.7rem;
   font-size: 24px !important;
   font-weight: bold !important;
+  font-family: "Jazz";
 }
 
 .formBody {
@@ -41,8 +42,14 @@
 }
 
 .formButton {
-  background: black !important;
+  background-color: black !important;
   padding-top: 0.7rem !important;
   padding-bottom: 0.7rem !important;
   margin-top: 0.7rem !important;
+  border: 1px solid black !important;
+}
+
+.formButton:hover {
+  background-color: #e0e0e0 !important;
+  color: black !important;
 }

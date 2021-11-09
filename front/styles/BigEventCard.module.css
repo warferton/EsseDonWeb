@@ -6,7 +6,6 @@
 }
 
 .text {
-  font-family: "Helvetica Neue" !important;
   color: black !important;
   align-items: left;
   margin-top: 10px;
@@ -14,9 +13,9 @@
 
 .titleText {
   height: 50px;
-  font-size: 18px !important;
+  font-size: 20px !important;
   font-weight: 500 !important;
-  line-height: 23px !important;
+  line-height: 25px !important;
   overflow: hidden !important;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -49,4 +48,8 @@
   .root {
     max-width: 85%;
   }
+}
+
+.img {
+  object-position: 100% 40%;
 }

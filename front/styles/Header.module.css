@@ -1,8 +1,3 @@
-@font-face {
-  font-family: Jazz;
-  src: url("../fonts/Font_Jazz_esse_club.ttf");
-}
-
 .Logo {
   display: flex;
   flex-direction: column;
@@ -18,11 +13,10 @@
 .BigText {
   font-size: 60px;
   font-weight: 50 !important;
-  font-family: unset !important;
   margin: 0px;
-  padding: 0px;
+  padding-top: 20px;
   color: white;
-  text-shadow: 0px 1px 15px ivory;
+  line-height: 45px !important;
 }
 
 .SmallText {
@@ -31,5 +25,5 @@
   color: white;
   font-size: 16px;
   font-weight: 50 !important;
-  font-family: "Jazz", "Helvetica neue", roboto !important;
+  font-family: "Jazz" !important;
 }

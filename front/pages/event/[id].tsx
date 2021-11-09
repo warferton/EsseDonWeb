@@ -21,7 +21,10 @@ const useStyles = makeStyles({
     },
     maxWidth: '100%',
     padding: 0
-  }
+  },
+  background: {
+    backgroundColor: '#FFFFFF',
+  },
 })
 
 interface IProps{
@@ -52,20 +55,21 @@ export default function EventPage({event} : IProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <div className={ classes.background }>
+        <Container className={ classes.body }>
 
-      <Container className={ classes.body }>
+          <TopCard event={ event }/>
 
-        <TopCard event={ event }/>
+          <About description={ event.description } />
 
-        <About description={ event.description } />
+          <EventLineup lineup={ event.lineup }/>
 
-        <EventLineup lineup={ event.lineup }/>
+          { event.videoLink && <VideoPlayer videoLink={ event.videoLink }/> }
 
-        { event.videoLink && <VideoPlayer videoLink={ event.videoLink }/> }
+          { event.free === 'true' && <FreeEventForm event={ event }/> }
 
-        { event.free === 'true' && <FreeEventForm event={ event }/> }
-
-      </Container>
+        </Container>
+      </div>
 
       <Footer position='static'/>
         

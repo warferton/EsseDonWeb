@@ -36,7 +36,7 @@ const useStyles = makeStyles({
         color: 'black',
     },
     titleText: {
-        fontWeight: 1000,
+        fontWeight: 700,
         fontSize: '19px',
         textTransform: 'uppercase',
         textOverflow: 'elipsis',
@@ -57,11 +57,16 @@ const useStyles = makeStyles({
         overflow: 'hidden',
         boxOrient: 'vertical',
         lineClamp: 3,
+        fontFamily: 'FuturaLight',
+        fontWeight: 1000,
+        fontSize: '18px',
+        lineHeight: '20px',
     },
     chip: {
         color: 'black',
         fontWeight: 600,
         marginRight: '10px',
+        fontFamily: 'Jazz',
     },
     actions: {
         justifyContent: 'center',
@@ -73,7 +78,15 @@ const useStyles = makeStyles({
     },
     button: {
         background: 'black',
-        width: '100%'
+        width: '100%',
+        fontFamily: 'FuturaLight',
+        fontWidth: 1000,
+        fontSize: '18px',
+        border: '1px solid black',
+        '&:hover': {
+            backgroundColor: '#E0E0E0',
+            color: 'black',
+        }
     },
 });
 

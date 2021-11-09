@@ -35,6 +35,7 @@ export function BigEventCard(props : IProps){
                 height="275"
                 src={`data:${image.mimetype};base64,${image.data}`}
                 title={ title } 
+                className={ styles.img }
                 />                
                 <CardContent className={ styles.cardContent }>
                     <Grid container wrap='nowrap' justifyContent='space-between'>

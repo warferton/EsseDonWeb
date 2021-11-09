@@ -63,9 +63,14 @@ const useStyles = makeStyles({
     paddingTop: 0,
   },
   button:{
-      width: '100%',
-      marginBottom: '0.45em',
-      background: 'black',
+    width: '100%',
+    marginBottom: '0.45em',
+    background: 'black',
+    border: '1px solid black',
+    '&:hover': {
+        background: '#E0E0E0',
+        color: 'black',
+    },
   },
 });
 

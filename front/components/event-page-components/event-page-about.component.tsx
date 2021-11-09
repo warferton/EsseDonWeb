@@ -11,7 +11,8 @@ const useStyles = makeStyles({
         padding: '1rem',
         fontSize: '18px',
         lineHeight: '35px',
-        fontWeight: 300,
+        fontWeight: 600,
+        fontFamily: 'FuturaLight',
     },
     container:{
         backgroundColor: 'white',
@@ -30,7 +31,7 @@ export function About({description} : IProps) {
     return(
         <>
             <Box className={classes.container}>
-                <Typography className={ classes.sectionHeader }>
+                <Typography variant='h4' className={ classes.sectionHeader }>
                     О мероприятии
                 </Typography>
                 <Typography paragraph className={ classes.text }>

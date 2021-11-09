@@ -98,7 +98,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
             </SwipeableStepper>
 
             { secondGroupEvents.length > 0 &&
-              <Typography className = { styles.heading }>
+              <Typography variant='h5' className = { styles.heading }>
                 В ближайшие дни
               </Typography>
             }
@@ -113,7 +113,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
             </CardSlider>
 
             { generalGroupEvents.length > 0 &&
-              <Typography className = { styles.heading }>
+              <Typography variant='h5' className = { styles.heading }>
                 Мероприятия в этом месяце
               </Typography>
             }

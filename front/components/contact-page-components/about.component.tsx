@@ -28,7 +28,7 @@ export function AboutContact() {
 
     return(
         <Box className={ classes.root }>
-            <Typography paragraph className = {classes.heading }style={
+            <Typography variant='h5' paragraph className = {classes.heading }style={
                 { 
                     display: 'flex',
                     alignItems: 'center',
@@ -48,7 +48,7 @@ export function AboutContact() {
             </Typography>
 
 
-            <Typography paragraph className = {classes.heading } style={
+            <Typography variant='h5' paragraph className = {classes.heading } style={
                 { 
                     display: 'flex',
                     alignItems: 'center',
@@ -66,7 +66,7 @@ export function AboutContact() {
             </Typography>
 
 
-            <Typography paragraph className = {classes.heading } style={ 
+            <Typography variant='h5' paragraph className = {classes.heading } style={ 
                  { 
                     display: 'flex',
                     alignItems: 'center',
@@ -106,7 +106,7 @@ export function AboutContact() {
                 </Link>
             </Typography>
 
-            <Typography paragraph className = {classes.heading }>
+            <Typography variant='h5' paragraph className = {classes.heading }>
                 Режим Работы:
             </Typography>
 

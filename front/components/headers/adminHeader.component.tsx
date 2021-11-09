@@ -8,7 +8,7 @@ export function AdminHeader () {
         <Typography variant='h2' className={ styles.BigText }>
             ЭССЕ
         </Typography>
-        <Typography className={ styles.SmallText}>
+        <Typography className={ styles.SmallText }>
             ADMIN
         </Typography>
     </Container>

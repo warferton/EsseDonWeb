@@ -12,7 +12,7 @@ const useStyles = makeStyles({
         paddingLeft: '1rem',
         paddingRight: '1rem',
         margin:'0.5rem',
-        fontSize: '18px',
+        fontSize: '20px',
         lineHeight: '35px',
         fontWeight: 300,
     },
@@ -34,7 +34,7 @@ export function EventLineup({lineup} : IProps) {
     return(
         <>
             <Box className={ classes.container}>
-                    <Typography className={ classes.sectionHeader }>
+                    <Typography variant='h4' className={ classes.sectionHeader }>
                         Состав
                     </Typography>
                     { 
