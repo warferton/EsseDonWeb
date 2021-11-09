@@ -40,10 +40,10 @@ const useStyles = makeStyles({
             fontSize: 14,
         },
         '@media (min-width: 1000px)': {
-            fontSize: 16,
+            fontSize: 18,
         },
         '@media (min-width: 1800px)': {
-            fontSize: 20,
+            fontSize: 22,
         },
     },
     buttonActive: {
@@ -53,6 +53,18 @@ const useStyles = makeStyles({
         size: 1.1,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
+        '@media (max-width: 350px)': {
+            fontSize: 11,
+        },
+        '@media (min-width: 375px)': {
+            fontSize: 14,
+        },
+        '@media (min-width: 1000px)': {
+            fontSize: 18,
+        },
+        '@media (min-width: 1800px)': {
+            fontSize: 22,
+        },
     },
 });
 
