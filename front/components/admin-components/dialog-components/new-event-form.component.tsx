@@ -82,7 +82,6 @@ export function CreateEventForm(props: IProps) {
         title, 
         lineup, 
         shortDescription,
-        description, 
         date, 
         time, 
         free, 
@@ -94,6 +93,8 @@ export function CreateEventForm(props: IProps) {
         group,
         active
     } = props.event;
+
+    let { description } = props.event;
 
     const { isUpdate } = props;
 
@@ -125,6 +126,8 @@ export function CreateEventForm(props: IProps) {
     const SUCCESS_MESSAGE = 'Операция проведена успешно';
     const [ERROR_MESSAGE, setErrorMsg] = useState('Произошла ошибка');
     const API_ENDPOINT = isUpdate ? 'update' : 'create';
+
+    description = description.split('<br/>').join('\n').replace(/\n\n/g, '\n');;
 
     return(
         <Container className={ styles.container }>
