@@ -8,7 +8,8 @@ const useStyles = makeStyles({
         borderBottom: '1px solid black',
     },
     text: {
-        padding: '1rem',
+        // padding: '1rem',
+        margin: 0,
         fontSize: '18px',
         lineHeight: '35px',
         fontWeight: 600,
@@ -18,6 +19,9 @@ const useStyles = makeStyles({
         backgroundColor: 'white',
         borderTop: '1px solid black',
     },
+    descriptionBox: {
+        padding: '1rem',
+    }
 });
 
 interface IProps{
@@ -28,15 +32,19 @@ export function About({description} : IProps) {
 
     const classes = useStyles();
 
+    const dArray = description.split('<br/>');
+    
     return(
         <>
             <Box className={classes.container}>
                 <Typography variant='h4' className={ classes.sectionHeader }>
                     О мероприятии
                 </Typography>
-                <Typography paragraph className={ classes.text }>
-                    { description }
-                </Typography>
+                <Box className={ classes.descriptionBox }>
+                    { 
+                        dArray.map(para => <Typography paragraph className={ classes.text }>{para}</Typography>)
+                    }
+                </Box>
             </Box>
         </>
     )
