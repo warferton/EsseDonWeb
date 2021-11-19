@@ -62,3 +62,14 @@ h5 {
 .MuiButton-root {
   font-family: "Jazz" !important;
 }
+
+main {
+  background-image: url("../public/images/desktopBackground.png");
+  background-repeat: repeat-y;
+  background-position: center;
+  background-origin: padding-box;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: white;
+  height: 150%;
+}

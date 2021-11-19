@@ -47,6 +47,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
     lineHeight: '10px',
     borderTop: '1px solid black',
     borderBottom: '1px solid black',
+    backgroundColor: 'white',
   },
   generalEvents: {
     display: 'grid',

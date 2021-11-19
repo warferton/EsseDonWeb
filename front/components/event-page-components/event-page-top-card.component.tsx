@@ -72,6 +72,17 @@ const useStyles = makeStyles({
         color: 'black',
     },
   },
+  cardMedia: {
+    '@media (max-width: 875px)': {
+        height: '250px',
+    },
+    '@media (min-width: 875px)': {
+        height: '300px',
+    },
+    '@media (min-width: 1275px)': {
+        height: '350px',
+    },
+  },
 });
 
 
@@ -88,9 +99,9 @@ export function TopCard({ event }: IProps) {
     return(
          <Card raised className={ styles.root }>
                 <CardMedia
+                className={ styles.cardMedia }
                 component="img"
                 alt="Some Musician"
-                height="250"
                 src={`data:${image.mimetype};base64,${image.data}`}
                 title={ title }
                 />

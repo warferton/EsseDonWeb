@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     boxShadow: '0px 0px 15px #11111185',
     '@media (min-width: 684px)': {
       alignItems: 'center',
-      maxWidth: '80%',
+      maxWidth: '75%',
       marginTop: '0.1rem'
     },
     maxWidth: '100%',
@@ -55,7 +55,7 @@ export default function EventPage({event} : IProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={ classes.background }>
+      {/* <div className={ classes.background }> */}
         <Container className={ classes.body }>
 
           <TopCard event={ event }/>
@@ -69,7 +69,7 @@ export default function EventPage({event} : IProps) {
           { event.free === 'true' && <FreeEventForm event={ event }/> }
 
         </Container>
-      </div>
+      {/* </div> */}
 
       <Footer position='static'/>
         

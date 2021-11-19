@@ -1,6 +1,6 @@
 import { SetStateAction, useState, ChangeEvent } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { LocalBar, RestaurantSharp, Star, Favorite } from '@material-ui/icons';
+import { LocalBar, RestaurantSharp } from '@material-ui/icons';
 import { Container } from '@material-ui/core';
 import { MenuAccordion } from './menu-accordion.component';
 import { MenuSection } from './menu-section.component';
@@ -30,7 +30,7 @@ export function Menu({ items } : IProps ) {
   
   const classes = useStyles();
 
-  const { barItems, kitchenItems, specialItems, veganItems } = items;
+  const { barItems, kitchenItems } = items;
   
   const [expanded, setExpanded] = useState(null);
 
@@ -97,7 +97,7 @@ export function Menu({ items } : IProps ) {
             })
           }
       </MenuAccordion>
-
+{/* 
       <MenuAccordion 
         title="Специальное Меню"
         expanded={ expanded === 'special' } 
@@ -152,7 +152,7 @@ export function Menu({ items } : IProps ) {
               );
             })
           }
-      </MenuAccordion>
+      </MenuAccordion> */}
 
     </Container>
   )

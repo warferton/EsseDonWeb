@@ -34,8 +34,8 @@ export default function MenuPage(props : IProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-      <motion.div
-          style={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}
+      <motion.main
+          style={{ minHeight: '75vh' }}
           variants={ animVariants }
           initial="hidden"
           animate="enter"
@@ -44,7 +44,7 @@ export default function MenuPage(props : IProps) {
       >
 
         <Menu items={ props }/>
-      </motion.div>
+      </motion.main>
     </>
   )
 }
@@ -52,8 +52,8 @@ export default function MenuPage(props : IProps) {
 export const getServerSideProps = async () => {
   const rawBarData = await fetchMenuItems('bar');
   const rawKitchenData = await fetchMenuItems('kitchen');
-  const rawSpecialData = await fetchMenuItems('special');
-  const rawVeganData = await fetchMenuItems('vegan');
+  // const rawSpecialData = await fetchMenuItems('special');
+  // const rawVeganData = await fetchMenuItems('vegan');
 
   if(rawBarData.length < 1 &&
       rawKitchenData.length < 1) {
@@ -67,15 +67,15 @@ export const getServerSideProps = async () => {
 
   const parsedBarData = parseMenuItems(rawBarData);
   const parsedKitchenData = parseMenuItems(rawKitchenData);
-  const parsedSpecialData = parseMenuItems(rawSpecialData);
-  const parsedVeganData = parseMenuItems(rawVeganData);
+  // const parsedSpecialData = parseMenuItems(rawSpecialData);
+  // const parsedVeganData = parseMenuItems(rawVeganData);
 
   return {
     props:{
       barItems: parsedBarData,
       kitchenItems: parsedKitchenData,
-      specialItems: parsedSpecialData,
-      veganItems: parsedVeganData
+      // specialItems: parsedSpecialData,
+      // veganItems: parsedVeganData
     }
   }
 
