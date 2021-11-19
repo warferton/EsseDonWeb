@@ -52,6 +52,7 @@ export default function EventPage({event} : IProps) {
       <Head>
         <title>{ event.title }</title>
         <meta name="description" content={ event.shortDescription } />
+        <meta name="theme-color" content="#1a1a1a"/>    
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

@@ -77,9 +77,10 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
       <Head>
         <title>Эссе-Дон</title>
         <meta name="description" content="Джаз-Клуб ЭССЕ, г. Ростов-на-Дону" />
+        <meta name="theme-color" content="#1a1a1a"/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+        {/* <img src="../images/desktopBackground.png" className="bg"></img> */}
         <motion.main
           className={ styles.body }
           variants={ animVariants }

@@ -27,6 +27,7 @@ export default function AdminMain(props: any) {
                 <Head>
                     <title>ESSE | ADMIN</title>
                     <meta name="description" content="EsseJazz-Don Admin Controls" />
+                    <meta name="theme-color" content="#1a1a1a"/>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
 

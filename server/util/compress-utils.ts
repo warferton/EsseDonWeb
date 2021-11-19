@@ -4,8 +4,8 @@ import { ImageFile, UploadableImage } from "../types/misc.types";
     export async function compressImg(rawImage : ImageFile | UploadableImage) {
         const comressed = await sharp(rawImage.data)
         .resize({
-            width: 720,
-            height: 640
+            width: 1024,
+            height: 725
         })
         .jpeg({
             quality: 75,
