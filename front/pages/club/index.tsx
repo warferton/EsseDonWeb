@@ -83,7 +83,9 @@ export default function ClubInfoPage() {
         <Head>
           <title>О Клубе</title>
           <meta name="История Джаз Клуба Эссе Дон" content="«Esse Jazz Club. Rostov» – это джазовый клуб и ресторан, открытый в марте 2021 года в городе Ростов-на-Дону." />
+          <link rel="canonical" href="https://esse-jazz-don.ru/club"/>
           <meta name="theme-color" content="#1a1a1a"/>
+          <link rel="manifest" href="/manifest.json"/>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 

@@ -31,7 +31,9 @@ export default function MenuPage(props : IProps) {
       <Head>
         <title>Меню Ресторана</title>
         <meta name="description" content="Джаз-Клуб ЭССЕ. Меню Ресторана" />
+        <link rel="canonical" href="https://esse-jazz-don.ru/menu"/>
         <meta name="theme-color" content="#1a1a1a"/>
+        <link rel="manifest" href="/manifest.json"/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       

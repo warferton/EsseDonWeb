@@ -71,7 +71,7 @@ h5 {
     -webkit-background-size: contain;
     -moz-background-size: cover !important;
     -o-background-size: cover !important;
-    /* background-origin: padding-box; */
+    background-origin: padding-box;
     background-attachment: fixed;
     background-size: cover;
     background-color: white;
