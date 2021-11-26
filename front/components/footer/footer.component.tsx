@@ -16,24 +16,18 @@ export function Footer(props: IProps) {
         },
         infoText: {
             fontSize: '20px',
-            fontFamily: "Helvetica Neue",
-            fontWeight: 'lighter',
+            fontFamily: "FuturaLight",
+            fontWeight: 600,
             lineHeight: '30px',
             color: 'white',
             alignItems: 'center'
         },
         motoText: {
             fontSize: '44px',
-            fontFamily: "Futura",
+            fontWeight: '500',
             color: 'white',
             margin: '10px',
         },
-        motoDot: {
-            fontSize: '44px',
-            fontFamily: "Futura",
-            color: 'yellow',
-        }
-
     });
 
     const styles = useStyles();
@@ -61,11 +55,8 @@ export function Footer(props: IProps) {
                     { `+7 863 310 41 10` }
                 </Link>
             </Typography>
-            <Typography align='center' variant='h1' className = { styles.motoText }>
-                { `Jazz lives here` }
-                <span className = { styles.motoDot }>
-                    { `.` }
-                </span>
+            <Typography align='center' variant='h4' className = { styles.motoText }>
+                { `Jazz lives here.` }
             </Typography>
         </Container>
     );
