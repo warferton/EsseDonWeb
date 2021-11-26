@@ -17,9 +17,9 @@ const useStyles = makeStyles({
 
     text: {
         fontSize: '18px',
-        lineHeight: '10px',
+        lineHeight: '15px',
         fontWeight: 300,
-    }
+        }
 });
 
 export function AboutContact() {
@@ -73,7 +73,7 @@ export function AboutContact() {
                     flexWrap: 'wrap',
                 }}
                 >
-                    E-mail
+                    E_mail
                     <MailRounded fontSize='large' viewBox='-5 0 28 28' />
             </Typography>
 
@@ -85,7 +85,7 @@ export function AboutContact() {
                 <Link
                 style={{
                     fontSize: '18px',
-                    lineHeight: '1px',
+                    lineHeight: '40px',
                 }}>
                     {'pr@jazzesse.ru'}
                 </Link>
@@ -100,7 +100,7 @@ export function AboutContact() {
                 <Link
                 style={{
                     fontSize: '18px',
-                    lineHeight: '10px',
+                    lineHeight: '40px',
                 }}>
                     {'art@jazzesse.ru'}
                 </Link>
