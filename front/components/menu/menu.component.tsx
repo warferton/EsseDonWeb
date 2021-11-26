@@ -21,8 +21,6 @@ interface IProps{
   items: {
     barItems : IMenuItemGroup[];
     kitchenItems : IMenuItemGroup[];
-    specialItems : IMenuItemGroup[];
-    veganItems : IMenuItemGroup[];
   }
 }
 
@@ -43,6 +41,7 @@ export function Menu({ items } : IProps ) {
     <Container classes={ classes }>
       <MenuAccordion 
         title="Бар"
+        titleVariant="h5"
         expanded={ expanded === 'bar' } 
         icon={ LocalBar }
         onChange={ handleChange('bar') } 
@@ -72,6 +71,7 @@ export function Menu({ items } : IProps ) {
 
       <MenuAccordion 
         title="Кухня"
+        titleVariant="h5"
         expanded={ expanded === 'kitchen' } 
         icon={ RestaurantSharp }
         onChange={ handleChange('kitchen') } 
@@ -97,62 +97,6 @@ export function Menu({ items } : IProps ) {
             })
           }
       </MenuAccordion>
-{/* 
-      <MenuAccordion 
-        title="Специальное Меню"
-        expanded={ expanded === 'special' } 
-        icon={ Star }
-        onChange={ handleChange('special') } 
-        >
-          {
-            specialItems.map((group : IMenuItemGroup) => {
-              return(
-                <MenuSection title={ group.name } key={ group.name }>
-                  {
-                    group.items.map((item : IMenuItem) => {
-                      return(
-                        <MenuItem 
-                        key={ item._id } 
-                        title={ item.title } 
-                        price={ item.price } 
-                        description={ item.description }
-                        />
-                      );
-                    })
-                  }
-                </MenuSection>
-              );
-            })
-          }
-      </MenuAccordion>
-
-      <MenuAccordion 
-        title="Вегитарианское Меню"
-        expanded={ expanded === 'vegan' } 
-        icon={ Favorite }
-        onChange={ handleChange('vegan') } 
-        >
-          {
-            veganItems.map((group : IMenuItemGroup) => {
-              return(
-                <MenuSection title={ group.name } key={ group.name }>
-                  {
-                    group.items.map((item : IMenuItem) => {
-                      return(
-                        <MenuItem 
-                        key={ item._id } 
-                        title={ item.title } 
-                        price={ item.price } 
-                        description={ item.description }
-                        />
-                      );
-                    })
-                  }
-                </MenuSection>
-              );
-            })
-          }
-      </MenuAccordion> */}
 
     </Container>
   )
