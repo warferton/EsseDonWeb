@@ -1,30 +1,20 @@
 import { Box, Typography, makeStyles } from "@material-ui/core";
-import { TheatersOutlined }from '@material-ui/icons';
 import ReactPlayer from "react-player";
 
 const useStyles = makeStyles({
-    headerBox:{
-        backgroundColor: 'white',
-        color: 'black',
-        borderTop: '1px solid black',
-    },
-    container: {
-        paddingBottom: '2rem',
-        backgroundColor: 'white',
-        color: 'black'
-    },
+
     sectionHeader: {
-        paddingTop: '0.2rem',
-        paddingLeft: '1.4rem',
-        paddingBottom: '0.7rem',
         fontSize: '24px',
-        fontWeight: 'bold',
+        fontWeight: 500,
+        padding: '0.7rem',
         borderTop: '1px solid black',
         borderBottom: '1px solid black',
+        textAlign: 'center',
     },
-    icon: { 
-        position: 'relative',
-        top: '10px'
+    container: {
+        backgroundColor: 'white',
+        color: 'black',
+        paddingBottom: '1rem',
     }
 });
 
@@ -38,14 +28,11 @@ export function VideoPlayer({videoLink} : IProps) {
 
     return(
         <>
-            <Box className={ classes.headerBox }>
-                <Typography className={ classes.sectionHeader }>
-                    Видео
-                    <TheatersOutlined fontSize='large' className={ classes.icon }/>
-                </Typography>
-                
-            </Box> 
             <Box className={ classes.container }>
+                <Typography variant='h4'className={ classes.sectionHeader }>
+                    Видео
+                </Typography>
+             
                 <ReactPlayer
                     height="300px"
                     width="100%"

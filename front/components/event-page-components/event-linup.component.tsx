@@ -7,19 +7,21 @@ const useStyles = makeStyles({
         padding: '0.7rem',
         borderTop: '1px solid black',
         borderBottom: '1px solid black',
+        textAlign: 'center'
     },
     lineupText: {
         paddingLeft: '1rem',
         paddingRight: '1rem',
         margin:'0.5rem',
-        fontSize: '20px',
+        fontSize: '18px',
         lineHeight: '35px',
-        fontWeight: 300,
+        fontWeight: 600,
+        fontFamily: 'FuturaLight',
     },
     container: {
-        paddingBottom: '1rem',
         backgroundColor: 'white',
-        color: 'black'
+        color: 'black',
+        paddingBottom: '5px',
     }
 });
 

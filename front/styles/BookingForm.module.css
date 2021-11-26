@@ -13,12 +13,11 @@
 }
 
 .sectionHeader {
-  padding-top: 0.2rem;
-  padding-left: 0.7rem;
-  padding-bottom: 0.7rem;
+  padding: 0.7rem;
   font-size: 24px !important;
-  font-weight: bold !important;
   font-family: "Jazz";
+  font-weight: 500 !important;
+  text-align: center;
 }
 
 .formBody {
