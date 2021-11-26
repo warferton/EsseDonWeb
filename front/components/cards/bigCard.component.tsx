@@ -32,7 +32,6 @@ export function BigEventCard(props : IProps){
                 <CardMedia
                 component="img"
                 alt="JAZZ_IMG"
-                height="275"
                 src={`data:${image.mimetype};base64,${image.data}`}
                 title={ title } 
                 className={ styles.img }
