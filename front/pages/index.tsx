@@ -99,7 +99,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
           exit="exit"
           transition={{ type: 'linear' }}
         >
-        <Container className = { styles.body }>
+        <Container className = { styles.body}>
             <SwipeableStepper>
               { 
                 mainGroupEvents.map((event : IEvent) => 

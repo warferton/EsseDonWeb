@@ -97,6 +97,64 @@ export function Menu({ items } : IProps ) {
             })
           }
       </MenuAccordion>
+<<<<<<< HEAD
+=======
+    
+   {/* <MenuAccordion
+        title="Специальное Меню"
+        expanded={ expanded === 'special' } 
+        icon={ Star }
+        onChange={ handleChange('special') } 
+        >
+          {
+            specialItems.map((group : IMenuItemGroup) => {
+              return(
+                <MenuSection title={ group.name } key={ group.name }>
+                  {
+                    group.items.map((item : IMenuItem) => {
+                      return(
+                        <MenuItem 
+                        key={ item._id } 
+                        title={ item.title } 
+                        price={ item.price } 
+                        description={ item.description }
+                        />
+                      );
+                    })
+                  }
+                </MenuSection>
+              );
+            })
+          }
+      </MenuAccordion>
+      <MenuAccordion 
+        title="Вегитарианское Меню"
+        expanded={ expanded === 'vegan' } 
+        icon={ Favorite }
+        onChange={ handleChange('vegan') } 
+        >
+          {
+            veganItems.map((group : IMenuItemGroup) => {
+              return(
+                <MenuSection title={ group.name } key={ group.name }>
+                  {
+                    group.items.map((item : IMenuItem) => {
+                      return(
+                        <MenuItem 
+                        key={ item._id } 
+                        title={ item.title } 
+                        price={ item.price } 
+                        description={ item.description }
+                        />
+                      );
+                    })
+                  }
+                </MenuSection>
+              );
+            })
+          }
+      </MenuAccordion> */}
+>>>>>>> 843ded7e487c5989466f32771179336741a35112
 
     </Container>
   )
