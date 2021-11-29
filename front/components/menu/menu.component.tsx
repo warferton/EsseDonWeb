@@ -97,8 +97,6 @@ export function Menu({ items } : IProps ) {
             })
           }
       </MenuAccordion>
-<<<<<<< HEAD
-=======
     
    {/* <MenuAccordion
         title="Специальное Меню"
@@ -154,7 +152,6 @@ export function Menu({ items } : IProps ) {
             })
           }
       </MenuAccordion> */}
->>>>>>> 843ded7e487c5989466f32771179336741a35112
 
     </Container>
   )

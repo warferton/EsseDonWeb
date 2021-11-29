@@ -24,7 +24,7 @@ export function Footer(props: IProps) {
         },
         motoText: {
             fontSize: '44px',
-            fontWeight: '500',
+            fontWeight: 500,
             color: 'white',
             margin: '10px',
         },
