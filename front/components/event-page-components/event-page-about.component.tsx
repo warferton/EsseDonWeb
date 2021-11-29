@@ -6,6 +6,7 @@ const useStyles = makeStyles({
         fontWeight: 500,
         padding: '0.7rem',
         borderBottom: '1px solid black',
+        textAlign: 'center',
     },
     text: {
         // padding: '1rem',

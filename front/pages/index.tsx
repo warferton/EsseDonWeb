@@ -5,7 +5,7 @@ import { Footer } from '../components/footer/footer.component';
 import { BigEventCard } from '../components/cards/bigCard.component';
 import { EventCard } from '../components/cards/card.component';
 import { SmallEventCard } from '../components/cards/smallCard.component';
-import{ SwipeableStepper } from '../components/cards/carousel/carousel.component';
+import { SwipeableStepper } from '../components/cards/carousel/carousel.component';
 import { IEvent } from '../types/event/event.type';
 import { Typography } from '@material-ui/core';
 import { Container } from '@material-ui/core';
@@ -36,18 +36,27 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
 
   const useStyles = makeStyles({
   body: {
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
+    boxShadow: '0px 0px 15px #11111185',
+    '@media (min-width: 684px)': {
+      alignItems: 'center',
+      maxWidth: '75%',
+      marginTop: '0.1rem'
+    },
+    maxWidth: '100%',
+    padding: 0
   },
   heading: {
     marginTop: '1rem',
     padding: '1.3rem',
     paddingLeft: '2rem',
-    fontSize: '20px',
-    fontWeight: 600,
+    fontSize: '24px',
+    fontWeight: 500,
     lineHeight: '10px',
     borderTop: '1px solid black',
     borderBottom: '1px solid black',
-    backgroundColor: 'white',
+    textAlign: 'center',
+    background: 'white',
   },
   generalEvents: {
     display: 'grid',
@@ -84,13 +93,13 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
         <link rel="icon" href="/favicon.ico" />
       </Head>
         <motion.main
-          className={ styles.body }
           variants={ animVariants }
           initial="hidden"
           animate="enter"
           exit="exit"
           transition={{ type: 'linear' }}
         >
+        <Container className = { styles.body}>
             <SwipeableStepper>
               { 
                 mainGroupEvents.map((event : IEvent) => 
@@ -118,7 +127,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
 
             { generalGroupEvents.length > 0 &&
               <Typography variant='h5' className = { styles.heading }>
-                Мероприятия в этом месяце
+                В этом месяце
               </Typography>
             }
 
@@ -130,7 +139,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
                 )
               }
             </Container>
-
+          </Container>
           <Footer position='static'/>
         </motion.main>
     </>

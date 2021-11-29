@@ -7,6 +7,7 @@
 
 .picture {
   width: 220px;
+  height:120px;
 }
 
 .text {
@@ -41,5 +42,8 @@
 @media (min-width: 600px) {
   .root {
     min-width: 350px !important;
+  }
+  .picture {
+    min-height: 160px;
   }
 }

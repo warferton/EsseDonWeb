@@ -35,8 +35,10 @@ const useStyles = makeStyles({
   },
   shortDecriptionText: {
       marginTop: '10px',
-      fontWeight: 100,
-      fontSize: '18px'
+      fontFamily: 'FuturaLight',
+      fontWeight: 1000,
+      fontSize: '18px',
+      lineHeight: '20px'
   },
   dateText: {
       fontWeight: 100,
@@ -53,9 +55,8 @@ const useStyles = makeStyles({
   chip: {
       backgroundColor: 'white',
       fontWeight: 600,
+      fontFamily: 'Jazz',
       fontSize: '14px',
-      marginRight: '10px',
-      marginTop: '10px',
   },
   actions: {
     justifyContent: 'center',
@@ -122,7 +123,7 @@ export function TopCard({ event }: IProps) {
                         className = { styles.chip }
                         />)
                     }
-                    <Typography gutterBottom component="h2" className={ styles.text + ' ' + styles.shortDecriptionText }>
+                    <Typography gutterBottom variant="body2" className={ styles.text + ' ' + styles.shortDecriptionText }>
                         { shortDescription }
                     </Typography>
                 </CardContent>

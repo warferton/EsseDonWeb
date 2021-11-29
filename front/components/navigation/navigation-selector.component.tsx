@@ -92,6 +92,7 @@ export function NavigationSelector(props : any) {
             { children }
         <Container className={ classes.root }>
             <ButtonGroup fullWidth variant='contained' className={ classes.buttonGroup }>
+                    
                     <Button 
                     fullWidth
                     href="/"
@@ -100,6 +101,7 @@ export function NavigationSelector(props : any) {
                     >
                         Афиша
                     </Button>
+
                     <Button 
                     fullWidth
                     href='/menu'
@@ -108,14 +110,7 @@ export function NavigationSelector(props : any) {
                     >
                         Ресторан
                     </Button>
-                    <Button
-                    fullWidth
-                    href='/contacts'
-                    onClick={ () => setCurrentPage('contacts') }
-                    className={ buttonActive === 'contacts' ? classes.buttonActive : classes.button }
-                    >
-                        Контакты
-                    </Button>
+
                     <Button 
                     fullWidth
                     href='/club'
@@ -124,6 +119,16 @@ export function NavigationSelector(props : any) {
                     >
                         О&nbsp;Клубе
                     </Button>
+
+                    <Button
+                    fullWidth
+                    href='/contacts'
+                    onClick={ () => setCurrentPage('contacts') }
+                    className={ buttonActive === 'contacts' ? classes.buttonActive : classes.button }
+                    >
+                        Контакты
+                    </Button>
+                    
             </ButtonGroup>
         </Container>
         </>

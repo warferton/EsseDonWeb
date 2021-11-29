@@ -21,8 +21,6 @@ interface IProps{
   items: {
     barItems : IMenuItemGroup[];
     kitchenItems : IMenuItemGroup[];
-    specialItems : IMenuItemGroup[];
-    veganItems : IMenuItemGroup[];
   }
 }
 
@@ -43,6 +41,7 @@ export function Menu({ items } : IProps ) {
     <Container classes={ classes }>
       <MenuAccordion 
         title="Бар"
+        titleVariant="h5"
         expanded={ expanded === 'bar' } 
         icon={ LocalBar }
         onChange={ handleChange('bar') } 
@@ -72,6 +71,7 @@ export function Menu({ items } : IProps ) {
 
       <MenuAccordion 
         title="Кухня"
+        titleVariant="h5"
         expanded={ expanded === 'kitchen' } 
         icon={ RestaurantSharp }
         onChange={ handleChange('kitchen') } 
@@ -97,8 +97,8 @@ export function Menu({ items } : IProps ) {
             })
           }
       </MenuAccordion>
-{/* 
-      <MenuAccordion 
+    
+   {/* <MenuAccordion
         title="Специальное Меню"
         expanded={ expanded === 'special' } 
         icon={ Star }
@@ -125,7 +125,6 @@ export function Menu({ items } : IProps ) {
             })
           }
       </MenuAccordion>
-
       <MenuAccordion 
         title="Вегитарианское Меню"
         expanded={ expanded === 'vegan' } 
