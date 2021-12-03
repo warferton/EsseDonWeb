@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Container, ButtonGroup, Button, makeStyles } from '@material-ui/core';
+import { useState, useEffect, useRef } from 'react';
+import { Container, ButtonGroup, Button, makeStyles, Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
     root: {
@@ -46,6 +46,37 @@ const useStyles = makeStyles({
             fontSize: 22,
         },
     },
+    dropdownBox: {
+        background: 'white',
+        position: 'absolute',
+        bottom: '10vh',
+        left: '50%',
+        width: '28%',
+    },
+    dropdownButton: {
+        padding: 0,
+        height: '7vh',
+        color: '#FFFFFF',
+        backgroundColor: '#000000',
+        transition: '0.3s linear',
+        fontFamily: 'Jazz',
+        '&:hover': {
+            color: '#000000',
+        },
+        borderRadius: 0,
+        '@media (max-width: 350px)': {
+            fontSize: 11,
+        },
+        '@media (min-width: 375px)': {
+            fontSize: 14,
+        },
+        '@media (min-width: 1000px)': {
+            fontSize: 18,
+        },
+        '@media (min-width: 1800px)': {
+            fontSize: 22,
+        },
+    },
     buttonActive: {
         color: '#000000',
         backgroundColor: '#FFFFFF',
@@ -70,11 +101,17 @@ const useStyles = makeStyles({
 
 export function NavigationSelector(props : any) {
 
+    const ref = useRef()
+
     const { children } = props;
 
     const classes = useStyles();
     
     const [buttonActive, setButtonActive] = useState('');
+
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+    const [open, setOpen] = useState(false);
 
     const setCurrentPage = (pageName: string) => {
         setButtonActive(pageName);
@@ -84,13 +121,27 @@ export function NavigationSelector(props : any) {
      useEffect(() => {
         const currentPageName = localStorage.getItem("EsseCurentPageName");
         setButtonActive(currentPageName);
-    }, []);
+
+
+        const checkIfClickedOutside = e => {
+
+            if (isDropdownOpen && ref.current && !ref.current.contains(e.target)) {
+                setDropdownOpen(false)
+            }
+        }
+
+        document.addEventListener("mousedown", checkIfClickedOutside)
+        return () => {
+            document.removeEventListener("mousedown", checkIfClickedOutside)
+        }
+
+    }, [isDropdownOpen]);
 
 
     return(
         <>
             { children }
-        <Container className={ classes.root }>
+        <Container className={ classes.root } ref={ref}>
             <ButtonGroup fullWidth variant='contained' className={ classes.buttonGroup }>
                     
                     <Button 
@@ -105,7 +156,7 @@ export function NavigationSelector(props : any) {
                     <Button 
                     fullWidth
                     href='/menu'
-                    onClick={ () => setCurrentPage('menu') }
+                    onClick={() => setOpen(!open)}
                     className={ buttonActive === 'menu' ? classes.buttonActive : classes.button }
                     >
                         Ресторан
@@ -113,12 +164,31 @@ export function NavigationSelector(props : any) {
 
                     <Button 
                     fullWidth
-                    href='/club'
-                    onClick={ () => setCurrentPage('club') }
-                    className={ buttonActive === 'club' ? classes.buttonActive : classes.button }
+                    onClick={ () => setDropdownOpen(oldState => !oldState)}
+                    className={ classes.button }
+                    id = "club-button"
                     >
-                        О&nbsp;Клубе
+                        Клуб
                     </Button>
+
+                    {isDropdownOpen && <Box className={ classes.dropdownBox }>
+                        <Button 
+                        fullWidth
+                        href='/club'
+                        onClick={() => setOpen(!open)}
+                        className={ buttonActive === 'club' ? classes.buttonActive : classes.dropdownButton }
+                        >
+                            О клубе
+                        </Button>
+                        <Button 
+                        fullWidth
+                        href='/open-space'
+                        onClick={() => setOpen(!open)}
+                        className={ buttonActive === 'open-space' ? classes.buttonActive : classes.dropdownButton }
+                        >
+                            Open Space
+                        </Button>
+                    </Box>}
 
                     <Button
                     fullWidth
