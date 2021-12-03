@@ -38,9 +38,8 @@ const useStyles = makeStyles({
         paddingBottom: '20px',
     },
     image: {
-        height: 'fit-content',
         width: '100%',
-        maxHeight: '720px'
+        height: '100%',
     }
   });
 
@@ -100,9 +99,9 @@ export default function OpenSpacePage() {
   )
 }
 const images = [
-    'images/openSpace3.jpg',
-    'images/openSpace2.jpg',
-    'images/openSpace.jpg',
+    'images/openSpace3-min.jpg',
+    'images/openSpace2-min.jpg',
+    'images/openSpace-min.jpg',
 ];
 
 export const getStaticProps = async () => {
