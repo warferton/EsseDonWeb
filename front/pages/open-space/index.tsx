@@ -40,6 +40,7 @@ const useStyles = makeStyles({
     image: {
         height: 'fit-content',
         width: '100%',
+        maxHeight: '720px'
     }
   });
 
