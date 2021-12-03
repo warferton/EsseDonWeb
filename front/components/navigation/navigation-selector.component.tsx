@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
-import { Container, ButtonGroup, Button, makeStyles, Box } from '@material-ui/core';
+import { useState, useEffect } from 'react';
+import { Container, ButtonGroup, Button, makeStyles, Box, ClickAwayListener } from '@material-ui/core';
+import router from 'next/router';
 
 const useStyles = makeStyles({
     root: {
@@ -50,32 +51,13 @@ const useStyles = makeStyles({
         background: 'white',
         position: 'absolute',
         bottom: '10vh',
-        left: '50%',
-        width: '28%',
+        left: 0,
+        width: '100%',
+        border: '1.5px solid black',
     },
-    dropdownButton: {
-        padding: 0,
-        height: '7vh',
-        color: '#FFFFFF',
-        backgroundColor: '#000000',
-        transition: '0.3s linear',
-        fontFamily: 'Jazz',
-        '&:hover': {
-            color: '#000000',
-        },
-        borderRadius: 0,
-        '@media (max-width: 350px)': {
-            fontSize: 11,
-        },
-        '@media (min-width: 375px)': {
-            fontSize: 14,
-        },
-        '@media (min-width: 1000px)': {
-            fontSize: 18,
-        },
-        '@media (min-width: 1800px)': {
-            fontSize: 22,
-        },
+    popUpButton: {
+        minHeight: '7vh',
+        maxWidth: '100%',
     },
     buttonActive: {
         color: '#000000',
@@ -97,11 +79,14 @@ const useStyles = makeStyles({
             fontSize: 22,
         },
     },
+    buttonWrapper: {
+        width: '100%',
+        height: '100%',
+        padding: '2.5vh'
+    }
 });
 
 export function NavigationSelector(props : any) {
-
-    const ref = useRef()
 
     const { children } = props;
 
@@ -111,93 +96,93 @@ export function NavigationSelector(props : any) {
 
     const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-    const [open, setOpen] = useState(false);
-
     const setCurrentPage = (pageName: string) => {
         setButtonActive(pageName);
         localStorage.setItem("EsseCurentPageName", pageName);
     }
 
-     useEffect(() => {
+    const handleDropdown = () => {
+        setDropdownOpen(!isDropdownOpen);
+    }
+
+    useEffect(() => {
         const currentPageName = localStorage.getItem("EsseCurentPageName");
         setButtonActive(currentPageName);
-
-
-        const checkIfClickedOutside = e => {
-
-            if (isDropdownOpen && ref.current && !ref.current.contains(e.target)) {
-                setDropdownOpen(false)
-            }
-        }
-
-        document.addEventListener("mousedown", checkIfClickedOutside)
-        return () => {
-            document.removeEventListener("mousedown", checkIfClickedOutside)
-        }
-
-    }, [isDropdownOpen]);
+    }, []);
 
 
     return(
         <>
-            { children }
-        <Container className={ classes.root } ref={ref}>
+
+        { children }
+
+        <Container className={ classes.root }>
             <ButtonGroup fullWidth variant='contained' className={ classes.buttonGroup }>
                     
-                    <Button 
-                    fullWidth
-                    href="/"
-                    onClick={ () => setCurrentPage('afisha') }
-                    className={ buttonActive === 'afisha' ? classes.buttonActive : classes.button }
-                    >
-                        Афиша
-                    </Button>
+                <Button 
+                fullWidth
+                href="/"
+                onClick={ () => setCurrentPage('afisha') }
+                className={ buttonActive === 'afisha' ? classes.buttonActive : classes.button }
+                >
+                    Афиша
+                </Button>
+
+                <Button 
+                fullWidth              
+                onClick={ () => {setCurrentPage('menu'); router.push('/menu') }}
+                className={ buttonActive === 'menu' ? classes.buttonActive : classes.button }
+                >
+                    Ресторан
+                </Button>
 
                     <Button 
                     fullWidth
-                    href='/menu'
-                    onClick={() => setOpen(!open)}
-                    className={ buttonActive === 'menu' ? classes.buttonActive : classes.button }
-                    >
-                        Ресторан
-                    </Button>
-
-                    <Button 
-                    fullWidth
-                    onClick={ () => setDropdownOpen(oldState => !oldState)}
+                    onClick={ () => { handleDropdown() }}
                     className={ classes.button }
-                    id = "club-button"
+                    id="club-button"
                     >
-                        Клуб
-                    </Button>
+                    <ClickAwayListener 
+                        mouseEvent="onMouseDown"
+                        touchEvent="onTouchStart"
+                        onClickAway={ () => setDropdownOpen( false ) }> 
+                        <div className={ classes.buttonWrapper }>
+                            Клуб
 
-                    {isDropdownOpen && <Box className={ classes.dropdownBox }>
-                        <Button 
-                        fullWidth
-                        href='/club'
-                        onClick={() => setOpen(!open)}
-                        className={ buttonActive === 'club' ? classes.buttonActive : classes.dropdownButton }
-                        >
-                            О клубе
-                        </Button>
-                        <Button 
-                        fullWidth
-                        href='/open-space'
-                        onClick={() => setOpen(!open)}
-                        className={ buttonActive === 'open-space' ? classes.buttonActive : classes.dropdownButton }
-                        >
-                            Open Space
-                        </Button>
-                    </Box>}
+                            { isDropdownOpen ?
+                            <Box className={ classes.dropdownBox }>
+                                <Button 
+                                fullWidth
+                                href='/club'
+                                onClick={ () => setCurrentPage('club')}
+                                className={ (buttonActive === 'club' ? classes.buttonActive : classes.button).concat(' ').concat( classes.popUpButton )  }
+                                >
+                                    О клубе
+                                </Button>
+                                <Button 
+                                fullWidth
+                                href='/open-space'
+                                onClick={ () => setCurrentPage('open-space')}
+                                className={ (buttonActive === 'open-space' ? classes.buttonActive : classes.button).concat(' ').concat( classes.popUpButton )  }
+                                >
+                                    Open Space
+                                </Button>
+                            </Box>
+                        : 
+                            <></> 
+                        }
+                        </div>
+                    </ClickAwayListener>
+                </Button>
 
-                    <Button
-                    fullWidth
-                    href='/contacts'
-                    onClick={ () => setCurrentPage('contacts') }
-                    className={ buttonActive === 'contacts' ? classes.buttonActive : classes.button }
-                    >
-                        Контакты
-                    </Button>
+                <Button
+                fullWidth
+                href='/contacts'
+                onClick={ () => setCurrentPage('contacts') }
+                className={ buttonActive === 'contacts' ? classes.buttonActive : classes.button }
+                >
+                    Контакты
+                </Button>
                     
             </ButtonGroup>
         </Container>
