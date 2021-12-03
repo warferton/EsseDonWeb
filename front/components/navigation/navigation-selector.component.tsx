@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Container, ButtonGroup, Button, makeStyles } from '@material-ui/core';
+import { Container, ButtonGroup, Button, makeStyles, Box, ClickAwayListener } from '@material-ui/core';
+import router from 'next/router';
 
 const useStyles = makeStyles({
     root: {
@@ -46,6 +47,18 @@ const useStyles = makeStyles({
             fontSize: 22,
         },
     },
+    dropdownBox: {
+        background: 'white',
+        position: 'absolute',
+        bottom: '10vh',
+        left: 0,
+        width: '100%',
+        border: '1.5px solid black',
+    },
+    popUpButton: {
+        minHeight: '7vh',
+        maxWidth: '100%',
+    },
     buttonActive: {
         color: '#000000',
         backgroundColor: '#FFFFFF',
@@ -66,6 +79,11 @@ const useStyles = makeStyles({
             fontSize: 22,
         },
     },
+    buttonWrapper: {
+        width: '100%',
+        height: '100%',
+        padding: '2.5vh'
+    }
 });
 
 export function NavigationSelector(props : any) {
@@ -76,12 +94,18 @@ export function NavigationSelector(props : any) {
     
     const [buttonActive, setButtonActive] = useState('');
 
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
+
     const setCurrentPage = (pageName: string) => {
         setButtonActive(pageName);
         localStorage.setItem("EsseCurentPageName", pageName);
     }
 
-     useEffect(() => {
+    const handleDropdown = () => {
+        setDropdownOpen(!isDropdownOpen);
+    }
+
+    useEffect(() => {
         const currentPageName = localStorage.getItem("EsseCurentPageName");
         setButtonActive(currentPageName);
     }, []);
@@ -89,45 +113,76 @@ export function NavigationSelector(props : any) {
 
     return(
         <>
-            { children }
+
+        { children }
+
         <Container className={ classes.root }>
             <ButtonGroup fullWidth variant='contained' className={ classes.buttonGroup }>
                     
-                    <Button 
-                    fullWidth
-                    href="/"
-                    onClick={ () => setCurrentPage('afisha') }
-                    className={ buttonActive === 'afisha' ? classes.buttonActive : classes.button }
-                    >
-                        Афиша
-                    </Button>
+                <Button 
+                fullWidth
+                href="/"
+                onClick={ () => setCurrentPage('afisha') }
+                className={ buttonActive === 'afisha' ? classes.buttonActive : classes.button }
+                >
+                    Афиша
+                </Button>
+
+                <Button 
+                fullWidth              
+                onClick={ () => {setCurrentPage('menu'); router.push('/menu') }}
+                className={ buttonActive === 'menu' ? classes.buttonActive : classes.button }
+                >
+                    Ресторан
+                </Button>
 
                     <Button 
                     fullWidth
-                    href='/menu'
-                    onClick={ () => setCurrentPage('menu') }
-                    className={ buttonActive === 'menu' ? classes.buttonActive : classes.button }
+                    onClick={ () => { handleDropdown() }}
+                    className={ classes.button }
+                    id="club-button"
                     >
-                        Ресторан
-                    </Button>
+                    <ClickAwayListener 
+                        mouseEvent="onMouseDown"
+                        touchEvent="onTouchStart"
+                        onClickAway={ () => setDropdownOpen( false ) }> 
+                        <div className={ classes.buttonWrapper }>
+                            Клуб
 
-                    <Button 
-                    fullWidth
-                    href='/club'
-                    onClick={ () => setCurrentPage('club') }
-                    className={ buttonActive === 'club' ? classes.buttonActive : classes.button }
-                    >
-                        О&nbsp;Клубе
-                    </Button>
+                            { isDropdownOpen ?
+                            <Box className={ classes.dropdownBox }>
+                                <Button 
+                                fullWidth
+                                href='/club'
+                                onClick={ () => setCurrentPage('club')}
+                                className={ (buttonActive === 'club' ? classes.buttonActive : classes.button).concat(' ').concat( classes.popUpButton )  }
+                                >
+                                    О клубе
+                                </Button>
+                                <Button 
+                                fullWidth
+                                href='/open-space'
+                                onClick={ () => setCurrentPage('open-space')}
+                                className={ (buttonActive === 'open-space' ? classes.buttonActive : classes.button).concat(' ').concat( classes.popUpButton )  }
+                                >
+                                    Open Space
+                                </Button>
+                            </Box>
+                        : 
+                            <></> 
+                        }
+                        </div>
+                    </ClickAwayListener>
+                </Button>
 
-                    <Button
-                    fullWidth
-                    href='/contacts'
-                    onClick={ () => setCurrentPage('contacts') }
-                    className={ buttonActive === 'contacts' ? classes.buttonActive : classes.button }
-                    >
-                        Контакты
-                    </Button>
+                <Button
+                fullWidth
+                href='/contacts'
+                onClick={ () => setCurrentPage('contacts') }
+                className={ buttonActive === 'contacts' ? classes.buttonActive : classes.button }
+                >
+                    Контакты
+                </Button>
                     
             </ButtonGroup>
         </Container>
