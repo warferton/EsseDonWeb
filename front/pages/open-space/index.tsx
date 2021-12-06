@@ -56,7 +56,7 @@ export default function OpenSpacePage() {
       <Head>
           <title>Open Space</title>
           <meta name="description" content="Эссе это не только концертная площадка, но и открытое пространство" />
-          <link rel="canonical" href="https://esse-jazz-don.ru/open-space"/>
+          <link rel="canonical" href="https://essedon.ru/open-space"/>
           <meta name="theme-color" content="#1a1a1a"/>
           <link rel="icon" href="/favicon.ico" />
           <link rel="manifest" href="/manifest.json"/>

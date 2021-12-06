@@ -9,7 +9,7 @@ export default function LoginPage() {
             <Head>
                 <title>Вход</title>
                 <meta name="description" content="ЭССЕ-ДОН | Вход" />
-                <link rel="canonical" href="https://esse-jazz-don.ru/login"/>
+                <link rel="canonical" href="https://essedon.ru/login"/>
                 <meta name="theme-color" content="#1a1a1a"/>
                 <link rel="manifest" href="/manifest.json"/>
                 <link rel="icon" href="/favicon.ico" />
