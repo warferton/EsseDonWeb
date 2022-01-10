@@ -85,7 +85,7 @@ export default function Home({ mainGroupEvents, secondGroupEvents, generalGroupE
     <>
       <Head>
         <title>Эссе-Дон</title>
-        <meta name="description" content="Джаз-Клуб ЭССЕ, г. Ростов-на-Дону" />
+        <meta name="description" content="Афиша, концерты, мероприятия Джаз-Клуб ЭССЕ, г. Ростов-на-Дону" />
         <link rel="canonical" href="https://essedon.ru"/>
         <meta name="theme-color" content="#1a1a1a"/>
         <link rel="manifest" href="/manifest.json"/>
