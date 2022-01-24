@@ -187,7 +187,7 @@ export function CreateEventForm(props: IProps) {
                     formData.set('free', `${isFree.current}`)
 
                     if(isUpdate){
-                        axios.put(`http://localhost:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
+                        axios.put(`http://193.168.3.162:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
                             .then(res => {
                                 setOpenBackdrop(false);
                                 setOpenSuccessSnackbar( true );
@@ -201,7 +201,7 @@ export function CreateEventForm(props: IProps) {
                             });
                     }
                     else {
-                        axios.post(`http://localhost:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
+                        axios.post(`http://193.168.3.162:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
                             .then(res => {
                                 setOpenBackdrop(false);
                                 setSubmitting(false);

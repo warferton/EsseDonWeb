@@ -86,7 +86,7 @@ export function FreeEventForm({ event } : IProps) {
                         comment
                     }
                     setSubmitting(true);
-                    axios.post('http://localhost:3030/api/v1/mailing/bookingMail', bookingData)
+                    axios.post('http://193.168.3.162:3030/api/v1/mailing/bookingMail', bookingData)
                     .then(response => {
                         setSubmitting( false );
                         if(response.status === 200) {

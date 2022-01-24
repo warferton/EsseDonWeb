@@ -3,10 +3,10 @@ import { IEvent, IEventGroups } from '../types/event/event.type';
 import { sortEventsByDate } from './parsing-utils';
 import axios from 'axios';
 
-const EVENT_API_URL='http://localhost:3030/api/v1/events/'
-const MENU_API_URL='http://localhost:3030/api/v1/menu/';
-const ADMIN_API_URL='http://localhost:3030/api/v1/spe1Ce/control/admin/'
-const VALIDATE_API_URL = 'http://localhost:3030/api/v1/auth/validate';
+const EVENT_API_URL='http://193.168.3.162:3030/api/v1/events/'
+const MENU_API_URL='http://193.168.3.162:3030/api/v1/menu/';
+const ADMIN_API_URL='http://193.168.3.162:3030/api/v1/spe1Ce/control/admin/'
+const VALIDATE_API_URL = 'http://193.168.3.162:3030/api/v1/auth/validate';
 const ARCHIVED_EVENTS_PATH = 'events/get/archived';
 
 interface IEventFetchResult {

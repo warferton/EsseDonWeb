@@ -80,8 +80,8 @@ export function EventControlList(props : IProps) {
         );
     })
 
-    const eventsUpdateLink = 'http://localhost:3030/api/v1/spe1Ce/control/admin/events/update/switchDb';
-    const eventsDeleteLink = 'http://localhost:3030/api/v1/spe1Ce/control/admin/events/delete';
+    const eventsUpdateLink = 'http://193.168.3.162:3030/api/v1/spe1Ce/control/admin/events/update/switchDb';
+    const eventsDeleteLink = 'http://193.168.3.162:3030/api/v1/spe1Ce/control/admin/events/delete';
 
     const SUCCESS_MESSAGE = 'Событие успешно обновлено';
     let ERROR_MESSAGE = ``;

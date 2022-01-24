@@ -70,7 +70,7 @@ export function ArtistForm() {
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setSubmitting(true);
-                    axios.post('http://localhost:3030/api/v1/mailing/perfrormRequestMail', values)
+                    axios.post('http://193.168.3.162:3030/api/v1/mailing/perfrormRequestMail', values)
                     .then(response => {
                         if(response.status === 200) {
                             setSubmitting( false );
