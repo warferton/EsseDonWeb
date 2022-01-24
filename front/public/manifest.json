@@ -1,6 +1,6 @@
 {
     "short_name": "Esse Don",
-    "name": "ESEE, Джазз Клуб, Ростов-на-Дону",
+    "name": "ЭССЕ, Джазз Клуб, Ростов-на-Дону",
     "icons": [
         {
             "src": "../images/pwa/logoCircle.svg",
@@ -30,7 +30,7 @@
         {
             "name": "Меню Ресторана",
             "short_name": "Меню",
-            "description": "Меню Бара-Ресторана Клуба",
+            "description": "Меню Бара-Ресторана Клуба ЭССЕ",
             "url": "/menu?source=pwa",
             "icons": [
                 {
@@ -43,7 +43,7 @@
         {
             "name": "Контакты Клуба",
             "short_name": "Контакты",
-            "description": "Контакты Клуба ESSE-Jazz, Ростов-на-Дону",
+            "description": "Контакты Клуба ЭССЕ, Ростов-на-Дону",
             "url": "/contacts?source=pwa",
             "icons": [
                 {
@@ -56,7 +56,7 @@
         {
             "name": "О Клубе",
             "short_name": "О Клубе",
-            "description": "Краткая Информация о Клубе",
+            "description": "Краткая Информация о Клубе ЭССЕ",
             "url": "/club?source=pwa",
             "icons": [
                 {
@@ -67,7 +67,7 @@
             ]
         }
     ],
-    "description": "Клуб Эссе Джаз",
+    "description": "Клуб ЭССЕ Джаз",
     "screenshots": [
         {
             "src": "/images/Screenshot-1.png",
