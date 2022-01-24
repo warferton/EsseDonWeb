@@ -3,10 +3,10 @@ import { IEvent, IEventGroups } from '../types/event/event.type';
 import { sortEventsByDate } from './parsing-utils';
 import axios from 'axios';
 
-const EVENT_API_URL='https://esse-api-test.herokuapp.com/api/v1/events/'
-const MENU_API_URL='https://esse-api-test.herokuapp.com/api/v1/menu/';
-const ADMIN_API_URL='https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/'
-
+const EVENT_API_URL='http://localhost:3030/api/v1/events/'
+const MENU_API_URL='http://localhost:3030/api/v1/menu/';
+const ADMIN_API_URL='http://localhost:3030/api/v1/spe1Ce/control/admin/'
+const VALIDATE_API_URL = 'http://localhost:3030/api/v1/auth/validate';
 const ARCHIVED_EVENTS_PATH = 'events/get/archived';
 
 interface IEventFetchResult {
@@ -186,7 +186,7 @@ export async function fetchActiveEventsPaths(){
 export async function validateCurrentClient(){
   try{
     return axios
-    .get('https://esse-api-test.herokuapp.com/api/v1/auth/validate', { withCredentials: true }).then(res => {
+    .get(VALIDATE_API_URL, { withCredentials: true }).then(res => {
       return res.status === 200 ? true : false
     }).catch(err => console.error(err));
   }

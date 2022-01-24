@@ -80,8 +80,8 @@ export function EventControlList(props : IProps) {
         );
     })
 
-    const eventsUpdateLink = 'https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/events/update/switchDb';
-    const eventsDeleteLink = 'https://esse-api-test.herokuapp.com/api/v1/spe1Ce/control/admin/events/delete';
+    const eventsUpdateLink = 'http://localhost:3030/api/v1/spe1Ce/control/admin/events/update/switchDb';
+    const eventsDeleteLink = 'http://localhost:3030/api/v1/spe1Ce/control/admin/events/delete';
 
     const SUCCESS_MESSAGE = 'Событие успешно обновлено';
     let ERROR_MESSAGE = ``;
