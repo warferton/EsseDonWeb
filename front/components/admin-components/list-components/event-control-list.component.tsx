@@ -12,6 +12,7 @@ import { IEvent } from '../../../types/event/event.type';
 import { SnackbarAlert } from '../../alerts/snackbar.component';
 import { Backdrop } from '../../backdrop/backdrop.component';
 import axios from 'axios';
+import consts from '../../../utils/consts';
 
 
 interface IProps {
@@ -80,9 +81,6 @@ export function EventControlList(props : IProps) {
         );
     })
 
-    const eventsUpdateLink = 'http://193.168.3.162:3030/api/v1/spe1Ce/control/admin/events/update/switchDb';
-    const eventsDeleteLink = 'http://193.168.3.162:3030/api/v1/spe1Ce/control/admin/events/delete';
-
     const SUCCESS_MESSAGE = 'Событие успешно обновлено';
     let ERROR_MESSAGE = ``;
 
@@ -97,7 +95,7 @@ export function EventControlList(props : IProps) {
         onSubmit={(values, { setSubmitting }) => {
             setOpenBackdrop(true);
             setSubmitting(true);
-            axios.put(eventsUpdateLink, children, {withCredentials: true})
+            axios.put(consts.SWITCH_EVENT_STATUS_API_URL, children, {withCredentials: true})
                 .then(res => {
                     if(res.status === 200) {
                         setOpenSuccessSnackbar( true );
@@ -105,7 +103,7 @@ export function EventControlList(props : IProps) {
                 })
                 .then(async () => {
                     if (deleteIdList.length > 0) {
-                        await axios.post(eventsDeleteLink, deleteIdList, {withCredentials: true})
+                        await axios.post(consts.DELETE_EVENT_API_URL, deleteIdList, {withCredentials: true})
                             .then((res) => {
                                 if(res.status === 200) {
                                     setOpenSuccessSnackbar( true );

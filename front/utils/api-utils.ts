@@ -2,11 +2,8 @@ import { IMenuItem } from '../types/menu/menuItem.type';
 import { IEvent, IEventGroups } from '../types/event/event.type';
 import { sortEventsByDate } from './parsing-utils';
 import axios from 'axios';
+import consts from './consts';
 
-const EVENT_API_URL='http://193.168.3.162:3030/api/v1/events/'
-const MENU_API_URL='http://193.168.3.162:3030/api/v1/menu/';
-const ADMIN_API_URL='http://193.168.3.162:3030/api/v1/spe1Ce/control/admin/'
-const VALIDATE_API_URL = 'http://193.168.3.162:3030/api/v1/auth/validate';
 const ARCHIVED_EVENTS_PATH = 'events/get/archived';
 
 interface IEventFetchResult {
@@ -16,7 +13,7 @@ interface IEventFetchResult {
 }
 
 export async function getEventById( id : string ) : Promise<IEvent> {
-  return await axios.get(EVENT_API_URL.concat( id ), { withCredentials: true })
+  return await axios.get(consts.EVENT_API_URL.concat( id ), { withCredentials: true })
     .then(async (res) => {
       const event = res.data.event;
       event.image = await fetchEventImage( event.image as string );
@@ -30,7 +27,7 @@ export async function fetchAllActiveEvents() : Promise<IEventFetchResult> {
   const secondGroupEvents : IEvent[] = [];
   const generalGroupEvents : IEvent[] = [];
   await axios
-  .get(EVENT_API_URL.concat("active"), { withCredentials: true })
+  .get(consts.EVENT_API_URL.concat("active"), { withCredentials: true })
   .then( async res => {
     const events = res.data.events;
     //sort events by date
@@ -78,7 +75,7 @@ export async function fetchAllActiveEventsNoImageData() : Promise<IEventFetchRes
   const secondGroupEvents : IEvent[] = [];
   const generalGroupEvents : IEvent[] = [];
   await axios
-  .get(EVENT_API_URL.concat("active"), { withCredentials: true })
+  .get(consts.EVENT_API_URL.concat("active"), { withCredentials: true })
   .then( res => {
     res.data.events.map( async (event : IEvent) => {
         //split into groups
@@ -114,7 +111,7 @@ export async function fetchAllArchivedEvents() : Promise<IEventFetchResult> {
   const secondGroupEvents : IEvent[] = [];
   const generalGroupEvents : IEvent[] = [];
   await axios
-  .get(ADMIN_API_URL.concat(ARCHIVED_EVENTS_PATH), { withCredentials: true })
+  .get(consts.ADMIN_API_URL.concat(ARCHIVED_EVENTS_PATH), { withCredentials: true })
   .then(res => 
     res.data.events.map((event : IEvent) => {
       if( event.group === "main") {
@@ -160,7 +157,7 @@ export async function fetchAllEvents() : Promise<IEventFetchResult> {
 export async function fetchMenuItems(type: string) {
   const menuItems : IMenuItem[] = [];
   await axios
-  .get(MENU_API_URL.concat(type), { withCredentials: true })
+  .get(consts.MENU_API_URL.concat(type), { withCredentials: true })
   .then( res => res.data.menuItems.map((item : IMenuItem) => menuItems.push(item)) )
   .catch(err => console.error(err));
 
@@ -186,7 +183,7 @@ export async function fetchActiveEventsPaths(){
 export async function validateCurrentClient(){
   try{
     return axios
-    .get(VALIDATE_API_URL, { withCredentials: true }).then(res => {
+    .get(consts.VALIDATE_API_URL, { withCredentials: true }).then(res => {
       return res.status === 200 ? true : false
     }).catch(err => console.error(err));
   }
@@ -199,7 +196,7 @@ export async function validateCurrentClient(){
 export async function fetchEventImage(imageId : string) {
   try{
     return axios
-    .get(ADMIN_API_URL.concat(`/media/${ imageId }`), { withCredentials: true }).then(res => {
+    .get(consts.ADMIN_API_URL.concat(`/media/${ imageId }`), { withCredentials: true }).then(res => {
       if( res.status === 200 && res.data.image !== null && res.data.image !== undefined ) {
         return res.data.image;
       } else {

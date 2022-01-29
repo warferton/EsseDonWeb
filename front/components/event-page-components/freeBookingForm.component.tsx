@@ -9,6 +9,7 @@ import { getLocalWeekDay } from '../../utils/date-utils';
 import axios from 'axios';
 
 import styles from '../../styles/BookingForm.module.css'
+import consts from '../../utils/consts';
 
 interface IProps{
     event: IEvent;
@@ -86,7 +87,7 @@ export function FreeEventForm({ event } : IProps) {
                         comment
                     }
                     setSubmitting(true);
-                    axios.post('http://193.168.3.162:3030/api/v1/mailing/bookingMail', bookingData)
+                    axios.post(consts.BOOK_EVENT_API_URL, bookingData)
                     .then(response => {
                         setSubmitting( false );
                         if(response.status === 200) {

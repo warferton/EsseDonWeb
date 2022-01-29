@@ -7,6 +7,7 @@ import { SnackbarAlert } from '../alerts/snackbar.component';
 import { Backdrop } from '../backdrop/backdrop.component';
 
 import axios from 'axios';
+import consts from '../../utils/consts';
 
 
 const useStyles = makeStyles({
@@ -78,7 +79,7 @@ export function LoginForm() {
                 onSubmit={(values, { setSubmitting }) => {
                    setOpenBackdrop(true); 
                    setSubmitting(true);
-                    axios.post('http://193.168.3.162:3030/api/v1/auth/login', values, { withCredentials: true })
+                    axios.post(consts.LOGIN_API_URL, values, { withCredentials: true })
                     .then( res => {
                         if(res.status === 200) {
                             setOpenBackdrop(false);

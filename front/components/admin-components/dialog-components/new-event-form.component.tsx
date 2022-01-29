@@ -17,6 +17,7 @@ import { UploadButton } from './form-components/upload-button.component';
 import { SnackbarAlert } from '../../alerts/snackbar.component';
 import { IEvent, IUploadEvent } from '../../../types/event/event.type';
 import axios from 'axios';
+import consts from '../../../utils/consts';
 
 
 
@@ -187,7 +188,7 @@ export function CreateEventForm(props: IProps) {
                     formData.set('free', `${isFree.current}`)
 
                     if(isUpdate){
-                        axios.put(`http://193.168.3.162:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
+                        axios.put(`${ consts.CREATE_EVENT_API_URL }${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
                             .then(res => {
                                 setOpenBackdrop(false);
                                 setOpenSuccessSnackbar( true );
@@ -201,7 +202,7 @@ export function CreateEventForm(props: IProps) {
                             });
                     }
                     else {
-                        axios.post(`http://193.168.3.162:3030/api/v1/spe1Ce/control/admin/events/${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
+                        axios.post(`${ consts.CREATE_EVENT_API_URL }${ API_ENDPOINT }`, formData, {withCredentials: true, headers: {'Content-Type': "multipart/form-data"}})
                             .then(res => {
                                 setOpenBackdrop(false);
                                 setSubmitting(false);
