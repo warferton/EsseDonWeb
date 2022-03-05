@@ -1,0 +1,61 @@
+.root {
+  max-width: 420px;
+  border-radius: 0px !important;
+  margin: auto !important;
+  justify-self: center;
+}
+
+.text {
+  color: black !important;
+  align-items: left;
+  margin-top: 10px;
+}
+
+.titleText {
+  height: 50px;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  line-height: 25px !important;
+  overflow: hidden !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.dateText {
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  padding-top: 0.5rem;
+  text-transform: uppercase;
+}
+
+.cardContent {
+  padding: 0 !important;
+}
+
+.action {
+  border-radius: inherit !important;
+}
+
+.box {
+  color: white;
+  padding: 1rem !important;
+  width: 100%;
+  background-color: #121212;
+}
+
+@media (min-width: 600px) {
+  .root {
+    max-width: 100%;
+  }
+
+  .img {
+    object-position: 100% 40%;
+    min-height: 400px;
+  }
+}
+
+.img {
+  object-position: 100% 40%;
+  height: 270px;
+}

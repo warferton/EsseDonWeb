@@ -1,0 +1,55 @@
+.container {
+  background-color: white;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: 100% !important;
+}
+
+.headerBox {
+  background-color: white;
+  color: black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.sectionHeader {
+  padding: 0.7rem;
+  font-size: 24px !important;
+  font-family: "Jazz";
+  font-weight: 500 !important;
+  text-align: center;
+}
+
+.formBody {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.formField {
+  margin: 0.7rem !important;
+}
+
+.uploadField {
+  margin-top: 1.5rem !important;
+  margin: 0.7rem !important;
+}
+
+.motionFormField {
+  margin: 0.7rem !important;
+  width: calc(100% - 22px);
+}
+
+.formButton {
+  background-color: black !important;
+  padding-top: 0.7rem !important;
+  padding-bottom: 0.7rem !important;
+  margin-top: 0.7rem !important;
+  border: 1px solid black !important;
+  font-size: 18px !important;
+}
+
+.formButton:hover {
+  background-color: #e0e0e0 !important;
+  color: black !important;
+}

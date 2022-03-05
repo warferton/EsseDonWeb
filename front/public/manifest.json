@@ -1,0 +1,88 @@
+{
+    "short_name": "Esse Don",
+    "name": "ЭССЕ, Джазз Клуб, Ростов-на-Дону",
+    "icons": [
+        {
+            "src": "../images/pwa/logoCircle.svg",
+            "type": "image/svg+xml",
+            "sizes": "512x512",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/images/pwa/logoCircle.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/images/pwa/logoCircle.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any maskable"
+        }
+    ],
+    "start_url": "/?source=pwa",
+    "background_color": "#2a2a2a",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#2a2a2a",
+    "shortcuts": [
+        {
+            "name": "Меню Ресторана",
+            "short_name": "Меню",
+            "description": "Меню Бара-Ресторана Клуба ЭССЕ",
+            "url": "/menu?source=pwa",
+            "icons": [
+                {
+                    "src": "/images/pwa/logoCircle.png",
+                    "sizes": "192x192",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "Контакты Клуба",
+            "short_name": "Контакты",
+            "description": "Контакты Клуба ЭССЕ, Ростов-на-Дону",
+            "url": "/contacts?source=pwa",
+            "icons": [
+                {
+                    "src": "/images/pwa/logoCircle.png",
+                    "sizes": "192x192",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "О Клубе",
+            "short_name": "О Клубе",
+            "description": "Краткая Информация о Клубе ЭССЕ",
+            "url": "/club?source=pwa",
+            "icons": [
+                {
+                    "src": "/images/pwa/logoCircle.png",
+                    "sizes": "192x192",
+                    "type": "image/png"
+                }
+            ]
+        }
+    ],
+    "description": "Клуб ЭССЕ Джаз",
+    "screenshots": [
+        {
+            "src": "/images/Screenshot-1.png",
+            "type": "image/png",
+            "sizes": "1410x620"
+        },
+        {
+            "src": "/images/Screenshot-2.jpg",
+            "type": "image/jpg",
+            "sizes": "1410x620"
+        },
+        {
+            "src": "/images/Screenshot-3.jpg",
+            "type": "image/jpg",
+            "sizes": "1410x620"
+        }
+    ]
+}
