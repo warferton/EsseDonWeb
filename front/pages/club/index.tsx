@@ -55,6 +55,45 @@ const useStyles = makeStyles({
     '@media(min-width: 1080px)' : {
       height: '70vh',
     }
+  },
+  sectionHeader: {
+    fontSize: '24px',
+    fontWeight: 500,
+    paddingTop: '0.7rem',
+    borderTop: '1px solid black',
+    borderBottom: '1px solid black',
+    textAlign: 'center',
+    width: '100%',
+  },
+  musicBox: {
+    marginTop: '1rem',
+    marginBottom: '2rem',
+    padding: '1rem',
+    background: '#222222',
+    borderRadius: '15px',
+    width: 'auto',
+    maxWidth: '300px',
+    textAlign: 'center',
+  },
+  musicTitle:
+  {
+    fontSize: '18px',
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  musicImg: {
+    maxHeight: '50px',
+    marginTop: '1rem',
+    marginRight: '0.5rem',
+  },
+  Playlist: {
+    border: 'none',
+    height:'700px',
+    width: '100%',
+    paddingBottom: '20px',
+    '@media(min-width: 1080px)' : {
+      width: '70%'
+    }   
   }
 });
 
@@ -153,6 +192,50 @@ export default function ClubInfoPage() {
               ))}
             </ImageList>  
 
+            <Box className={ classes.infoBox }>
+
+              <Typography variant='h4' className={ classes.sectionHeader }>
+                Плейлисты от Эссе
+              </Typography>
+
+              <Typography className={ classes.text }>
+                Подборка хорошей качественной музыки от джазовых стандартов до экспериментальных проектов.
+              </Typography>
+
+
+              <Box className={ classes.musicBox }>
+                <Typography variant="h5" className={ classes.musicTitle }>
+                  Слушать на всех площадках
+                </Typography>
+                <a href="https://open.spotify.com/playlist/5n1GLlZVUEhcmbiiZ4NDiL?si=a8c356faf642450a">
+                  <img className={ classes.musicImg } src="https://pnggrid.com/wp-content/uploads/2021/05/Spotify-PNG-Logo-2048x2046.png"></img>
+                </a>
+                <a href="https://vk.com/music/playlist/142938351_70496119_c7891009bc970260b3">
+                  <img className={ classes.musicImg } src="https://pngimg.com/uploads/vkontakte/vkontakte_PNG25.png"></img>
+                </a>
+                <a href="https://soundcloud.com/titi-miti-166363817/sets/mainstream-jazz?si=9ef60d1aaf8e48cda7e4141898fe6b4b&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing">
+                  <img className={ classes.musicImg } src="https://pngmind.com/wp-content/uploads/2019/08/Soundcloud-Logo-Png-Transparent-Background.png"></img>
+                </a>
+                <a href="https://music.yandex.ru/users/ikhozhaynov2/playlists/1012?lang=ru">
+                  <img className={ classes.musicImg } src="https://rskrf.ru/upload/iblock/087/08775527999b3625409188704ce7f546.png"></img>
+                </a>
+              </Box>
+
+              <iframe 
+                className={ classes.Playlist }
+                src="https://music.yandex.com/iframe/#playlist/ikhozhaynov2/1019">
+                  Listen to 
+                  <a href='https://music.yandex.com/users/ikhozhaynov2/playlists/1019?lang=en'>
+                    Mainstream Jazz sh.
+                  </a> 
+                    — 
+                  <a href='https://music.yandex.com/users/ikhozhaynov2'>
+                    ikhozhaynov2
+                  </a>
+                  on Yandex Music
+              </iframe>
+            </Box>
+
         </motion.div>
 
       </>
@@ -167,7 +250,7 @@ export default function ClubInfoPage() {
     cols: 1
   },
   {
-    img: 'images/image-group-2.jpg',
+    img: 'images/clubEsseDon-0.jpg',
     rows: 2,
     cols: 2,
   },
@@ -190,12 +273,12 @@ const backgroundImages2 = [
     cols: 1,
   },
   {
-    img: 'images/image-stage-2.jpg',
+    img: 'images/clubEsseDon-5.jpg',
     rows: 2,
     cols: 2,
   },
   {
-    img: 'images/image-audience.jpg',
+    img: 'images/clubEsseDon-4.jpg',
     rows: 2,
     cols: 2
   },
