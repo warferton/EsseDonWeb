@@ -1,5 +1,5 @@
 import { Link, Box, Typography, makeStyles, IconButton, SvgIcon } from '@material-ui/core';
-import { Room, PhoneEnabled, MailRounded, Instagram, Facebook, WhatsApp }from '@material-ui/icons';
+import { Room, PhoneEnabled, MailRounded, WhatsApp }from '@material-ui/icons';
 import React from 'react';
 
 const useStyles = makeStyles({
@@ -76,14 +76,8 @@ export function AboutContact() {
             >
                 Соцсети
             </Typography>
-            <IconButton style={{paddingLeft: '0rem'}} aria-label="Example" color="inherit" href='https://api.whatsapp.com/send?phone=+79613231879'>
+            <IconButton style={{paddingLeft: '0rem'}} aria-label="Example" color="inherit" href='https://wa.me/79613231879'>
                 <WhatsApp fontSize='large' viewBox="0 0 22 22"></WhatsApp>
-            </IconButton>
-            <IconButton aria-label="Example" color="inherit" href='https://www.instagram.com/essejazzdon/'>
-                <Instagram fontSize='large' viewBox="0 0 22 22"></Instagram>
-            </IconButton>
-            <IconButton aria-label="Example" color="inherit" href='https://www.facebook.com/pg/Essejazzdon/posts/'>
-                <Facebook fontSize='large' viewBox="0 0 22 22"></Facebook>
             </IconButton>
             <IconButton aria-label="Example" color="inherit" href='https://vk.com/essejazzdon'>
                 <SvgIcon fontSize="large" viewBox="-5 -5 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">

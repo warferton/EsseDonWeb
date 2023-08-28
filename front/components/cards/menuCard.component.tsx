@@ -2,7 +2,7 @@ import {
     Card, 
     CardMedia, 
     CardContent, 
-    CardActionArea, 
+    CardActionArea,
     Typography, 
     makeStyles
 } from '@material-ui/core';
@@ -10,26 +10,27 @@ import {
 const useStyles = makeStyles({
     root: {
         minWidth: '200px',
-        minHeight: '200px',
-        height: 'fit-content',
-        backgroundColor: 'rgb(243, 243, 243)',
+        height: '260px',
+        backgroundColor: '#212121',
         margin: '15px',
       },
       
       picture: {
         maxWidth: '250px',
-        height: '100%',
+        height: '180px',
       },
       
       text: {
-        color: 'black',
+        color: 'white',
         alignItems: 'left',
         marginTop: '10px',
       },
 
       
       titleText: {
+        color: 'white',
         fontSize: '14px',
+        fontWeight: 700,
         lineHeight: '18px',
         display: 'flex',
       },
@@ -42,15 +43,23 @@ const useStyles = makeStyles({
       action: {
         borderRadius: 'inherit',
       },
+
+      chip: {
+        color: 'white',
+        fontWeight: 700,
+        marginRight: '10px',
+        fontFamily: 'Jazz',
+      }
         
 });
 
-interface Props {
+interface menuCard {
     title: string | undefined;
     image: string | undefined;
+    price: number | string;
   }
 
-export function MenuCard(props: Props){
+export function MenuCard({title, image, price}: menuCard){
 
     const styles = useStyles();
 
@@ -61,12 +70,17 @@ export function MenuCard(props: Props){
                 className={ styles.picture }
                 component="img"
                 alt="menu"
-                src={props.image}
-                title={ props.title } />                
+                src={ image }
+                title={ title } />                
                 <CardContent className={ styles.cardContent }>
                     <Typography component="h2" className={ styles.titleText }>
-                        { props.title }
+                        { title }
                     </Typography>
+                    { price && (
+                    <Typography component="h2" className={ styles.titleText }>
+                      { `${ price } р.` }
+                    </Typography>
+                    )}
                 </CardContent>
             </CardActionArea>
         </Card>

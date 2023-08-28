@@ -100,7 +100,7 @@ export function EventCard(props : IProps) {
     const weekDay = getLocalWeekDay(date);
     const localisedDate = `${ new Date(date).getDate() } ${ getLocalizedMonth(date) }`;
     const buttonLink = free === 'true' ? `event/${event._id}/#form-box` : tcLink;
-    const buttonTitle = free === 'true' ? 'Забронировать' : 'Купить Билет';
+    const buttonTitle = free === 'true' ? 'Забронировать' : 'Забронировать';
     
     return (   
         <Card raised className={ styles.root } onClick={ () => router.push(`event/${event._id}`) }>

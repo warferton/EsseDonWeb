@@ -1,5 +1,5 @@
 import { Container, Typography, Link, makeStyles, IconButton, SvgIcon } from '@material-ui/core';
-import { Call, Instagram, Facebook, WhatsApp } from '@material-ui/icons/';
+import { Call, WhatsApp } from '@material-ui/icons/';
 
 
 interface IProps {
@@ -56,14 +56,8 @@ export function Footer(props: IProps) {
                 </Link>
             </Typography>
             <Container style={{color: 'white', justifyContent: 'center', display: 'flex',}}>
-                <IconButton aria-label="Example" color="inherit" href='https://api.whatsapp.com/send?phone=+79613231879'>
+                <IconButton aria-label="Example" color="inherit" href='https://wa.me/79613231879'>
                     <WhatsApp fontSize='large' viewBox="0 0 22 22"></WhatsApp>
-                </IconButton>
-		<IconButton aria-label="Example" color='inherit' href='https://www.instagram.com/essejazzdon/'>
-                    <Instagram fontSize='large'></Instagram>
-                </IconButton>
-                <IconButton aria-label="Example" color='inherit' href='https://www.facebook.com/pg/Essejazzdon/posts/'>
-                    <Facebook fontSize='large'></Facebook>
                 </IconButton>
                 <IconButton aria-label="Example" color="inherit" href='https://vk.com/essejazzdon'>
                     <SvgIcon fontSize="large" viewBox="0 -2 54 54" xmlns="http://www.w3.org/2000/svg">

@@ -148,7 +148,7 @@ export function FreeEventForm({ event } : IProps) {
                             component={ TextField }
                             name="comment"
                             type="text"
-                            label="Комметарий"
+                            label="Комментарий"
                             variant="outlined"
                             multiline
                             rows={ 3 }

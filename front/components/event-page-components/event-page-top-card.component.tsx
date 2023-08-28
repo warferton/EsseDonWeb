@@ -81,7 +81,8 @@ const useStyles = makeStyles({
         height: '300px',
     },
     '@media (min-width: 1275px)': {
-        height: '350px',
+        objectPosition: '100% 30%',
+        height: '400px'
     },
   },
 });
