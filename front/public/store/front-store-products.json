@@ -1,0 +1,82 @@
+[
+    {
+        "title": "сертификат",
+        "image": "images/shop/сертификаты.jpg",
+        "price": "3000/5000"
+    },
+    {
+        "title": "календарь",
+        "image": "images/shop/календарь.jpg",
+        "price": "850"
+    },
+    {
+        "title": "ежедневник",
+        "image": "images/shop/ежедневник.jpg",
+        "price": 1100
+    },
+    {
+        "title": "блокнот",
+        "image": "images/shop/блокнот.jpg",
+        "price": 400
+    },
+    {
+        "title": "Фирменная сумка",
+        "image": "images/shop/сумка.jpg",
+        "price": 1100
+    },
+    {
+        "title": "футболка",
+        "image": "images/shop/футболка.jpg",
+        "price": 850
+    },
+    {
+        "title": "браслет",
+        "image": "images/shop/браслет.jpg",
+        "price": 80
+    },
+    {
+        "title": "стикеры",
+        "image": "images/shop/стикеры.jpg",
+        "price": 150
+    },
+    {
+        "title": "термокружка",
+        "image": "images/shop/термокружка.jpg",
+        "price": 600
+    },
+    {
+        "title": "бирка",
+        "image": "images/shop/бирка.jpg",
+        "price": 120
+    },
+    {
+        "title": "Книга К. Мошкова",
+        "image": "images/shop/великие люди джаза.jpg",
+        "price": 3300
+    },
+    {
+        "title": "Книга К.Мошкова",
+        "image": "images/shop/российский джаз.jpg",
+        "price": 2100
+    },
+    {
+        "title": "К. Мошков ”Блюз. Введение в историю”",
+        "image": "images/shop/блюз.jpg",
+        "price": 1200
+    },
+    {
+        "title": "книга В. Фейертага",
+        "image": "images/shop/фейертаг.jpg",
+        "price": 750
+    },
+    {
+        "title": "книга Л. Переверзева",
+        "image": "images/shop/элингтону.jpg",
+        "price": 900
+    },
+    {
+        "title": "Джаз. Введение в стилистику",
+        "image": "images/shop/столяр.jpg",
+        "price": 750
+    }
+]

@@ -12,7 +12,7 @@ export interface IEvent{
     description: string;
     free: boolean | string;
     deposit?: number | string;
-    image: Image | string;
+    image?: Image | string;
     videoLink?: string;
     price?: number | string;
     tcLink?: string; 
