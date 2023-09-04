@@ -1,0 +1,52 @@
+[
+    {
+        "title": "Эспрессо Мартини",
+        "image": "images/image-menu-1-1.jpeg",
+        "price": ""
+    },
+    {
+        "title": "Негрони",
+        "image": "images/image-menu-1-2.jpeg",
+        "price": ""
+    },
+    {
+        "title": "Маргарита классическая",
+        "image": "images/image-menu-1-3.jpeg",
+        "price": ""
+    },
+    {
+        "title": "Нью_Йорк Сауэр",
+        "image": "images/image-menu-1-4.jpeg",
+        "price": ""
+    },
+    {
+        "title": "Смузи малина_кокос",
+        "image": "images/image-menu-1-5.jpeg",
+        "price": ""
+    },
+    {
+        "title": "Смузи клубничный с апельсином",
+        "image": "images/image-menu-1-6.jpeg",
+        "price": ""
+    },
+    {
+        "title": "Черничный смузи",
+        "image": "images/image-menu-1-7.jpeg",
+        "price": ""
+    },
+    {
+        "title": "Лимонад Тархун",
+        "image": "images/image-menu-1-8.jpeg",
+        "price": ""
+    },
+    {
+        "title": "Тропический Лимонад",
+        "image": "images/image-menu-1-9.jpeg",
+        "price": ""
+    },
+    {
+        "title": "Лимонад малина_имбриь",
+        "image": "images/image-menu-1-10.jpeg",
+        "price": ""
+    }
+]

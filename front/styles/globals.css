@@ -62,16 +62,14 @@ h5 {
 }
 
 @media (min-width: 1024px) {
-  main {
+  .background-container {
     background-image: url("../public/images/desktop-background.png");
-    background-repeat: no-repeat;
-    background-position: center;
     -webkit-background-size: contain;
     -moz-background-size: cover !important;
     -o-background-size: cover !important;
     background-origin: padding-box;
     background-attachment: fixed;
-    background-size: cover;
+    background-size: contain;
     background-color: white;
     /* somehow improves chrome framerate */
     -webkit-transform: translate3d(0, 0, 0);

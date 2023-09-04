@@ -1,160 +1,92 @@
-import { SetStateAction, useState, ChangeEvent } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { LocalBar, RestaurantSharp, Book} from '@material-ui/icons';
-import { Container } from '@material-ui/core';
-import { MenuAccordion } from './menu-accordion.component';
-import { MenuSection } from './menu-section.component';
-import { MenuItem } from './menu-food-item.component';
-import { IMenuItem, IMenuItemGroup } from '../../types/menu/menuItem.type';
+import { MenuCard } from '../../components/cards/menuCard.component';
+import { CardSlider } from '../../components/cards/slider/card-slider.component';
+import { Typography, ImageList, ImageListItem, makeStyles } from '@material-ui/core';
 
+import kitchenMenu from './menu-data/kitchen.json';
+import drinksMenu from './menu-data/drinks.json';
+import fullMenu from './menu-data/full-menu.json';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: '2rem',
-    marginBottom: '2rem',
-    width: '95%',
+const useStyles = makeStyles({
+  imageList: {
+    width: '100%',
+    '@media (min-width: 1080px)' : {
+      width: '60%'
+    }
+  },
+  container: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    paddingTop: '5vh',
+    paddingBottom: '5vh'
   }
-}));
+});
 
-
-interface IProps{
-  items: {
-    barItems : IMenuItemGroup[];
-    kitchenItems : IMenuItemGroup[];
-    wineItems : IMenuItemGroup[];
-  }
-}
-
-export function Menu({ items } : IProps ) {
+export function Menu() {
   
   const classes = useStyles();
 
-  const { barItems, kitchenItems, wineItems } = items;
-  
-  const [expanded, setExpanded] = useState(null);
-
-  const handleChange = (panel : SetStateAction<string>) => (event: ChangeEvent<{}>, isExpanded : boolean) => {
-    setExpanded(isExpanded ? panel : null);
-  };
-
-
   return(
-    <Container classes={ classes }>
-      <MenuAccordion 
-        title="Бар"
-        titleVariant="h5"
-        expanded={ expanded === 'bar' } 
-        icon={ LocalBar }
-        onChange={ handleChange('bar') } 
-        >
-          {
-            barItems.map((group : IMenuItemGroup) => {
-              return(
-                <MenuSection title={ group.name } key={ group.name }>
-                  {
-                    group.items.map((item : IMenuItem) => {
-                      return(
-                        <MenuItem 
-                        key={ item._id } 
-                        title={ item.title } 
-                        price={ item.price } 
-                        description={ item.description }
-                        />
-                      );
-                    })
-                  }
-                </MenuSection>
-              );
-            })
+    <>
+      <Typography variant='h5' style={{ paddingTop: '20px', textAlign: 'left', paddingLeft: '20px'}}>
+        Напитки
+      </Typography>
 
-          }
-      </MenuAccordion>
+      <CardSlider>
+        {drinksMenu.map((item) => (
 
-      <MenuAccordion 
-        title="Кухня"
-        titleVariant="h5"
-        expanded={ expanded === 'kitchen' } 
-        icon={ RestaurantSharp }
-        onChange={ handleChange('kitchen') } 
-        >
-          {
-            kitchenItems.map((group : IMenuItemGroup) => {
-              return(
-                <MenuSection title={ group.name } key={ group.name }>
-                  {
-                    group.items.map((item : IMenuItem) => {
-                      return(
-                        <MenuItem 
-                        key={ item._id } 
-                        title={ item.title } 
-                        price={ item.price } 
-                        description={ item.description }
-                        />
-                      );
-                    })
-                  }
-                </MenuSection>
-              );
-            })
-          }
-      </MenuAccordion>
-    
-   {/* <MenuAccordion
-        title="Специальное Меню"
-        expanded={ expanded === 'special' } 
-        icon={ Star }
-        onChange={ handleChange('special') } 
-        >
-          {
-            specialItems.map((group : IMenuItemGroup) => {
-              return(
-                <MenuSection title={ group.name } key={ group.name }>
-                  {
-                    group.items.map((item : IMenuItem) => {
-                      return(
-                        <MenuItem 
-                        key={ item._id } 
-                        title={ item.title } 
-                        price={ item.price } 
-                        description={ item.description }
-                        />
-                      );
-                    })
-                  }
-                </MenuSection>
-              );
-            })
-          }
-      </MenuAccordion> */}
+          <MenuCard image={ item.image } title={ item.title } price={ item.price }></MenuCard>
+        
+        ))}
+      </CardSlider>
 
-      <MenuAccordion 
-        title="Винная карта"
-        expanded={ expanded === 'wine' } 
-        icon={ Book }
-        onChange={ handleChange('wine') } 
-        >
-          {
-            wineItems.map((group : IMenuItemGroup) => {
-              return(
-                <MenuSection title={ group.name } key={ group.name }>
-                  {
-                    group.items.map((item : IMenuItem) => {
-                      return(
-                        <MenuItem 
-                        key={ item._id } 
-                        title={ item.title } 
-                        price={ item.price } 
-                        description={ item.description }
-                        />
-                      );
-                    })
-                  }
-                </MenuSection>
-              );
-            })
-          }
-      </MenuAccordion>
+      <Typography variant='h5' style={{ paddingTop: '20px', textAlign: 'left', paddingLeft: '20px'}}>
+        Кухня
+      </Typography>
 
-    </Container>
+      <CardSlider>
+        {kitchenMenu.map((item) => (
+
+          <MenuCard image={ item.image } title={ item.title } price={ item.price }></MenuCard>
+        
+        ))}
+      </CardSlider>
+
+      <Typography variant='h4' style={{ 
+        fontSize: '24px', 
+        fontWeight: 500,
+        padding: '0.7rem',
+        borderTop: '1px solid black',
+        borderBottom: '1px solid black',
+        textAlign: 'center',
+        backgroundColor: 'white',
+        }}>
+                Полное Меню
+      </Typography>
+
+      <div className={ classes.container }>
+          <ImageList
+              className={ classes.imageList }
+              cols={1}
+              rowHeight={'auto'}
+              component={ 'div' }
+            >
+              {fullMenu.map((item) => (
+                <ImageListItem key={item.image}>
+                  <img
+                    src={`${item.image}`}
+                    srcSet={`${item.image}`}
+                    alt={item.title}
+                    loading="lazy"
+                    className={ classes.image }
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+      </div>
+    </>
   )
 }

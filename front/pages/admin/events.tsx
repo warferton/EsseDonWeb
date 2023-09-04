@@ -84,7 +84,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
         setExpanded(isExpanded ? panel : null);
     };
     
-    const handleOpen = (event : any) => {
+    const handleModalOpen = (event : any) => {
         setSelectedEvent(event);
         setDialogOpen(true);
     }
@@ -108,7 +108,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                 </Head>
 
                 <Container className={ classes.root }>
-                    <Container className={ classes.headerContainer}>
+                    <Container className={ classes.headerContainer }>
                         <Typography variant='h4' align='center'>
                             Мероприятия
                         </Typography>
@@ -123,7 +123,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                     <CircularProgress/>
                                 </Box>
                                 :
-                                <EventControlList childWrapper={ ListItem } controlFunction={ handleOpen }>
+                                <EventControlList componentWrapper={ ListItem } controlFunction={ handleModalOpen }>
                                     {
                                         activeEvents.map((event : IEvent) => event)
                                     }
@@ -141,7 +141,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                                         <CircularProgress/>
                                     </Box>
                                     :
-                                    <EventControlList childWrapper={ ListItem } controlFunction={ handleOpen }>
+                                    <EventControlList componentWrapper={ ListItem } controlFunction={ handleModalOpen }>
                                         {
                                             archivedEvents.map((event : IEvent) => event)
                                         }
@@ -153,7 +153,7 @@ export default function EventControlPage ({ activeEvents, archivedEvents } : IPr
                             fullWidth 
                             variant='contained' 
                             className={ `${classes.button} ${classes.createButton}`}
-                            onClick={ handleOpen }
+                            onClick={ handleModalOpen }
                             >
                                 <Typography align='center'>
                                     Создать новое мероприятие

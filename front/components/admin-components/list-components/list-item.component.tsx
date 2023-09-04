@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -11,8 +11,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Settings from '@material-ui/icons/Settings';
 import Backup from '@material-ui/icons/Backup';
 import { IEvent } from '../../../types/event/event.type';
-import { PropTypes } from '@material-ui/core';
-
 
 interface ISelectorProps {
     event: IEvent;
@@ -59,55 +57,42 @@ interface IButtonsProps {
     archived: boolean;
     id: string;
     handleOpen: Dispatch<any>;
-    addToDeleteList: any;
-    removeFromDeleteList: any;
+    handleDelete: (id: any) => any;
+    handleSwitchDb: (id: any) => any;
 }
 
 export function EventListItemButtons(props : IButtonsProps) {
 
-    const [isToDelete, setToDelete] = useState(false);
+    const { event, id, archived, handleOpen, handleDelete, handleSwitchDb } = props; 
+    
+    const [cloudButtonColour, setCloudButtonColour] = useState(false);
+    const [deleteButtonColour, setDeleteButtonColour] = useState(false);
+    
+    let isToDelete = false;
+    let isToUpdate = false; 
+    let isActive = event.active;
 
-    const { event, id, archived, handleOpen, addToDeleteList, removeFromDeleteList } = props; 
+    useEffect(() => {}, [cloudButtonColour, deleteButtonColour]);
 
-    const { active } = event;
-
-    const [isToUpdate, setToUpdate] = useState(false);
-
-    const [cloudButtonColour, setCloudButtonColour] : [PropTypes.Color, Dispatch<SetStateAction<PropTypes.Color>>] = useState('default');
-
-    const [deleteButtonColour, setDeleteButtonColour] : [PropTypes.Color, Dispatch<SetStateAction<PropTypes.Color>>] = useState('default');
-
-    const handleSwitchDb = () => {
+    const handleSwitchDbButton = () => {
         if (isToDelete) {
-            handleDelete();
+            console.log('Disable IsDelete Btn')
+            handleDeleteButton(); // убираем маркировку для удаления если есть
         }
-        setToUpdate(!isToUpdate);
-        event.active = !active;        
-        if(event.active && archived) {
-            setCloudButtonColour('primary');
-        } else if (event.active && !archived) {
-            setCloudButtonColour('default');
-        } else if (!event.active && archived) {
-            setCloudButtonColour('default');
-        }
-        else {
-            setCloudButtonColour('primary');
-        }
+        isToUpdate = !isToUpdate;
+        isActive = !isActive;
+        handleSwitchDb(event._id);        
+        setCloudButtonColour(!cloudButtonColour);
     }
 
-    const handleDelete = () => {
+    const handleDeleteButton = () => {
         if (isToUpdate) {
-            handleSwitchDb();
+            console.log('Disable IsUpdate Btn')
+            handleSwitchDbButton(); // убираем маркировку для смены БД если есть
         }
-        if (isToDelete) {
-            removeFromDeleteList(event._id);
-            setToDelete(false);
-            setDeleteButtonColour('default');
-        } else {
-            addToDeleteList(event._id);
-            setToDelete(true);
-            setDeleteButtonColour('primary');
-        }
+        handleDelete(event._id);
+        setDeleteButtonColour(!deleteButtonColour);
+        isToDelete = !isToDelete;
     }
 
     const handleClickOpen = () => {
@@ -122,11 +107,11 @@ export function EventListItemButtons(props : IButtonsProps) {
                 <IconButton onClick={ handleClickOpen }>
                     <Settings/>
                 </IconButton>
-                <IconButton onClick={ handleSwitchDb } color={ cloudButtonColour }>
+                <IconButton onClick={ handleSwitchDbButton } color={ cloudButtonColour ? 'primary' : 'default' }>
                     {archived ?  <Backup/> : <ArchiveIcon/>}
                 </IconButton>
                 { archived &&
-                    <IconButton onClick={ handleDelete } color={ deleteButtonColour }>
+                    <IconButton onClick={ handleDeleteButton } color={ deleteButtonColour ? 'primary' : 'default' }>
                         <DeleteIcon/>
                     </IconButton>
                 }

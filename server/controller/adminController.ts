@@ -80,8 +80,8 @@ export default class EventsController{
     static async updateEventSwitchDb(req: any, res : any){
         try{
 
-            const event = req.body;
-            const EventResponse = await EventDao.switchEventsDb( event );
+            const eventIds = req.body;
+            const EventResponse = await EventDao.switchEventsDb( eventIds );
 
             res.status(200).send(EventResponse);
         } catch(error : any) {

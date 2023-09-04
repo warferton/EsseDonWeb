@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../theme/theme';
-import { AnimatePresence } from 'framer-motion';
 import { LogoHeader } from '../components/headers/header.compenent';
 import { AdminHeader } from '../components/headers/adminHeader.component';
 import { NavigationSelector } from '../components/navigation/navigation-selector.component';
@@ -15,8 +14,6 @@ export default function MyApp(props : any) {
   const { Component, pageProps } = props;
   const router = useRouter();
   const isAdminPage = router.route.includes("admin") || router.route.includes("login");
-  const isWhiteBackground = router.route.includes("menu") || isAdminPage;
-  const divColor = isWhiteBackground ? '#FFFFFF' : '#121212';
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -43,16 +40,12 @@ export default function MyApp(props : any) {
                 <Component {...pageProps} key={ router.route }/>
               </div>
               :
-              <AnimatePresence initial={ false } exitBeforeEnter >
-                  <div key={ router.route } style={{ backgroundColor: divColor, position: 'relative', zIndex:100 }}>
-                      <>
-                        <LogoHeader/> 
-                        <NavigationSelector>
-                            <Component {...pageProps} key={ router.route }/>
-                        </NavigationSelector>
-                      </>
-                  </div>
-              </AnimatePresence>
+              <div key={ router.route } style={{ position: 'relative', zIndex:100 }} className={ 'background-container' }>
+                    <LogoHeader/> 
+                    <NavigationSelector>
+                        <Component {...pageProps} key={ router.route }/>
+                    </NavigationSelector>
+              </div>
           }
         </ThemeProvider>
     </React.Fragment>

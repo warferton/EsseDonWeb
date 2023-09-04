@@ -12,11 +12,11 @@ import { IEvent } from '../../../types/event/event.type';
 import { SnackbarAlert } from '../../alerts/snackbar.component';
 import { Backdrop } from '../../backdrop/backdrop.component';
 import axios from 'axios';
-import consts from '../../../utils/consts';
+// import consts from '../../../utils/consts';
 
 
 interface IProps {
-    childWrapper: any;
+    componentWrapper: any;
     children?: IEvent[];
     noButton?: boolean;
     controlFunction: Dispatch<any>;
@@ -43,7 +43,7 @@ const useStyles = makeStyles({
 
 export function EventControlList(props : IProps) {
 
-    const { childWrapper: Wrapper, children, controlFunction, noButton } = props;
+    const { componentWrapper: Wrapper, children: events, controlFunction, noButton } = props;
 
     const [openBackdrop, setOpenBackdrop] = useState(false);
 
@@ -51,22 +51,20 @@ export function EventControlList(props : IProps) {
     const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
     const deleteIdList : string[] = [];
-    const addToDeleteList = (id : string) => {
-        if (!deleteIdList.includes(id)) {
-            deleteIdList.push(id);
-            console.log("PUSHED : " + id);
-            console.log("DELETELIST = " + deleteIdList);
-        }
-    }
-    const removeFromDeleteList = (id : string) => {
-        if (deleteIdList.includes(id)) {
-            const index = deleteIdList.indexOf(id);
-            console.log('REMOVED ID :' + deleteIdList.splice(index, 1));
-            console.log("DELETELIST = " + deleteIdList);
+    const switchDbList : string[] = []
+    const handleDelete = (id : string) => handleListUpdate(id, deleteIdList);
+    const handleSwitchDb = (id : string) => handleListUpdate(id, switchDbList);
+
+    const handleListUpdate = (item: any, list: any[]) => {
+        if (!list.includes(item)) {
+            list.push(item);
+        } else {
+            const index = list.indexOf(item);
+            list.splice(index, 1);
         }
     }
 
-    const childEvents = children.map( (event: IEvent) => {
+    const wrappedEvents = events.map( (event: IEvent) => {
         const labelId = `selector-list-secondary-label-${event.title}`;
         return (
             <Wrapper 
@@ -75,8 +73,8 @@ export function EventControlList(props : IProps) {
             id={ labelId } 
             handleOpen={ controlFunction }
             archived={ !event.active }
-            addToDeleteList={ addToDeleteList }
-            removeFromDeleteList={ removeFromDeleteList }
+            handleDelete={ handleDelete }
+            handleSwitchDb={ handleSwitchDb }
             />
         );
     })
@@ -92,10 +90,10 @@ export function EventControlList(props : IProps) {
         initialValues={{
             events: [],
         }}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(_, { setSubmitting }) => {
             setOpenBackdrop(true);
             setSubmitting(true);
-            axios.put(consts.SWITCH_EVENT_STATUS_API_URL, children, {withCredentials: true})
+            axios.put('consts.SWITCH_EVENT_STATUS_API_URL', switchDbList, {withCredentials: true})
                 .then(res => {
                     if(res.status === 200) {
                         setOpenSuccessSnackbar( true );
@@ -103,7 +101,7 @@ export function EventControlList(props : IProps) {
                 })
                 .then(async () => {
                     if (deleteIdList.length > 0) {
-                        await axios.post(consts.DELETE_EVENT_API_URL, deleteIdList, {withCredentials: true})
+                        await axios.post('consts.DELETE_EVENT_API_URL', deleteIdList, {withCredentials: true})
                             .then((res) => {
                                 if(res.status === 200) {
                                     setOpenSuccessSnackbar( true );
@@ -128,13 +126,15 @@ export function EventControlList(props : IProps) {
                     console.error(err); 
                     ERROR_MESSAGE = 'Произошла ошибка: '.concat(err?.name);
                     setOpenErrorSnackbar( true );
-                });    
+                }).finally(() => {
+                    setSubmitting(false);
+                }); 
         }}
         >
         {({ submitForm, isSubmitting }) => (
             <Form>
-                <List dense className={classes.root}>
-                    { childEvents }
+                <List dense className={ classes.root }>
+                    { wrappedEvents }
                 </List>
                 <Box className={ classes.buttonBox }>
                 {!noButton &&
@@ -146,7 +146,7 @@ export function EventControlList(props : IProps) {
                     onClick={ submitForm }
                     >
                         <Typography>
-                            Save
+                            Сохранить
                         </Typography>
                     </Button>
                 }
@@ -155,10 +155,10 @@ export function EventControlList(props : IProps) {
             )}
         </Formik>
         <Backdrop open={ openBackdrop }/>
-        <SnackbarAlert open={ openSuccessSnackbar } onClose={() => setOpenSuccessSnackbar(false)} severity="success">
+        <SnackbarAlert open={ openSuccessSnackbar } onClose={() => setOpenSuccessSnackbar(false) } severity="success">
                 { SUCCESS_MESSAGE }
         </SnackbarAlert>       
-        <SnackbarAlert open={ openErrorSnackbar } onClose={() => setOpenErrorSnackbar(false)} severity="error">
+        <SnackbarAlert open={ openErrorSnackbar } onClose={() => setOpenErrorSnackbar(false) } severity="error">
                 { ERROR_MESSAGE }
         </SnackbarAlert>
         </>

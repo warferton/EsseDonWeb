@@ -2,8 +2,8 @@ import { Typography, makeStyles } from '@material-ui/core';
 import { IEvent } from '../../../types/event/event.type';
 import dynamic from 'next/dynamic';
 
-const SmallEventCard = dynamic(() => import('../../cards/smallCard.component').then(mod => mod.SmallEventCard));
-const CardSlider = dynamic(() => import('../../cards/slider/card-slider.component').then(mod => mod.CardSlider));
+const SmallEventCard = dynamic(() => import('../../cards/smallCard.component').then(mod => mod.SmallEventCard)) as (any: any) => any;
+const CardSlider = dynamic(() => import('../../cards/slider/card-slider.component').then(mod => mod.CardSlider)) as (any: any) => any;
 
 interface IProps {
     events?: IEvent[]
@@ -25,23 +25,23 @@ const useStyles = makeStyles({
   });
   
   
-export default ({ events } : IProps) => {
+  export default ({ events } : IProps) => {
     const styles = useStyles();
     return (
         <>
         { events.length > 0 &&
+           <>
             <Typography variant='h5' className = { styles.heading }>
                 не пропустите
             </Typography>
+        
+            <CardSlider>
+                { events.map((event : IEvent) => 
+                    <SmallEventCard key={ event._id } event={ event }/>
+                )}
+            </CardSlider>
+        </>
         }
-        
-        <CardSlider>
-            { events.map((event : IEvent) => 
-        
-                <SmallEventCard key={ event._id } event={ event }/>
-
-            )}
-        </CardSlider>
         </>
     )
 }

@@ -2,7 +2,6 @@ import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { Typography, makeStyles, Container, Link, Box } from '@material-ui/core';
 import { SwipeableStepper } from '../../components/cards/carousel/carousel.component';
-import { motion } from 'framer-motion';
 
 const useStyles = makeStyles({
     description: {
@@ -49,12 +48,6 @@ export default function OpenSpacePage() {
   useEffect(()=> {
     localStorage.setItem("EsseCurentPageName", "open-space");
   })
-  
-  const animVariants = {
-    hidden: { opacity: 0.4, y: 300, x: 0 },
-    enter: { opacity: 1, y: 0, x: 0 },
-    exit: { opacity: 0 , y: 100, x: 0 },
-  }
 
   const classes = useStyles();
 
@@ -68,16 +61,6 @@ export default function OpenSpacePage() {
           <link rel="icon" href="/favicon.ico" />
           <link rel="manifest" href="/manifest.json"/>
       </Head>
-
-      <motion.main
-          style={{ minHeight: '75vh' }}
-          variants={ animVariants }
-          initial="hidden"
-          animate="enter"
-          exit="exit"
-          transition={{ type: 'spring', damping: 15, bounce: 0.50 }}
-      >
-
       <Container className={ classes.box }>
             <Typography variant='h4' className={ classes.sectionHeader }>
                 Open Space
@@ -112,9 +95,6 @@ export default function OpenSpacePage() {
             </Typography>
           </Box>
       </Container>
-      
-      </motion.main>
-
     </>
   )
 }

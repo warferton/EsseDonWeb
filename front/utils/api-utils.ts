@@ -1,5 +1,4 @@
-import { IMenuItem } from '../types/menu/menuItem.type';
-import { IEvent, IEventGroups } from '../types/event/event.type';
+import { IEvent } from '../types/event/event.type';
 import { sortEventsByDate } from './parsing-utils';
 import axios from 'axios';
 import consts from './consts';
@@ -12,62 +11,91 @@ interface IEventFetchResult {
   generalGroupEvents: IEvent[];
 }
 
-export async function getEventById( id : string ) : Promise<IEvent> {
-  return await axios.get(consts.EVENT_API_URL.concat( id ), { withCredentials: true })
-    .then(async (res) => {
-      const event = res.data.event;
+export async function getEventByIdWithImage( id : string ) : Promise<IEvent | void> {
+  return getEventById(id)
+  .then(async (res) => {
+      if (res === undefined && res === null) return res;
+      const event : IEvent = res as IEvent;
       event.image = await fetchEventImage( event.image as string );
       return event;
     })
     .catch(err => console.error(`Failed fetching event data. ERROR: ${err}`));
 }
 
-export async function fetchAllActiveEvents() : Promise<IEventFetchResult> {
-  const mainGroupEvents : IEvent[] = [];
-  const secondGroupEvents : IEvent[] = [];
-  const generalGroupEvents : IEvent[] = [];
-  await axios
-  .get(consts.EVENT_API_URL.concat("active"), { withCredentials: true })
-  .then( async res => {
-    const events = res.data.events;
-    //sort events by date
-    sortEventsByDate(events);
-    //inject images
-    const eventsInjected = await Promise.all(
-      events.map(async (event : IEvent) => {
-          event.image = await fetchEventImage( event.image as string );
-          return event;
-      })
-    );
-    eventsInjected.map( async (event : IEvent) => {
-        //split into groups
-        if( event.group === "main") {
-          mainGroupEvents.push(event);
-          generalGroupEvents.push(event);
-        }
-        else if( event.group === "second") {
-          secondGroupEvents.push(event);
-          generalGroupEvents.push(event);
-        }
-        else {
-          generalGroupEvents.push(event);
-        }
-      }); 
+export async function getEventById( id : string ) : Promise<IEvent | void> {
+  return await axios.get(consts.EVENT_API_URL.concat( id ), { withCredentials: true })
+    .then(async (res) => {
+      return res.data.event;
+    })
+    .catch(err => console.error(`Failed fetching event data. ERROR: ${err}`));
+}
+
+export async function fetchAllActiveEvents() : Promise<IEvent[]> {
+  return axios
+    .get(consts.EVENT_API_URL.concat("active"), { withCredentials: true })
+    .then( async res => {
+      const events = res.data.events;
+      //sort events by date
+      sortEventsByDate(events);
+      //inject images
+      const eventsWithImage = await Promise.all(
+        events.map(async (event : IEvent) => {
+            event.image = await fetchEventImage( event.image as string );
+            return event;
+        })
+      );
+      return eventsWithImage;
+    }) as Promise<IEvent[]>
+}
+
+export async function fetchAllActiveMainEvents() : Promise<IEventFetchResult> {
+  return axios
+    .get(`${consts.EVENT_API_URL}active?group=main`, { withCredentials: true })
+    .then(res => {
+      const events = res.data.events;
+      sortEventsByDate(events);
+      return events;
     })
     .catch(err => {
-      console.error(err)
-      return { 
-        mainGroupEvents,
-        secondGroupEvents,
-        generalGroupEvents
-      }
-    }) as IEventFetchResult;
-    
-    return { 
-      mainGroupEvents,
-      secondGroupEvents,
-      generalGroupEvents
-    };
+      console.error(err);
+      return null;
+    }) as Promise<IEventFetchResult>
+}
+
+export async function fetchAllActiveMainEventsWithImage() : Promise<IEventFetchResult> {
+  return axios
+    .get(`${consts.EVENT_API_URL}active?group=main`, { withCredentials: true })
+    .then(res => {
+      const events = res.data.events;
+      sortEventsByDate(events);
+      const eventsWithImages = Promise.all(events.map(async (event : IEvent) => {
+          event.image = await fetchEventImage( event.image as string );
+          return event;
+      }))
+      return eventsWithImages;
+    })
+    .catch(err => {
+      console.error(err);
+      return null;
+    }) as Promise<IEventFetchResult>
+}
+
+export async function fetchAllActiveImportantEventsWithImage() : Promise<IEventFetchResult> {
+  return axios
+    .get(`${consts.EVENT_API_URL}active?group=second`, { withCredentials: true })
+    .then(res => {
+      const events = res.data.events;
+      sortEventsByDate(events);
+      const eventsWithImages = Promise.all(events.map(async (event : IEvent) => {
+          event.image = await fetchEventImage( event.image as string );
+          return event;
+      }))
+      return eventsWithImages;
+    })
+    .catch(err => {
+      console.error(err);
+      return null;
+    }) as Promise<IEventFetchResult>
 }
 
 export async function fetchAllActiveEventsNoImageData() : Promise<IEventFetchResult> {
@@ -133,51 +161,6 @@ export async function fetchAllArchivedEvents() : Promise<IEventFetchResult> {
     secondGroupEvents,
     generalGroupEvents
   };
-}
-
-export async function fetchAllEvents() : Promise<IEventFetchResult> {
-  const mainGroupEvents : IEvent[] = [];
-  const secondGroupEvents : IEvent[] = [];
-  const generalGroupEvents : IEvent[] = [];
-
-  const activeEvents = await fetchAllActiveEvents();
-  const archivedEvents = await fetchAllArchivedEvents();
-  
-  Object.assign(mainGroupEvents, activeEvents.mainGroupEvents, archivedEvents.mainGroupEvents);
-  Object.assign(secondGroupEvents, activeEvents.secondGroupEvents, archivedEvents.secondGroupEvents);
-  Object.assign(generalGroupEvents, activeEvents.generalGroupEvents, archivedEvents.generalGroupEvents);
-
-  return { 
-    mainGroupEvents,
-    secondGroupEvents,
-    generalGroupEvents
-  };
-}
-
-export async function fetchMenuItems(type: string) {
-  const menuItems : IMenuItem[] = [];
-  await axios
-  .get(consts.MENU_API_URL.concat(type), { withCredentials: true })
-  .then( res => res.data.menuItems.map((item : IMenuItem) => menuItems.push(item)) )
-  .catch(err => console.error(err));
-
-  return menuItems;
-}
-
-export function concatFetchedEvents({...events} : IEventGroups){
-  const { mainGroupEvents, secondGroupEvents, generalGroupEvents } = events;
-  return mainGroupEvents.concat(secondGroupEvents).concat(generalGroupEvents);
-}
-
-export async function fetchActiveEventsPaths(){
-  const events = await fetchAllActiveEvents();
-  return concatFetchedEvents({...events}).map( (event : IEvent) => {
-    return { 
-      params: {
-        id : event._id
-      }
-    };
-  })
 }
 
 export async function validateCurrentClient(){

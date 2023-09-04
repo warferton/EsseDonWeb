@@ -1,0 +1,72 @@
+[
+    {
+        "title": "Салат с кальмаром, снежным крабом и огурцом",
+        "image": "images/menu2/image-menu 2.jpg",
+        "price": ""
+    },
+    {
+        "title": "Салат с креветками и гуакамоле",
+        "image": "images/menu2/image-menu 1.jpg",
+        "price": ""
+    },
+    {
+        "title": "Стейк_салат с томатами пряным соусом",
+        "image": "images/menu2/image-menu 3.jpg",
+        "price": ""
+    },
+    {
+        "title": "Тапас с гуакамоле и креветками",
+        "image": "images/menu2/image-menu 4.jpg",
+        "price": ""
+    },
+    {
+        "title": "Тапас с бабаганушем и тапенадом из маслин",
+        "image": "images/menu2/image-menu 5.jpg",
+        "price": ""
+    },
+    {
+        "title": "Крем суп из батата с кокосовой пенкой с креветками",
+        "image": "images/menu2/image-menu 6.jpg",
+        "price": ""
+    },
+    {
+        "title": "Гаспачо с творожным зерном и свежим огурцом",
+        "image": "images/menu2/image-menu 7.jpg",
+        "price": ""
+    },
+    {
+        "title": "Утиная грудка с сырным орзо",
+        "image": "images/menu2/image-menu 8.jpg",
+        "price": ""
+    },
+    {
+        "title": "Баранина томленая с полбой, грибами и облепихой",
+        "image": "images/menu2/image-menu 9.jpg",
+        "price": ""
+    },
+    {
+        "title": "Ассорти фирменных дипов",
+        "image": "images/menu2/image-menu 10.jpg",
+        "price": ""
+    },
+    {
+        "title": "Лосось с гуакомоле",
+        "image": "images/menu2/image-menu 11.jpg",
+        "price": ""
+    },
+    {
+        "title": "Деревенская пицца с тапенадом из маслин и трюфеля",
+        "image": "images/menu2/image-menu 12.jpg",
+        "price": ""
+    },
+    {
+        "title": "Крем_Брюле с манговым сорбетом",
+        "image": "images/menu2/image-menu 13.jpg",
+        "price": ""
+    },
+    {
+        "title": "Айс_десерт клубника/личи",
+        "image": "images/menu2/image-menu 14.jpg",
+        "price": ""
+    }
+]

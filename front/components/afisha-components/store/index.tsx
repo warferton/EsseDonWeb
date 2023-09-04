@@ -3,8 +3,8 @@ import dynamic from 'next/dynamic';
 import Image from 'next/dist/client/image';
 import STORE_ITEMS from '../../../public/store/front-store-products.json';
 
-const CardSlider = dynamic(() => import('../../cards/slider/card-slider.component').then(mod => mod.CardSlider));
-const MenuCard = dynamic(() => import('../../cards/menuCard.component').then(mod => mod.MenuCard));
+const CardSlider = dynamic(() => import('../../cards/slider/card-slider.component').then(mod => mod.CardSlider)) as (any: any) => any;
+const MenuCard = dynamic(() => import('../../cards/menuCard.component').then(mod => mod.MenuCard)) as (any: any) => any;
 
 const useStyles = makeStyles({
     musicBox: {

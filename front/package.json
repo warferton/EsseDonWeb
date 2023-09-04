@@ -1,12 +1,13 @@
 {
   "name": "front",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "launch": "next start",
-    "start": "next build && next start"
+    "start": "next build && next start",
+    "start:nobuild": "next start"
   },
   "dependencies": {
     "next": "11.1.1",
@@ -22,6 +23,7 @@
     "@types/node": "^15.12.5",
     "@types/react": "17.0.11",
     "@types/react-imgix": "^9.0.4",
+    "@types/react-infinite-scroller": "1.2.3",
     "@types/react-swipeable-views": "^0.13.1",
     "@types/react-swipeable-views-utils": "^0.13.3",
     "@types/styled-components": "^5.1.10",
@@ -31,6 +33,7 @@
     "framer-motion": "^4.1.17",
     "mapbox-gl": "^2.3.1",
     "react-dom": "17.0.2",
+    "react-infinite-scroller": "1.2.6",
     "react-player": "^2.9.0",
     "react-swipeable-views": "^0.14.0",
     "react-swipeable-views-utils": "^0.14.0",

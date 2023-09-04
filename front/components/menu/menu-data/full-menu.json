@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Бизнес ланч",
+        "image": "images/menu/menu lunch.jpg"
+    },
+    {
+        "title": "Кухня",
+        "image": "images/menu/menu company.jpg"
+    },
+    {
+        "title": "Бар: чай и кофе",
+        "image": "images/menu/menu bar1.jpg"
+    },
+    {
+        "title": "Бар: пиво и коктейли",
+        "image": "images/menu/menu bar2.jpg"
+    },
+    {
+        "title": "Бар: крепкие напитки",
+        "image": "images/menu/menu bar3.jpg"
+    },
+    {
+        "title": "Винная карта",
+        "image": "images/menu/menu wine.jpg"
+    }
+]

@@ -7,8 +7,7 @@ import { About } from '../../components/event-page-components/event-page-about.c
 import { EventLineup } from '../../components/event-page-components/event-linup.component';
 import { VideoPlayer } from '../../components/event-page-components/event-videoPlayer.component';
 import { IEvent } from '../../types/event/event.type';
-import { getEventById } from '../../utils/api-utils';
-import { motion } from 'framer-motion';
+import { getEventByIdWithImage } from '../../utils/api-utils';
 
 
 const useStyles = makeStyles({
@@ -35,28 +34,16 @@ export default function EventPage({event} : IProps) {
 
   const classes = useStyles();
 
-  const animVariants = {
-    hidden: { opacity: 0, x: 250, y:0 },
-    enter: { opacity: 1, x: 0, y: 0 },
-    exit: { opacity: 0, x: 200, y: 0 },
-  }
-  
+
   return (
-    <motion.main
-      variants={ animVariants }
-      initial="hidden"
-      animate="enter"
-      exit="exit"
-      transition={{ type: 'spring', damping: 15, bounce: 0.20 }}
-    >
+    <>
       <Head>
         <title>{ event.title }</title>
         <meta name="description" content={ event.shortDescription } />
         <meta name="theme-color" content="#1a1a1a"/>    
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      {/* <div className={ classes.background }> */}
+      
         <Container className={ classes.body }>
 
           <TopCard event={ event }/>
@@ -70,11 +57,9 @@ export default function EventPage({event} : IProps) {
           { event.free === 'true' && <FreeEventForm event={ event }/> }
 
         </Container>
-      {/* </div> */}
 
       <Footer position='static'/>
-        
-    </motion.main>
+    </>
   )
 }
 
@@ -86,8 +71,8 @@ export const getServerSideProps = async (context: any) => {
   // обязательно обновлять кэш каждые 6 часов
   res.setHeader("Cache-Control", "public, s-maxage=21600, stale-while-revalidate=1800, must-revalidate");
   
-  return await getEventById(id)
-  .then( event => {
+  return await getEventByIdWithImage(id)
+  .then( (event: IEvent) => {
     if(event === null || event === undefined || event.title === undefined) {
       return {
         notFound: true

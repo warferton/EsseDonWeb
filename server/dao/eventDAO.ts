@@ -43,7 +43,7 @@ export default class EventDbClient{
 
 
     static async getEventById( id: string ) {
-        let cursor;
+        let cursor : IEvent;
         
         try {
             cursor = await ActiveEvents.findOne(
@@ -54,7 +54,7 @@ export default class EventDbClient{
             console.error(
                 `Unable to issue "find" command: ${ err.message }`
             );
-            return { events: [], totalRetrieved: 0 };
+            return { event: null, totalRetrieved: 0 };
         }
 
         /**
@@ -67,7 +67,7 @@ export default class EventDbClient{
             console.error(
                 `Unable to convert cursor to an array: ${err.message}`
             );
-            return { events: [] };
+            return { event: null };
         }
     }
 
@@ -336,18 +336,20 @@ export default class EventDbClient{
     /** 
      * @status READY
      */
-    static async switchEventsDb( events: IEvent[] ){
-        if(events === null || events.length <= 0){
-            throw new Error("Invalid Input : parameter is empty");
+    static async switchEventsDb( eventIds: string[] ){
+        if(eventIds === null || eventIds.length <= 0){
+            throw new Error("Invalid Input : eventIds array is empty");
         }
-        const res = [];
-        try {
-            for(const event of events){
-                res.push( await this.updateEvent( event ) );
-            }
-        } catch(error : any) {
-            throw new Error( error );
+
+        for(const eventId of eventIds){
+            this.getEventById(eventId)
+            .then(res => {
+                const { event } = res;
+                if (event === null) return Promise.reject(`Event ${eventId} doesen't exist`);
+                event.active = !event.active
+                return event;
+            })
+            .then(this.updateEvent)
         }
-        return res;
     }
 }
