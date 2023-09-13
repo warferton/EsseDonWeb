@@ -12,7 +12,7 @@ import { IEvent } from '../../../types/event/event.type';
 import { SnackbarAlert } from '../../alerts/snackbar.component';
 import { Backdrop } from '../../backdrop/backdrop.component';
 import axios from 'axios';
-// import consts from '../../../utils/consts';
+import consts from '../../../utils/consts';
 
 
 interface IProps {
@@ -93,7 +93,7 @@ export function EventControlList(props : IProps) {
         onSubmit={(_, { setSubmitting }) => {
             setOpenBackdrop(true);
             setSubmitting(true);
-            axios.put('consts.SWITCH_EVENT_STATUS_API_URL', switchDbList, {withCredentials: true})
+            axios.put(consts.SWITCH_EVENT_STATUS_API_URL, switchDbList, {withCredentials: true})
                 .then(res => {
                     if(res.status === 200) {
                         setOpenSuccessSnackbar( true );
@@ -101,7 +101,7 @@ export function EventControlList(props : IProps) {
                 })
                 .then(async () => {
                     if (deleteIdList.length > 0) {
-                        await axios.post('consts.DELETE_EVENT_API_URL', deleteIdList, {withCredentials: true})
+                        await axios.post(consts.DELETE_EVENT_API_URL, deleteIdList, {withCredentials: true})
                             .then((res) => {
                                 if(res.status === 200) {
                                     setOpenSuccessSnackbar( true );
