@@ -3,7 +3,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { Typography, CircularProgress, makeStyles } from '@material-ui/core';
 import { IEvent } from '../../../types/event/event.type';
 import { useState } from 'react';
-import { fetchAllActiveEvents } from '../../../utils/api-utils';
+import { fetchActiveEventsWithOffset } from '../../../utils/api-utils';
 
 const EventCard = dynamic(() => import('../../cards/card.component').then(mod => mod.EventCard)) as (any: any) => any;
 
@@ -22,14 +22,16 @@ export default () => {
 
         setIsLoading(true);
 
-        if (events.length > 100) {
-            setHasMoreData(false);
-        }
-
-        fetchAllActiveEvents()
+        fetchActiveEventsWithOffset(events.length, 10)
+        .then(({events: resEvents, totalEvents}) => { 
+            if (events.length + resEvents.length > totalEvents) {
+                setHasMoreData(false);
+            }
+            return resEvents;
+        })
         .then(setEvents)
         .then(() => setIsLoading(false))
-        .catch(err => {
+        .catch(_ => {
             setHasMoreData(false);
             setTimeout(() => setIsLoading(false), 1000);
         })

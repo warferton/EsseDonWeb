@@ -71,8 +71,7 @@ export default class EventDbClient{
         }
     }
 
-    static async getActiveEvents( filters: IQuery, eventPerLoad?: number ) {
-        const loadLimit = eventPerLoad || 70;
+    static async getActiveEvents( filters: IQuery, offset: number = 0, limit: number = 70) {
         let query : IQuery  = {};
         if( filters ){
             query = Object.assign(query, filters);
@@ -87,7 +86,7 @@ export default class EventDbClient{
         let cursor;
 
         try {
-            cursor = await ActiveEvents.find(query);
+            cursor = ActiveEvents.find(query).limit(limit).sort('date', -1).skip(offset)
         } catch(error : any) {
             const err = new Error(error);
             console.error(
@@ -96,13 +95,13 @@ export default class EventDbClient{
             return {events: [], totalRetrieved: 0};
         }
 
-        const displayCursor = cursor.limit(loadLimit);
+        const displayCursor = cursor
 
         try{
 
             const events = await displayCursor.toArray();
 
-            const totalActiveEvents = await ActiveEvents.countDocuments(query);
+            const totalActiveEvents = await ActiveEvents.countDocuments();
 
             return {events, totalActiveEvents};
         } catch(error : any) {
@@ -110,7 +109,7 @@ export default class EventDbClient{
             console.error(
                 `Unable to convert cursor to an array: ${err.message}`
             );
-            return {events: [], totalRetrieved: 0, limit: loadLimit};
+            return {events: [], totalRetrieved: 0, limit};
         }
     }
 

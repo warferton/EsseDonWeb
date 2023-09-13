@@ -30,13 +30,12 @@ export async function getEventById( id : string ) : Promise<IEvent | void> {
     .catch(err => console.error(`Failed fetching event data. ERROR: ${err}`));
 }
 
-export async function fetchAllActiveEvents() : Promise<IEvent[]> {
+export async function fetchAllActiveEvents() : Promise<{events: IEvent[], totalEvents: number}> {
   return axios
     .get(consts.EVENT_API_URL.concat("active"), { withCredentials: true })
     .then( async res => {
+      const totalEvents = res.data.totalActiveEvents;
       const events = res.data.events;
-      //sort events by date
-      sortEventsByDate(events);
       //inject images
       const eventsWithImage = await Promise.all(
         events.map(async (event : IEvent) => {
@@ -44,8 +43,25 @@ export async function fetchAllActiveEvents() : Promise<IEvent[]> {
             return event;
         })
       );
-      return eventsWithImage;
-    }) as Promise<IEvent[]>
+      return { events: eventsWithImage, totalEvents };
+    }) as Promise<{events: IEvent[], totalEvents: number}>
+}
+
+export async function fetchActiveEventsWithOffset(offset: number, limit: number) : Promise<{events: IEvent[], totalEvents: number}> {
+  return axios
+    .get(`${consts.EVENT_API_URL}active?offset=${offset}&limit=${limit}`, { withCredentials: true })
+    .then( async res => {
+      const totalEvents = res.data.totalActiveEvents;
+      const events = res.data.events;
+      //inject images
+      const eventsWithImage = await Promise.all(
+        events.map(async (event : IEvent) => {
+            event.image = await fetchEventImage( event.image as string );
+            return event;
+        })
+      );
+      return { events: eventsWithImage, totalEvents };
+    }) as Promise<{events: IEvent[], totalEvents: number}>
 }
 
 export async function fetchAllActiveMainEvents() : Promise<IEventFetchResult> {

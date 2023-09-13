@@ -50,17 +50,18 @@ export function EventControlList(props : IProps) {
     const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState(false);
     const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
 
-    const deleteIdList : string[] = [];
-    const switchDbList : string[] = []
-    const handleDelete = (id : string) => handleListUpdate(id, deleteIdList);
-    const handleSwitchDb = (id : string) => handleListUpdate(id, switchDbList);
+    const [deleteIdList, setDeleteIdList] = useState<string[]>([]);
+    const [switchDbList, setSwitchDbList] = useState<string[]>([]);
+    const handleDelete = (id : string) => handleListUpdate(id, deleteIdList, setDeleteIdList);
+    const handleSwitchDb = (id : string) => handleListUpdate(id, switchDbList, setSwitchDbList);
 
-    const handleListUpdate = (item: any, list: any[]) => {
+    const handleListUpdate = (item: string, list: string[], handleFunc: any) => {
         if (!list.includes(item)) {
-            list.push(item);
+            handleFunc([...list, item]);
         } else {
             const index = list.indexOf(item);
             list.splice(index, 1);
+            handleFunc([...list]);
         }
     }
 
@@ -80,7 +81,7 @@ export function EventControlList(props : IProps) {
     })
 
     const SUCCESS_MESSAGE = 'Событие успешно обновлено';
-    let ERROR_MESSAGE = ``;
+    const [ERROR_MESSAGE, setErrorMessage] = useState(``);
 
     const classes = useStyles();
 
@@ -93,40 +94,19 @@ export function EventControlList(props : IProps) {
         onSubmit={(_, { setSubmitting }) => {
             setOpenBackdrop(true);
             setSubmitting(true);
-            axios.put(consts.SWITCH_EVENT_STATUS_API_URL, switchDbList, {withCredentials: true})
-                .then(res => {
-                    if(res.status === 200) {
-                        setOpenSuccessSnackbar( true );
-                    }
-                })
-                .then(async () => {
-                    if (deleteIdList.length > 0) {
-                        await axios.post(consts.DELETE_EVENT_API_URL, deleteIdList, {withCredentials: true})
-                            .then((res) => {
-                                if(res.status === 200) {
-                                    setOpenSuccessSnackbar( true );
-                                }
-                            }).catch((err) => {
-                                setOpenBackdrop(false);
-                                console.error(err); 
-                                ERROR_MESSAGE = 'Произошла ошибка: '.concat(err?.name);
-                                setOpenErrorSnackbar( true );
-                            });
-                    }
-                })
+            Promise.all([ switchDbs(switchDbList), deleteEvents(deleteIdList) ])
                 .then(() => { 
-                    setOpenBackdrop(false);
-                    setSubmitting(false) 
+                    setOpenSuccessSnackbar(true); 
                 })
                 .then(() => {
                     window.location.reload();
                 })
                 .catch( err => {
-                    setOpenBackdrop(false);
                     console.error(err); 
-                    ERROR_MESSAGE = 'Произошла ошибка: '.concat(err?.name);
-                    setOpenErrorSnackbar( true );
+                    setErrorMessage('Произошла ошибка: '.concat(err?.message));
+                    setOpenErrorSnackbar(true);
                 }).finally(() => {
+                    setOpenBackdrop(false);
                     setSubmitting(false);
                 }); 
         }}
@@ -142,7 +122,7 @@ export function EventControlList(props : IProps) {
                     fullWidth
                     endIcon={ <SaveIcon/> } 
                     className={ classes.saveButton }
-                    disabled={ isSubmitting }
+                    disabled={ isSubmitting  || switchDbList.length <= 0 && deleteIdList.length <= 0 }
                     onClick={ submitForm }
                     >
                         <Typography>
@@ -163,4 +143,18 @@ export function EventControlList(props : IProps) {
         </SnackbarAlert>
         </>
     );
+}
+
+async function deleteEvents(eventIdList: string[]) {
+    if (eventIdList.length > 0) {
+        return axios.post(consts.DELETE_EVENT_API_URL, eventIdList, {withCredentials: true})
+    }
+    return Promise.resolve();
+}
+
+async function switchDbs(eventIdList: string[]) {
+    if (eventIdList.length > 0) {
+        return axios.put(consts.SWITCH_EVENT_STATUS_API_URL, eventIdList, {withCredentials: true})
+    }
+    return Promise.resolve();
 }

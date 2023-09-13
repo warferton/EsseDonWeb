@@ -21,9 +21,9 @@ export default class EventsController{
     static async getActiveEvents(req: any, res : any){
         try{
 
-            const filters = req.query;
+            const {offset, limit, ...filters} = req.query;
             
-            const EventResponse = await EventDao.getActiveEvents( filters );
+            const EventResponse = await EventDao.getActiveEvents( filters, offset, limit );
 
             res.status(200).send(EventResponse);
         } catch(error : any) {
