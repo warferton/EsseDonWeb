@@ -86,7 +86,10 @@ export default class EventDbClient{
         let cursor;
 
         try {
-            cursor = ActiveEvents.find(query).limit(limit).sort('date', -1).skip(offset)
+            cursor = ActiveEvents.find(query)
+            .sort('date', -1)
+            .skip(new Number(offset).valueOf())
+            .limit(new Number(limit).valueOf())
         } catch(error : any) {
             const err = new Error(error);
             console.error(

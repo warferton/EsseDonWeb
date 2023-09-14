@@ -22,14 +22,14 @@ export default () => {
 
         setIsLoading(true);
 
-        fetchActiveEventsWithOffset(events.length, 10)
+        fetchActiveEventsWithOffset(offset, 10)
         .then(({events: resEvents, totalEvents}) => { 
-            if (events.length + resEvents.length > totalEvents) {
+            if (events.length + resEvents.length >= totalEvents) {
                 setHasMoreData(false);
             }
             return resEvents;
         })
-        .then(setEvents)
+        .then(res => setEvents([...events, ...res]))
         .then(() => setIsLoading(false))
         .catch(_ => {
             setHasMoreData(false);

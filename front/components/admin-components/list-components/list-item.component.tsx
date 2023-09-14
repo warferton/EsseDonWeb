@@ -68,31 +68,27 @@ export function EventListItemButtons(props : IButtonsProps) {
     const [cloudButtonColour, setCloudButtonColour] = useState(false);
     const [deleteButtonColour, setDeleteButtonColour] = useState(false);
     
-    let isToDelete = false;
-    let isToUpdate = false; 
-    let isActive = event.active;
+    const [isToDelete, setIsToDelete] = useState(false);
+    const [isToUpdate, setIsToUpdate] = useState(false); 
 
     useEffect(() => {}, [cloudButtonColour, deleteButtonColour]);
 
     const handleSwitchDbButton = () => {
         if (isToDelete) {
-            console.log('Disable IsDelete Btn')
             handleDeleteButton(); // убираем маркировку для удаления если есть
         }
-        isToUpdate = !isToUpdate;
-        isActive = !isActive;
+        setIsToUpdate(!isToUpdate);
         handleSwitchDb(event._id);        
         setCloudButtonColour(!cloudButtonColour);
     }
 
     const handleDeleteButton = () => {
         if (isToUpdate) {
-            console.log('Disable IsUpdate Btn')
             handleSwitchDbButton(); // убираем маркировку для смены БД если есть
         }
         handleDelete(event._id);
         setDeleteButtonColour(!deleteButtonColour);
-        isToDelete = !isToDelete;
+        setIsToDelete(!isToDelete);
     }
 
     const handleClickOpen = () => {
