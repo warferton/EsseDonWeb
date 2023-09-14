@@ -4,7 +4,7 @@ import { Collection, MongoClient, ObjectId } from "mongodb";
 import { NextFunction, Request, Response } from 'express';
 import { ImageFile } from "../types/misc.types";
 import { toUploadableImage, inferImageFileType } from "../util/compress-utils";
-import { IEvent } from "../types/event.type";
+import { EventStatus, IEvent } from "../types/event.type";
 
 let Photos : Collection;
 
@@ -125,6 +125,17 @@ export default class MediaDao {
             console.log(err);
             res.status(500).json({ message: err.message });
         }
+    }
+
+    static async deleteEntryByEventId(eventId: string[]) {
+        console.log(`Deleting images by provided event ids: ${eventId}`);
+        const imageIds = 
+            await EventDao.getEventPropertyById(eventId, "image", EventStatus.archived)
+            .then(arr => arr.map((event: { _id: string, image: string; }) => event.image)) as string[]
+
+        console.log(`Retrieved image ids: ${imageIds}`);
+        const objectIds = imageIds.map(id => new ObjectId(id))
+        return objectIds.length > 0 && Photos.deleteMany({_id: { $in: objectIds }})
     }
 
 }

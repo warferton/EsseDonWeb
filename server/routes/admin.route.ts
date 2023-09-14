@@ -36,44 +36,6 @@ router.route('/events/update/switchDb').put(extractJWT).put(AdminController.upda
  */
 router.route('/events/delete').post(extractJWT).post(AdminController.deleteEvents);
 
-
-/**
- * @deprecated
- * Create Archived Event
- */
-router.route('/events/create/archived').post(extractJWT).post(AdminController.createArchivedEvent);
-
-/**
- * @deprecated
- * Create Active Event*
- */
-router.route('/events/create/active').post(extractJWT).post(AdminController.createActiveEvent);
-
-
-/**
- * @deprecated
- * Update Archived Event
- */
-router.route('/events/update/archived').put(extractJWT).put(AdminController.updateArchivedEvent);
-
-/**
- * @deprecated
- * Update Active Event
- */
-router.route('/events/update/active').put(extractJWT).put(MediaDao.uploadMedia).put(AdminController.updateActiveEvent);
-
-/**
- * @deprecated
- * Delete Archived Event
- */ 
-router.route('/events/delete/archived').delete(extractJWT).delete(AdminController.deleteArchvedEvent);
-
-/**
- * @deprecated
- * Delete Active Event
- */
-router.route('/events/delete/active').delete(extractJWT).delete(AdminController.deleteActiveEvent);
-
 /* ============== MENU ============== */
 
 // Create Menu Item

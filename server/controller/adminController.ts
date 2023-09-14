@@ -97,6 +97,7 @@ export default class EventsController{
     static async deleteEvents(req: any, res : any){
         try{
             const eventIds = req.body;
+            await MediaDao.deleteEntryByEventId( eventIds )
             const EventResponse = await EventDao.deleteEvents( eventIds );
 
             res.status(200).send(EventResponse);
@@ -105,116 +106,6 @@ export default class EventsController{
             res.status(500).send(err.message);
         } 
     }
-
-    /**
-     * @deprecated
-     * @param req 
-     * @param res 
-     */    
-    static async createArchivedEvent(req: any, res : any){
-        try{
-
-            const event = req.body;
-            const EventResponse = await EventDao.createArchivedEvent( event );
-
-            res.status(201).send(EventResponse);
-        } catch(error : any) {
-            const err = new Error(error);
-            res.status(500).send(err.message);
-        }
-    }
-
-    /**
-     * @deprecated
-     * @param req 
-     * @param res 
-     */ 
-    static async createActiveEvent(req: any, res : any){
-        try{
-
-            const event = req.body;
-            const EventResponse = await EventDao.createActiveEvent( event );
-
-            res.status(201).send(EventResponse);
-        } catch(error : any) {
-            const err = new Error(error);
-            res.status(500).send(err.message);
-        }
-    }
-
-     /**
-      * @deprecated
-      * @param req 
-      * @param res 
-      */ 
-    static async updateArchivedEvent(req: any, res : any){
-        try{
-
-            const event = req.body;
-            const EventResponse = await EventDao.updateArchivedEvent( event );
-
-            res.status(200).send(EventResponse);
-        } catch(error : any) {
-            const err = new Error(error);
-            res.status(500).send(err.message);
-        }
-    }
-
-     /**
-      * @deprecated
-      * @param req 
-      * @param res 
-      */ 
-    static async updateActiveEvent(req: any, res : any){
-        try{
-
-            const event = req.body;
-            const EventResponse = await EventDao.updateActiveEvent( event );
-
-            res.status(200).send(EventResponse);
-        } catch(error : any) {
-            const err = new Error(error);
-            res.status(500).send(err.message);
-        }
-    }
-
-     /**
-      * @deprecated
-      * @param req 
-      * @param res 
-      */ 
-    static async deleteActiveEvent(req: any, res : any){
-        try{
-
-            const event = req.body;
-            const EventResponse = await EventDao.deleteActiveEvent( event );
-
-            res.status(200).send(EventResponse);
-        } catch(error : any) {
-            const err = new Error(error);
-            res.status(500).send(err.message);
-        } 
-    }
-
-
-     /**
-     * @deprecated
-     * @param req 
-     * @param res 
-     */ 
-    static async deleteArchvedEvent(req: any, res : any){
-        try{
-
-            const event = req.body;
-            const EventResponse = await EventDao.deleteArchvedEvent( event );
-
-            res.status(200).send(EventResponse);
-        } catch(error : any) {
-            const err = new Error(error);
-            res.status(500).send(err.message);
-        }
-    }
-
 
     /* ==============  MENU ============== */
 

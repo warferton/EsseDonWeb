@@ -1,5 +1,5 @@
 import { MongoClient, Collection, ObjectId } from 'mongodb';
-import { IEvent } from '../types/event.type';
+import { EventStatus, IEvent } from '../types/event.type';
 import config from '../config/server-config';
 import { parseLineup, parseDescription } from "../util/parsing-utils";
 
@@ -87,7 +87,7 @@ export default class EventDbClient{
 
         try {
             cursor = ActiveEvents.find(query)
-            .sort('date', -1)
+            .sort('date', 1)
             .skip(new Number(offset).valueOf())
             .limit(new Number(limit).valueOf())
         } catch(error : any) {
@@ -132,7 +132,7 @@ export default class EventDbClient{
         let cursor;
 
         try {
-            cursor = await ArchivedEvents.find(query);
+            cursor = ArchivedEvents.find(query);
         } catch(error : any) {
             const err = new Error(error);
             console.error(
@@ -168,7 +168,7 @@ export default class EventDbClient{
         const fixedDescription = parseDescription(event.description?.toString() as string);
         event.lineup = bandArray;
         event.description = fixedDescription;
-        return active ? this.createActiveEvent(event) : this.createArchivedEvent(event);
+        return active ? EventDbClient.createActiveEvent(event) : EventDbClient.createArchivedEvent(event);
     }
 
     /**
@@ -184,13 +184,13 @@ export default class EventDbClient{
         if( documentFound ){
             const deleteRes = collectionToDeleteFrom.deleteOne( { _id:  new ObjectId(event._id) } );
             console.log('DeleteRes==> ' + (await deleteRes).result);
-            return this.createEvent(event);
+            EventDbClient.createEvent(event);
         }
         const bandArray = parseLineup(event.lineup?.toString() as string);
         const fixedDescription = parseDescription(event.description?.toString() as string);
         event.lineup = bandArray;
         event.description = fixedDescription;
-        return active ? this.updateActiveEvent(event) : this.updateArchivedEvent(event);
+        active ? EventDbClient.updateActiveEvent(event) : EventDbClient.updateArchivedEvent(event);
     }
 
 
@@ -344,14 +344,23 @@ export default class EventDbClient{
         }
 
         for(const eventId of eventIds){
-            this.getEventById(eventId)
+            EventDbClient.getEventById(eventId)
             .then(res => {
                 const { event } = res;
                 if (event === null) return Promise.reject(`Event ${eventId} doesen't exist`);
                 event.active = !event.active
                 return event;
             })
-            .then(this.updateEvent)
+            .then(EventDbClient.updateEvent)
         }
     }
+
+    static async getEventPropertyById(eventIds: string[], fieldName: string, eventStatus: EventStatus) : Promise<any> {
+        const objectIds = eventIds.map(eventId => new ObjectId(eventId));
+        const query = { _id: { $in: objectIds }}
+
+        const accessedCollection = eventStatus === EventStatus.active ? ActiveEvents : ArchivedEvents
+        return accessedCollection.find(query, {projection: {[`${fieldName}`]: 1}}).toArray();
+    }
+
 }

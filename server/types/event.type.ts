@@ -21,3 +21,8 @@ export interface IEvent{
     group?: string;
     active: boolean;
 }
+
+export enum EventStatus {
+    active,
+    archived
+}
