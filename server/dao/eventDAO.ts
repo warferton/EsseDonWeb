@@ -87,7 +87,7 @@ export default class EventDbClient{
 
         try {
             cursor = ActiveEvents.find(query)
-            .sort('date', 1)
+            .sort([['date', 1], ['time', 1]])
             .skip(new Number(offset).valueOf())
             .limit(new Number(limit).valueOf())
         } catch(error : any) {

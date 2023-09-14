@@ -15,18 +15,19 @@ import { IEvent } from '../../../types/event/event.type';
 interface ISelectorProps {
     event: IEvent;
     id: string;
+    handleUpdateGroup: (event: {_id:string, group:string, updated:boolean}) => any;
 }
 
 export function EventListItemSelector(props : ISelectorProps) {
 
-    const { event, id } = props; 
+    const { event, id, handleUpdateGroup } = props; 
 
     const [group, setGroup] = useState( event.group );
 
     const handleChangeGroup = (changeEvent: React.ChangeEvent<{ value: string }>) => {
         const newGroup = changeEvent.target.value;
         setGroup(newGroup as string);
-        event.group = newGroup;
+        handleUpdateGroup({ _id: event._id, group: newGroup, updated: event.group !== newGroup });
     };
 
 

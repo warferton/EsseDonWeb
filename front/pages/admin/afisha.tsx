@@ -97,7 +97,7 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                         onChange={ handleChange('mainBlock') } 
                         className={ classes.accordion }
                         >
-                            <EventControlList componentWrapper={ ListItem } controlFunction={ null }>
+                            <EventControlList componentWrapper={ ListItem } controlFunction={ null } buttonAlways>
                             {
                                     mainGroupEvents.map( event => event )
                             }
@@ -109,7 +109,7 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                         expanded={ expanded === 'weekBest' } 
                         onChange={ handleChange('weekBest') } 
                         >
-                            <EventControlList componentWrapper={ ListItem } controlFunction={ null }>
+                            <EventControlList componentWrapper={ ListItem } controlFunction={ null } buttonAlways>
                             {
                                     secondGroupEvents.map( event => event )
                             }
@@ -121,7 +121,7 @@ export default function Afisha({ mainGroupEvents, secondGroupEvents, generalGrou
                         expanded={ expanded === 'all' } 
                         onChange={ handleChange('all') } 
                         >
-                        <EventControlList componentWrapper={ ListItem } controlFunction={ null }>
+                        <EventControlList componentWrapper={ ListItem } controlFunction={ null } buttonAlways>
                             {
                                 generalGroupEvents.map( event => event )
                             }

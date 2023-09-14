@@ -18,7 +18,7 @@ import consts from '../../../utils/consts';
 interface IProps {
     componentWrapper: any;
     children?: IEvent[];
-    noButton?: boolean;
+    buttonAlways?: boolean;
     controlFunction: Dispatch<any>;
 }
 
@@ -43,7 +43,7 @@ const useStyles = makeStyles({
 
 export function EventControlList(props : IProps) {
 
-    const { componentWrapper: Wrapper, children: events, controlFunction, noButton } = props;
+    const { componentWrapper: Wrapper, children: events, controlFunction, buttonAlways } = props;
 
     const [openBackdrop, setOpenBackdrop] = useState(false);
 
@@ -52,18 +52,11 @@ export function EventControlList(props : IProps) {
 
     const [deleteIdList, setDeleteIdList] = useState<string[]>([]);
     const [switchDbList, setSwitchDbList] = useState<string[]>([]);
-    const handleDelete = (id : string) => handleListUpdate(id, deleteIdList, setDeleteIdList);
-    const handleSwitchDb = (id : string) => handleListUpdate(id, switchDbList, setSwitchDbList);
+    const [updateGroupList, setUpdateGroupList] = useState<{ _id: string, group: string }[]>([]);
 
-    const handleListUpdate = (item: string, list: string[], handleFunc: any) => {
-        if (!list.includes(item)) {
-            handleFunc([...list, item]);
-        } else {
-            const index = list.indexOf(item);
-            list.splice(index, 1);
-            handleFunc([...list]);
-        }
-    }
+    const handleDelete = (id : string) => handleListUpdate(id, deleteIdList, setDeleteIdList);
+    const handleSwitchDb = (id : string) => handleListUpdate(id, switchDbList, setSwitchDbList) ;
+    const handleUpdateGroup = ( event : { _id: string, group: string, updated: boolean }) => handleGroupUpdate(event, updateGroupList, setUpdateGroupList);
 
     const wrappedEvents = events.map( (event: IEvent) => {
         const labelId = `selector-list-secondary-label-${event.title}`;
@@ -76,6 +69,7 @@ export function EventControlList(props : IProps) {
             archived={ !event.active }
             handleDelete={ handleDelete }
             handleSwitchDb={ handleSwitchDb }
+            handleUpdateGroup={ handleUpdateGroup }
             />
         );
     })
@@ -94,7 +88,7 @@ export function EventControlList(props : IProps) {
         onSubmit={(_, { setSubmitting }) => {
             setOpenBackdrop(true);
             setSubmitting(true);
-            Promise.all([ switchDbs(switchDbList), deleteEvents(deleteIdList) ])
+            Promise.all([ switchDbs(switchDbList), deleteEvents(deleteIdList), updateEventGroups(updateGroupList) ])
                 .then(() => { 
                     setOpenSuccessSnackbar(true); 
                 })
@@ -117,19 +111,17 @@ export function EventControlList(props : IProps) {
                     { wrappedEvents }
                 </List>
                 <Box className={ classes.buttonBox }>
-                {!noButton &&
-                    <Button 
-                    fullWidth
-                    endIcon={ <SaveIcon/> } 
-                    className={ classes.saveButton }
-                    disabled={ isSubmitting  || switchDbList.length <= 0 && deleteIdList.length <= 0 }
-                    onClick={ submitForm }
-                    >
-                        <Typography>
-                            Сохранить
-                        </Typography>
-                    </Button>
-                }
+                <Button 
+                fullWidth
+                endIcon={ <SaveIcon/> } 
+                className={ classes.saveButton }
+                disabled={ isSubmitting  || !buttonAlways && switchDbList.length <= 0 && deleteIdList.length <= 0 }
+                onClick={ submitForm }
+                >
+                    <Typography>
+                        Сохранить
+                    </Typography>
+                </Button>
                 </Box>
             </Form>
             )}
@@ -147,14 +139,49 @@ export function EventControlList(props : IProps) {
 
 async function deleteEvents(eventIdList: string[]) {
     if (eventIdList.length > 0) {
-        return axios.post(consts.DELETE_EVENT_API_URL, eventIdList, {withCredentials: true})
+        return axios.post('consts.DELETE_EVENT_API_URL', eventIdList, {withCredentials: true})
     }
     return Promise.resolve();
 }
 
 async function switchDbs(eventIdList: string[]) {
     if (eventIdList.length > 0) {
-        return axios.put(consts.SWITCH_EVENT_STATUS_API_URL, eventIdList, {withCredentials: true})
+        return axios.put('consts.SWITCH_EVENT_STATUS_API_URL', eventIdList, {withCredentials: true})
     }
     return Promise.resolve();
+}
+
+async function updateEventGroups(events: {_id: string, group: string}[]) {
+     if (events.length > 0) {
+         return axios.put(`${consts.CREATE_EVENT_API_URL}update/group`, events, {withCredentials: true})
+    }
+    return Promise.resolve();
+}
+
+function handleListUpdate(item: string, list: string[], handleFunc: any) {
+    if (!list.includes(item)) {
+        handleFunc([...list, item]);
+    } else {
+        const index = list.indexOf(item);
+        list.splice(index, 1);
+        handleFunc([...list]);
+    }
+}
+
+function handleGroupUpdate(event: { _id: string; group: string; updated: boolean }, updateGroupList: { _id: string; group: string; }[], setUpdateGroupList: Dispatch<import("react").SetStateAction<{ _id: string; group: string; }[]>>) {
+    const index = updateGroupList.findIndex((val, _, __) => event._id === val._id);
+    const { updated, ...eventBody } = event
+    console.log(`index: ${index}`)
+    console.log(`updated: ${updated}`)
+    if (index === -1 && updated) {
+        setUpdateGroupList([...updateGroupList, eventBody])
+    } else if (index >= 0) {
+        updateGroupList.splice(index, 1);
+        if (updated) {
+            setUpdateGroupList([...updateGroupList, eventBody]);
+        } else {
+            setUpdateGroupList([...updateGroupList]);
+        }
+    }
+
 }
